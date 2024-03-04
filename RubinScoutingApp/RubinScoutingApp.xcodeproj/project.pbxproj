@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		E472330C2B95D36D00D27530 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330B2B95D36D00D27530 /* AppDelegate.swift */; };
 		E472330E2B95D36D00D27530 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330D2B95D36D00D27530 /* SceneDelegate.swift */; };
-		E47233102B95D36D00D27530 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330F2B95D36D00D27530 /* ViewController.swift */; };
+		E47233102B95D36D00D27530 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330F2B95D36D00D27530 /* LoginViewController.swift */; };
 		E47233132B95D36D00D27530 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E47233112B95D36D00D27530 /* Main.storyboard */; };
 		E47233162B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E47233142B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld */; };
 		E47233182B95D36D00D27530 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E47233172B95D36D00D27530 /* Assets.xcassets */; };
@@ -40,7 +40,7 @@
 		E47233082B95D36D00D27530 /* RubinScoutingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RubinScoutingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E472330B2B95D36D00D27530 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E472330D2B95D36D00D27530 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E472330F2B95D36D00D27530 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E472330F2B95D36D00D27530 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E47233122B95D36D00D27530 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E47233152B95D36D00D27530 /* RubinScoutingApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RubinScoutingApp.xcdatamodel; sourceTree = "<group>"; };
 		E47233172B95D36D00D27530 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -102,15 +102,11 @@
 		E472330A2B95D36D00D27530 /* RubinScoutingApp */ = {
 			isa = PBXGroup;
 			children = (
-				E472330B2B95D36D00D27530 /* AppDelegate.swift */,
-				E472330D2B95D36D00D27530 /* SceneDelegate.swift */,
-				E472330F2B95D36D00D27530 /* ViewController.swift */,
-				E47233112B95D36D00D27530 /* Main.storyboard */,
-				E47233172B95D36D00D27530 /* Assets.xcassets */,
-				E47233192B95D36D00D27530 /* LaunchScreen.storyboard */,
-				E472331C2B95D36D00D27530 /* RubinScoutingApp.entitlements */,
-				E472331D2B95D36D00D27530 /* Info.plist */,
-				E47233142B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld */,
+				E47233422B95D87400D27530 /* Application */,
+				E47233432B95D8A300D27530 /* Models */,
+				E47233452B95D8D400D27530 /* LoginModule */,
+				E47233442B95D8CB00D27530 /* Storyboards */,
+				E47233462B95D91600D27530 /* Resources */,
 			);
 			path = RubinScoutingApp;
 			sourceTree = "<group>";
@@ -130,6 +126,50 @@
 				E47233322B95D36E00D27530 /* RubinScoutingAppUITestsLaunchTests.swift */,
 			);
 			path = RubinScoutingAppUITests;
+			sourceTree = "<group>";
+		};
+		E47233422B95D87400D27530 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				E472330B2B95D36D00D27530 /* AppDelegate.swift */,
+				E472330D2B95D36D00D27530 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		E47233432B95D8A300D27530 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E47233142B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E47233442B95D8CB00D27530 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				E47233112B95D36D00D27530 /* Main.storyboard */,
+				E47233192B95D36D00D27530 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		E47233452B95D8D400D27530 /* LoginModule */ = {
+			isa = PBXGroup;
+			children = (
+				E472330F2B95D36D00D27530 /* LoginViewController.swift */,
+			);
+			path = LoginModule;
+			sourceTree = "<group>";
+		};
+		E47233462B95D91600D27530 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E47233172B95D36D00D27530 /* Assets.xcassets */,
+				E472331D2B95D36D00D27530 /* Info.plist */,
+				E472331C2B95D36D00D27530 /* RubinScoutingApp.entitlements */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,7 +303,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E47233102B95D36D00D27530 /* ViewController.swift in Sources */,
+				E47233102B95D36D00D27530 /* LoginViewController.swift in Sources */,
 				E472330C2B95D36D00D27530 /* AppDelegate.swift in Sources */,
 				E47233162B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld in Sources */,
 				E472330E2B95D36D00D27530 /* SceneDelegate.swift in Sources */,
@@ -446,12 +486,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = RubinScoutingApp/RubinScoutingApp.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RubinScoutingApp/Resources/RubinScoutingApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X7QDNJU74Z;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RubinScoutingApp/Info.plist;
+				INFOPLIST_FILE = RubinScoutingApp/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -475,12 +515,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = RubinScoutingApp/RubinScoutingApp.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RubinScoutingApp/Resources/RubinScoutingApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X7QDNJU74Z;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RubinScoutingApp/Info.plist;
+				INFOPLIST_FILE = RubinScoutingApp/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
