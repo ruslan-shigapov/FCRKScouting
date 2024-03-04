@@ -10,10 +10,8 @@
 		E472330C2B95D36D00D27530 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330B2B95D36D00D27530 /* AppDelegate.swift */; };
 		E472330E2B95D36D00D27530 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330D2B95D36D00D27530 /* SceneDelegate.swift */; };
 		E47233102B95D36D00D27530 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330F2B95D36D00D27530 /* LoginViewController.swift */; };
-		E47233132B95D36D00D27530 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E47233112B95D36D00D27530 /* Main.storyboard */; };
 		E47233162B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E47233142B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld */; };
 		E47233182B95D36D00D27530 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E47233172B95D36D00D27530 /* Assets.xcassets */; };
-		E472331B2B95D36D00D27530 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E47233192B95D36D00D27530 /* LaunchScreen.storyboard */; };
 		E47233272B95D36E00D27530 /* RubinScoutingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47233262B95D36E00D27530 /* RubinScoutingAppTests.swift */; };
 		E47233312B95D36E00D27530 /* RubinScoutingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47233302B95D36E00D27530 /* RubinScoutingAppUITests.swift */; };
 		E47233332B95D36E00D27530 /* RubinScoutingAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47233322B95D36E00D27530 /* RubinScoutingAppUITestsLaunchTests.swift */; };
@@ -41,10 +39,8 @@
 		E472330B2B95D36D00D27530 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E472330D2B95D36D00D27530 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E472330F2B95D36D00D27530 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		E47233122B95D36D00D27530 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E47233152B95D36D00D27530 /* RubinScoutingApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RubinScoutingApp.xcdatamodel; sourceTree = "<group>"; };
 		E47233172B95D36D00D27530 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E472331A2B95D36D00D27530 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E472331C2B95D36D00D27530 /* RubinScoutingApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RubinScoutingApp.entitlements; sourceTree = "<group>"; };
 		E472331D2B95D36D00D27530 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E47233222B95D36E00D27530 /* RubinScoutingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RubinScoutingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,8 +144,6 @@
 		E47233442B95D8CB00D27530 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				E47233112B95D36D00D27530 /* Main.storyboard */,
-				E47233192B95D36D00D27530 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -276,9 +270,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E472331B2B95D36D00D27530 /* LaunchScreen.storyboard in Resources */,
 				E47233182B95D36D00D27530 /* Assets.xcassets in Resources */,
-				E47233132B95D36D00D27530 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,25 +333,6 @@
 			targetProxy = E472332D2B95D36E00D27530 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		E47233112B95D36D00D27530 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E47233122B95D36D00D27530 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		E47233192B95D36D00D27530 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E472331A2B95D36D00D27530 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		E47233342B95D36E00D27530 /* Debug */ = {
@@ -493,8 +466,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RubinScoutingApp/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -522,8 +493,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RubinScoutingApp/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
