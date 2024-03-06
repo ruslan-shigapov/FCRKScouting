@@ -9,40 +9,80 @@ import UIKit
 
 final class LoginViewController: UIViewController {
     
-    private lazy var logoImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "Logo"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+    // MARK: Views
+    private let logoImageView = UIImageView(image: Constants.Images.logo)
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "RUBIN SCOUTING"
-        label.font = .systemFont(ofSize: 35, weight: .bold)
+        label.text = Constants.Text.appName
+        label.font = Constants.Fonts.title
         label.textColor = .white
         return label
     }()
     
-    private let accessKeyTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.layer.cornerRadius = 12
-        textField.backgroundColor = .white
-        textField.placeholder = "Введите ключ доступа"
-        return textField
+    private let firstNameTextField = RoundedTextFieldView(
+        placeholder: Constants.Text.Placeholder.firstName,
+        type: .name)
+    
+    private let secondNameTextField = RoundedTextFieldView(
+        placeholder: Constants.Text.Placeholder.secondName,
+        type: .name)
+    
+    private let accessKeyTextField = RoundedTextFieldView(
+        placeholder: Constants.Text.Placeholder.accessKey,
+        type: .key)
+    
+    private lazy var textFieldStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            firstNameTextField,
+            secondNameTextField,
+            accessKeyTextField
+        ])
+        stackView.axis = .vertical
+        stackView.spacing = 24
+        return stackView
+    }()
+    
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = Constants.Text.accessDescription
+        label.numberOfLines = 2
+        label.font = .systemFont(ofSize: 12, weight: .thin)
+        label.textColor = .white
+        return label
     }()
 
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "AccentColor")
-        view.addSubview(logoImageView)
-        view.addSubview(nameLabel)
-        view.addSubview(accessKeyTextField)
+        setupUI()
+    }
+    
+    // MARK: Methods
+    private func setupUI() {
+        view.backgroundColor = .accent
+        addSubviews()
         setConstraints()
     }
     
-    private func setConstraints() {
+    private func addSubviews() {
+        view.addSubview(logoImageView)
+        view.addSubview(nameLabel)
+        view.addSubview(textFieldStackView)
+        view.addSubview(descriptionLabel)
+    }
+}
+
+// MARK: - Layout
+private extension LoginViewController {
+    
+    func prepareForAutoLayout(view: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func setConstraints() {
+        view.subviews.forEach(prepareForAutoLayout)
+        
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
@@ -52,15 +92,27 @@ final class LoginViewController: UIViewController {
             logoImageView.heightAnchor.constraint(equalToConstant: 150),
             logoImageView.widthAnchor.constraint(equalToConstant: 120),
             
-            nameLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 24),
+            nameLabel.topAnchor.constraint(
+                equalTo: logoImageView.bottomAnchor,
+                constant: 24),
             nameLabel.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
             
-            accessKeyTextField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 100),
-            accessKeyTextField.centerXAnchor.constraint(
+            textFieldStackView.topAnchor.constraint(
+                equalTo: nameLabel.bottomAnchor,
+                constant: 48),
+            textFieldStackView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
-            accessKeyTextField.widthAnchor.constraint(equalToConstant: 300),
-            accessKeyTextField.heightAnchor.constraint(equalToConstant: 50)
+            
+            descriptionLabel.topAnchor.constraint(
+                equalTo: accessKeyTextField.bottomAnchor,
+                constant: 5),
+            descriptionLabel.leadingAnchor.constraint(
+                equalTo: accessKeyTextField.leadingAnchor,
+                constant: 5),
+            descriptionLabel.trailingAnchor.constraint(
+                equalTo: accessKeyTextField.trailingAnchor,
+                constant: -5)
         ])
     }
 }

@@ -15,6 +15,8 @@
 		E47233272B95D36E00D27530 /* RubinScoutingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47233262B95D36E00D27530 /* RubinScoutingAppTests.swift */; };
 		E47233312B95D36E00D27530 /* RubinScoutingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47233302B95D36E00D27530 /* RubinScoutingAppUITests.swift */; };
 		E47233332B95D36E00D27530 /* RubinScoutingAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47233322B95D36E00D27530 /* RubinScoutingAppUITestsLaunchTests.swift */; };
+		E47EF22C2B97394200C0727B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47EF22B2B97394200C0727B /* Constants.swift */; };
+		E47EF22F2B973C0300C0727B /* RoundedTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47EF22E2B973C0300C0727B /* RoundedTextFieldView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		E472332C2B95D36E00D27530 /* RubinScoutingAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RubinScoutingAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E47233302B95D36E00D27530 /* RubinScoutingAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RubinScoutingAppUITests.swift; sourceTree = "<group>"; };
 		E47233322B95D36E00D27530 /* RubinScoutingAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RubinScoutingAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E47EF22B2B97394200C0727B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E47EF22E2B973C0300C0727B /* RoundedTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextFieldView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,7 @@
 			children = (
 				E47233422B95D87400D27530 /* Application */,
 				E47233432B95D8A300D27530 /* Models */,
+				E47EF22D2B973BD800C0727B /* Views */,
 				E47233452B95D8D400D27530 /* LoginModule */,
 				E47233462B95D91600D27530 /* Resources */,
 			);
@@ -151,11 +156,20 @@
 		E47233462B95D91600D27530 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E47EF22B2B97394200C0727B /* Constants.swift */,
 				E47233172B95D36D00D27530 /* Assets.xcassets */,
 				E472331D2B95D36D00D27530 /* Info.plist */,
 				E472331C2B95D36D00D27530 /* RubinScoutingApp.entitlements */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		E47EF22D2B973BD800C0727B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E47EF22E2B973C0300C0727B /* RoundedTextFieldView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,6 +301,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E47EF22C2B97394200C0727B /* Constants.swift in Sources */,
+				E47EF22F2B973C0300C0727B /* RoundedTextFieldView.swift in Sources */,
 				E47233102B95D36D00D27530 /* LoginViewController.swift in Sources */,
 				E472330C2B95D36D00D27530 /* AppDelegate.swift in Sources */,
 				E47233162B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld in Sources */,
@@ -457,7 +473,7 @@
 				DEVELOPMENT_TEAM = X7QDNJU74Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RubinScoutingApp/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Rubin Scouting";
+				INFOPLIST_KEY_CFBundleDisplayName = "FCRK Scouting";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -491,7 +507,7 @@
 				DEVELOPMENT_TEAM = X7QDNJU74Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RubinScoutingApp/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Rubin Scouting";
+				INFOPLIST_KEY_CFBundleDisplayName = "FCRK Scouting";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
