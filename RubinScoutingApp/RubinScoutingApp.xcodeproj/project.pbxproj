@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E417F9F42B9F1A1C006C3A93 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E417F9F32B9F1A1C006C3A93 /* User.swift */; };
+		E432B6A22B98611300CF934E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E432B6A12B98611300CF934E /* LoginViewModel.swift */; };
 		E472330C2B95D36D00D27530 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330B2B95D36D00D27530 /* AppDelegate.swift */; };
 		E472330E2B95D36D00D27530 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330D2B95D36D00D27530 /* SceneDelegate.swift */; };
 		E47233102B95D36D00D27530 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330F2B95D36D00D27530 /* LoginViewController.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E417F9F32B9F1A1C006C3A93 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E432B6A12B98611300CF934E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		E47233082B95D36D00D27530 /* RubinScoutingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RubinScoutingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E472330B2B95D36D00D27530 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E472330D2B95D36D00D27530 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 		E47233432B95D8A300D27530 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E417F9F32B9F1A1C006C3A93 /* User.swift */,
 				E47233142B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld */,
 			);
 			path = Models;
@@ -149,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				E472330F2B95D36D00D27530 /* LoginViewController.swift */,
+				E432B6A12B98611300CF934E /* LoginViewModel.swift */,
 			);
 			path = LoginModule;
 			sourceTree = "<group>";
@@ -305,8 +311,10 @@
 				E47EF22F2B973C0300C0727B /* RoundedTextFieldView.swift in Sources */,
 				E47233102B95D36D00D27530 /* LoginViewController.swift in Sources */,
 				E472330C2B95D36D00D27530 /* AppDelegate.swift in Sources */,
+				E417F9F42B9F1A1C006C3A93 /* User.swift in Sources */,
 				E47233162B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld in Sources */,
 				E472330E2B95D36D00D27530 /* SceneDelegate.swift in Sources */,
+				E432B6A22B98611300CF934E /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

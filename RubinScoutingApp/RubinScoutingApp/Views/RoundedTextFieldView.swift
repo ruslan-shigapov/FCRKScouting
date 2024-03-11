@@ -22,10 +22,12 @@ final class RoundedTextFieldView: UIView {
     private lazy var roundedTextField: UITextField = {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 16, weight: .light)
+        textField.clearButtonMode = .whileEditing
         textField.autocorrectionType = .no
-        switch textFieldType {
-        case .name: textField.keyboardType = .alphabet
-        case .key: textField.keyboardType = .numberPad
+        textField.spellCheckingType = .no
+        if textFieldType == .key {
+            textField.keyboardType = .numberPad
+            textField.isSecureTextEntry = true
         }
         textField.addTarget(
             self,
@@ -55,29 +57,43 @@ final class RoundedTextFieldView: UIView {
     }()
     
     // MARK: Initialize
-    init(placeholder: String, type: TextFieldType) {
+    init(placeholder: String, type: TextFieldType, tag: Int = 1) {
         self.textFieldType = type
         self._placeholder = placeholder
         super.init(frame: .zero)
+        roundedTextField.tag = tag
         
+        setupUI()
+        setupTextField(placeholder: placeholder)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Private Methods
+    private func setupUI() {
+        backgroundColor = .white
+        addSubview(containerStackView)
+        layer.cornerRadius = 12
+        setupShadow()
+        setConstraints()
+    }
+    
+    private func setupShadow() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowRadius = 7
+        layer.shadowOpacity = 0.4
+        layer.shadowOffset = CGSize(width: 10, height: -10)
+    }
+    
+    private func setupTextField(placeholder: String) {
         roundedTextField.attributedPlaceholder = NSAttributedString(
             string: placeholder,
             attributes: [
                 .font: UIFont.systemFont(ofSize: 16, weight: .light)
             ])
-        setupUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: Methods
-    private func setupUI() {
-        backgroundColor = .white
-        addSubview(containerStackView)
-        layer.cornerRadius = 12
-        setConstraints()
     }
     
     @objc private func addFloatingLabel() {
@@ -93,6 +109,11 @@ final class RoundedTextFieldView: UIView {
             floatingLabel.isHidden = true
             roundedTextField.placeholder = _placeholder
         }
+    }
+    
+    // MARK: Public Methods
+    func setDelegate(_ delegate: UIViewController) {
+        roundedTextField.delegate = delegate as? any UITextFieldDelegate
     }
 }
 

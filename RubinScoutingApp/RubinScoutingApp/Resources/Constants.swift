@@ -28,5 +28,9 @@ enum Constants {
             static let secondName = "Фамилия"
             static let accessKey = "Ключ доступа"
         }
+        
+        enum ButtonTitle {
+            static let enter = "Войти"
+        }
     }
 }
