@@ -20,7 +20,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         if let window {
             window.makeKeyAndVisible()
-            window.rootViewController = LoginViewController()
+            window.rootViewController = UserManager.shared.isLoggedIn
+            ? MainViewController()
+            : LoginViewController()
         }
     }
 

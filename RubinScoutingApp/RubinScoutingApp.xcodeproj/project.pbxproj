@@ -19,6 +19,8 @@
 		E47233332B95D36E00D27530 /* RubinScoutingAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47233322B95D36E00D27530 /* RubinScoutingAppUITestsLaunchTests.swift */; };
 		E47EF22C2B97394200C0727B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47EF22B2B97394200C0727B /* Constants.swift */; };
 		E47EF22F2B973C0300C0727B /* RoundedTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47EF22E2B973C0300C0727B /* RoundedTextFieldView.swift */; };
+		E495B9A72BA058570045595C /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E495B9A62BA058570045595C /* UserManager.swift */; };
+		E495B9AA2BA05C010045595C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E495B9A92BA05C010045595C /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,8 @@
 		E47233322B95D36E00D27530 /* RubinScoutingAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RubinScoutingAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E47EF22B2B97394200C0727B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E47EF22E2B973C0300C0727B /* RoundedTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextFieldView.swift; sourceTree = "<group>"; };
+		E495B9A62BA058570045595C /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		E495B9A92BA05C010045595C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 				E47233432B95D8A300D27530 /* Models */,
 				E47EF22D2B973BD800C0727B /* Views */,
 				E47233452B95D8D400D27530 /* LoginModule */,
+				E495B9A82BA05BA90045595C /* MainModule */,
+				E495B9A52BA058400045595C /* Services */,
 				E47233462B95D91600D27530 /* Resources */,
 			);
 			path = RubinScoutingApp;
@@ -176,6 +182,22 @@
 				E47EF22E2B973C0300C0727B /* RoundedTextFieldView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E495B9A52BA058400045595C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E495B9A62BA058570045595C /* UserManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E495B9A82BA05BA90045595C /* MainModule */ = {
+			isa = PBXGroup;
+			children = (
+				E495B9A92BA05C010045595C /* MainViewController.swift */,
+			);
+			path = MainModule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E495B9A72BA058570045595C /* UserManager.swift in Sources */,
 				E47EF22C2B97394200C0727B /* Constants.swift in Sources */,
 				E47EF22F2B973C0300C0727B /* RoundedTextFieldView.swift in Sources */,
 				E47233102B95D36D00D27530 /* LoginViewController.swift in Sources */,
@@ -315,6 +338,7 @@
 				E47233162B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld in Sources */,
 				E472330E2B95D36D00D27530 /* SceneDelegate.swift in Sources */,
 				E432B6A22B98611300CF934E /* LoginViewModel.swift in Sources */,
+				E495B9AA2BA05C010045595C /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

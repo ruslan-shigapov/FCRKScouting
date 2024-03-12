@@ -154,7 +154,7 @@ extension LoginViewController {
             
             textFieldStackView.topAnchor.constraint(
                 equalTo: appNameLabel.bottomAnchor,
-                constant: 48),
+                constant: 36),
             textFieldStackView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
             
@@ -170,7 +170,7 @@ extension LoginViewController {
             
             loginButton.topAnchor.constraint(
                 equalTo: descriptionLabel.bottomAnchor,
-                constant: 48),
+                constant: 36),
             loginButton.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
             loginButton.widthAnchor.constraint(equalToConstant: 120),

@@ -8,5 +8,13 @@
 struct User {
     var firstName: String
     var secondName: String
-    let accessKey = 220888
+    var post: String?
+        
+    var fullName: String {
+        secondName + " \(String(describing: firstName.first))."
+    }
+    
+    var isEditingAllowed: Bool {
+        false // TEMPORARY
+    }
 }
