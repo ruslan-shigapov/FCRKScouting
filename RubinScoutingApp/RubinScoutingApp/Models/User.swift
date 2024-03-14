@@ -15,6 +15,6 @@ struct User {
     }
     
     var isEditingAllowed: Bool {
-        false // TEMPORARY
+        false // TODO: реализовать потом логику получения доступа к редактированию
     }
 }

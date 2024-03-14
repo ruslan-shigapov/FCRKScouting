@@ -62,7 +62,6 @@ final class RoundedTextFieldView: UIView {
         self._placeholder = placeholder
         super.init(frame: .zero)
         roundedTextField.tag = tag
-        
         setupUI()
         setupTextField(placeholder: placeholder)
     }
@@ -91,9 +90,7 @@ final class RoundedTextFieldView: UIView {
     private func setupTextField(placeholder: String) {
         roundedTextField.attributedPlaceholder = NSAttributedString(
             string: placeholder,
-            attributes: [
-                .font: UIFont.systemFont(ofSize: 16, weight: .light)
-            ])
+            attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .light)])
     }
     
     @objc private func addFloatingLabel() {
@@ -114,6 +111,10 @@ final class RoundedTextFieldView: UIView {
     // MARK: Public Methods
     func setDelegate(_ delegate: UIViewController) {
         roundedTextField.delegate = delegate as? any UITextFieldDelegate
+    }
+    
+    func getInputText() -> String? {
+        roundedTextField.text
     }
 }
 

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		E417F9F42B9F1A1C006C3A93 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E417F9F32B9F1A1C006C3A93 /* User.swift */; };
 		E432B6A22B98611300CF934E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E432B6A12B98611300CF934E /* LoginViewModel.swift */; };
+		E45EA9FA2BA31B2600EA2901 /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EA9F92BA31B2600EA2901 /* ModuleFactory.swift */; };
+		E45EA9FC2BA3214A00EA2901 /* PersonTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EA9FB2BA3214A00EA2901 /* PersonTitleView.swift */; };
+		E45EA9FE2BA32C1000EA2901 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EA9FD2BA32C1000EA2901 /* PrimaryButton.swift */; };
 		E472330C2B95D36D00D27530 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330B2B95D36D00D27530 /* AppDelegate.swift */; };
 		E472330E2B95D36D00D27530 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330D2B95D36D00D27530 /* SceneDelegate.swift */; };
 		E47233102B95D36D00D27530 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330F2B95D36D00D27530 /* LoginViewController.swift */; };
@@ -43,6 +46,9 @@
 /* Begin PBXFileReference section */
 		E417F9F32B9F1A1C006C3A93 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E432B6A12B98611300CF934E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		E45EA9F92BA31B2600EA2901 /* ModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
+		E45EA9FB2BA3214A00EA2901 /* PersonTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonTitleView.swift; sourceTree = "<group>"; };
+		E45EA9FD2BA32C1000EA2901 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		E47233082B95D36D00D27530 /* RubinScoutingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RubinScoutingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E472330B2B95D36D00D27530 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E472330D2B95D36D00D27530 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +93,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E45EA9F82BA31B0500EA2901 /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				E45EA9F92BA31B2600EA2901 /* ModuleFactory.swift */,
+			);
+			path = Factories;
+			sourceTree = "<group>";
+		};
 		E47232FF2B95D36D00D27530 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +129,7 @@
 				E47EF22D2B973BD800C0727B /* Views */,
 				E47233452B95D8D400D27530 /* LoginModule */,
 				E495B9A82BA05BA90045595C /* MainModule */,
+				E45EA9F82BA31B0500EA2901 /* Factories */,
 				E495B9A52BA058400045595C /* Services */,
 				E47233462B95D91600D27530 /* Resources */,
 			);
@@ -180,6 +195,8 @@
 			isa = PBXGroup;
 			children = (
 				E47EF22E2B973C0300C0727B /* RoundedTextFieldView.swift */,
+				E45EA9FD2BA32C1000EA2901 /* PrimaryButton.swift */,
+				E45EA9FB2BA3214A00EA2901 /* PersonTitleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -334,10 +351,13 @@
 				E47EF22F2B973C0300C0727B /* RoundedTextFieldView.swift in Sources */,
 				E47233102B95D36D00D27530 /* LoginViewController.swift in Sources */,
 				E472330C2B95D36D00D27530 /* AppDelegate.swift in Sources */,
+				E45EA9FE2BA32C1000EA2901 /* PrimaryButton.swift in Sources */,
 				E417F9F42B9F1A1C006C3A93 /* User.swift in Sources */,
 				E47233162B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld in Sources */,
 				E472330E2B95D36D00D27530 /* SceneDelegate.swift in Sources */,
+				E45EA9FC2BA3214A00EA2901 /* PersonTitleView.swift in Sources */,
 				E432B6A22B98611300CF934E /* LoginViewModel.swift in Sources */,
+				E45EA9FA2BA31B2600EA2901 /* ModuleFactory.swift in Sources */,
 				E495B9AA2BA05C010045595C /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,7 +447,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -484,7 +504,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -510,7 +530,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -544,7 +564,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

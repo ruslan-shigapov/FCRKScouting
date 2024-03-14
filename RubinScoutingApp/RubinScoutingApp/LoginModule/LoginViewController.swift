@@ -21,11 +21,11 @@ final class LoginViewController: UIViewController {
     }()
     
     private let firstNameTextField = RoundedTextFieldView(
-        placeholder: Constants.Text.Placeholder.firstName,
+        placeholder: Constants.Text.Placeholder.name,
         type: .name)
     
     private let secondNameTextField = RoundedTextFieldView(
-        placeholder: Constants.Text.Placeholder.secondName,
+        placeholder: Constants.Text.Placeholder.surname,
         type: .name,
         tag: 2)
     
@@ -66,11 +66,41 @@ final class LoginViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
-
+    
+    // MARK: Dependencies
+    private let viewModel: LoginViewModelProtocol
+    
+    
+    // MARK: Initialize
+    init(viewModel: LoginViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        
+        // TODO: вынести создание кнопки в отдельный метод
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        let returnButton = UIBarButtonItem(title: "Войти", style: .done, target: self, action: #selector(toolBarButtonTapped))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.setItems([flexibleSpace, returnButton], animated: false)
+        accessKeyTextField.subviews.forEach {
+            $0.subviews.forEach {
+                if let textField = $0 as? UITextField {
+                    textField.inputAccessoryView = toolbar
+                }
+            }
+        }
     }
     
     // MARK: Private Methods
@@ -98,11 +128,23 @@ final class LoginViewController: UIViewController {
     }
     
     @objc private func loginButtonTapped() {
+        
+//        viewModel.logIn(
+//            byName: firstNameTextField.getText(),
+//            surname: secondNameTextField.getText(),
+//            accessKey: accessKeyTextField.getText()
+//        ) {
+//            // TODO: показать алерт 
+//        }
         showMainScreen()
     }
     
+    @objc private func toolBarButtonTapped() {}
+    
     private func showMainScreen() {
-        print("dsfdsf")
+        let mainVC = MainViewController()
+        mainVC.modalPresentationStyle = .fullScreen
+        present(mainVC, animated: true)
     }
 }
 
@@ -115,14 +157,8 @@ extension LoginViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let nextTF = textField.superview?.superview?.superview?.viewWithTag(
-            textField.tag + 1)
-        if let nextResponder = nextTF {
-            nextResponder.becomeFirstResponder()
-        } else {
-            textField.resignFirstResponder()
-            showMainScreen()
-        }
+        textField.superview?.superview?.superview?.viewWithTag(
+            textField.tag + 1)?.becomeFirstResponder()
         return true
     }
 }
@@ -136,13 +172,10 @@ extension LoginViewController {
     
     func setConstraints() {
         view.subviews.forEach(prepareForAutoLayout)
+        view.keyboardLayoutGuide.followsUndockedKeyboard = true // TODO: доделать
         
         NSLayoutConstraint.activate([
-            logoImageView.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor,
-                constant: 24),
-            logoImageView.centerXAnchor.constraint(
-                equalTo: view.centerXAnchor),
+            logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImageView.heightAnchor.constraint(equalToConstant: 150),
             logoImageView.widthAnchor.constraint(equalToConstant: 120),
             
@@ -154,9 +187,11 @@ extension LoginViewController {
             
             textFieldStackView.topAnchor.constraint(
                 equalTo: appNameLabel.bottomAnchor,
-                constant: 36),
+                constant: 32),
             textFieldStackView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
+            textFieldStackView.centerYAnchor.constraint(
+                equalTo: view.centerYAnchor),
             
             descriptionLabel.topAnchor.constraint(
                 equalTo: textFieldStackView.bottomAnchor,
@@ -169,8 +204,8 @@ extension LoginViewController {
                 constant: -5),
             
             loginButton.topAnchor.constraint(
-                equalTo: descriptionLabel.bottomAnchor,
-                constant: 36),
+                equalTo: textFieldStackView.bottomAnchor,
+                constant: 72),
             loginButton.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
             loginButton.widthAnchor.constraint(equalToConstant: 120),
@@ -178,4 +213,3 @@ extension LoginViewController {
         ])
     }
 }
-

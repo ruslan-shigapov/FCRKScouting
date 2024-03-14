@@ -21,13 +21,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let window {
             window.makeKeyAndVisible()
             window.rootViewController = UserManager.shared.isLoggedIn
-            ? MainViewController()
-            : LoginViewController()
+            ? ModuleFactory.shared.getMainViewController()
+            : ModuleFactory.shared.getLoginViewController()
         }
     }
 
+    // TODO: отрефакторить когда буду подключать базу данных
     func sceneDidEnterBackground(_ scene: UIScene) {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 }
-

@@ -14,7 +14,7 @@ enum Constants {
     
     enum Fonts {
         static let title = UIFont(name: "Futura", size: 35)
-        static let header = UIFont(name: "Futura", size: 20) // ???
+        static let header = UIFont(name: "Futura", size: 20) // TODO: найти рус шрифт
     }
     
     enum Text {
@@ -24,13 +24,14 @@ enum Constants {
         """
         
         enum Placeholder {
-            static let firstName = "Имя"
-            static let secondName = "Фамилия"
+            static let name = "Имя"
+            static let surname = "Фамилия"
             static let accessKey = "Ключ доступа"
         }
         
         enum ButtonTitle {
             static let enter = "Войти"
+            static let exit = "Выйти"
         }
     }
 }
