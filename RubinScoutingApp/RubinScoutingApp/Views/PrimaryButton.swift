@@ -22,7 +22,7 @@ final class PrimaryButton: UIButton {
     
     private func setupUI() {
         backgroundColor = .systemGreen
-        setTitleColor(.accent, for: .normal)
+        setTitleColor(.white, for: .normal)
         titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         layer.cornerRadius = 12
         setupShadow()

@@ -7,16 +7,19 @@
 
 import Foundation
 
-enum LoginError: Error {
-    case wrongKey
+private enum AccessType: String {
+    case readOnly = "332211"
+    case editable = "220888"
 }
 
 final class UserManager {
     
     static let shared = UserManager()
-        
-    var isLoggedIn: Bool {
-        UserDefaults.standard.bool(forKey: "isLoggedIn")
+    
+    var user: User? {
+        didSet {
+            getUser()
+        }
     }
     
     private init() {}
@@ -25,17 +28,27 @@ final class UserManager {
         withName name: String,
         andSurname surname: String,
         byAccessKey accessKey: String,
-        completion: @escaping (Result<User, LoginError>) -> Void
+        completion: () -> Void
     ) {
-        guard accessKey == "220888" || accessKey == "654321" else {
-            completion(.failure(.wrongKey))
+        guard accessKey == AccessType.readOnly.rawValue ||
+              accessKey == AccessType.editable.rawValue else {
+            completion()
             return
         }
-        var user = User(name: name, surname: surname)
-        if accessKey == "220888" {
-            user.access = .editable
+        StorageManager.shared.saveUser(
+            withName: name,
+            surname: surname,
+            access: accessKey == AccessType.editable.rawValue)
+    }
+    
+    private func getUser() {
+        StorageManager.shared.fetchUser { [weak self] result in
+            switch result {
+            case .success(let user):
+                self?.user = user
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
-        UserDefaults.standard.set(true, forKey: "isLoggedIn")
-        completion(.success(user))
     }
 }

@@ -9,6 +9,8 @@ import UIKit
 
 final class LoginViewController: UIViewController {
     
+    private let viewModel: LoginViewModelProtocol
+    
     // MARK: Views
     private let logoImageView = UIImageView(image: Constants.Images.logo)
     
@@ -56,11 +58,7 @@ final class LoginViewController: UIViewController {
     
     private let loginButton = PrimaryButton(
         title: Constants.Text.ButtonTitle.enter)
-    
-    // MARK: Dependencies
-    private let viewModel: LoginViewModelProtocol
-    
-    
+
     // MARK: Initialize
     init(viewModel: LoginViewModelProtocol) {
         self.viewModel = viewModel
@@ -76,26 +74,6 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        
-        loginButton.addTarget(
-            self,
-            action: #selector(loginButtonTapped),
-            for: .touchUpInside)
-        
-        // TODO: вынести создание кнопки в отдельный метод
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        
-        let returnButton = UIBarButtonItem(title: "Войти", style: .done, target: self, action: #selector(toolBarButtonTapped))
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolbar.setItems([flexibleSpace, returnButton], animated: false)
-        accessKeyTextField.subviews.forEach {
-            $0.subviews.forEach {
-                if let textField = $0 as? UITextField {
-                    textField.inputAccessoryView = toolbar
-                }
-            }
-        }
     }
     
     // MARK: Private Methods
@@ -103,6 +81,7 @@ final class LoginViewController: UIViewController {
         view.backgroundColor = .accent
         addSubviews()
         setDelegates()
+        setupButtons()
         setConstraints()
     }
     
@@ -122,22 +101,45 @@ final class LoginViewController: UIViewController {
         }
     }
     
-    @objc private func loginButtonTapped() {
+    private func setupButtons() {
+        loginButton.addTarget(
+            self,
+            action: #selector(loginButtonTapped),
+            for: .touchUpInside)
         
-//        viewModel.logIn(
-//            byName: firstNameTextField.getText(),
-//            surname: secondNameTextField.getText(),
-//            accessKey: accessKeyTextField.getText()
-//        ) {
-//            // TODO: показать алерт 
-//        }
+        let toolbar = UIToolbar()
+        let flexibleSpace = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil)
+        let toolbarButton = UIBarButtonItem(
+            title: Constants.Text.ButtonTitle.enter,
+            style: .plain,
+            target: self,
+            action: #selector(loginButtonTapped))
+        toolbar.setItems([flexibleSpace, toolbarButton], animated: false)
+        toolbar.sizeToFit()
+        
+        accessKeyTextField.subviews.forEach {
+            $0.subviews.forEach {
+                if let textField = $0 as? UITextField {
+                    textField.inputAccessoryView = toolbar
+                }
+            }
+        }
+    }
+    
+    @objc private func loginButtonTapped() {
+        viewModel.checkInputData {
+            
+            return
+        }
         showMainScreen()
     }
     
-    @objc private func toolBarButtonTapped() {}
-    
     private func showMainScreen() {
-        let mainVC = ModuleFactory.shared.getMainViewController()
+        let mainVC = ModuleFactory.shared.getMainVC(
+            forUser: viewModel.user)
         mainVC.modalPresentationStyle = .fullScreen
         present(mainVC, animated: true)
     }
@@ -159,9 +161,9 @@ extension LoginViewController: UITextFieldDelegate {
 }
 
 // MARK: - Layout
-extension LoginViewController {
+private extension LoginViewController {
     
-    private func prepareForAutoLayout(view: UIView) {
+    func prepareForAutoLayout(view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
     }
     

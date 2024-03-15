@@ -13,12 +13,13 @@ final class ModuleFactory {
     
     private init() {}
     
-    func getLoginViewController() -> UIViewController {
+    func getLoginVC() -> UIViewController {
         let viewModel = LoginViewModel()
         return LoginViewController(viewModel: viewModel)
     }
     
-    func getMainViewController() -> UIViewController {
-        MainViewController()
+    func getMainVC(forUser user: User) -> UIViewController {
+        let viewModel = MainViewModel(user: user)
+        return MainViewController(viewModel: viewModel)
     }
 }
