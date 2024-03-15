@@ -6,15 +6,18 @@
 //
 
 struct User {
-    var firstName: String
-    var secondName: String
-    var post: String?
+    var name: String
+    var surname: String
+    
+    var post: String? = nil
+    var access: AccessType = .readOnly
         
     var fullName: String {
-        secondName + " \(String(describing: firstName.first))."
+        surname + " \(String(describing: name.first))."
     }
-    
-    var isEditingAllowed: Bool {
-        false // TODO: реализовать потом логику получения доступа к редактированию
-    }
+}
+
+enum AccessType: String {
+    case readOnly = "Только чтение"
+    case editable = "Возможно редактирование"
 }

@@ -20,11 +20,11 @@ final class LoginViewController: UIViewController {
         return label
     }()
     
-    private let firstNameTextField = RoundedTextFieldView(
+    private let nameTextField = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholder.name,
         type: .name)
     
-    private let secondNameTextField = RoundedTextFieldView(
+    private let surnameTextField = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholder.surname,
         type: .name,
         tag: 2)
@@ -36,8 +36,8 @@ final class LoginViewController: UIViewController {
     
     private lazy var textFieldStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            firstNameTextField,
-            secondNameTextField,
+            nameTextField,
+            surnameTextField,
             accessKeyTextField
         ])
         stackView.axis = .vertical
@@ -54,18 +54,8 @@ final class LoginViewController: UIViewController {
         return label
     }()
     
-    private lazy var loginButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .white
-        button.setTitle(Constants.Text.ButtonTitle.enter, for: .normal)
-        button.setTitleColor(.accent, for: .normal)
-        button.layer.cornerRadius = 12
-        button.addTarget(
-            self,
-            action: #selector(loginButtonTapped),
-            for: .touchUpInside)
-        return button
-    }()
+    private let loginButton = PrimaryButton(
+        title: Constants.Text.ButtonTitle.enter)
     
     // MARK: Dependencies
     private let viewModel: LoginViewModelProtocol
@@ -86,6 +76,11 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        
+        loginButton.addTarget(
+            self,
+            action: #selector(loginButtonTapped),
+            for: .touchUpInside)
         
         // TODO: вынести создание кнопки в отдельный метод
         let toolbar = UIToolbar()
@@ -142,7 +137,7 @@ final class LoginViewController: UIViewController {
     @objc private func toolBarButtonTapped() {}
     
     private func showMainScreen() {
-        let mainVC = MainViewController()
+        let mainVC = ModuleFactory.shared.getMainViewController()
         mainVC.modalPresentationStyle = .fullScreen
         present(mainVC, animated: true)
     }
@@ -207,9 +202,7 @@ extension LoginViewController {
                 equalTo: textFieldStackView.bottomAnchor,
                 constant: 72),
             loginButton.centerXAnchor.constraint(
-                equalTo: view.centerXAnchor),
-            loginButton.widthAnchor.constraint(equalToConstant: 120),
-            loginButton.heightAnchor.constraint(equalToConstant: 48)
+                equalTo: view.centerXAnchor)
         ])
     }
 }

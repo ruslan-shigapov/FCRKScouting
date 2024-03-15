@@ -22,16 +22,19 @@ final class UserManager {
     private init() {}
     
     func createUser(
-        withName firstName: String,
-        andSurname secondName: String,
+        withName name: String,
+        andSurname surname: String,
         byAccessKey accessKey: String,
         completion: @escaping (Result<User, LoginError>) -> Void
     ) {
-        guard accessKey == "220888" else {
+        guard accessKey == "220888" || accessKey == "654321" else {
             completion(.failure(.wrongKey))
             return
         }
-        let user = User(firstName: firstName, secondName: secondName)
+        var user = User(name: name, surname: surname)
+        if accessKey == "220888" {
+            user.access = .editable
+        }
         UserDefaults.standard.set(true, forKey: "isLoggedIn")
         completion(.success(user))
     }

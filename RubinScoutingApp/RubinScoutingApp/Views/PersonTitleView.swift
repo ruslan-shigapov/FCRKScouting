@@ -17,10 +17,8 @@ final class PersonTitleView: UIView {
         return imageView
     }()
     
-    // TODO: создать общий лейбл
     private let surnameLabel: UILabel = {
         let label = UILabel()
-        label.text = "ШИГАПОВ"
         label.textColor = .white
         label.font = Constants.Fonts.header
         return label
@@ -28,7 +26,6 @@ final class PersonTitleView: UIView {
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "РУСЛАН"
         label.textColor = .white
         label.font = Constants.Fonts.header
         return label
@@ -65,6 +62,12 @@ final class PersonTitleView: UIView {
         addSubview(labelStackView)
         layer.cornerRadius = 12
         setConstraints()
+    }
+    
+    // MARK: Public Methods
+    func configure(withSurname surname: String, andName name: String) {
+        surnameLabel.text = surname
+        nameLabel.text = name
     }
 }
 

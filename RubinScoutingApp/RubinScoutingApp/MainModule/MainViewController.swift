@@ -11,28 +11,29 @@ final class MainViewController: UIViewController {
     
     private let userTitleView = PersonTitleView()
     
-    private lazy var logOutButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(Constants.Text.ButtonTitle.exit, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.addTarget(
-            self,
-            action: #selector(logOutButtonTapped),
-            for: .touchUpInside)
-        return button
-    }()
+    private let logoutButton = PrimaryButton(
+        title: Constants.Text.ButtonTitle.exit)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        view.addSubview(logOutButton)
+        view.addSubview(logoutButton)
         view.addSubview(userTitleView)
         userTitleView.translatesAutoresizingMaskIntoConstraints = false
+        logoutButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        userTitleView.configure(
+            withSurname: "Шигапов".uppercased(),
+            andName: "Руслан".uppercased())
+        
+        logoutButton.addTarget(
+            self,
+            action: #selector(logOutButtonTapped),
+            for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            logOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logOutButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logoutButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
             userTitleView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,

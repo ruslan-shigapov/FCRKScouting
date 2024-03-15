@@ -124,7 +124,7 @@ private extension RoundedTextFieldView {
     func setConstraints() {
         NSLayoutConstraint.activate([
             widthAnchor.constraint(equalToConstant: 300),
-            heightAnchor.constraint(equalToConstant: 52),
+            heightAnchor.constraint(equalToConstant: 48),
             
             containerStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             containerStackView.leadingAnchor.constraint(
