@@ -41,13 +41,6 @@ final class UserManager {
     }
     
     private func getUser() {
-        StorageManager.shared.fetchUser { [weak self] result in
-            switch result {
-            case .success(let user):
-                self?.user = user
-            case .failure(let error):
-                print(error.localizedDescription) // TODO: replace with alert?
-            }
-        }
+        StorageManager.shared.fetchUser { user = $0 }
     }
 }

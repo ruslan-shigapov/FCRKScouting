@@ -13,21 +13,21 @@ final class PersonTitleView: UIView {
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = .lightGray
         return imageView
     }()
     
     private let surnameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
         label.font = Constants.Fonts.header
+        label.textColor = .white
         return label
     }()
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
         label.font = Constants.Fonts.header
+        label.textColor = .white
         return label
     }()
     
@@ -35,6 +35,7 @@ final class PersonTitleView: UIView {
         let stackView = UIStackView(arrangedSubviews: [surnameLabel, nameLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
+        stackView.spacing = 10
         return stackView
     }()
     
@@ -90,7 +91,7 @@ private extension PersonTitleView {
             
             labelStackView.leadingAnchor.constraint(
                 equalTo: photoImageView.trailingAnchor,
-                constant: 32),
+                constant: 24),
             labelStackView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
                 constant: -32),

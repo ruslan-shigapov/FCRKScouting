@@ -13,8 +13,9 @@ enum Constants {
     }
     
     enum Fonts {
-        static let title = UIFont(name: "Futura", size: 35)
-        static let header = UIFont(name: "Futura", size: 20) // TODO: найти рус шрифт
+        static let title = UIFont(name: "Ostrovsky", size: 35)
+        static let header = UIFont(name: "Ostrovsky", size: 20)
+        static let normal = UIFont(name: "Ostrovsky", size: 15)
     }
     
     enum Text {

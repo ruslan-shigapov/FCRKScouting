@@ -35,16 +35,12 @@ final class StorageManager {
         saveContext()
     }
     
-    func fetchUser(completion: (Result<User?, Error>) -> Void) {
+    func fetchUser(completion: (User?) -> Void) {
         let fetchRequest = User.fetchRequest()
-        do {
-            let user = try viewContext.fetch(fetchRequest).first
-            completion(.success(user))
-        } catch let error {
-            completion(.failure(error))
-        }
+        let user = try? viewContext.fetch(fetchRequest).first
+        completion(user)
     }
-    
+        
     func deleteUser() {
         let fetchRequest = User.fetchRequest()
         do {

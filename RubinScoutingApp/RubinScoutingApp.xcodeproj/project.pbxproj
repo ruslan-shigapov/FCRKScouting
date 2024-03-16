@@ -12,34 +12,19 @@
 		E45EA9FC2BA3214A00EA2901 /* PersonTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EA9FB2BA3214A00EA2901 /* PersonTitleView.swift */; };
 		E45EA9FE2BA32C1000EA2901 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EA9FD2BA32C1000EA2901 /* PrimaryButton.swift */; };
 		E472330C2B95D36D00D27530 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330B2B95D36D00D27530 /* AppDelegate.swift */; };
-		E472330E2B95D36D00D27530 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330D2B95D36D00D27530 /* SceneDelegate.swift */; };
 		E47233102B95D36D00D27530 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330F2B95D36D00D27530 /* LoginViewController.swift */; };
 		E47233162B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E47233142B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld */; };
 		E47233182B95D36D00D27530 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E47233172B95D36D00D27530 /* Assets.xcassets */; };
+		E47BFFDF2BA5C1CD00FAEEAF /* COPYRIGHT.txt in Resources */ = {isa = PBXBuildFile; fileRef = E47BFFDC2BA5C1CD00FAEEAF /* COPYRIGHT.txt */; };
+		E47BFFE12BA5C1CD00FAEEAF /* Ostrovsky.otf in Resources */ = {isa = PBXBuildFile; fileRef = E47BFFDE2BA5C1CD00FAEEAF /* Ostrovsky.otf */; };
 		E47EF22C2B97394200C0727B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47EF22B2B97394200C0727B /* Constants.swift */; };
 		E47EF22F2B973C0300C0727B /* RoundedTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47EF22E2B973C0300C0727B /* RoundedTextFieldView.swift */; };
 		E495B9A72BA058570045595C /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E495B9A62BA058570045595C /* UserManager.swift */; };
 		E495B9AA2BA05C010045595C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E495B9A92BA05C010045595C /* MainViewController.swift */; };
 		E4D810EB2BA4505D0042C559 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D810EA2BA4505D0042C559 /* MainViewModel.swift */; };
 		E4D810ED2BA458080042C559 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D810EC2BA458080042C559 /* StorageManager.swift */; };
+		E4EB44152BA62F590080ED9E /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EB44142BA62F590080ED9E /* MainTabBarController.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		E47233232B95D36E00D27530 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E47233002B95D36D00D27530 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E47233072B95D36D00D27530;
-			remoteInfo = RubinScoutingApp;
-		};
-		E472332D2B95D36E00D27530 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E47233002B95D36D00D27530 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E47233072B95D36D00D27530;
-			remoteInfo = RubinScoutingApp;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		E432B6A12B98611300CF934E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -48,38 +33,24 @@
 		E45EA9FD2BA32C1000EA2901 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		E47233082B95D36D00D27530 /* RubinScoutingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RubinScoutingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E472330B2B95D36D00D27530 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E472330D2B95D36D00D27530 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E472330F2B95D36D00D27530 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E47233152B95D36D00D27530 /* RubinScoutingApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RubinScoutingApp.xcdatamodel; sourceTree = "<group>"; };
 		E47233172B95D36D00D27530 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E472331C2B95D36D00D27530 /* RubinScoutingApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RubinScoutingApp.entitlements; sourceTree = "<group>"; };
 		E472331D2B95D36D00D27530 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E47233222B95D36E00D27530 /* RubinScoutingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RubinScoutingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E472332C2B95D36E00D27530 /* RubinScoutingAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RubinScoutingAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E47BFFDC2BA5C1CD00FAEEAF /* COPYRIGHT.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYRIGHT.txt; sourceTree = "<group>"; };
+		E47BFFDE2BA5C1CD00FAEEAF /* Ostrovsky.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ostrovsky.otf; sourceTree = "<group>"; };
 		E47EF22B2B97394200C0727B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E47EF22E2B973C0300C0727B /* RoundedTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextFieldView.swift; sourceTree = "<group>"; };
 		E495B9A62BA058570045595C /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		E495B9A92BA05C010045595C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E4D810EA2BA4505D0042C559 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		E4D810EC2BA458080042C559 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		E4EB44142BA62F590080ED9E /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		E47233052B95D36D00D27530 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E472331F2B95D36E00D27530 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E47233292B95D36E00D27530 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -109,8 +80,6 @@
 			isa = PBXGroup;
 			children = (
 				E47233082B95D36D00D27530 /* RubinScoutingApp.app */,
-				E47233222B95D36E00D27530 /* RubinScoutingAppTests.xctest */,
-				E472332C2B95D36E00D27530 /* RubinScoutingAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,7 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				E472330B2B95D36D00D27530 /* AppDelegate.swift */,
-				E472330D2B95D36D00D27530 /* SceneDelegate.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -160,11 +128,21 @@
 			isa = PBXGroup;
 			children = (
 				E47EF22B2B97394200C0727B /* Constants.swift */,
+				E47BFFCF2BA5BBFE00FAEEAF /* Fonts */,
 				E47233172B95D36D00D27530 /* Assets.xcassets */,
 				E472331D2B95D36D00D27530 /* Info.plist */,
 				E472331C2B95D36D00D27530 /* RubinScoutingApp.entitlements */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		E47BFFCF2BA5BBFE00FAEEAF /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E47BFFDE2BA5C1CD00FAEEAF /* Ostrovsky.otf */,
+				E47BFFDC2BA5C1CD00FAEEAF /* COPYRIGHT.txt */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		E47EF22D2B973BD800C0727B /* Views */ = {
@@ -189,6 +167,7 @@
 		E495B9A82BA05BA90045595C /* MainModule */ = {
 			isa = PBXGroup;
 			children = (
+				E4EB44142BA62F590080ED9E /* MainTabBarController.swift */,
 				E495B9A92BA05C010045595C /* MainViewController.swift */,
 				E4D810EA2BA4505D0042C559 /* MainViewModel.swift */,
 			);
@@ -215,42 +194,6 @@
 			productReference = E47233082B95D36D00D27530 /* RubinScoutingApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E47233212B95D36E00D27530 /* RubinScoutingAppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E47233392B95D36E00D27530 /* Build configuration list for PBXNativeTarget "RubinScoutingAppTests" */;
-			buildPhases = (
-				E472331E2B95D36E00D27530 /* Sources */,
-				E472331F2B95D36E00D27530 /* Frameworks */,
-				E47233202B95D36E00D27530 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E47233242B95D36E00D27530 /* PBXTargetDependency */,
-			);
-			name = RubinScoutingAppTests;
-			productName = RubinScoutingAppTests;
-			productReference = E47233222B95D36E00D27530 /* RubinScoutingAppTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		E472332B2B95D36E00D27530 /* RubinScoutingAppUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E472333C2B95D36E00D27530 /* Build configuration list for PBXNativeTarget "RubinScoutingAppUITests" */;
-			buildPhases = (
-				E47233282B95D36E00D27530 /* Sources */,
-				E47233292B95D36E00D27530 /* Frameworks */,
-				E472332A2B95D36E00D27530 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E472332E2B95D36E00D27530 /* PBXTargetDependency */,
-			);
-			name = RubinScoutingAppUITests;
-			productName = RubinScoutingAppUITests;
-			productReference = E472332C2B95D36E00D27530 /* RubinScoutingAppUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -263,14 +206,6 @@
 				TargetAttributes = {
 					E47233072B95D36D00D27530 = {
 						CreatedOnToolsVersion = 15.2;
-					};
-					E47233212B95D36E00D27530 = {
-						CreatedOnToolsVersion = 15.2;
-						TestTargetID = E47233072B95D36D00D27530;
-					};
-					E472332B2B95D36E00D27530 = {
-						CreatedOnToolsVersion = 15.2;
-						TestTargetID = E47233072B95D36D00D27530;
 					};
 				};
 			};
@@ -288,8 +223,6 @@
 			projectRoot = "";
 			targets = (
 				E47233072B95D36D00D27530 /* RubinScoutingApp */,
-				E47233212B95D36E00D27530 /* RubinScoutingAppTests */,
-				E472332B2B95D36E00D27530 /* RubinScoutingAppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -299,21 +232,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E47BFFE12BA5C1CD00FAEEAF /* Ostrovsky.otf in Resources */,
+				E47BFFDF2BA5C1CD00FAEEAF /* COPYRIGHT.txt in Resources */,
 				E47233182B95D36D00D27530 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E47233202B95D36E00D27530 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E472332A2B95D36E00D27530 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,43 +253,16 @@
 				E45EA9FE2BA32C1000EA2901 /* PrimaryButton.swift in Sources */,
 				E4D810EB2BA4505D0042C559 /* MainViewModel.swift in Sources */,
 				E47233162B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld in Sources */,
-				E472330E2B95D36D00D27530 /* SceneDelegate.swift in Sources */,
 				E45EA9FC2BA3214A00EA2901 /* PersonTitleView.swift in Sources */,
 				E432B6A22B98611300CF934E /* LoginViewModel.swift in Sources */,
+				E4EB44152BA62F590080ED9E /* MainTabBarController.swift in Sources */,
 				E4D810ED2BA458080042C559 /* StorageManager.swift in Sources */,
 				E45EA9FA2BA31B2600EA2901 /* ModuleFactory.swift in Sources */,
 				E495B9AA2BA05C010045595C /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E472331E2B95D36E00D27530 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E47233282B95D36E00D27530 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		E47233242B95D36E00D27530 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E47233072B95D36D00D27530 /* RubinScoutingApp */;
-			targetProxy = E47233232B95D36E00D27530 /* PBXContainerItemProxy */;
-		};
-		E472332E2B95D36E00D27530 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E47233072B95D36D00D27530 /* RubinScoutingApp */;
-			targetProxy = E472332D2B95D36E00D27530 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E47233342B95D36E00D27530 /* Debug */ = {
@@ -558,82 +452,6 @@
 			};
 			name = Release;
 		};
-		E472333A2B95D36E00D27530 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X7QDNJU74Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = RuslanShigapov.RubinScoutingAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RubinScoutingApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RubinScoutingApp";
-			};
-			name = Debug;
-		};
-		E472333B2B95D36E00D27530 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X7QDNJU74Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = RuslanShigapov.RubinScoutingAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RubinScoutingApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RubinScoutingApp";
-			};
-			name = Release;
-		};
-		E472333D2B95D36E00D27530 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X7QDNJU74Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = RuslanShigapov.RubinScoutingAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = RubinScoutingApp;
-			};
-			name = Debug;
-		};
-		E472333E2B95D36E00D27530 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X7QDNJU74Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = RuslanShigapov.RubinScoutingAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = RubinScoutingApp;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -651,24 +469,6 @@
 			buildConfigurations = (
 				E47233372B95D36E00D27530 /* Debug */,
 				E47233382B95D36E00D27530 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E47233392B95D36E00D27530 /* Build configuration list for PBXNativeTarget "RubinScoutingAppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E472333A2B95D36E00D27530 /* Debug */,
-				E472333B2B95D36E00D27530 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E472333C2B95D36E00D27530 /* Build configuration list for PBXNativeTarget "RubinScoutingAppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E472333D2B95D36E00D27530 /* Debug */,
-				E472333E2B95D36E00D27530 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -61,9 +61,10 @@ final class RoundedTextFieldView: UIView {
         self.textFieldType = type
         self._placeholder = placeholder
         super.init(frame: .zero)
+        
         roundedTextField.tag = tag
-        setupUI()
         setupTextField(placeholder: placeholder)
+        setupUI()
     }
     
     @available(*, unavailable)
@@ -72,6 +73,12 @@ final class RoundedTextFieldView: UIView {
     }
     
     // MARK: Private Methods
+    private func setupTextField(placeholder: String) {
+        roundedTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholder,
+            attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .light)])
+    }
+    
     private func setupUI() {
         backgroundColor = .white
         addSubview(containerStackView)
@@ -85,12 +92,6 @@ final class RoundedTextFieldView: UIView {
         layer.shadowRadius = 7
         layer.shadowOpacity = 0.4
         layer.shadowOffset = CGSize(width: 10, height: -10)
-    }
-    
-    private func setupTextField(placeholder: String) {
-        roundedTextField.attributedPlaceholder = NSAttributedString(
-            string: placeholder,
-            attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .light)])
     }
     
     @objc private func addFloatingLabel() {

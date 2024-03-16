@@ -10,29 +10,27 @@ import Foundation
 protocol LoginViewModelProtocol {
     var wasAnyTextFieldEmpty: (() -> Void)? { get set }
     var wasAccessKeyWrong: (() -> Void)? { get set }
-    var user: User? { get }
+    var didReceiveDataError: (() -> Void)? { get set }
     func validateInput(
         name: String?,
         surname: String?,
         accessKey: String?,
         completion: (String, String, String) -> Void
     )
-    func logIn(
+    func signUp(
         byName name: String,
         surname: String,
         accessKey: String,
         completion: () -> Void
     )
+    func logIn(completion: (User) -> Void)
 }
 
 final class LoginViewModel: LoginViewModelProtocol {
     
     var wasAnyTextFieldEmpty: (() -> Void)?
     var wasAccessKeyWrong: (() -> Void)?
-    
-    var user: User? {
-        UserManager.shared.user
-    }
+    var didReceiveDataError: (() -> Void)?
     
     func validateInput(
         name: String?,
@@ -47,7 +45,7 @@ final class LoginViewModel: LoginViewModelProtocol {
         }
     }
         
-    func logIn(
+    func signUp(
         byName name: String,
         surname: String,
         accessKey: String,
@@ -61,5 +59,13 @@ final class LoginViewModel: LoginViewModelProtocol {
             wasAccessKeyWrong?()
         }
         completion()
+    }
+    
+    func logIn(completion: (User) -> Void) {
+        if let user = UserManager.shared.user {
+            completion(user)
+        } else {
+            didReceiveDataError?()
+        }
     }
 }

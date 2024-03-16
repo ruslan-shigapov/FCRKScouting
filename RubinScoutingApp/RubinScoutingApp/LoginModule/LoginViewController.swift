@@ -48,9 +48,9 @@ final class LoginViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.Text.accessDescription
-        label.numberOfLines = 2
         label.font = .systemFont(ofSize: 12, weight: .thin)
         label.textColor = .white
+        label.numberOfLines = 2
         return label
     }()
     
@@ -66,13 +66,16 @@ final class LoginViewController: UIViewController {
             viewModel.wasAccessKeyWrong = { 
                 // TODO: show alert
             }
+            viewModel.didReceiveDataError = {
+                // TODO: show alert
+            }
         }
     }
     
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = LoginViewModel()
+        viewModel = LoginViewModel() // TODO: think about it
         setupUI()
     }
     
@@ -135,20 +138,18 @@ final class LoginViewController: UIViewController {
             surname: surnameTextField.getInputText(),
             accessKey: accessKeyTextField.getInputText()
         ) {
-            viewModel.logIn(byName: $0, surname: $1, accessKey: $2) {
+            viewModel.signUp(byName: $0, surname: $1, accessKey: $2) {
                 showMainScreen()
             }
         }
     }
     
     private func showMainScreen() {
-        guard let user = viewModel.user else {
-            // TODO: show alert
-            return
+        viewModel.logIn {
+            let mainVC = ModuleFactory.getMainViewController(forUser: $0)
+            mainVC.modalPresentationStyle = .fullScreen
+            present(mainVC, animated: true)
         }
-        let mainVC = ModuleFactory.getMainViewController(forUser: user)
-        mainVC.modalPresentationStyle = .fullScreen
-        present(mainVC, animated: true)
     }
 }
 
