@@ -45,6 +45,17 @@ final class StorageManager {
         }
     }
     
+    func deleteUser() {
+        let fetchRequest = User.fetchRequest()
+        do {
+            let users = try viewContext.fetch(fetchRequest)
+            users.forEach { viewContext.delete($0) }
+            saveContext()
+        } catch {
+            viewContext.rollback()
+        }
+    }
+    
     func saveContext() {
         if viewContext.hasChanges {
             do {

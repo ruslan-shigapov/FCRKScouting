@@ -60,6 +60,7 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func logOutButtonTapped() {
+        StorageManager.shared.deleteUser()
         dismiss(animated: true)
     }
 }

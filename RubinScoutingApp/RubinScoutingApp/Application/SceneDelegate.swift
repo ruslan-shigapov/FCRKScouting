@@ -18,14 +18,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = scene as? UIWindowScene else { return }
         window = UIWindow(windowScene: windowScene)
-        if let window {
-            window.makeKeyAndVisible()
-            if let currentUser = UserManager.shared.user {
-                window.rootViewController = ModuleFactory.shared.getMainVC(
-                    forUser: currentUser)
-            } else {
-                window.rootViewController = ModuleFactory.shared.getLoginVC()
-            }
-        }
+        window?.rootViewController = ModuleFactory.getRootViewController()
+        window?.makeKeyAndVisible()
     }
 }

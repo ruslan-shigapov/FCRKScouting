@@ -8,40 +8,58 @@
 import Foundation
 
 protocol LoginViewModelProtocol {
-    var user: User! { get }
-    func checkInputData(completion: @escaping () -> Void)
+    var wasAnyTextFieldEmpty: (() -> Void)? { get set }
+    var wasAccessKeyWrong: (() -> Void)? { get set }
+    var user: User? { get }
+    func validateInput(
+        name: String?,
+        surname: String?,
+        accessKey: String?,
+        completion: (String, String, String) -> Void
+    )
     func logIn(
         byName name: String,
         surname: String,
         accessKey: String,
-        completion: @escaping () -> Void
+        completion: () -> Void
     )
 }
 
 final class LoginViewModel: LoginViewModelProtocol {
-    var user: User!
     
-    func checkInputData(completion: @escaping () -> Void) {
-        completion()
+    var wasAnyTextFieldEmpty: (() -> Void)?
+    var wasAccessKeyWrong: (() -> Void)?
+    
+    var user: User? {
+        UserManager.shared.user
+    }
+    
+    func validateInput(
+        name: String?,
+        surname: String?,
+        accessKey: String?,
+        completion: (String, String, String) -> Void
+    ) {
+        if name == "" || surname == "" || accessKey == "" {
+            wasAnyTextFieldEmpty?()
+        } else if let name, let surname, let accessKey {
+            completion(name, surname, accessKey)
+        }
     }
         
     func logIn(
         byName name: String,
         surname: String,
         accessKey: String,
-        completion: @escaping () -> Void
+        completion: () -> Void
     ) {
-//        UserManager.shared.createUser(
-//            withName: name,
-//            andSurname: surname,
-//            byAccessKey: accessKey
-//        ) { result in
-//            switch result {
-//            case .success(let user):
-//                self.user = user
-//            case .failure(_):
-//                completion()
-//            }
-//        }
+        UserManager.shared.createUser(
+            withName: name,
+            andSurname: surname,
+            byAccessKey: accessKey
+        ) {
+            wasAccessKeyWrong?()
+        }
+        completion()
     }
 }

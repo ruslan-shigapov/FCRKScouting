@@ -7,18 +7,17 @@
 
 import UIKit
 
-final class ModuleFactory {
+struct ModuleFactory {
     
-    static let shared = ModuleFactory()
-    
-    private init() {}
-    
-    func getLoginVC() -> UIViewController {
-        let viewModel = LoginViewModel()
-        return LoginViewController(viewModel: viewModel)
+    static func getRootViewController() -> UIViewController {
+        if let currentUser = UserManager.shared.user {
+            return getMainViewController(forUser: currentUser)
+        } else {
+            return LoginViewController()
+        }
     }
     
-    func getMainVC(forUser user: User) -> UIViewController {
+    static func getMainViewController(forUser user: User) -> UIViewController {
         let viewModel = MainViewModel(user: user)
         return MainViewController(viewModel: viewModel)
     }

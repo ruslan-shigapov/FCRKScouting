@@ -16,13 +16,11 @@ final class UserManager {
     
     static let shared = UserManager()
     
-    var user: User? {
-        didSet {
-            getUser()
-        }
-    }
+    var user: User?
     
-    private init() {}
+    private init() {
+        getUser()
+    }
     
     func createUser(
         withName name: String,
@@ -39,6 +37,7 @@ final class UserManager {
             withName: name,
             surname: surname,
             access: accessKey == AccessType.editable.rawValue)
+        getUser()
     }
     
     private func getUser() {
@@ -47,7 +46,7 @@ final class UserManager {
             case .success(let user):
                 self?.user = user
             case .failure(let error):
-                print(error.localizedDescription)
+                print(error.localizedDescription) // TODO: replace with alert?
             }
         }
     }

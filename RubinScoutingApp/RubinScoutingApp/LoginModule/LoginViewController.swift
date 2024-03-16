@@ -9,8 +9,6 @@ import UIKit
 
 final class LoginViewController: UIViewController {
     
-    private let viewModel: LoginViewModelProtocol
-    
     // MARK: Views
     private let logoImageView = UIImageView(image: Constants.Images.logo)
     
@@ -58,21 +56,23 @@ final class LoginViewController: UIViewController {
     
     private let loginButton = PrimaryButton(
         title: Constants.Text.ButtonTitle.enter)
-
-    // MARK: Initialize
-    init(viewModel: LoginViewModelProtocol) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
     
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    // MARK: Dependencies 
+    private var viewModel: LoginViewModelProtocol! {
+        didSet {
+            viewModel.wasAnyTextFieldEmpty = {
+                // TODO: show alert
+            }
+            viewModel.wasAccessKeyWrong = { 
+                // TODO: show alert
+            }
+        }
     }
     
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = LoginViewModel()
         setupUI()
     }
     
@@ -112,12 +112,12 @@ final class LoginViewController: UIViewController {
             barButtonSystemItem: .flexibleSpace,
             target: nil,
             action: nil)
-        let toolbarButton = UIBarButtonItem(
+        let toolbarLoginButton = UIBarButtonItem(
             title: Constants.Text.ButtonTitle.enter,
             style: .plain,
             target: self,
             action: #selector(loginButtonTapped))
-        toolbar.setItems([flexibleSpace, toolbarButton], animated: false)
+        toolbar.setItems([flexibleSpace, toolbarLoginButton], animated: false)
         toolbar.sizeToFit()
         
         accessKeyTextField.subviews.forEach {
@@ -130,16 +130,23 @@ final class LoginViewController: UIViewController {
     }
     
     @objc private func loginButtonTapped() {
-        viewModel.checkInputData {
-            
-            return
+        viewModel.validateInput(
+            name: nameTextField.getInputText(),
+            surname: surnameTextField.getInputText(),
+            accessKey: accessKeyTextField.getInputText()
+        ) {
+            viewModel.logIn(byName: $0, surname: $1, accessKey: $2) {
+                showMainScreen()
+            }
         }
-        showMainScreen()
     }
     
     private func showMainScreen() {
-        let mainVC = ModuleFactory.shared.getMainVC(
-            forUser: viewModel.user)
+        guard let user = viewModel.user else {
+            // TODO: show alert
+            return
+        }
+        let mainVC = ModuleFactory.getMainViewController(forUser: user)
         mainVC.modalPresentationStyle = .fullScreen
         present(mainVC, animated: true)
     }
@@ -169,7 +176,7 @@ private extension LoginViewController {
     
     func setConstraints() {
         view.subviews.forEach(prepareForAutoLayout)
-        view.keyboardLayoutGuide.followsUndockedKeyboard = true // TODO: доделать
+        view.keyboardLayoutGuide.followsUndockedKeyboard = true // TODO: make dynamic
         
         NSLayoutConstraint.activate([
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
