@@ -10,6 +10,8 @@
 	<dict>
 		<key>UIImageName</key>
 		<string></string>
+		<key>UIColorName</key>
+		<string>AccentColor</string>
 	</dict>
 	<key>UIAppFonts</key>
 	<array>

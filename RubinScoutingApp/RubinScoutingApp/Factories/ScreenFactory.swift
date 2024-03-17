@@ -1,5 +1,5 @@
 //
-//  ModuleFactory.swift
+//  ScreenFactory.swift
 //  RubinScoutingApp
 //
 //  Created by Ruslan Shigapov on 14.03.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct ModuleFactory {
+struct ScreenFactory {
     
     static func getRootViewController() -> UIViewController {
         if let currentUser = UserManager.shared.user {

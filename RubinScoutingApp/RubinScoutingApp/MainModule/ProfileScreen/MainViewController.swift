@@ -20,25 +20,25 @@ final class MainViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        label.textColor = .systemGreen
+        label.textColor = .white
         label.text = "Доступ"
-        label.font = Constants.Fonts.header
+        label.font = Constants.Fonts.normal
         return label
     }()
     
     private let postLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .systemGreen
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
 
         label.text = "Должность"
-        label.font = Constants.Fonts.header
+        label.font = Constants.Fonts.normal
         return label
     }()
     
     private let postValueLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = .lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Разработчик"
         label.font = .systemFont(ofSize: 16, weight: .regular)
@@ -47,7 +47,7 @@ final class MainViewController: UIViewController {
     
     private let accessValueLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = .lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Только чтение"
         label.font = .systemFont(ofSize: 16, weight: .regular)
@@ -115,18 +115,18 @@ final class MainViewController: UIViewController {
             backgroundView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -24),
-            backgroundView.heightAnchor.constraint(equalToConstant: 240),
             
             postLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
             accessLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
 
             postLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 24),
             accessLabel.topAnchor.constraint(equalTo: postLabel.bottomAnchor, constant: 48),
+            logoutButton.topAnchor.constraint(equalTo: accessLabel.bottomAnchor, constant: 48),
             
             postValueLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
             accessValueLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
-            postValueLabel.topAnchor.constraint(equalTo: postLabel.bottomAnchor),
-            accessValueLabel.topAnchor.constraint(equalTo: accessLabel.bottomAnchor),
+            postValueLabel.topAnchor.constraint(equalTo: postLabel.bottomAnchor, constant: 5),
+            accessValueLabel.topAnchor.constraint(equalTo: accessLabel.bottomAnchor, constant: 5),
         ])
     }
     

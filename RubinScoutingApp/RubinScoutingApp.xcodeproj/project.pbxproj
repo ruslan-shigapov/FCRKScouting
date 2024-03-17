@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E432B6A22B98611300CF934E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E432B6A12B98611300CF934E /* LoginViewModel.swift */; };
-		E45EA9FA2BA31B2600EA2901 /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EA9F92BA31B2600EA2901 /* ModuleFactory.swift */; };
+		E45EA9FA2BA31B2600EA2901 /* ScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EA9F92BA31B2600EA2901 /* ScreenFactory.swift */; };
 		E45EA9FC2BA3214A00EA2901 /* PersonTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EA9FB2BA3214A00EA2901 /* PersonTitleView.swift */; };
 		E45EA9FE2BA32C1000EA2901 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EA9FD2BA32C1000EA2901 /* PrimaryButton.swift */; };
 		E472330C2B95D36D00D27530 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472330B2B95D36D00D27530 /* AppDelegate.swift */; };
@@ -28,7 +28,7 @@
 
 /* Begin PBXFileReference section */
 		E432B6A12B98611300CF934E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		E45EA9F92BA31B2600EA2901 /* ModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
+		E45EA9F92BA31B2600EA2901 /* ScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenFactory.swift; sourceTree = "<group>"; };
 		E45EA9FB2BA3214A00EA2901 /* PersonTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonTitleView.swift; sourceTree = "<group>"; };
 		E45EA9FD2BA32C1000EA2901 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		E47233082B95D36D00D27530 /* RubinScoutingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RubinScoutingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,7 +63,7 @@
 		E45EA9F82BA31B0500EA2901 /* Factories */ = {
 			isa = PBXGroup;
 			children = (
-				E45EA9F92BA31B2600EA2901 /* ModuleFactory.swift */,
+				E45EA9F92BA31B2600EA2901 /* ScreenFactory.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -168,10 +168,18 @@
 			isa = PBXGroup;
 			children = (
 				E4EB44142BA62F590080ED9E /* MainTabBarController.swift */,
+				E4EB44162BA630290080ED9E /* ProfileScreen */,
+			);
+			path = MainModule;
+			sourceTree = "<group>";
+		};
+		E4EB44162BA630290080ED9E /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
 				E495B9A92BA05C010045595C /* MainViewController.swift */,
 				E4D810EA2BA4505D0042C559 /* MainViewModel.swift */,
 			);
-			path = MainModule;
+			path = ProfileScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,7 +265,7 @@
 				E432B6A22B98611300CF934E /* LoginViewModel.swift in Sources */,
 				E4EB44152BA62F590080ED9E /* MainTabBarController.swift in Sources */,
 				E4D810ED2BA458080042C559 /* StorageManager.swift in Sources */,
-				E45EA9FA2BA31B2600EA2901 /* ModuleFactory.swift in Sources */,
+				E45EA9FA2BA31B2600EA2901 /* ScreenFactory.swift in Sources */,
 				E495B9AA2BA05C010045595C /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

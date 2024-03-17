@@ -60,14 +60,20 @@ final class LoginViewController: UIViewController {
     // MARK: Dependencies 
     private var viewModel: LoginViewModelProtocol! {
         didSet {
-            viewModel.wasAnyTextFieldEmpty = {
-                // TODO: show alert
+            viewModel.wasAnyTextFieldEmpty = { [weak self] in
+                self?.showAlert(
+                    withTitle: Constants.Text.Alert.emptyTextField.title,
+                    andMessage: Constants.Text.Alert.emptyTextField.message)
             }
-            viewModel.wasAccessKeyWrong = { 
-                // TODO: show alert
+            viewModel.wasAccessKeyWrong = { [weak self] in
+                self?.showAlert(
+                    withTitle: Constants.Text.Alert.wrongAccessKey.title,
+                    andMessage: Constants.Text.Alert.wrongAccessKey.message)
             }
-            viewModel.didReceiveDataError = {
-                // TODO: show alert
+            viewModel.didReceiveDataError = { [weak self] in
+                self?.showAlert(
+                    withTitle: Constants.Text.Alert.wrongSomething.title,
+                    andMessage: Constants.Text.Alert.wrongSomething.message)
             }
         }
     }
@@ -146,7 +152,7 @@ final class LoginViewController: UIViewController {
     
     private func showMainScreen() {
         viewModel.logIn {
-            let mainVC = ModuleFactory.getMainViewController(forUser: $0)
+            let mainVC = ScreenFactory.getMainViewController(forUser: $0)
             mainVC.modalPresentationStyle = .fullScreen
             present(mainVC, animated: true)
         }
@@ -165,6 +171,20 @@ extension LoginViewController: UITextFieldDelegate {
         textField.superview?.superview?.superview?.viewWithTag(
             textField.tag + 1)?.becomeFirstResponder()
         return true
+    }
+}
+
+// MARK: - Alert Controller
+private extension LoginViewController {
+    
+    func showAlert(withTitle title: String, andMessage message: String) {
+        let alertController = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .cancel)
+        alertController.addAction(alertAction)
+        present(alertController, animated: true)
     }
 }
 

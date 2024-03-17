@@ -33,6 +33,19 @@ enum Constants {
         enum ButtonTitle {
             static let enter = "Войти"
             static let exit = "Выйти"
+            static let ok = "OK"
+        }
+        
+        enum Alert {
+            static let emptyTextField = (
+                title: "Внимание",
+                message: "Заполните все поля для ввода")
+            static let wrongAccessKey = (
+                title: "Не удалось войти",
+                message: "Ключ доступа неверный")
+            static let wrongSomething = (
+                title: "Что-то пошло не так",
+                message: "Перезапустите приложение")
         }
     }
 }
