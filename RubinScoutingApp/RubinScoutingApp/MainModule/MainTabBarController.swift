@@ -23,7 +23,14 @@ final class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
         setVCs()
+    }
+    
+    private func setupUI() {
+        tabBar.backgroundColor = .accent
+        tabBar.tintColor = .white
+        tabBar.barTintColor = .white
     }
     
     private func setVCs() {
@@ -51,6 +58,16 @@ final class MainTabBarController: UITabBarController {
         viewController.title = title
         viewController.tabBarItem.title = title
         viewController.tabBarItem.image = icon
-        return UINavigationController(rootViewController: viewController)
+        let navigationController = UINavigationController(
+            rootViewController: viewController)
+        setupNavigationBar(forNavigationController: navigationController)
+        return navigationController
+    }
+    
+    private func setupNavigationBar(
+        forNavigationController navigationController: UINavigationController
+    ) {
+        navigationController.navigationBar.backgroundColor = .accent
+        navigationController.navigationBar.prefersLargeTitles = true
     }
 }

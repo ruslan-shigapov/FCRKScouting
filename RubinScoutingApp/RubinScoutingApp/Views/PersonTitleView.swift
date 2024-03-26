@@ -65,19 +65,19 @@ private extension PersonTitleView {
         NSLayoutConstraint.activate([
             photoImageView.topAnchor.constraint(
                 equalTo: topAnchor,
-                constant: 32),
+                constant: 24),
             photoImageView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: 32),
+                constant: 24),
             photoImageView.bottomAnchor.constraint(
                 equalTo: bottomAnchor,
-                constant: -32),
+                constant: -24),
             photoImageView.heightAnchor.constraint(equalToConstant: 100),
             photoImageView.widthAnchor.constraint(equalToConstant: 100),
             
             fullNameLabel.leadingAnchor.constraint(
                 equalTo: photoImageView.trailingAnchor,
-                constant: 24),
+                constant: 32),
             fullNameLabel.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
                 constant: -32),

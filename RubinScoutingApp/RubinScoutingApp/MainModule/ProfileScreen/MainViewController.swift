@@ -78,7 +78,7 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.addSubview(userTitleView)
         view.addSubview(backgroundView)
         userTitleView.translatesAutoresizingMaskIntoConstraints = false
@@ -97,21 +97,21 @@ final class MainViewController: UIViewController {
             
             userTitleView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
-                constant: 24),
+                constant: 16),
             userTitleView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 24),
+                constant: 16),
             userTitleView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -24),
+                constant: -16),
             
-            backgroundView.topAnchor.constraint(equalTo: userTitleView.bottomAnchor, constant: 24),
+            backgroundView.topAnchor.constraint(equalTo: userTitleView.bottomAnchor, constant: 16),
             backgroundView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 24),
+                constant: 16),
             backgroundView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -24),
+                constant: -16),
             
             postLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
             accessLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
