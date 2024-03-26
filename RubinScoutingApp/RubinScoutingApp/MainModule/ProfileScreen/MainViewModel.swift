@@ -8,10 +8,14 @@
 import Foundation
 
 protocol MainViewModelProtocol {
-    
+    var fullName: String { get }
 }
 
 final class MainViewModel: MainViewModelProtocol {
+    
+    var fullName: String {
+        user.fullName ?? ""
+    }
     
     private var user: User
     

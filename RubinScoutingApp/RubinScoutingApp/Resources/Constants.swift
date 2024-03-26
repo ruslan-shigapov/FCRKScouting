@@ -10,6 +10,12 @@ import UIKit
 enum Constants {
     enum Images {
         static let logo = UIImage(named: "Logo")
+        
+        enum TabBarIcon {
+            static let updates = UIImage(systemName: "plus.circle")
+            static let search = UIImage(systemName: "magnifyingglass.circle")
+            static let profile = UIImage(systemName: "person.crop.circle")
+        }
     }
     
     enum Fonts {
@@ -33,6 +39,12 @@ enum Constants {
             static let enter = "Войти"
             static let exit = "Выйти"
             static let ok = "OK"
+        }
+        
+        enum ScreenTitle {
+            static let updates = "Обновления"
+            static let search = "Поиск"
+            static let profile = "Профиль"
         }
         
         enum Alert {

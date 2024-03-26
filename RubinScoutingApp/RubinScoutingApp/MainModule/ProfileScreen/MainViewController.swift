@@ -19,7 +19,6 @@ final class MainViewController: UIViewController {
     private let accessLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-
         label.textColor = .white
         label.text = "Доступ"
         label.font = Constants.Fonts.normal
@@ -85,9 +84,7 @@ final class MainViewController: UIViewController {
         userTitleView.translatesAutoresizingMaskIntoConstraints = false
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
         
-        userTitleView.configure(
-            withSurname: "Шигапов",
-            andName: "Руслан")
+        userTitleView.configure(withFullName: viewModel.fullName)
         
         logoutButton.addTarget(
             self,

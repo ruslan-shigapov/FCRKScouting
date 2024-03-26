@@ -80,7 +80,7 @@ final class LoginViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = LoginViewModel() // TODO: think about it
+        viewModel = LoginViewModel() // TODO: think about it and logout 
         setupUI()
     }
     

@@ -17,26 +17,13 @@ final class PersonTitleView: UIView {
         return imageView
     }()
     
-    private let surnameLabel: UILabel = {
+    private let fullNameLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.Fonts.header
         label.textColor = .white
+        label.numberOfLines = 2
         return label
-    }()
-    
-    private let nameLabel: UILabel = {
-        let label = UILabel()
-        label.font = Constants.Fonts.header
-        label.textColor = .white
-        return label
-    }()
-    
-    private lazy var labelStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [surnameLabel, nameLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        return stackView
     }()
     
     // MARK: Initialize
@@ -60,15 +47,14 @@ final class PersonTitleView: UIView {
     private func setupUI() {
         backgroundColor = .accent
         addSubview(photoImageView)
-        addSubview(labelStackView)
+        addSubview(fullNameLabel)
         layer.cornerRadius = 12
         setConstraints()
     }
     
     // MARK: Public Methods
-    func configure(withSurname surname: String, andName name: String) {
-        surnameLabel.text = surname
-        nameLabel.text = name
+    func configure(withFullName fullName: String) {
+        fullNameLabel.text = fullName
     }
 }
 
@@ -89,13 +75,13 @@ private extension PersonTitleView {
             photoImageView.heightAnchor.constraint(equalToConstant: 100),
             photoImageView.widthAnchor.constraint(equalToConstant: 100),
             
-            labelStackView.leadingAnchor.constraint(
+            fullNameLabel.leadingAnchor.constraint(
                 equalTo: photoImageView.trailingAnchor,
                 constant: 24),
-            labelStackView.trailingAnchor.constraint(
+            fullNameLabel.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
                 constant: -32),
-            labelStackView.centerYAnchor.constraint(
+            fullNameLabel.centerYAnchor.constraint(
                 equalTo: photoImageView.centerYAnchor)
         ])
     }
