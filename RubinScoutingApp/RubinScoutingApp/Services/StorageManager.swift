@@ -27,10 +27,9 @@ final class StorageManager {
     
     private init() {}
     
-    func saveUser(withName name: String, surname: String, access: Bool) {
+    func saveUser(withFullName fullName: String, andAccess access: Bool) {
         let user = User(context: viewContext)
-        user.name = name
-        user.surname = surname
+        user.fullName = fullName
         user.isEditAllowed = access
         saveContext()
     }

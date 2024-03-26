@@ -25,6 +25,7 @@ final class RoundedTextFieldView: UIView {
         textField.clearButtonMode = .whileEditing
         textField.autocorrectionType = .no
         textField.spellCheckingType = .no
+        textField.autocapitalizationType = .words
         if textFieldType == .key {
             textField.keyboardType = .numberPad
             textField.isSecureTextEntry = true

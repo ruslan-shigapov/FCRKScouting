@@ -25,8 +25,7 @@ enum Constants {
         """
         
         enum Placeholder {
-            static let name = "Имя"
-            static let surname = "Фамилия"
+            static let fullName = "Имя Фамилия"
             static let accessKey = "Ключ доступа"
         }
         
@@ -40,6 +39,9 @@ enum Constants {
             static let emptyTextField = (
                 title: "Внимание",
                 message: "Заполните все поля для ввода")
+            static let incorrectFullName = (
+                title: "Внимание",
+                message: "Необходимо ввести имя, фамилию и нечего лишнего")
             static let wrongAccessKey = (
                 title: "Не удалось войти",
                 message: "Ключ доступа неверный")

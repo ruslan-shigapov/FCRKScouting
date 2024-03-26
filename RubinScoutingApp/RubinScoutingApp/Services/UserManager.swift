@@ -23,8 +23,7 @@ final class UserManager {
     }
     
     func createUser(
-        withName name: String,
-        andSurname surname: String,
+        withFullName fullName: String,
         byAccessKey accessKey: String,
         completion: () -> Void
     ) {
@@ -34,9 +33,8 @@ final class UserManager {
             return
         }
         StorageManager.shared.saveUser(
-            withName: name,
-            surname: surname,
-            access: accessKey == AccessType.editable.rawValue)
+            withFullName: fullName,
+            andAccess: accessKey == AccessType.editable.rawValue)
         getUser()
     }
     

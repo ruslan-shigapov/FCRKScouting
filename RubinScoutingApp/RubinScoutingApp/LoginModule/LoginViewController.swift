@@ -20,24 +20,18 @@ final class LoginViewController: UIViewController {
         return label
     }()
     
-    private let nameTextField = RoundedTextFieldView(
-        placeholder: Constants.Text.Placeholder.name,
+    private let fullNameTextField = RoundedTextFieldView(
+        placeholder: Constants.Text.Placeholder.fullName,
         type: .name)
-    
-    private let surnameTextField = RoundedTextFieldView(
-        placeholder: Constants.Text.Placeholder.surname,
-        type: .name,
-        tag: 2)
     
     private let accessKeyTextField = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholder.accessKey,
         type: .key,
-        tag: 3)
+        tag: 2)
     
     private lazy var textFieldStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            nameTextField,
-            surnameTextField,
+            fullNameTextField,
             accessKeyTextField
         ])
         stackView.axis = .vertical
@@ -64,6 +58,11 @@ final class LoginViewController: UIViewController {
                 self?.showAlert(
                     withTitle: Constants.Text.Alert.emptyTextField.title,
                     andMessage: Constants.Text.Alert.emptyTextField.message)
+            }
+            viewModel.wasFullNameIncorrect = { [weak self] in
+                self?.showAlert(
+                    withTitle: Constants.Text.Alert.incorrectFullName.title,
+                    andMessage: Constants.Text.Alert.incorrectFullName.message)
             }
             viewModel.wasAccessKeyWrong = { [weak self] in
                 self?.showAlert(
@@ -140,11 +139,10 @@ final class LoginViewController: UIViewController {
     
     @objc private func loginButtonTapped() {
         viewModel.validateInput(
-            name: nameTextField.getInputText(),
-            surname: surnameTextField.getInputText(),
+            fullName: fullNameTextField.getInputText(),
             accessKey: accessKeyTextField.getInputText()
         ) {
-            viewModel.signUp(byName: $0, surname: $1, accessKey: $2) {
+            viewModel.signUp(byFullName: $0, accessKey: $1) {
                 showMainScreen()
             }
         }
@@ -197,9 +195,11 @@ private extension LoginViewController {
     
     func setConstraints() {
         view.subviews.forEach(prepareForAutoLayout)
-        view.keyboardLayoutGuide.followsUndockedKeyboard = true // TODO: make dynamic
         
         NSLayoutConstraint.activate([
+            logoImageView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: 24),
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImageView.heightAnchor.constraint(equalToConstant: 150),
             logoImageView.widthAnchor.constraint(equalToConstant: 120),
@@ -215,8 +215,6 @@ private extension LoginViewController {
                 constant: 32),
             textFieldStackView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
-            textFieldStackView.centerYAnchor.constraint(
-                equalTo: view.centerYAnchor),
             
             descriptionLabel.topAnchor.constraint(
                 equalTo: textFieldStackView.bottomAnchor,
@@ -230,7 +228,7 @@ private extension LoginViewController {
             
             loginButton.topAnchor.constraint(
                 equalTo: textFieldStackView.bottomAnchor,
-                constant: 72),
+                constant: 80),
             loginButton.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor)
         ])
