@@ -62,7 +62,6 @@ final class RoundedTextFieldView: UIView {
         self.textFieldType = type
         self._placeholder = placeholder
         super.init(frame: .zero)
-        
         roundedTextField.tag = tag
         setupTextField(placeholder: placeholder)
         setupUI()

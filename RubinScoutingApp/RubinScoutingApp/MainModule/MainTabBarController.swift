@@ -67,7 +67,14 @@ final class MainTabBarController: UITabBarController {
     private func setupNavigationBar(
         forNavigationController navigationController: UINavigationController
     ) {
-        navigationController.navigationBar.backgroundColor = .accent
-        navigationController.navigationBar.prefersLargeTitles = true
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.backgroundColor = .accent
+        navigationBarAppearance.largeTitleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: Constants.Fonts.title ?? UIFont.systemFont(ofSize: 35)
+        ]
+        let navigationBar = navigationController.navigationBar
+        navigationBar.prefersLargeTitles = true
+        navigationBar.scrollEdgeAppearance = navigationBarAppearance
     }
 }

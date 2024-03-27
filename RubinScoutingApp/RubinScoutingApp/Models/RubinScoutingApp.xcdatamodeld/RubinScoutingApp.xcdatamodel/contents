@@ -3,6 +3,5 @@
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="fullName" optional="YES" attributeType="String"/>
         <attribute name="isEditAllowed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="post" optional="YES" attributeType="String"/>
     </entity>
 </model>

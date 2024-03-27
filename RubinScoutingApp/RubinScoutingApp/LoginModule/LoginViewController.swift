@@ -180,7 +180,9 @@ private extension LoginViewController {
             title: title,
             message: message,
             preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .cancel)
+        let alertAction = UIAlertAction(
+            title: Constants.Text.ButtonTitle.ok,
+            style: .cancel)
         alertController.addAction(alertAction)
         present(alertController, animated: true)
     }
