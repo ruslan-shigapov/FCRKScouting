@@ -14,7 +14,7 @@ enum TextFieldType {
 
 final class RoundedTextFieldView: UIView {
     
-    // MARK: Properties
+    // MARK: Private Properties
     private let textFieldType: TextFieldType
     private let _placeholder: String
     

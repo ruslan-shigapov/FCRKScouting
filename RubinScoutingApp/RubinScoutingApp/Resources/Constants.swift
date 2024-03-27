@@ -29,7 +29,7 @@ enum Constants {
         static let accessDescription = """
         Вход возможен только для сотрудников системы ФК \u{AB}Рубин\u{BB} Казань
         """
-        static let access = "Доступ"
+        static let access = "Доступ:"
         static let onlyRead = "Только чтение"
         static let editIsAllowed = "Возможно редактирование"
         

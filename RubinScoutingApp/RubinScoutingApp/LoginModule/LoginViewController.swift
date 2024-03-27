@@ -9,6 +9,9 @@ import UIKit
 
 final class LoginViewController: UIViewController {
     
+    // MARK: Private Properties
+    private var viewModel: LoginViewModelProtocol
+    
     // MARK: Views
     private let logoImageView = UIImageView(image: Constants.Images.logo)
     
@@ -51,37 +54,22 @@ final class LoginViewController: UIViewController {
     private let loginButton = PrimaryButton(
         title: Constants.Text.ButtonTitle.enter)
     
-    // MARK: Dependencies 
-    private var viewModel: LoginViewModelProtocol! {
-        didSet {
-            viewModel.wasAnyTextFieldEmpty = { [weak self] in
-                self?.showAlert(
-                    withTitle: Constants.Text.Alert.emptyTextField.title,
-                    andMessage: Constants.Text.Alert.emptyTextField.message)
-            }
-            viewModel.wasFullNameIncorrect = { [weak self] in
-                self?.showAlert(
-                    withTitle: Constants.Text.Alert.incorrectFullName.title,
-                    andMessage: Constants.Text.Alert.incorrectFullName.message)
-            }
-            viewModel.wasAccessKeyWrong = { [weak self] in
-                self?.showAlert(
-                    withTitle: Constants.Text.Alert.wrongAccessKey.title,
-                    andMessage: Constants.Text.Alert.wrongAccessKey.message)
-            }
-            viewModel.didReceiveDataError = { [weak self] in
-                self?.showAlert(
-                    withTitle: Constants.Text.Alert.wrongSomething.title,
-                    andMessage: Constants.Text.Alert.wrongSomething.message)
-            }
-        }
+    // MARK: Initialize
+    init(viewModel: LoginViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = LoginViewModel() // TODO: think about it and logout 
         setupUI()
+        setAlerts()
     }
     
     // MARK: Private Methods
@@ -137,6 +125,29 @@ final class LoginViewController: UIViewController {
         }
     }
     
+    private func setAlerts() {
+        viewModel.wasAnyTextFieldEmpty = { [weak self] in
+            self?.showAlert(
+                withTitle: Constants.Text.Alert.emptyTextField.title,
+                andMessage: Constants.Text.Alert.emptyTextField.message)
+        }
+        viewModel.wasFullNameIncorrect = { [weak self] in
+            self?.showAlert(
+                withTitle: Constants.Text.Alert.incorrectFullName.title,
+                andMessage: Constants.Text.Alert.incorrectFullName.message)
+        }
+        viewModel.wasAccessKeyWrong = { [weak self] in
+            self?.showAlert(
+                withTitle: Constants.Text.Alert.wrongAccessKey.title,
+                andMessage: Constants.Text.Alert.wrongAccessKey.message)
+        }
+        viewModel.didReceiveDataError = { [weak self] in
+            self?.showAlert(
+                withTitle: Constants.Text.Alert.wrongSomething.title,
+                andMessage: Constants.Text.Alert.wrongSomething.message)
+        }
+    }
+    
     @objc private func loginButtonTapped() {
         viewModel.validateInput(
             fullName: fullNameTextField.getInputText(),
@@ -184,7 +195,9 @@ private extension LoginViewController {
             title: Constants.Text.ButtonTitle.ok,
             style: .cancel)
         alertController.addAction(alertAction)
-        present(alertController, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alertController, animated: true)
+        }
     }
 }
 

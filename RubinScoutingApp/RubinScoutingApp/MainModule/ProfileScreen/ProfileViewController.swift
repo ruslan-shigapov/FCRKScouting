@@ -8,6 +8,9 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
+    
+    // MARK: Private Properties
+    private var viewModel: ProfileViewModelProtocol
         
     // MARK: Views
     private let userTitleView = PersonTitleView()
@@ -41,13 +44,6 @@ final class ProfileViewController: UIViewController {
         view.layer.cornerRadius = 12
         return view
     }()
-    
-    // MARK: Dependencies
-    private var viewModel: ProfileViewModelProtocol {
-        didSet {
-            
-        }
-    }
     
     // MARK: Initialize
     init(viewModel: ProfileViewModelProtocol) {
@@ -85,7 +81,15 @@ final class ProfileViewController: UIViewController {
     
     @objc private func logOutButtonTapped() {
         StorageManager.shared.deleteUser()
-        dismiss(animated: true)
+        dismiss(animated: true) { [weak self] in
+            self?.showLoginScreen()
+        }
+    }
+    
+    private func showLoginScreen() {
+        let loginVC = ScreenFactory.getLoginViewController()
+        loginVC.modalPresentationStyle = .fullScreen
+        present(loginVC, animated: true)
     }
 }
 

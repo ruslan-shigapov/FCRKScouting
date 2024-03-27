@@ -13,12 +13,17 @@ struct ScreenFactory {
         if let currentUser = UserManager.shared.user {
             return getMainViewController(forUser: currentUser)
         } else {
-            return LoginViewController()
+            return getLoginViewController()
         }
     }
     
     static func getMainViewController(forUser user: User) -> UIViewController {
         let viewModel = ProfileViewModel(user: user)
         return MainTabBarController(viewModel: viewModel)
+    }
+    
+    static func getLoginViewController() -> UIViewController {
+        let viewModel = LoginViewModel()
+        return LoginViewController(viewModel: viewModel)
     }
 }
