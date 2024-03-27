@@ -15,6 +15,8 @@ final class ProfileViewController: UIViewController {
     // MARK: Views
     private let userTitleView = PersonTitleView()
     
+    private let editButton = EditButton()
+    
     private let accessLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.Text.access
@@ -66,17 +68,26 @@ final class ProfileViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         userTitleView.configure(withFullName: viewModel.fullName)
-        logoutButton.addTarget(
-            self,
-            action: #selector(logOutButtonTapped),
-            for: .touchUpInside)
         addSubviews()
+        setupButtons()
         setConstraints()
     }
     
     private func addSubviews() {
         view.addSubview(userTitleView)
+        view.addSubview(editButton)
         view.addSubview(backgroundView)
+    }
+    
+    private func setupButtons() {
+        logoutButton.addTarget(
+            self,
+            action: #selector(logOutButtonTapped),
+            for: .touchUpInside)
+        editButton.addTarget(
+            self,
+            action: #selector(editButtonTapped),
+            for: .touchUpInside)
     }
     
     @objc private func logOutButtonTapped() {
@@ -84,6 +95,10 @@ final class ProfileViewController: UIViewController {
         dismiss(animated: true) { [weak self] in
             self?.showLoginScreen()
         }
+    }
+    
+    @objc private func editButtonTapped() {
+        
     }
     
     private func showLoginScreen() {
@@ -113,6 +128,13 @@ private extension ProfileViewController {
                 constant: 16),
             userTitleView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
+                constant: -16),
+            
+            editButton.topAnchor.constraint(
+                equalTo: userTitleView.topAnchor,
+                constant: 16),
+            editButton.trailingAnchor.constraint(
+                equalTo: userTitleView.trailingAnchor,
                 constant: -16),
             
             backgroundView.topAnchor.constraint(

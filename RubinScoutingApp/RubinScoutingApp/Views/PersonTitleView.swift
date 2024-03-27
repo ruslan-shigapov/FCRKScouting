@@ -12,14 +12,12 @@ final class PersonTitleView: UIView {
     // MARK: Views
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .lightGray
         return imageView
     }()
     
     private let fullNameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.Fonts.header
         label.textColor = .white
         label.numberOfLines = 2
@@ -61,7 +59,13 @@ final class PersonTitleView: UIView {
 // MARK: - Layout
 private extension PersonTitleView {
     
+    func prepareForAutoLayout(view: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     func setConstraints() {
+        subviews.forEach(prepareForAutoLayout)
+        
         NSLayoutConstraint.activate([
             photoImageView.topAnchor.constraint(
                 equalTo: topAnchor,

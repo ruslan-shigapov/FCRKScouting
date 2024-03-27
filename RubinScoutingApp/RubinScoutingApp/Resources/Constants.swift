@@ -10,6 +10,7 @@ import UIKit
 enum Constants {
     enum Images {
         static let logo = UIImage(named: "Logo")
+        static let edit = UIImage(systemName: "highlighter")
         
         enum TabBarIcon {
             static let updates = UIImage(systemName: "plus.circle")
