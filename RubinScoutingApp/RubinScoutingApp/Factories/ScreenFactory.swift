@@ -18,7 +18,7 @@ struct ScreenFactory {
     }
     
     static func getMainViewController(forUser user: User) -> UIViewController {
-        let viewModel = MainViewModel(user: user)
+        let viewModel = ProfileViewModel(user: user)
         return MainTabBarController(viewModel: viewModel)
     }
 }

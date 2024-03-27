@@ -1,5 +1,5 @@
 //
-//  MainViewModel.swift
+//  ProfileViewModel.swift
 //  RubinScoutingApp
 //
 //  Created by Ruslan Shigapov on 15.03.2024.
@@ -7,14 +7,21 @@
 
 import Foundation
 
-protocol MainViewModelProtocol {
+protocol ProfileViewModelProtocol {
     var fullName: String { get }
+    var access: String { get }
 }
 
-final class MainViewModel: MainViewModelProtocol {
+final class ProfileViewModel: ProfileViewModelProtocol {
     
     var fullName: String {
         user.fullName ?? ""
+    }
+    
+    var access: String {
+        user.isEditAllowed
+        ? Constants.Text.editIsAllowed
+        : Constants.Text.onlyRead
     }
     
     private var user: User

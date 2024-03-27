@@ -20,10 +20,10 @@
 		E47EF22C2B97394200C0727B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47EF22B2B97394200C0727B /* Constants.swift */; };
 		E47EF22F2B973C0300C0727B /* RoundedTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47EF22E2B973C0300C0727B /* RoundedTextFieldView.swift */; };
 		E495B9A72BA058570045595C /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E495B9A62BA058570045595C /* UserManager.swift */; };
-		E495B9AA2BA05C010045595C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E495B9A92BA05C010045595C /* MainViewController.swift */; };
+		E495B9AA2BA05C010045595C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E495B9A92BA05C010045595C /* ProfileViewController.swift */; };
 		E4A8BF702BB2DDE600D8B416 /* UpdatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A8BF6F2BB2DDE600D8B416 /* UpdatesViewController.swift */; };
 		E4A8BF722BB2DDFA00D8B416 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A8BF712BB2DDFA00D8B416 /* SearchViewController.swift */; };
-		E4D810EB2BA4505D0042C559 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D810EA2BA4505D0042C559 /* MainViewModel.swift */; };
+		E4D810EB2BA4505D0042C559 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D810EA2BA4505D0042C559 /* ProfileViewModel.swift */; };
 		E4D810ED2BA458080042C559 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D810EC2BA458080042C559 /* StorageManager.swift */; };
 		E4EB44152BA62F590080ED9E /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EB44142BA62F590080ED9E /* MainTabBarController.swift */; };
 /* End PBXBuildFile section */
@@ -45,10 +45,10 @@
 		E47EF22B2B97394200C0727B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E47EF22E2B973C0300C0727B /* RoundedTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextFieldView.swift; sourceTree = "<group>"; };
 		E495B9A62BA058570045595C /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		E495B9A92BA05C010045595C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		E495B9A92BA05C010045595C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E4A8BF6F2BB2DDE600D8B416 /* UpdatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesViewController.swift; sourceTree = "<group>"; };
 		E4A8BF712BB2DDFA00D8B416 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		E4D810EA2BA4505D0042C559 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		E4D810EA2BA4505D0042C559 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		E4D810EC2BA458080042C559 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		E4EB44142BA62F590080ED9E /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -198,8 +198,8 @@
 		E4EB44162BA630290080ED9E /* ProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
-				E495B9A92BA05C010045595C /* MainViewController.swift */,
-				E4D810EA2BA4505D0042C559 /* MainViewModel.swift */,
+				E495B9A92BA05C010045595C /* ProfileViewController.swift */,
+				E4D810EA2BA4505D0042C559 /* ProfileViewModel.swift */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";
@@ -281,7 +281,7 @@
 				E47233102B95D36D00D27530 /* LoginViewController.swift in Sources */,
 				E472330C2B95D36D00D27530 /* AppDelegate.swift in Sources */,
 				E45EA9FE2BA32C1000EA2901 /* PrimaryButton.swift in Sources */,
-				E4D810EB2BA4505D0042C559 /* MainViewModel.swift in Sources */,
+				E4D810EB2BA4505D0042C559 /* ProfileViewModel.swift in Sources */,
 				E47233162B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld in Sources */,
 				E45EA9FC2BA3214A00EA2901 /* PersonTitleView.swift in Sources */,
 				E432B6A22B98611300CF934E /* LoginViewModel.swift in Sources */,
@@ -290,7 +290,7 @@
 				E4A8BF702BB2DDE600D8B416 /* UpdatesViewController.swift in Sources */,
 				E4D810ED2BA458080042C559 /* StorageManager.swift in Sources */,
 				E45EA9FA2BA31B2600EA2901 /* ScreenFactory.swift in Sources */,
-				E495B9AA2BA05C010045595C /* MainViewController.swift in Sources */,
+				E495B9AA2BA05C010045595C /* ProfileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

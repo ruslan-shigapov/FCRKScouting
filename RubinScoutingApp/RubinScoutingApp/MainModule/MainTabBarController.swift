@@ -9,9 +9,9 @@ import UIKit
 
 final class MainTabBarController: UITabBarController {
     
-    private let viewModel: MainViewModelProtocol
+    private let viewModel: ProfileViewModelProtocol
     
-    init(viewModel: MainViewModelProtocol) {
+    init(viewModel: ProfileViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -44,7 +44,7 @@ final class MainTabBarController: UITabBarController {
                 withTitle: Constants.Text.ScreenTitle.search,
                 andTabBarIcon: Constants.Images.TabBarIcon.search),
             generateNavigationFlowFor(
-                viewController: MainViewController(viewModel: viewModel),
+                viewController: ProfileViewController(viewModel: viewModel),
                 withTitle: Constants.Text.ScreenTitle.profile,
                 andTabBarIcon: Constants.Images.TabBarIcon.profile)
         ]
