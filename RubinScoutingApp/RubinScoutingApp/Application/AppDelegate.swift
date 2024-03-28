@@ -19,8 +19,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         ]?
     ) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = ScreenFactory.getRootViewController()
         window?.makeKeyAndVisible()
+        ScreenFactory.setRootViewController()
         return true
     }
 }

@@ -34,7 +34,7 @@ final class ProfileViewController: UIViewController {
     }()
     
     private let logoutButton = PrimaryButton(
-        title: Constants.Text.ButtonTitle.exit)
+        title: Constants.Text.ButtonTitles.exit)
     
     
     private lazy var backgroundView: UIView = {
@@ -67,10 +67,10 @@ final class ProfileViewController: UIViewController {
     // MARK: Private Methods
     private func setupUI() {
         view.backgroundColor = .systemBackground
-        userTitleView.configure(withFullName: viewModel.fullName)
         addSubviews()
         setupButtons()
         setConstraints()
+        userTitleView.configure(withFullName: viewModel.fullName)
     }
     
     private func addSubviews() {
@@ -91,20 +91,66 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc private func logOutButtonTapped() {
-        StorageManager.shared.deleteUser()
-        dismiss(animated: true) { [weak self] in
-            self?.showLoginScreen()
+        showExitAlert { [weak self] in
+            self?.viewModel.logOut()
         }
     }
     
     @objc private func editButtonTapped() {
-        
+        showEditAlert(withTitle: Constants.Text.edit)
+    }
+}
+
+// MARK: - Alert Controllers
+private extension ProfileViewController {
+    
+    func showEditAlert(withTitle title: String) {
+        let alertController = UIAlertController(
+            title: title,
+            message: nil,
+            preferredStyle: .actionSheet)
+        alertController.setValue(
+            NSAttributedString(
+                string: title,
+                attributes: [
+                    .font: UIFont.systemFont(ofSize: 18, weight: .medium)
+                ]),
+            forKey: "attributedTitle")
+        let editPhoto = UIAlertAction(
+            title: "Фото профиля",
+            style: .default)
+        let editFullName = UIAlertAction(
+            title: "Имя и фамилию",
+            style: .default)
+        let cancelAction = UIAlertAction(
+            title: "Отмена",
+            style: .cancel)
+        alertController.addAction(editPhoto)
+        alertController.addAction(editFullName)
+        alertController.addAction(cancelAction)
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alertController, animated: true)
+        }
     }
     
-    private func showLoginScreen() {
-        let loginVC = ScreenFactory.getLoginViewController()
-        loginVC.modalPresentationStyle = .fullScreen
-        present(loginVC, animated: true)
+    func showExitAlert(completion: @escaping () -> Void) {
+        let alertController = UIAlertController(
+            title: Constants.Text.Alerts.exit.title,
+            message: Constants.Text.Alerts.exit.message,
+            preferredStyle: .alert)
+        let allowAction = UIAlertAction(
+            title: Constants.Text.ButtonTitles.yes,
+            style: .default) { _ in
+                completion()
+            }
+        let cancelAction = UIAlertAction(
+            title: Constants.Text.ButtonTitles.no,
+            style: .cancel)
+        alertController.addAction(allowAction)
+        alertController.addAction(cancelAction)
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alertController, animated: true)
+        }
     }
 }
 

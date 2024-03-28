@@ -10,6 +10,7 @@ import Foundation
 protocol ProfileViewModelProtocol {
     var fullName: String { get }
     var access: String { get }
+    func logOut()
 }
 
 final class ProfileViewModel: ProfileViewModelProtocol {
@@ -28,5 +29,10 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     
     required init(user: User) {
         self.user = user
+    }
+    
+    func logOut() {
+        UserManager.shared.deleteUser()
+        ScreenFactory.setRootViewController()
     }
 }

@@ -38,6 +38,11 @@ final class UserManager {
         getUser()
     }
     
+    func deleteUser() {
+        StorageManager.shared.deleteUsers()
+        user = nil
+    }
+    
     private func getUser() {
         StorageManager.shared.fetchUser { user = $0 }
     }

@@ -8,12 +8,14 @@
 import UIKit
 
 struct ScreenFactory {
-    
-    static func getRootViewController() -> UIViewController {
+        
+    static func setRootViewController() {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
         if let currentUser = UserManager.shared.user {
-            return getMainViewController(forUser: currentUser)
+            appDelegate?.window?.rootViewController = getMainViewController(
+                forUser: currentUser)
         } else {
-            return getLoginViewController()
+            appDelegate?.window?.rootViewController = getLoginViewController()
         }
     }
     

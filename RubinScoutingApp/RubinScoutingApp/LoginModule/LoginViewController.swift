@@ -24,11 +24,11 @@ final class LoginViewController: UIViewController {
     }()
     
     private let fullNameTextField = RoundedTextFieldView(
-        placeholder: Constants.Text.Placeholder.fullName,
+        placeholder: Constants.Text.Placeholders.fullName,
         type: .name)
     
     private let accessKeyTextField = RoundedTextFieldView(
-        placeholder: Constants.Text.Placeholder.accessKey,
+        placeholder: Constants.Text.Placeholders.accessKey,
         type: .key,
         tag: 2)
     
@@ -52,7 +52,7 @@ final class LoginViewController: UIViewController {
     }()
     
     private let loginButton = PrimaryButton(
-        title: Constants.Text.ButtonTitle.enter)
+        title: Constants.Text.ButtonTitles.enter)
     
     // MARK: Initialize
     init(viewModel: LoginViewModelProtocol) {
@@ -109,7 +109,7 @@ final class LoginViewController: UIViewController {
             target: nil,
             action: nil)
         let toolbarLoginButton = UIBarButtonItem(
-            title: Constants.Text.ButtonTitle.enter,
+            title: Constants.Text.ButtonTitles.enter,
             style: .plain,
             target: self,
             action: #selector(loginButtonTapped))
@@ -128,23 +128,23 @@ final class LoginViewController: UIViewController {
     private func setAlerts() {
         viewModel.wasAnyTextFieldEmpty = { [weak self] in
             self?.showAlert(
-                withTitle: Constants.Text.Alert.emptyTextField.title,
-                andMessage: Constants.Text.Alert.emptyTextField.message)
+                withTitle: Constants.Text.Alerts.emptyTextField.title,
+                andMessage: Constants.Text.Alerts.emptyTextField.message)
         }
         viewModel.wasFullNameIncorrect = { [weak self] in
             self?.showAlert(
-                withTitle: Constants.Text.Alert.incorrectFullName.title,
-                andMessage: Constants.Text.Alert.incorrectFullName.message)
+                withTitle: Constants.Text.Alerts.incorrectFullName.title,
+                andMessage: Constants.Text.Alerts.incorrectFullName.message)
         }
         viewModel.wasAccessKeyWrong = { [weak self] in
             self?.showAlert(
-                withTitle: Constants.Text.Alert.wrongAccessKey.title,
-                andMessage: Constants.Text.Alert.wrongAccessKey.message)
+                withTitle: Constants.Text.Alerts.wrongAccessKey.title,
+                andMessage: Constants.Text.Alerts.wrongAccessKey.message)
         }
         viewModel.didReceiveDataError = { [weak self] in
             self?.showAlert(
-                withTitle: Constants.Text.Alert.wrongSomething.title,
-                andMessage: Constants.Text.Alert.wrongSomething.message)
+                withTitle: Constants.Text.Alerts.wrongSomething.title,
+                andMessage: Constants.Text.Alerts.wrongSomething.message)
         }
     }
     
@@ -183,7 +183,7 @@ extension LoginViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - Alert Controller
+// MARK: - Alert Controllers
 private extension LoginViewController {
     
     func showAlert(withTitle title: String, andMessage message: String) {
@@ -192,7 +192,7 @@ private extension LoginViewController {
             message: message,
             preferredStyle: .alert)
         let alertAction = UIAlertAction(
-            title: Constants.Text.ButtonTitle.ok,
+            title: Constants.Text.ButtonTitles.ok,
             style: .cancel)
         alertController.addAction(alertAction)
         DispatchQueue.main.async { [weak self] in

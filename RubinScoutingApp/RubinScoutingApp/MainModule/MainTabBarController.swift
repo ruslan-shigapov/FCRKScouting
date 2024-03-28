@@ -37,16 +37,16 @@ final class MainTabBarController: UITabBarController {
         viewControllers = [
             generateNavigationFlowFor(
                 viewController: UpdatesViewController(),
-                withTitle: Constants.Text.ScreenTitle.updates,
-                andTabBarIcon: Constants.Images.TabBarIcon.updates),
+                withTitle: Constants.Text.ScreenTitles.updates,
+                andTabBarIcon: Constants.Images.TabBarIcons.updates),
             generateNavigationFlowFor(
                 viewController: SearchViewController(),
-                withTitle: Constants.Text.ScreenTitle.search,
-                andTabBarIcon: Constants.Images.TabBarIcon.search),
+                withTitle: Constants.Text.ScreenTitles.search,
+                andTabBarIcon: Constants.Images.TabBarIcons.search),
             generateNavigationFlowFor(
                 viewController: ProfileViewController(viewModel: viewModel),
-                withTitle: Constants.Text.ScreenTitle.profile,
-                andTabBarIcon: Constants.Images.TabBarIcon.profile)
+                withTitle: Constants.Text.ScreenTitles.profile,
+                andTabBarIcon: Constants.Images.TabBarIcons.profile)
         ]
     }
     

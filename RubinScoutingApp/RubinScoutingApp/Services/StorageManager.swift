@@ -40,7 +40,7 @@ final class StorageManager {
         completion(user)
     }
         
-    func deleteUser() {
+    func deleteUsers() {
         let fetchRequest = User.fetchRequest()
         do {
             let users = try viewContext.fetch(fetchRequest)

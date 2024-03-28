@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E432B6A22B98611300CF934E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E432B6A12B98611300CF934E /* LoginViewModel.swift */; };
+		E45D28A42BB5758300228B33 /* NavigationBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45D28A32BB5758300228B33 /* NavigationBarButton.swift */; };
 		E45EA9FA2BA31B2600EA2901 /* ScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EA9F92BA31B2600EA2901 /* ScreenFactory.swift */; };
 		E45EA9FC2BA3214A00EA2901 /* PersonTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EA9FB2BA3214A00EA2901 /* PersonTitleView.swift */; };
 		E45EA9FE2BA32C1000EA2901 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EA9FD2BA32C1000EA2901 /* PrimaryButton.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		E432B6A12B98611300CF934E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		E45D28A32BB5758300228B33 /* NavigationBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarButton.swift; sourceTree = "<group>"; };
 		E45EA9F92BA31B2600EA2901 /* ScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenFactory.swift; sourceTree = "<group>"; };
 		E45EA9FB2BA3214A00EA2901 /* PersonTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonTitleView.swift; sourceTree = "<group>"; };
 		E45EA9FD2BA32C1000EA2901 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				E45EA9FD2BA32C1000EA2901 /* PrimaryButton.swift */,
 				E45EA9FB2BA3214A00EA2901 /* PersonTitleView.swift */,
 				E49802252BB43B8200630D9F /* EditButton.swift */,
+				E45D28A32BB5758300228B33 /* NavigationBarButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -175,7 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				E4EB44142BA62F590080ED9E /* MainTabBarController.swift */,
-				E4A8BF6E2BB2DD9D00D8B416 /* UpdatesScreen */,
+				E4A8BF6E2BB2DD9D00D8B416 /* RecentsScreen */,
 				E4A8BF6D2BB2DD5500D8B416 /* SearchScreen */,
 				E4EB44162BA630290080ED9E /* ProfileScreen */,
 			);
@@ -190,12 +193,12 @@
 			path = SearchScreen;
 			sourceTree = "<group>";
 		};
-		E4A8BF6E2BB2DD9D00D8B416 /* UpdatesScreen */ = {
+		E4A8BF6E2BB2DD9D00D8B416 /* RecentsScreen */ = {
 			isa = PBXGroup;
 			children = (
 				E4A8BF6F2BB2DDE600D8B416 /* UpdatesViewController.swift */,
 			);
-			path = UpdatesScreen;
+			path = RecentsScreen;
 			sourceTree = "<group>";
 		};
 		E4EB44162BA630290080ED9E /* ProfileScreen */ = {
@@ -285,6 +288,7 @@
 				E472330C2B95D36D00D27530 /* AppDelegate.swift in Sources */,
 				E45EA9FE2BA32C1000EA2901 /* PrimaryButton.swift in Sources */,
 				E4D810EB2BA4505D0042C559 /* ProfileViewModel.swift in Sources */,
+				E45D28A42BB5758300228B33 /* NavigationBarButton.swift in Sources */,
 				E47233162B95D36D00D27530 /* RubinScoutingApp.xcdatamodeld in Sources */,
 				E45EA9FC2BA3214A00EA2901 /* PersonTitleView.swift in Sources */,
 				E432B6A22B98611300CF934E /* LoginViewModel.swift in Sources */,
