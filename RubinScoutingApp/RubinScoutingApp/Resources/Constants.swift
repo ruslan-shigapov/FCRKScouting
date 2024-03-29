@@ -57,6 +57,7 @@ enum Constants {
             static let updates = "Обновления"
             static let search = "Поиск"
             static let profile = "Профиль"
+            static let addPlayer = "Добавить игрока"
         }
         enum Alerts {
             static let emptyTextField = (

@@ -28,4 +28,8 @@ struct ScreenFactory {
         let viewModel = LoginViewModel()
         return LoginViewController(viewModel: viewModel)
     }
+    
+    static func getAddPlayerViewController() -> UIViewController {
+        AddPlayerViewController()
+    }
 }

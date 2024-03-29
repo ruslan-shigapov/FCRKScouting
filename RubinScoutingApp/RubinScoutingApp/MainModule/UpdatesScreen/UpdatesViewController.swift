@@ -44,13 +44,12 @@ final class UpdatesViewController: UIViewController {
     }
     
     @objc private func addPlayerButtonTapped() {
-        showAddPlayerAlert {
-            
-        }
+        let addPlayerVC = ScreenFactory.getAddPlayerViewController()
+        present(addPlayerVC, animated: true)
     }
 }
 
-// MARK: - Alert Controllers
+// MARK: - Alert Controllers (NOT USED)
 private extension UpdatesViewController {
     
     func showAddPlayerAlert(completion: @escaping () -> Void) {

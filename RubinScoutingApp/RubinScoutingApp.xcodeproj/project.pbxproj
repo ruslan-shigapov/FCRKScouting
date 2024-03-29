@@ -26,6 +26,8 @@
 		E4A8BF702BB2DDE600D8B416 /* UpdatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A8BF6F2BB2DDE600D8B416 /* UpdatesViewController.swift */; };
 		E4A8BF722BB2DDFA00D8B416 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A8BF712BB2DDFA00D8B416 /* SearchViewController.swift */; };
 		E4C7D0802BB6BF4F00025874 /* FilterSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C7D07F2BB6BF4F00025874 /* FilterSegmentedControl.swift */; };
+		E4C7D0822BB6C49C00025874 /* AddPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C7D0812BB6C49C00025874 /* AddPlayerViewController.swift */; };
+		E4C7D0842BB6C5D700025874 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C7D0832BB6C5D700025874 /* PlayerManager.swift */; };
 		E4D810EB2BA4505D0042C559 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D810EA2BA4505D0042C559 /* ProfileViewModel.swift */; };
 		E4D810ED2BA458080042C559 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D810EC2BA458080042C559 /* StorageManager.swift */; };
 		E4EB44152BA62F590080ED9E /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EB44142BA62F590080ED9E /* MainTabBarController.swift */; };
@@ -54,6 +56,8 @@
 		E4A8BF6F2BB2DDE600D8B416 /* UpdatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesViewController.swift; sourceTree = "<group>"; };
 		E4A8BF712BB2DDFA00D8B416 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E4C7D07F2BB6BF4F00025874 /* FilterSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSegmentedControl.swift; sourceTree = "<group>"; };
+		E4C7D0812BB6C49C00025874 /* AddPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerViewController.swift; sourceTree = "<group>"; };
+		E4C7D0832BB6C5D700025874 /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
 		E4D810EA2BA4505D0042C559 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		E4D810EC2BA458080042C559 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		E4EB44142BA62F590080ED9E /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				E495B9A62BA058570045595C /* UserManager.swift */,
+				E4C7D0832BB6C5D700025874 /* PlayerManager.swift */,
 				E4D810EC2BA458080042C559 /* StorageManager.swift */,
 			);
 			path = Services;
@@ -181,7 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				E4EB44142BA62F590080ED9E /* MainTabBarController.swift */,
-				E4A8BF6E2BB2DD9D00D8B416 /* RecentsScreen */,
+				E4A8BF6E2BB2DD9D00D8B416 /* UpdatesScreen */,
 				E4A8BF6D2BB2DD5500D8B416 /* SearchScreen */,
 				E4EB44162BA630290080ED9E /* ProfileScreen */,
 			);
@@ -196,12 +201,13 @@
 			path = SearchScreen;
 			sourceTree = "<group>";
 		};
-		E4A8BF6E2BB2DD9D00D8B416 /* RecentsScreen */ = {
+		E4A8BF6E2BB2DD9D00D8B416 /* UpdatesScreen */ = {
 			isa = PBXGroup;
 			children = (
 				E4A8BF6F2BB2DDE600D8B416 /* UpdatesViewController.swift */,
+				E4C7D0812BB6C49C00025874 /* AddPlayerViewController.swift */,
 			);
-			path = RecentsScreen;
+			path = UpdatesScreen;
 			sourceTree = "<group>";
 		};
 		E4EB44162BA630290080ED9E /* ProfileScreen */ = {
@@ -285,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E495B9A72BA058570045595C /* UserManager.swift in Sources */,
+				E4C7D0822BB6C49C00025874 /* AddPlayerViewController.swift in Sources */,
 				E47EF22C2B97394200C0727B /* Constants.swift in Sources */,
 				E47EF22F2B973C0300C0727B /* RoundedTextFieldView.swift in Sources */,
 				E47233102B95D36D00D27530 /* LoginViewController.swift in Sources */,
@@ -300,6 +307,7 @@
 				E4EB44152BA62F590080ED9E /* MainTabBarController.swift in Sources */,
 				E4A8BF702BB2DDE600D8B416 /* UpdatesViewController.swift in Sources */,
 				E4D810ED2BA458080042C559 /* StorageManager.swift in Sources */,
+				E4C7D0842BB6C5D700025874 /* PlayerManager.swift in Sources */,
 				E49802262BB43B8200630D9F /* EditButton.swift in Sources */,
 				E45EA9FA2BA31B2600EA2901 /* ScreenFactory.swift in Sources */,
 				E495B9AA2BA05C010045595C /* ProfileViewController.swift in Sources */,

@@ -5,8 +5,6 @@
 //  Created by Ruslan Shigapov on 12.03.2024.
 //
 
-import Foundation
-
 private enum AccessType: String {
     case readOnly = "332211"
     case editable = "220888"
