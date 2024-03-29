@@ -22,19 +22,25 @@ final class UpdatesViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         view.addSubview(emptyScreenLabel)
-        setupNavigationBarButton()
+        setupNavigationBarItems()
         setConstraints()
     }
     
-    private func setupNavigationBarButton() {
+    private func setupNavigationBarItems() {
         let addPlayerButton = NavigationBarButton(
             image: Constants.Images.ButtonImages.addPlayer)
         addPlayerButton.addTarget(
             self,
             action: #selector(addPlayerButtonTapped),
             for: .touchUpInside)
-        let barButtonItem = UIBarButtonItem(customView: addPlayerButton)
-        navigationItem.rightBarButtonItem = barButtonItem
+        let rightBarButtonItem = UIBarButtonItem(customView: addPlayerButton)
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+        
+        let timeSegmentedControl = FilterSegmentedControl(
+            items: Constants.Text.SegmentedControlItems.timeSegments)
+        let leftBarButtonItem = UIBarButtonItem(
+            customView: timeSegmentedControl)
+        navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
     @objc private func addPlayerButtonTapped() {

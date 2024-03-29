@@ -43,6 +43,12 @@ final class SearchViewController: UIViewController {
             for: .touchUpInside)
         let barButtonItem = UIBarButtonItem(customView: filtersButton)
         navigationItem.rightBarButtonItem = barButtonItem
+        
+        let leagueSegmentedControl = FilterSegmentedControl(
+            items: Constants.Text.SegmentedControlItems.leagueSegments)
+        let leftBarButtonItem = UIBarButtonItem(
+            customView: leagueSegmentedControl)
+        navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
     @objc private func changeFiltersButtonTapped() {

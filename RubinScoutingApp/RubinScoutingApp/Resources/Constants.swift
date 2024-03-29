@@ -16,7 +16,7 @@ enum Constants {
             static let edit = UIImage(systemName: "highlighter")
             static let addPlayer = UIImage(systemName: "person.badge.plus")
             static let filters = UIImage(
-                systemName: "slider.horizontal.2.square")
+                systemName: "slider.horizontal.2.square.on.square")
         }
         enum TabBarIcons {
             static let updates = UIImage(systemName: "plus.circle")
@@ -74,6 +74,10 @@ enum Constants {
             static let exit = (
                 title: "Выход",
                 message: "Покинуть аккаунт?")
+        }
+        enum SegmentedControlItems {
+            static let timeSegments = ["сегодня", "неделя", "месяц"]
+            static let leagueSegments = ["все", "ЮФЛ-1", "ЮФЛ-2", "ЮФЛ-3"]
         }
     }
 }
