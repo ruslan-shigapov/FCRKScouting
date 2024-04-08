@@ -1,5 +1,5 @@
 //
-//  AddPlayerViewController.swift
+//  PlayerAddingViewController.swift
 //  RubinScoutingApp
 //
 //  Created by Ruslan Shigapov on 29.03.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AddPlayerViewController: UIViewController {
+final class PlayerAddingViewController: UIViewController {
     
     // MARK: Views
     private let titleLabel: UILabel = {
@@ -69,7 +69,7 @@ final class AddPlayerViewController: UIViewController {
 }
 
 // MARK: - Alert Controllers
-private extension AddPlayerViewController {
+private extension PlayerAddingViewController {
     
     func showCancelAlert(
         withTitle title: String,
@@ -103,7 +103,7 @@ private extension AddPlayerViewController {
 }
 
 // MARK: - Layout
-private extension AddPlayerViewController {
+private extension PlayerAddingViewController {
     
     func prepareForAutoLayout(view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false

@@ -23,7 +23,7 @@
 		E4BB48742BC3D53E00F91513 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB48672BC3D53E00F91513 /* ProfileViewModel.swift */; };
 		E4BB48752BC3D53E00F91513 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB48692BC3D53E00F91513 /* FiltersViewController.swift */; };
 		E4BB48762BC3D53E00F91513 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB486B2BC3D53E00F91513 /* SearchViewController.swift */; };
-		E4BB48772BC3D53E00F91513 /* AddPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB486D2BC3D53E00F91513 /* AddPlayerViewController.swift */; };
+		E4BB48772BC3D53E00F91513 /* PlayerAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB486D2BC3D53E00F91513 /* PlayerAddingViewController.swift */; };
 		E4BB48782BC3D53E00F91513 /* UpdatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */; };
 		E4BB48792BC3D53E00F91513 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB48712BC3D53E00F91513 /* MainTabBarController.swift */; };
 		E4BB48822BC3D54600F91513 /* EditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB487A2BC3D54600F91513 /* EditButton.swift */; };
@@ -54,7 +54,7 @@
 		E4BB48672BC3D53E00F91513 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		E4BB48692BC3D53E00F91513 /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		E4BB486B2BC3D53E00F91513 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		E4BB486D2BC3D53E00F91513 /* AddPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerViewController.swift; sourceTree = "<group>"; };
+		E4BB486D2BC3D53E00F91513 /* PlayerAddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAddingViewController.swift; sourceTree = "<group>"; };
 		E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatesViewController.swift; sourceTree = "<group>"; };
 		E4BB48712BC3D53E00F91513 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E4BB487A2BC3D54600F91513 /* EditButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditButton.swift; sourceTree = "<group>"; };
@@ -101,8 +101,8 @@
 				E4BB48812BC3D54600F91513 /* Views */,
 				E4BB48632BC3D53700F91513 /* LoginModule */,
 				E4BB48722BC3D53E00F91513 /* MainModule */,
-				E4BB48572BC3D33400F91513 /* Services */,
 				E4BB485F2BC3D51200F91513 /* Factories */,
+				E4BB48572BC3D33400F91513 /* Services */,
 				E4BB484C2BC3D23300F91513 /* Resources */,
 			);
 			path = FCRKScouting;
@@ -197,18 +197,18 @@
 			path = SearchScreen;
 			sourceTree = "<group>";
 		};
-		E4BB486E2BC3D53E00F91513 /* AddPlayerScreen */ = {
+		E4BB486E2BC3D53E00F91513 /* PlayerAddingScreen */ = {
 			isa = PBXGroup;
 			children = (
-				E4BB486D2BC3D53E00F91513 /* AddPlayerViewController.swift */,
+				E4BB486D2BC3D53E00F91513 /* PlayerAddingViewController.swift */,
 			);
-			path = AddPlayerScreen;
+			path = PlayerAddingScreen;
 			sourceTree = "<group>";
 		};
 		E4BB48702BC3D53E00F91513 /* UpdatesScreen */ = {
 			isa = PBXGroup;
 			children = (
-				E4BB486E2BC3D53E00F91513 /* AddPlayerScreen */,
+				E4BB486E2BC3D53E00F91513 /* PlayerAddingScreen */,
 				E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */,
 			);
 			path = UpdatesScreen;
@@ -217,9 +217,9 @@
 		E4BB48722BC3D53E00F91513 /* MainModule */ = {
 			isa = PBXGroup;
 			children = (
-				E4BB48682BC3D53E00F91513 /* ProfileScreen */,
-				E4BB486C2BC3D53E00F91513 /* SearchScreen */,
 				E4BB48702BC3D53E00F91513 /* UpdatesScreen */,
+				E4BB486C2BC3D53E00F91513 /* SearchScreen */,
+				E4BB48682BC3D53E00F91513 /* ProfileScreen */,
 				E4BB48712BC3D53E00F91513 /* MainTabBarController.swift */,
 			);
 			path = MainModule;
@@ -311,7 +311,7 @@
 			files = (
 				E4BB48642BC3D53700F91513 /* LoginViewController.swift in Sources */,
 				E4BB48822BC3D54600F91513 /* EditButton.swift in Sources */,
-				E4BB48772BC3D53E00F91513 /* AddPlayerViewController.swift in Sources */,
+				E4BB48772BC3D53E00F91513 /* PlayerAddingViewController.swift in Sources */,
 				E4BB48582BC3D33400F91513 /* PlayerManager.swift in Sources */,
 				E4BB485D2BC3D4A800F91513 /* FCRKScouting.xcdatamodeld in Sources */,
 				E4BB485A2BC3D33400F91513 /* UserManager.swift in Sources */,

@@ -44,7 +44,7 @@ final class UpdatesViewController: UIViewController {
     }
     
     @objc private func addPlayerButtonTapped() {
-        let addPlayerVC = ScreenFactory.getAddPlayerViewController()
+        let addPlayerVC = ScreenFactory.getPlayerAddingViewController()
         present(addPlayerVC, animated: true)
     }
 }
