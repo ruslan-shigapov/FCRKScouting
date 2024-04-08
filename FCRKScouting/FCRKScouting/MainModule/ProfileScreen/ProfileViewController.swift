@@ -97,7 +97,7 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc private func editButtonTapped() {
-        showEditAlert(withTitle: Constants.Text.edit)
+        showEditAlert(withTitle: Constants.Text.ActionSheets.edit)
     }
 }
 
@@ -123,7 +123,7 @@ private extension ProfileViewController {
             title: "Имя и фамилию",
             style: .default)
         let cancelAction = UIAlertAction(
-            title: "Отмена",
+            title: Constants.Text.ButtonTitles.cancel,
             style: .cancel)
         alertController.addAction(editPhoto)
         alertController.addAction(editFullName)

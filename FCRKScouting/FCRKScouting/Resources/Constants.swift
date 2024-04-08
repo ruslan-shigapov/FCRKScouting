@@ -11,9 +11,10 @@ enum Constants {
     // MARK: Images
     enum Images {
         static let logo = UIImage(named: "Logo")
+        static let photoPlaceholder = UIImage(systemName: "person.circle")
         
         enum ButtonImages {
-            static let edit = UIImage(systemName: "highlighter")
+            static let edit = UIImage(systemName: "square.and.pencil")
             static let addPlayer = UIImage(systemName: "person.badge.plus")
             static let filters = UIImage(
                 systemName: "slider.horizontal.2.square.on.square")
@@ -39,8 +40,6 @@ enum Constants {
         static let access = "Доступ:"
         static let onlyRead = "Только чтение"
         static let editIsAllowed = "Возможно редактирование"
-        static let edit = "Изменить"
-        static let addNewPlayer = "Добавить нового игрока?"
         
         enum Placeholders {
             static let fullName = "Имя Фамилия"
@@ -50,8 +49,11 @@ enum Constants {
             static let enter = "Войти"
             static let exit = "Выйти"
             static let ok = "OK"
+            static let cancel = "Отмена"
             static let yes = "Да"
             static let no = "Нет"
+            static let cancelAdding = "Отменить добавление"
+            static let continueAdding = "Продолжить добавление"
         }
         enum ScreenTitles {
             static let updates = "Обновления"
@@ -75,6 +77,12 @@ enum Constants {
             static let exit = (
                 title: "Выход",
                 message: "Покинуть аккаунт?")
+        }
+        enum ActionSheets {
+            static let edit = "Изменить"
+            static let cancelAdding = """
+            Вы уверены, что хотите отменить добавление нового игрока?
+            """
         }
         enum SegmentedControlItems {
             static let timeSegments = ["сегодня", "неделя", "месяц"]

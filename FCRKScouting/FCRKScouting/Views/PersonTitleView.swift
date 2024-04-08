@@ -10,11 +10,7 @@ import UIKit
 final class PersonTitleView: UIView {
     
     // MARK: Views
-    private let photoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray
-        return imageView
-    }()
+    private let photoImageView = PhotoImageView()
     
     private let fullNameLabel: UILabel = {
         let label = UILabel()
@@ -76,8 +72,6 @@ private extension PersonTitleView {
             photoImageView.bottomAnchor.constraint(
                 equalTo: bottomAnchor,
                 constant: -24),
-            photoImageView.heightAnchor.constraint(equalToConstant: 100),
-            photoImageView.widthAnchor.constraint(equalToConstant: 100),
             
             fullNameLabel.leadingAnchor.constraint(
                 equalTo: photoImageView.trailingAnchor,

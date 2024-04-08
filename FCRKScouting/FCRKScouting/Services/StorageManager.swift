@@ -12,7 +12,7 @@ final class StorageManager {
     static let shared = StorageManager()
     
     private let persistentContainer: NSPersistentCloudKitContainer = {
-        let container = NSPersistentCloudKitContainer(name: "RubinScoutingApp")
+        let container = NSPersistentCloudKitContainer(name: "FCRKScouting")
         container.loadPersistentStores { _, error in
             if let error {
                 fatalError("Data loading error: \(error)")

@@ -1,15 +1,15 @@
 //
 //  AppDelegate.swift
-//  RubinScoutingApp
+//  FCRKScouting
 //
-//  Created by Ruslan Shigapov on 04.03.2024.
+//  Created by Ruslan Shigapov on 08.04.2024.
 //
 
 import UIKit
 
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+
     var window: UIWindow?
 
     func application(
@@ -24,3 +24,4 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
+

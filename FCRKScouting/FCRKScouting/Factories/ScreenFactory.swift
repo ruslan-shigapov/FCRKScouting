@@ -32,4 +32,8 @@ struct ScreenFactory {
     static func getAddPlayerViewController() -> UIViewController {
         AddPlayerViewController()
     }
+    
+    static func getFiltersViewController() -> UIViewController {
+        FiltersViewController()
+    }
 }

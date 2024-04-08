@@ -44,6 +44,8 @@ final class SearchViewController: UIViewController {
         let barButtonItem = UIBarButtonItem(customView: filtersButton)
         navigationItem.rightBarButtonItem = barButtonItem
         
+        // TODO: add status view
+        
         let leagueSegmentedControl = FilterSegmentedControl(
             items: Constants.Text.SegmentedControlItems.leagueSegments)
         let leftBarButtonItem = UIBarButtonItem(
@@ -52,16 +54,8 @@ final class SearchViewController: UIViewController {
     }
     
     @objc private func changeFiltersButtonTapped() {
-        let temporaryVC = UIViewController()
-        temporaryVC.view.backgroundColor = .lightGray
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Здесь будут фильтры поиска"
-        label.textColor = .white
-        temporaryVC.view.addSubview(label)
-        label.centerXAnchor.constraint(equalTo: temporaryVC.view.centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: temporaryVC.view.centerYAnchor).isActive = true
-        present(temporaryVC, animated: true)
+        let filtersVC = ScreenFactory.getFiltersViewController()
+        present(filtersVC, animated: true)
     }
 }
 

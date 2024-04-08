@@ -49,30 +49,6 @@ final class UpdatesViewController: UIViewController {
     }
 }
 
-// MARK: - Alert Controllers (NOT USED)
-private extension UpdatesViewController {
-    
-    func showAddPlayerAlert(completion: @escaping () -> Void) {
-        let alertController = UIAlertController(
-            title: Constants.Text.addNewPlayer,
-            message: nil,
-            preferredStyle: .alert)
-        let allowAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.yes,
-            style: .default) { _ in
-                completion()
-            }
-        let cancelAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.no,
-            style: .cancel)
-        alertController.addAction(allowAction)
-        alertController.addAction(cancelAction)
-        DispatchQueue.main.async { [weak self] in
-            self?.present(alertController, animated: true)
-        }
-    }
-}
-
 // MARK: - Layout
 private extension UpdatesViewController {
     
