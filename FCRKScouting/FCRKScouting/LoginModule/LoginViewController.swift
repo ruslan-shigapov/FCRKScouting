@@ -69,15 +69,15 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setAlerts()
     }
     
     // MARK: Private Methods
     private func setupUI() {
         view.backgroundColor = .accent
         addSubviews()
-        setDelegates()
+        setupAlerts()
         setupButtons()
+        setDelegates()
         setConstraints()
     }
     
@@ -89,11 +89,30 @@ final class LoginViewController: UIViewController {
         view.addSubview(loginButton)
     }
     
-    private func setDelegates() {
-        textFieldStackView.subviews.forEach {
-            if let textFieldView = $0 as? RoundedTextFieldView {
-                textFieldView.setDelegate(self)
-            }
+    private func setupAlerts() {
+        viewModel.wasAnyTextFieldEmpty = { [weak self] in
+            let alertController = AlertFactory.getAlert(
+                withTitle: Constants.Text.Alerts.emptyTextField.title,
+                andMessage: Constants.Text.Alerts.emptyTextField.message)
+            self?.present(alertController, animated: true)
+        }
+        viewModel.wasFullNameIncorrect = { [weak self] in
+            let alertController = AlertFactory.getAlert(
+                withTitle: Constants.Text.Alerts.incorrectFullName.title,
+                andMessage: Constants.Text.Alerts.incorrectFullName.message)
+            self?.present(alertController, animated: true)
+        }
+        viewModel.wasAccessKeyWrong = { [weak self] in
+            let alertController = AlertFactory.getAlert(
+                withTitle: Constants.Text.Alerts.wrongAccessKey.title,
+                andMessage: Constants.Text.Alerts.wrongAccessKey.message)
+            self?.present(alertController, animated: true)
+        }
+        viewModel.didReceiveDataError = { [weak self] in
+            let alertController = AlertFactory.getAlert(
+                withTitle: Constants.Text.Alerts.wrongSomething.title,
+                andMessage: Constants.Text.Alerts.wrongSomething.message)
+            self?.present(alertController, animated: true)
         }
     }
     
@@ -125,26 +144,11 @@ final class LoginViewController: UIViewController {
         }
     }
     
-    private func setAlerts() {
-        viewModel.wasAnyTextFieldEmpty = { [weak self] in
-            self?.showAlert(
-                withTitle: Constants.Text.Alerts.emptyTextField.title,
-                andMessage: Constants.Text.Alerts.emptyTextField.message)
-        }
-        viewModel.wasFullNameIncorrect = { [weak self] in
-            self?.showAlert(
-                withTitle: Constants.Text.Alerts.incorrectFullName.title,
-                andMessage: Constants.Text.Alerts.incorrectFullName.message)
-        }
-        viewModel.wasAccessKeyWrong = { [weak self] in
-            self?.showAlert(
-                withTitle: Constants.Text.Alerts.wrongAccessKey.title,
-                andMessage: Constants.Text.Alerts.wrongAccessKey.message)
-        }
-        viewModel.didReceiveDataError = { [weak self] in
-            self?.showAlert(
-                withTitle: Constants.Text.Alerts.wrongSomething.title,
-                andMessage: Constants.Text.Alerts.wrongSomething.message)
+    private func setDelegates() {
+        textFieldStackView.subviews.forEach {
+            if let textFieldView = $0 as? RoundedTextFieldView {
+                textFieldView.setDelegate(self)
+            }
         }
     }
     
@@ -180,24 +184,6 @@ extension LoginViewController: UITextFieldDelegate {
         textField.superview?.superview?.superview?.viewWithTag(
             textField.tag + 1)?.becomeFirstResponder()
         return true
-    }
-}
-
-// MARK: - Alert Controllers
-private extension LoginViewController {
-    
-    func showAlert(withTitle title: String, andMessage message: String) {
-        let alertController = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert)
-        let alertAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.ok,
-            style: .cancel)
-        alertController.addAction(alertAction)
-        DispatchQueue.main.async { [weak self] in
-            self?.present(alertController, animated: true)
-        }
     }
 }
 

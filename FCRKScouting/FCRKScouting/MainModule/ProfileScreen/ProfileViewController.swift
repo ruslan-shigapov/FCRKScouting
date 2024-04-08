@@ -91,66 +91,16 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc private func logOutButtonTapped() {
-        showExitAlert { [weak self] in
+        let exitAlert = AlertFactory.getExitAlert { [weak self] in
             self?.viewModel.logOut()
         }
+        present(exitAlert, animated: true)
     }
     
     @objc private func editButtonTapped() {
-        showEditAlert(withTitle: Constants.Text.ActionSheets.edit)
-    }
-}
-
-// MARK: - Alert Controllers
-private extension ProfileViewController {
-    
-    func showEditAlert(withTitle title: String) {
-        let alertController = UIAlertController(
-            title: title,
-            message: nil,
-            preferredStyle: .actionSheet)
-        alertController.setValue(
-            NSAttributedString(
-                string: title,
-                attributes: [
-                    .font: UIFont.systemFont(ofSize: 18, weight: .medium)
-                ]),
-            forKey: "attributedTitle")
-        let editPhoto = UIAlertAction(
-            title: "Фото профиля",
-            style: .default)
-        let editFullName = UIAlertAction(
-            title: "Имя и фамилию",
-            style: .default)
-        let cancelAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.cancel,
-            style: .cancel)
-        alertController.addAction(editPhoto)
-        alertController.addAction(editFullName)
-        alertController.addAction(cancelAction)
-        DispatchQueue.main.async { [weak self] in
-            self?.present(alertController, animated: true)
-        }
-    }
-    
-    func showExitAlert(completion: @escaping () -> Void) {
-        let alertController = UIAlertController(
-            title: Constants.Text.Alerts.exit.title,
-            message: Constants.Text.Alerts.exit.message,
-            preferredStyle: .alert)
-        let allowAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.yes,
-            style: .default) { _ in
-                completion()
-            }
-        let cancelAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.no,
-            style: .cancel)
-        alertController.addAction(allowAction)
-        alertController.addAction(cancelAction)
-        DispatchQueue.main.async { [weak self] in
-            self?.present(alertController, animated: true)
-        }
+        let editAlert = AlertFactory.getEditAlert(
+            withTitle: Constants.Text.ActionSheets.edit)
+        present(editAlert, animated: true)
     }
 }
 
@@ -213,7 +163,8 @@ private extension ProfileViewController {
             logoutButton.bottomAnchor.constraint(
                 equalTo: backgroundView.bottomAnchor,
                 constant: -24),
-            logoutButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)    
+            logoutButton.centerXAnchor.constraint(
+                equalTo: backgroundView.centerXAnchor)    
         ])
     }
 }
