@@ -5,8 +5,6 @@
 //  Created by Ruslan Shigapov on 06.03.2024.
 //
 
-import Foundation
-
 protocol LoginViewModelProtocol {
     var wasAnyTextFieldEmpty: (() -> Void)? { get set }
     var wasFullNameIncorrect: (() -> Void)? { get set }

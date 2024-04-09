@@ -83,21 +83,14 @@ final class RoundedTextFieldView: UIView {
         backgroundColor = .white
         addSubview(containerStackView)
         layer.cornerRadius = 12
-        setupShadow()
         setConstraints()
-    }
-    
-    private func setupShadow() {
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowRadius = 7
-        layer.shadowOpacity = 0.4
-        layer.shadowOffset = CGSize(width: 10, height: -10)
     }
     
     @objc private func addFloatingLabel() {
         if roundedTextField.text == "" {
             floatingLabel.text = _placeholder
             floatingLabel.isHidden = false
+            floatingLabel.textColor = .black
             roundedTextField.placeholder = ""
         }
     }

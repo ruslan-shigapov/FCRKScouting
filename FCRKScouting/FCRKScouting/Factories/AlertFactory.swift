@@ -24,6 +24,34 @@ struct AlertFactory {
         return alertController
     }
     
+    static func getCancelAlert(
+        withTitle title: String,
+        completion: @escaping () -> Void
+    ) -> UIAlertController {
+        let alertController = UIAlertController(
+            title: title,
+            message: nil,
+            preferredStyle: .actionSheet)
+        alertController.setValue(
+            NSAttributedString(
+                string: title,
+                attributes: [
+                    .font: UIFont.systemFont(ofSize: 16, weight: .medium)
+                ]),
+            forKey: "attributedTitle")
+        let cancelAction = UIAlertAction(
+            title: Constants.Text.ButtonTitles.cancelAdding,
+            style: .destructive) { _ in
+                completion()
+            }
+        let continueAction = UIAlertAction(
+            title: Constants.Text.ButtonTitles.continueAdding,
+            style: .cancel)
+        alertController.addAction(cancelAction)
+        alertController.addAction(continueAction)
+        return alertController
+    }
+    
     static func getEditAlert(withTitle title: String) -> UIAlertController {
         let alertController = UIAlertController(
             title: title,

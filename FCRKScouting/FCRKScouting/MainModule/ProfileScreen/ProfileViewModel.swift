@@ -5,8 +5,6 @@
 //  Created by Ruslan Shigapov on 15.03.2024.
 //
 
-import Foundation
-
 protocol ProfileViewModelProtocol {
     var fullName: String { get }
     var access: String { get }

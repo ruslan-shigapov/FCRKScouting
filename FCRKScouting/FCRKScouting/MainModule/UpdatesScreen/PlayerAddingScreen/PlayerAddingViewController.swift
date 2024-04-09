@@ -27,12 +27,6 @@ final class PlayerAddingViewController: UIViewController {
         return button
     }()
     
-    private let contentScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        // TODO: continue to implement
-        return scrollView
-    }()
-    
     private let photoImageView = PhotoImageView()
     
     private lazy var addPhotoButton: UIButton = {
@@ -41,6 +35,30 @@ final class PlayerAddingViewController: UIViewController {
         button.setTitle("Загрузить фото", for: .normal)
         button.layer.cornerRadius = 12
         return button
+    }()
+    
+    private let fullNameTextField = RoundedTextFieldView(
+        placeholder: Constants.Text.Placeholders.fullName,
+        type: .name)
+    
+    private let patronymicTextField = RoundedTextFieldView(
+        placeholder: Constants.Text.Placeholders.patronymic,
+        type: .name,
+        tag: 2)
+    
+    private lazy var positionPickerView: UIPickerView = {
+        let pickerView = UIPickerView()
+        pickerView.backgroundColor = .white
+        pickerView.layer.cornerRadius = 12
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        return pickerView
+    }()
+    
+    private let contentScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        // TODO: continue to implement
+        return scrollView
     }()
 
     // MARK: Lifecycle
@@ -56,49 +74,47 @@ final class PlayerAddingViewController: UIViewController {
         view.addSubview(closeButton)
         view.addSubview(photoImageView)
         view.addSubview(addPhotoButton)
+        view.addSubview(fullNameTextField)
+        view.addSubview(patronymicTextField)
+        view.addSubview(positionPickerView)
         setConstraints()
     }
     
     @objc private func cancelButtonTapped() {
-        showCancelAlert(
+        let cancelAlert = AlertFactory.getCancelAlert(
             withTitle: Constants.Text.ActionSheets.cancelAdding
         ) { [weak self] in
             self?.dismiss(animated: true)
         }
+        present(cancelAlert, animated: true)
     }
 }
 
-// MARK: - Alert Controllers
-private extension PlayerAddingViewController {
+// MARK: - Picker View Delegate
+extension PlayerAddingViewController: UIPickerViewDelegate {
     
-    func showCancelAlert(
-        withTitle title: String,
-        completion: @escaping () -> Void
-    ) {
-        let alertController = UIAlertController(
-            title: title,
-            message: nil,
-            preferredStyle: .actionSheet)
-        alertController.setValue(
-            NSAttributedString(
-                string: title,
-                attributes: [
-                    .font: UIFont.systemFont(ofSize: 16, weight: .medium)
-                ]),
-            forKey: "attributedTitle")
-        let cancelAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.cancelAdding,
-            style: .destructive) { _ in
-                completion()
-            }
-        let continueAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.continueAdding,
-            style: .cancel)
-        alertController.addAction(cancelAction)
-        alertController.addAction(continueAction)
-        DispatchQueue.main.async { [weak self] in
-            self?.present(alertController, animated: true)
-        }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let positions = ["Вратарь", "Защитник", "Нападающий"]
+        return positions[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        return
+    }
+}
+
+// MARK: - Picker View Data Source
+extension PlayerAddingViewController: UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(
+        _ pickerView: UIPickerView,
+        numberOfRowsInComponent component: Int
+    ) -> Int {
+        3
     }
 }
 
@@ -139,6 +155,29 @@ private extension PlayerAddingViewController {
             addPhotoButton.centerYAnchor.constraint(
                 equalTo: photoImageView.centerYAnchor),
             addPhotoButton.widthAnchor.constraint(equalToConstant: 150),
+            
+            fullNameTextField.topAnchor.constraint(
+                equalTo: photoImageView.bottomAnchor,
+                constant: 24),
+            fullNameTextField.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 24),
+            
+            patronymicTextField.topAnchor.constraint(
+                equalTo: fullNameTextField.bottomAnchor,
+                constant: 24),
+            patronymicTextField.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 24),
+            
+            positionPickerView.topAnchor.constraint(
+                equalTo: patronymicTextField.bottomAnchor,
+                constant: 24),
+            positionPickerView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 24),
+            positionPickerView.heightAnchor.constraint(equalToConstant: 96),
+            positionPickerView.widthAnchor.constraint(equalTo: fullNameTextField.widthAnchor)
         ])
     }
 }

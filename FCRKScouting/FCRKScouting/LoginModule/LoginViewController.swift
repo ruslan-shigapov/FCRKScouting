@@ -76,8 +76,8 @@ final class LoginViewController: UIViewController {
         view.backgroundColor = .accent
         addSubviews()
         setupAlerts()
+        setupTextFields()
         setupButtons()
-        setDelegates()
         setConstraints()
     }
     
@@ -116,6 +116,22 @@ final class LoginViewController: UIViewController {
         }
     }
     
+    private func setupTextFields() {
+        textFieldStackView.subviews.forEach {
+            if let textFieldView = $0 as? RoundedTextFieldView {
+                textFieldView.setDelegate(self)
+                setupShadow(forView: textFieldView)
+            }
+        }
+    }
+    
+    private func setupShadow(forView view: UIView) {
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowRadius = 7
+        view.layer.shadowOpacity = 0.4
+        view.layer.shadowOffset = CGSize(width: 10, height: -10)
+    }
+    
     private func setupButtons() {
         loginButton.addTarget(
             self,
@@ -140,14 +156,6 @@ final class LoginViewController: UIViewController {
                 if let textField = $0 as? UITextField {
                     textField.inputAccessoryView = toolbar
                 }
-            }
-        }
-    }
-    
-    private func setDelegates() {
-        textFieldStackView.subviews.forEach {
-            if let textFieldView = $0 as? RoundedTextFieldView {
-                textFieldView.setDelegate(self)
             }
         }
     }

@@ -44,6 +44,8 @@ enum Constants {
         enum Placeholders {
             static let fullName = "Имя Фамилия"
             static let accessKey = "Ключ доступа"
+            static let patronymic = "Отчество (необязательно)"
+
         }
         enum ButtonTitles {
             static let enter = "Войти"
