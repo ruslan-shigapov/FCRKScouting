@@ -30,7 +30,8 @@ struct ScreenFactory {
     }
     
     static func getPlayerAddingViewController() -> UIViewController {
-        PlayerAddingViewController()
+        let viewModel = PlayerAddingViewModel()
+        return PlayerAddingViewController(viewModel: viewModel)
     }
     
     static func getFiltersViewController() -> UIViewController {

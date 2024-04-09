@@ -44,8 +44,18 @@ final class UpdatesViewController: UIViewController {
     }
     
     @objc private func addPlayerButtonTapped() {
-        let addPlayerVC = ScreenFactory.getPlayerAddingViewController()
-        present(addPlayerVC, animated: true)
+        let allowAlert = AlertFactory.getAllowAlert(
+            withTitle: "Добавить нового игрока?"
+        ) { [weak self] in
+            self?.showPlayerAddingScreen()
+        }
+        present(allowAlert, animated: true)
+    }
+    
+    private func showPlayerAddingScreen() {
+        let playerAddingVC = ScreenFactory.getPlayerAddingViewController()
+        playerAddingVC.modalPresentationStyle = .fullScreen
+        present(playerAddingVC, animated: true)
     }
 }
 

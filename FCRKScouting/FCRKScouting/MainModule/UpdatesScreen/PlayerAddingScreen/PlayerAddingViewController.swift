@@ -9,6 +9,9 @@ import UIKit
 
 final class PlayerAddingViewController: UIViewController {
     
+    // MARK: Private Properties 
+    private let viewModel: PlayerAddingViewModelProtocol
+    
     // MARK: Views
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -50,16 +53,31 @@ final class PlayerAddingViewController: UIViewController {
         let pickerView = UIPickerView()
         pickerView.backgroundColor = .white
         pickerView.layer.cornerRadius = 12
-        pickerView.delegate = self
         pickerView.dataSource = self
+        pickerView.delegate = self
         return pickerView
     }()
     
-    private let contentScrollView: UIScrollView = {
+    private lazy var contentScrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        // TODO: continue to implement
+        scrollView.addSubview(photoImageView)
+        scrollView.addSubview(addPhotoButton)
+        scrollView.addSubview(fullNameTextField)
+        scrollView.addSubview(patronymicTextField)
+        scrollView.addSubview(positionPickerView)
         return scrollView
     }()
+    
+    // MARK: Initialize
+    init(viewModel: PlayerAddingViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -72,11 +90,7 @@ final class PlayerAddingViewController: UIViewController {
         view.backgroundColor = .lightGray
         view.addSubview(titleLabel)
         view.addSubview(closeButton)
-        view.addSubview(photoImageView)
-        view.addSubview(addPhotoButton)
-        view.addSubview(fullNameTextField)
-        view.addSubview(patronymicTextField)
-        view.addSubview(positionPickerView)
+        view.addSubview(contentScrollView)
         setConstraints()
     }
     
@@ -90,31 +104,35 @@ final class PlayerAddingViewController: UIViewController {
     }
 }
 
-// MARK: - Picker View Delegate
-extension PlayerAddingViewController: UIPickerViewDelegate {
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let positions = ["Вратарь", "Защитник", "Нападающий"]
-        return positions[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        return
-    }
-}
-
 // MARK: - Picker View Data Source
 extension PlayerAddingViewController: UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        1
+        viewModel.getNumberOfComponentsInPicker()
     }
     
     func pickerView(
         _ pickerView: UIPickerView,
         numberOfRowsInComponent component: Int
     ) -> Int {
-        3
+        viewModel.getNumberOfRowsInPicker()
+    }
+}
+
+// MARK: - Picker View Delegate
+extension PlayerAddingViewController: UIPickerViewDelegate {
+    
+    func pickerView(
+        _ pickerView: UIPickerView,
+        viewForRow row: Int,
+        forComponent component: Int,
+        reusing view: UIView?
+    ) -> UIView {
+        let titleLabel = UILabel()
+        titleLabel.text = viewModel.getTitleFor(pickerRow: row)
+        titleLabel.font = .systemFont(ofSize: 18)
+        titleLabel.textAlignment = .center
+        return titleLabel
     }
 }
 
@@ -127,6 +145,7 @@ private extension PlayerAddingViewController {
     
     func setConstraints() {
         view.subviews.forEach(prepareForAutoLayout)
+        contentScrollView.subviews.forEach(prepareForAutoLayout)
         
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(
@@ -136,17 +155,26 @@ private extension PlayerAddingViewController {
                 equalTo: closeButton.centerYAnchor),
             
             closeButton.topAnchor.constraint(
-                equalTo: view.topAnchor,
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
                 constant: 24),
             closeButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -24),
             
+            contentScrollView.topAnchor.constraint(
+                equalTo: closeButton.bottomAnchor),
+            contentScrollView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor),
+            contentScrollView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            contentScrollView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor),
+            
             photoImageView.topAnchor.constraint(
-                equalTo: titleLabel.bottomAnchor,
-                constant: 32),
+                equalTo: contentScrollView.topAnchor,
+                constant: 24),
             photoImageView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
+                equalTo: contentScrollView.leadingAnchor,
                 constant: 24),
             
             addPhotoButton.leadingAnchor.constraint(
@@ -160,24 +188,25 @@ private extension PlayerAddingViewController {
                 equalTo: photoImageView.bottomAnchor,
                 constant: 24),
             fullNameTextField.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
+                equalTo: contentScrollView.leadingAnchor,
                 constant: 24),
             
             patronymicTextField.topAnchor.constraint(
                 equalTo: fullNameTextField.bottomAnchor,
                 constant: 24),
             patronymicTextField.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
+                equalTo: contentScrollView.leadingAnchor,
                 constant: 24),
             
             positionPickerView.topAnchor.constraint(
                 equalTo: patronymicTextField.bottomAnchor,
                 constant: 24),
             positionPickerView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
+                equalTo: contentScrollView.leadingAnchor,
                 constant: 24),
             positionPickerView.heightAnchor.constraint(equalToConstant: 96),
-            positionPickerView.widthAnchor.constraint(equalTo: fullNameTextField.widthAnchor)
+            positionPickerView.widthAnchor.constraint(
+                equalTo: fullNameTextField.widthAnchor)
         ])
     }
 }

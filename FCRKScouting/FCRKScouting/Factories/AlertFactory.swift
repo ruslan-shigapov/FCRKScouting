@@ -24,6 +24,27 @@ struct AlertFactory {
         return alertController
     }
     
+    static func getAllowAlert(
+        withTitle title: String,
+        completion: @escaping () -> Void
+    ) -> UIAlertController {
+        let alertController = UIAlertController(
+            title: title,
+            message: nil,
+            preferredStyle: .alert)
+        let allowAction = UIAlertAction(
+            title: Constants.Text.ButtonTitles.yes,
+            style: .default) { _ in
+                completion()
+            }
+        let cancelAction = UIAlertAction(
+            title: Constants.Text.ButtonTitles.no,
+            style: .cancel)
+        alertController.addAction(allowAction)
+        alertController.addAction(cancelAction)
+        return alertController
+    }
+    
     static func getCancelAlert(
         withTitle title: String,
         completion: @escaping () -> Void
@@ -89,15 +110,15 @@ struct AlertFactory {
             title: Constants.Text.Alerts.exit.title,
             message: Constants.Text.Alerts.exit.message,
             preferredStyle: .alert)
-        let allowAction = UIAlertAction(
+        let exitAction = UIAlertAction(
             title: Constants.Text.ButtonTitles.yes,
-            style: .default) { _ in
+            style: .destructive) { _ in
                 completion()
             }
         let cancelAction = UIAlertAction(
             title: Constants.Text.ButtonTitles.no,
             style: .cancel)
-        alertController.addAction(allowAction)
+        alertController.addAction(exitAction)
         alertController.addAction(cancelAction)
         return alertController
     }
