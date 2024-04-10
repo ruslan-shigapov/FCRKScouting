@@ -6,6 +6,7 @@
 //
 
 enum Position: String, CaseIterable {
+    case notSelected = "- не выбрано -"
     case goalkeeper = "Вратарь"
     case leftDefender = "Левый защитник"
     case rightDefender = "Правый защитник"

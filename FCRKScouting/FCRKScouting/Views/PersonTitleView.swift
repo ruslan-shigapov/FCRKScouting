@@ -9,19 +9,16 @@ import UIKit
 
 final class PersonTitleView: UIView {
     
+    // MARK: Private Properties
+    private let title: String
+    
     // MARK: Views
     private let photoImageView = PhotoImageView()
-    
-    private let fullNameLabel: UILabel = {
-        let label = UILabel()
-        label.font = Constants.Fonts.header
-        label.textColor = .white
-        label.numberOfLines = 2
-        return label
-    }()
+    private lazy var fullNameLabel = HeaderLabel(title: title)
     
     // MARK: Initialize
-    init() {
+    init(title: String) {
+        self.title = title
         super.init(frame: .zero)
         setupUI()
     }
@@ -44,11 +41,6 @@ final class PersonTitleView: UIView {
         addSubview(fullNameLabel)
         layer.cornerRadius = 12
         setConstraints()
-    }
-    
-    // MARK: Public Methods
-    func configure(withFullName fullName: String) {
-        fullNameLabel.text = fullName
     }
 }
 

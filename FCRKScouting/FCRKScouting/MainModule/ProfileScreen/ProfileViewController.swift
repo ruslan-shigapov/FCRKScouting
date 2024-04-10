@@ -13,7 +13,7 @@ final class ProfileViewController: UIViewController {
     private var viewModel: ProfileViewModelProtocol
         
     // MARK: Views
-    private let userTitleView = PersonTitleView()
+    private lazy var userTitleView = PersonTitleView(title: viewModel.fullName)
     
     private let editButton = EditButton()
     
@@ -70,7 +70,6 @@ final class ProfileViewController: UIViewController {
         addSubviews()
         setupButtons()
         setConstraints()
-        userTitleView.configure(withFullName: viewModel.fullName)
     }
     
     private func addSubviews() {

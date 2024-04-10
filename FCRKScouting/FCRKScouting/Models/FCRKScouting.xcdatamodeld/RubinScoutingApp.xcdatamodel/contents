@@ -6,8 +6,9 @@
         <attribute name="club" optional="YES" attributeType="String"/>
         <attribute name="foot" optional="YES" attributeType="String"/>
         <attribute name="fullName" optional="YES" attributeType="String"/>
-        <attribute name="info" optional="YES" attributeType="String"/>
+        <attribute name="generalInfo" optional="YES" attributeType="String"/>
         <attribute name="mental" optional="YES" attributeType="String"/>
+        <attribute name="nationalTeam" optional="YES" attributeType="String"/>
         <attribute name="patronymic" optional="YES" attributeType="String"/>
         <attribute name="position" optional="YES" attributeType="String"/>
         <attribute name="qualities" optional="YES" attributeType="String"/>

@@ -35,7 +35,7 @@ final class SearchViewController: UIViewController {
     }
     
     private func setupNavigationBarButton() {
-        let filtersButton = NavigationBarButton(
+        let filtersButton = NavigationRightBarButton(
             image: Constants.Images.ButtonImages.filters)
         filtersButton.addTarget(
             self,
@@ -46,7 +46,7 @@ final class SearchViewController: UIViewController {
         
         // TODO: add status view
         
-        let leagueSegmentedControl = FilterSegmentedControl(
+        let leagueSegmentedControl = GraySegmentedControl(
             items: Constants.Text.SegmentedControlItems.leagueSegments)
         let leftBarButtonItem = UIBarButtonItem(
             customView: leagueSegmentedControl)

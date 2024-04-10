@@ -13,13 +13,8 @@ final class PlayerAddingViewController: UIViewController {
     private let viewModel: PlayerAddingViewModelProtocol
     
     // MARK: Views
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = Constants.Text.ScreenTitles.addPlayer
-        label.font = Constants.Fonts.header
-        label.textColor = .white
-        return label
-    }()
+    private let titleLabel = HeaderLabel(
+        title: Constants.Text.ScreenTitles.addPlayer)
     
     private lazy var closeButton: UIButton = {
         let button = UIButton(type: .close)
@@ -35,19 +30,62 @@ final class PlayerAddingViewController: UIViewController {
     private lazy var addPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
-        button.setTitle("Загрузить фото", for: .normal)
+        button.setTitle(Constants.Text.ButtonTitles.uploadPhoto, for: .normal)
         button.layer.cornerRadius = 12
         return button
     }()
     
-    private let fullNameTextField = RoundedTextFieldView(
+    private let fullNameTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.fullName,
         type: .name)
-    
-    private let patronymicTextField = RoundedTextFieldView(
+    private let patronymicTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.patronymic,
         type: .name,
         tag: 2)
+    private let citizenshipTextFieldView = RoundedTextFieldView(
+        placeholder: Constants.Text.Placeholders.citizenship,
+        type: .name,
+        tag: 3)
+    private let clubTextFieldView = RoundedTextFieldView(
+        placeholder: Constants.Text.Placeholders.club,
+        type: .name,
+        tag: 4)
+    private let nationalTeamTextFieldView = RoundedTextFieldView(
+        placeholder: Constants.Text.Placeholders.nationalTeam,
+        type: .name,
+        tag: 5)
+    
+    private lazy var textFieldStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            fullNameTextFieldView,
+            patronymicTextFieldView,
+            citizenshipTextFieldView,
+            clubTextFieldView,
+            nationalTeamTextFieldView
+        ])
+        stackView.axis = .vertical
+        stackView.spacing = 24
+        return stackView
+    }()
+    
+    private let birthDateLabel: UILabel = {
+        let label = UILabel()
+        label.text = Constants.Text.birthDate
+        return label
+    }()
+    
+    private let birthDatePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .compact
+        return datePicker
+    }()
+    
+    private let positionLabel: UILabel = {
+        let label = UILabel()
+        label.text = Constants.Text.position
+        return label
+    }()
     
     private lazy var positionPickerView: UIPickerView = {
         let pickerView = UIPickerView()
@@ -58,13 +96,51 @@ final class PlayerAddingViewController: UIViewController {
         return pickerView
     }()
     
-    private lazy var contentScrollView: UIScrollView = {
+    private let footLabel: UILabel = {
+        let label = UILabel()
+        label.text = Constants.Text.foot
+        return label
+    }()
+    
+    private let footSegmentedControl = GraySegmentedControl(
+        items: Constants.Text.SegmentedControlItems.footSegments)
+    
+    private let generalInfoTextViewWithTitle = TextViewWithTitle(
+        title: "Общая информация:")
+    private let techniqueTextViewWithTitle = TextViewWithTitle(
+        title: "Техника:")
+    private let tacticsTextViewWithTitle = TextViewWithTitle(
+        title: "Тактика:")
+    private let qualitiesTextViewWithTitle = TextViewWithTitle(
+        title: "Физ. качества:")
+    private let mentalTextViewWithTitle = TextViewWithTitle(
+        title: "Ментальность:")
+    
+    private lazy var textViewStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            generalInfoTextViewWithTitle,
+            techniqueTextViewWithTitle,
+            tacticsTextViewWithTitle,
+            qualitiesTextViewWithTitle,
+            mentalTextViewWithTitle
+        ])
+        stackView.axis = .vertical
+        stackView.spacing = 12
+        return stackView
+    }()
+    
+    private lazy var verticalScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.addSubview(photoImageView)
         scrollView.addSubview(addPhotoButton)
-        scrollView.addSubview(fullNameTextField)
-        scrollView.addSubview(patronymicTextField)
+        scrollView.addSubview(textFieldStackView)
+        scrollView.addSubview(birthDateLabel)
+        scrollView.addSubview(birthDatePicker)
+        scrollView.addSubview(positionLabel)
         scrollView.addSubview(positionPickerView)
+        scrollView.addSubview(footLabel)
+        scrollView.addSubview(footSegmentedControl)
+        scrollView.addSubview(textViewStackView)
         return scrollView
     }()
     
@@ -90,7 +166,7 @@ final class PlayerAddingViewController: UIViewController {
         view.backgroundColor = .lightGray
         view.addSubview(titleLabel)
         view.addSubview(closeButton)
-        view.addSubview(contentScrollView)
+        view.addSubview(verticalScrollView)
         setConstraints()
     }
     
@@ -130,7 +206,7 @@ extension PlayerAddingViewController: UIPickerViewDelegate {
     ) -> UIView {
         let titleLabel = UILabel()
         titleLabel.text = viewModel.getTitleFor(pickerRow: row)
-        titleLabel.font = .systemFont(ofSize: 18)
+        titleLabel.font = Constants.Fonts.text
         titleLabel.textAlignment = .center
         return titleLabel
     }
@@ -145,36 +221,35 @@ private extension PlayerAddingViewController {
     
     func setConstraints() {
         view.subviews.forEach(prepareForAutoLayout)
-        contentScrollView.subviews.forEach(prepareForAutoLayout)
+        verticalScrollView.subviews.forEach(prepareForAutoLayout)
         
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 24),
-            titleLabel.centerYAnchor.constraint(
-                equalTo: closeButton.centerYAnchor),
+            titleLabel.bottomAnchor.constraint(
+                equalTo: closeButton.bottomAnchor),
             
             closeButton.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor,
-                constant: 24),
+                equalTo: view.safeAreaLayoutGuide.topAnchor),
             closeButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -24),
             
-            contentScrollView.topAnchor.constraint(
-                equalTo: closeButton.bottomAnchor),
-            contentScrollView.leadingAnchor.constraint(
+            verticalScrollView.topAnchor.constraint(
+                equalTo: closeButton.bottomAnchor,
+                constant: 12),
+            verticalScrollView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor),
-            contentScrollView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            contentScrollView.trailingAnchor.constraint(
+            verticalScrollView.bottomAnchor.constraint(
+                equalTo: view.bottomAnchor),
+            verticalScrollView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor),
             
             photoImageView.topAnchor.constraint(
-                equalTo: contentScrollView.topAnchor,
-                constant: 24),
+                equalTo: verticalScrollView.topAnchor),
             photoImageView.leadingAnchor.constraint(
-                equalTo: contentScrollView.leadingAnchor,
+                equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
             
             addPhotoButton.leadingAnchor.constraint(
@@ -184,29 +259,65 @@ private extension PlayerAddingViewController {
                 equalTo: photoImageView.centerYAnchor),
             addPhotoButton.widthAnchor.constraint(equalToConstant: 150),
             
-            fullNameTextField.topAnchor.constraint(
+            textFieldStackView.topAnchor.constraint(
                 equalTo: photoImageView.bottomAnchor,
-                constant: 24),
-            fullNameTextField.leadingAnchor.constraint(
-                equalTo: contentScrollView.leadingAnchor,
+                constant: 12),
+            textFieldStackView.leadingAnchor.constraint(
+                equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
             
-            patronymicTextField.topAnchor.constraint(
-                equalTo: fullNameTextField.bottomAnchor,
+            birthDateLabel.leadingAnchor.constraint(
+                equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
-            patronymicTextField.leadingAnchor.constraint(
-                equalTo: contentScrollView.leadingAnchor,
+            birthDateLabel.centerYAnchor.constraint(
+                equalTo: birthDatePicker.centerYAnchor),
+            
+            birthDatePicker.topAnchor.constraint(
+                equalTo: textFieldStackView.bottomAnchor,
+                constant: 12),
+            birthDatePicker.trailingAnchor.constraint(
+                equalTo: textFieldStackView.trailingAnchor),
+            
+            positionLabel.topAnchor.constraint(
+                equalTo: birthDatePicker.bottomAnchor,
+                constant: 12),
+            positionLabel.leadingAnchor.constraint(
+                equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
             
             positionPickerView.topAnchor.constraint(
-                equalTo: patronymicTextField.bottomAnchor,
-                constant: 24),
+                equalTo: positionLabel.bottomAnchor,
+                constant: 8),
             positionPickerView.leadingAnchor.constraint(
-                equalTo: contentScrollView.leadingAnchor,
+                equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
             positionPickerView.heightAnchor.constraint(equalToConstant: 96),
             positionPickerView.widthAnchor.constraint(
-                equalTo: fullNameTextField.widthAnchor)
+                equalTo: textFieldStackView.widthAnchor),
+            
+            footLabel.leadingAnchor.constraint(
+                equalTo: verticalScrollView.leadingAnchor,
+                constant: 24),
+            footLabel.centerYAnchor.constraint(
+                equalTo: footSegmentedControl.centerYAnchor),
+            
+            footSegmentedControl.topAnchor.constraint(
+                equalTo: positionPickerView.bottomAnchor,
+                constant: 12),
+            footSegmentedControl.trailingAnchor.constraint(
+                equalTo: textFieldStackView.trailingAnchor),
+            
+            textViewStackView.topAnchor.constraint(
+                equalTo: footSegmentedControl.bottomAnchor,
+                constant: 12),
+            textViewStackView.leadingAnchor.constraint(
+                equalTo: verticalScrollView.leadingAnchor,
+                constant: 24),
+            textViewStackView.widthAnchor.constraint(
+                equalTo: textFieldStackView.widthAnchor),
+            textViewStackView.bottomAnchor.constraint(
+                equalTo: verticalScrollView.bottomAnchor,
+                constant: -24)
         ])
     }
 }

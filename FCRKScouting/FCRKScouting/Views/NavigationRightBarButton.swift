@@ -1,5 +1,5 @@
 //
-//  NavigationBarButton.swift
+//  NavigationRightBarButton.swift
 //  RubinScoutingApp
 //
 //  Created by Ruslan Shigapov on 28.03.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class NavigationBarButton: UIButton {
+final class NavigationRightBarButton: UIButton {
     
     init(image: UIImage?) {
         super.init(frame: .zero)

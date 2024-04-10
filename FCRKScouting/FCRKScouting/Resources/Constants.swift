@@ -28,8 +28,11 @@ enum Constants {
     // MARK: Fonts
     enum Fonts {
         static let title = UIFont(name: "Ostrovsky", size: 35)
-        static let header = UIFont(name: "Ostrovsky", size: 20)
+        static let header = UIFont(name: "Ostrovsky", size: 22)
         static let normal = UIFont(name: "Ostrovsky", size: 15)
+        static let text = UIFont.systemFont(ofSize: 16, weight: .light)
+        static let floatingLabel = UIFont.systemFont(ofSize: 12, weight: .light)
+        static let description = UIFont.systemFont(ofSize: 12, weight: .thin)
     }
     // MARK: Text
     enum Text {
@@ -37,6 +40,9 @@ enum Constants {
         static let accessDescription = """
         Вход возможен только для сотрудников системы ФК \u{AB}Рубин\u{BB} Казань
         """
+        static let birthDate = "Дата рождения:"
+        static let foot = "Рабочая нога:"
+        static let position = "Позиция:"
         static let access = "Доступ:"
         static let onlyRead = "Только чтение"
         static let editIsAllowed = "Возможно редактирование"
@@ -45,7 +51,9 @@ enum Constants {
             static let fullName = "Имя Фамилия"
             static let accessKey = "Ключ доступа"
             static let patronymic = "Отчество (необязательно)"
-
+            static let citizenship = "Гражданство"
+            static let club = "Клуб"
+            static let nationalTeam = "Сборная (необязательно)"
         }
         enum ButtonTitles {
             static let enter = "Войти"
@@ -56,6 +64,7 @@ enum Constants {
             static let no = "Нет"
             static let cancelAdding = "Отменить добавление"
             static let continueAdding = "Продолжить добавление"
+            static let uploadPhoto = "Загрузить фото"
         }
         enum ScreenTitles {
             static let updates = "Обновления"
@@ -79,6 +88,7 @@ enum Constants {
             static let exit = (
                 title: "Выход",
                 message: "Покинуть аккаунт?")
+            static let playerAdding = "Добавить нового игрока?"
         }
         enum ActionSheets {
             static let edit = "Изменить"
@@ -87,8 +97,9 @@ enum Constants {
             """
         }
         enum SegmentedControlItems {
-            static let timeSegments = ["сегодня", "неделя", "месяц"]
+            static let timeSegments = ["неделя", "месяц", "год"]
             static let leagueSegments = ["все", "ЮФЛ-1", "ЮФЛ-2", "ЮФЛ-3"]
+            static let footSegments = ["правая", "левая"]
         }
     }
 }

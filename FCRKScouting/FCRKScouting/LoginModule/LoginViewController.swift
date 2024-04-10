@@ -23,19 +23,19 @@ final class LoginViewController: UIViewController {
         return label
     }()
     
-    private let fullNameTextField = RoundedTextFieldView(
+    private let fullNameTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.fullName,
         type: .name)
     
-    private let accessKeyTextField = RoundedTextFieldView(
+    private let accessKeyTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.accessKey,
         type: .key,
         tag: 2)
     
     private lazy var textFieldStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            fullNameTextField,
-            accessKeyTextField
+            fullNameTextFieldView,
+            accessKeyTextFieldView
         ])
         stackView.axis = .vertical
         stackView.spacing = 24
@@ -45,7 +45,7 @@ final class LoginViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.Text.accessDescription
-        label.font = .systemFont(ofSize: 12, weight: .thin)
+        label.font = Constants.Fonts.description
         label.textColor = .white
         label.numberOfLines = 2
         return label
@@ -151,7 +151,7 @@ final class LoginViewController: UIViewController {
         toolbar.setItems([flexibleSpace, toolbarLoginButton], animated: false)
         toolbar.sizeToFit()
         
-        accessKeyTextField.subviews.forEach {
+        accessKeyTextFieldView.subviews.forEach {
             $0.subviews.forEach {
                 if let textField = $0 as? UITextField {
                     textField.inputAccessoryView = toolbar
@@ -162,8 +162,8 @@ final class LoginViewController: UIViewController {
     
     @objc private func loginButtonTapped() {
         viewModel.validateInput(
-            fullName: fullNameTextField.getInputText(),
-            accessKey: accessKeyTextField.getInputText()
+            fullName: fullNameTextFieldView.getInputText(),
+            accessKey: accessKeyTextFieldView.getInputText()
         ) {
             viewModel.signUp(byFullName: $0, accessKey: $1) {
                 showMainScreen()

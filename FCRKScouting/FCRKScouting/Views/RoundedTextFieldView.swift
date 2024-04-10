@@ -19,9 +19,9 @@ final class RoundedTextFieldView: UIView {
     private let _placeholder: String
     
     // MARK: Views
-    private lazy var roundedTextField: UITextField = {
+    private lazy var customTextField: UITextField = {
         let textField = UITextField()
-        textField.font = .systemFont(ofSize: 16, weight: .light)
+        textField.font = Constants.Fonts.text
         textField.clearButtonMode = .whileEditing
         textField.autocorrectionType = .no
         textField.spellCheckingType = .no
@@ -44,14 +44,14 @@ final class RoundedTextFieldView: UIView {
     private let floatingLabel: UILabel = {
         let label = UILabel()
         label.textColor = .placeholderText
-        label.font = .systemFont(ofSize: 12, weight: .light)
+        label.font = Constants.Fonts.floatingLabel
         label.isHidden = true
         return label
     }()
     
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView(
-            arrangedSubviews: [floatingLabel, roundedTextField])
+            arrangedSubviews: [floatingLabel, customTextField])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         return stackView
@@ -62,7 +62,7 @@ final class RoundedTextFieldView: UIView {
         self.textFieldType = type
         self._placeholder = placeholder
         super.init(frame: .zero)
-        roundedTextField.tag = tag
+        customTextField.tag = tag
         setupTextField(placeholder: placeholder)
         setupUI()
     }
@@ -74,9 +74,9 @@ final class RoundedTextFieldView: UIView {
     
     // MARK: Private Methods
     private func setupTextField(placeholder: String) {
-        roundedTextField.attributedPlaceholder = NSAttributedString(
+        customTextField.attributedPlaceholder = NSAttributedString(
             string: placeholder,
-            attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .light)])
+            attributes: [.font: Constants.Fonts.text])
     }
     
     private func setupUI() {
@@ -87,28 +87,28 @@ final class RoundedTextFieldView: UIView {
     }
     
     @objc private func addFloatingLabel() {
-        if roundedTextField.text == "" {
+        if customTextField.text == "" {
             floatingLabel.text = _placeholder
             floatingLabel.isHidden = false
             floatingLabel.textColor = .black
-            roundedTextField.placeholder = ""
+            customTextField.placeholder = ""
         }
     }
     
     @objc private func removeFloatingLabel() {
-        if roundedTextField.text == "" {
+        if customTextField.text == "" {
             floatingLabel.isHidden = true
-            roundedTextField.placeholder = _placeholder
+            customTextField.placeholder = _placeholder
         }
     }
     
     // MARK: Public Methods
     func setDelegate(_ delegate: UIViewController) {
-        roundedTextField.delegate = delegate as? any UITextFieldDelegate
+        customTextField.delegate = delegate as? any UITextFieldDelegate
     }
     
     func getInputText() -> String? {
-        roundedTextField.text
+        customTextField.text
     }
 }
 

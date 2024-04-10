@@ -27,25 +27,24 @@ final class UpdatesViewController: UIViewController {
     }
     
     private func setupNavigationBarItems() {
-        let addPlayerButton = NavigationBarButton(
+        let addPlayerButton = NavigationRightBarButton(
             image: Constants.Images.ButtonImages.addPlayer)
         addPlayerButton.addTarget(
             self,
             action: #selector(addPlayerButtonTapped),
             for: .touchUpInside)
-        let rightBarButtonItem = UIBarButtonItem(customView: addPlayerButton)
-        navigationItem.rightBarButtonItem = rightBarButtonItem
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            customView: addPlayerButton)
         
-        let timeSegmentedControl = FilterSegmentedControl(
+        let timeSegmentedControl = GraySegmentedControl(
             items: Constants.Text.SegmentedControlItems.timeSegments)
-        let leftBarButtonItem = UIBarButtonItem(
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
             customView: timeSegmentedControl)
-        navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
     @objc private func addPlayerButtonTapped() {
         let allowAlert = AlertFactory.getAllowAlert(
-            withTitle: "Добавить нового игрока?"
+            withTitle: Constants.Text.Alerts.playerAdding
         ) { [weak self] in
             self?.showPlayerAddingScreen()
         }
