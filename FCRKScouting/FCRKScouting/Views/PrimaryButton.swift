@@ -29,13 +29,6 @@ final class PrimaryButton: UIButton {
         setConstraints()
     }
     
-    private func setupShadow() {
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowRadius = 7
-        layer.shadowOpacity = 0.4
-        layer.shadowOffset = CGSize(width: 10, height: -10)
-    }
-    
     private func setConstraints() {
         NSLayoutConstraint.activate([
             widthAnchor.constraint(equalToConstant: 300),

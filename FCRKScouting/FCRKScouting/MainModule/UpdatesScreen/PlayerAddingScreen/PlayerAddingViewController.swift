@@ -20,18 +20,24 @@ final class PlayerAddingViewController: UIViewController {
         let button = UIButton(type: .close)
         button.addTarget(
             self,
-            action: #selector(cancelButtonTapped),
+            action: #selector(closeButtonTapped),
             for: .touchUpInside)
         return button
     }()
     
     private let photoImageView = PhotoImageView()
     
-    private lazy var addPhotoButton: UIButton = {
+    private lazy var uploadPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
+        button.tintColor = .label
         button.setTitle(Constants.Text.ButtonTitles.uploadPhoto, for: .normal)
         button.layer.cornerRadius = 12
+        button.setupShadow()
+        button.addTarget(
+            self,
+            action: #selector(uploadPhotoButtonTapped),
+            for: .touchUpInside)
         return button
     }()
     
@@ -68,11 +74,7 @@ final class PlayerAddingViewController: UIViewController {
         return stackView
     }()
     
-    private let birthDateLabel: UILabel = {
-        let label = UILabel()
-        label.text = Constants.Text.birthDate
-        return label
-    }()
+    private let birthDateLabel = WhiteLabel(title: Constants.Text.birthDate)
     
     private let birthDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -81,40 +83,34 @@ final class PlayerAddingViewController: UIViewController {
         return datePicker
     }()
     
-    private let positionLabel: UILabel = {
-        let label = UILabel()
-        label.text = Constants.Text.position
-        return label
-    }()
+    private let positionLabel = WhiteLabel(title: Constants.Text.position)
     
     private lazy var positionPickerView: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.backgroundColor = .white
         pickerView.layer.cornerRadius = 12
+        pickerView.clipsToBounds = false
+        pickerView.setupShadow()
         pickerView.dataSource = self
         pickerView.delegate = self
         return pickerView
     }()
     
-    private let footLabel: UILabel = {
-        let label = UILabel()
-        label.text = Constants.Text.foot
-        return label
-    }()
+    private let footLabel = WhiteLabel(title: Constants.Text.foot)
     
     private let footSegmentedControl = GraySegmentedControl(
         items: Constants.Text.SegmentedControlItems.footSegments)
     
     private let generalInfoTextViewWithTitle = TextViewWithTitle(
-        title: "Общая информация:")
+        title: Constants.Text.TextViewTitles.generalInfo)
     private let techniqueTextViewWithTitle = TextViewWithTitle(
-        title: "Техника:")
+        title: Constants.Text.TextViewTitles.technique)
     private let tacticsTextViewWithTitle = TextViewWithTitle(
-        title: "Тактика:")
+        title: Constants.Text.TextViewTitles.tactics)
     private let qualitiesTextViewWithTitle = TextViewWithTitle(
-        title: "Физ. качества:")
+        title: Constants.Text.TextViewTitles.qualities)
     private let mentalTextViewWithTitle = TextViewWithTitle(
-        title: "Ментальность:")
+        title: Constants.Text.TextViewTitles.mental)
     
     private lazy var textViewStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
@@ -129,10 +125,13 @@ final class PlayerAddingViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var saveAddingButton = PrimaryButton(
+        title: Constants.Text.ButtonTitles.saveAdding)
+    
     private lazy var verticalScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.addSubview(photoImageView)
-        scrollView.addSubview(addPhotoButton)
+        scrollView.addSubview(uploadPhotoButton)
         scrollView.addSubview(textFieldStackView)
         scrollView.addSubview(birthDateLabel)
         scrollView.addSubview(birthDatePicker)
@@ -141,6 +140,7 @@ final class PlayerAddingViewController: UIViewController {
         scrollView.addSubview(footLabel)
         scrollView.addSubview(footSegmentedControl)
         scrollView.addSubview(textViewStackView)
+        scrollView.addSubview(saveAddingButton)
         return scrollView
     }()
     
@@ -164,19 +164,80 @@ final class PlayerAddingViewController: UIViewController {
     // MARK: Private Methods
     private func setupUI() {
         view.backgroundColor = .lightGray
-        view.addSubview(titleLabel)
-        view.addSubview(closeButton)
-        view.addSubview(verticalScrollView)
+        addSubviews()
+        addTapGesture()
+        setupTextFields()
+        setupButtons()
         setConstraints()
     }
     
-    @objc private func cancelButtonTapped() {
+    private func addSubviews() {
+        view.addSubview(titleLabel)
+        view.addSubview(closeButton)
+        view.addSubview(verticalScrollView)
+    }
+    
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+        verticalScrollView.addGestureRecognizer(tapGesture)
+    }
+    
+    private func setupTextFields() {
+        textFieldStackView.subviews.forEach {
+            if let textFieldView = $0 as? RoundedTextFieldView {
+                textFieldView.setDelegate(self)
+            }
+        }
+    }
+    
+    private func setupButtons() {
+        saveAddingButton.addTarget(
+            self,
+            action: #selector(saveAddingButtonTapped),
+            for: .touchUpInside)
+    }
+    
+    @objc private func closeButtonTapped() {
         let cancelAlert = AlertFactory.getCancelAlert(
             withTitle: Constants.Text.ActionSheets.cancelAdding
         ) { [weak self] in
             self?.dismiss(animated: true)
         }
         present(cancelAlert, animated: true)
+    }
+    
+    @objc private func uploadPhotoButtonTapped() {
+        
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    @objc private func saveAddingButtonTapped() {
+        viewModel.savePlayer()
+    }
+}
+
+// MARK: - Text Field Delegate
+extension PlayerAddingViewController: UITextFieldDelegate {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextTF = textField.superview?.superview?.superview?.viewWithTag(
+            textField.tag + 1) as? UITextField {
+            nextTF.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        return true
     }
 }
 
@@ -252,12 +313,11 @@ private extension PlayerAddingViewController {
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
             
-            addPhotoButton.leadingAnchor.constraint(
-                equalTo: photoImageView.trailingAnchor,
-                constant: 24),
-            addPhotoButton.centerYAnchor.constraint(
+            uploadPhotoButton.trailingAnchor.constraint(
+                equalTo: textFieldStackView.trailingAnchor),
+            uploadPhotoButton.centerYAnchor.constraint(
                 equalTo: photoImageView.centerYAnchor),
-            addPhotoButton.widthAnchor.constraint(equalToConstant: 150),
+            uploadPhotoButton.widthAnchor.constraint(equalToConstant: 150),
             
             textFieldStackView.topAnchor.constraint(
                 equalTo: photoImageView.bottomAnchor,
@@ -315,9 +375,15 @@ private extension PlayerAddingViewController {
                 constant: 24),
             textViewStackView.widthAnchor.constraint(
                 equalTo: textFieldStackView.widthAnchor),
-            textViewStackView.bottomAnchor.constraint(
+            
+            saveAddingButton.topAnchor.constraint(
+                equalTo: textViewStackView.bottomAnchor,
+                constant: 24),
+            saveAddingButton.bottomAnchor.constraint(
                 equalTo: verticalScrollView.bottomAnchor,
-                constant: -24)
+                constant: -24),
+            saveAddingButton.centerXAnchor.constraint(
+                equalTo: verticalScrollView.centerXAnchor)
         ])
     }
 }

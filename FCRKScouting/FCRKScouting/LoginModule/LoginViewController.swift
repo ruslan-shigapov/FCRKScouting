@@ -120,16 +120,8 @@ final class LoginViewController: UIViewController {
         textFieldStackView.subviews.forEach {
             if let textFieldView = $0 as? RoundedTextFieldView {
                 textFieldView.setDelegate(self)
-                setupShadow(forView: textFieldView)
             }
         }
-    }
-    
-    private func setupShadow(forView view: UIView) {
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowRadius = 7
-        view.layer.shadowOpacity = 0.4
-        view.layer.shadowOffset = CGSize(width: 10, height: -10)
     }
     
     private func setupButtons() {

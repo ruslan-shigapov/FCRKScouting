@@ -8,20 +8,30 @@
 import UIKit
 
 final class TextViewWithTitle: UIView {
-
-    private let titleLabel = UILabel()
     
-    private let roundedTextView: UITextView = {
+    private let title: String
+
+    private lazy var titleLabel = WhiteLabel(title: title)
+    
+    private lazy var roundedTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = .white
+        textView.font = Constants.Fonts.text
+        textView.autocorrectionType = .no
+        textView.spellCheckingType = .no
+        textView.textContainerInset = UIEdgeInsets(
+            top: 10,
+            left: 5,
+            bottom: 10,
+            right: 5)
         textView.layer.cornerRadius = 12
         return textView
     }()
 
     init(title: String) {
+        self.title = title
         super.init(frame: .zero)
-        titleLabel.text = title
         setupUI()
     }
     
@@ -33,6 +43,7 @@ final class TextViewWithTitle: UIView {
     private func setupUI() {
         addSubview(titleLabel)
         addSubview(roundedTextView)
+        setupShadow()
         setConstraints()
     }
     

@@ -28,8 +28,8 @@ final class PhotoImageView: UIImageView {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 100),
-            widthAnchor.constraint(equalToConstant: 100)
+            heightAnchor.constraint(equalToConstant: 120),
+            widthAnchor.constraint(equalToConstant: 120)
         ])
     }
 }

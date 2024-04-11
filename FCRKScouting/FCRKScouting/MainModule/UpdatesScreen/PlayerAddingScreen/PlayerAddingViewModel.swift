@@ -5,19 +5,8 @@
 //  Created by Ruslan Shigapov on 09.04.2024.
 //
 
-enum Position: String, CaseIterable {
-    case notSelected = "- не выбрано -"
-    case goalkeeper = "Вратарь"
-    case leftDefender = "Левый защитник"
-    case rightDefender = "Правый защитник"
-    case centerDefender = "Центральный защитник"
-    case leftMidfield = "Левый полузащитник"
-    case rightMidfield = "Правый полузащитник"
-    case centerMidfield = "Центральный полузащитник"
-    case forward = "Нападающий"
-}
-
 protocol PlayerAddingViewModelProtocol {
+    func savePlayer()
     func getNumberOfComponentsInPicker() -> Int
     func getNumberOfRowsInPicker() -> Int
     func getTitleFor(pickerRow: Int) -> String
@@ -25,15 +14,19 @@ protocol PlayerAddingViewModelProtocol {
 
 final class PlayerAddingViewModel: PlayerAddingViewModelProtocol {
     
+    func savePlayer() {
+        
+    }
+    
     func getNumberOfComponentsInPicker() -> Int {
         1
     }
     
     func getNumberOfRowsInPicker() -> Int {
-        Position.allCases.count
+        Constants.Text.Positions.allCases.count
     }
     
     func getTitleFor(pickerRow: Int) -> String {
-        Position.allCases[pickerRow].rawValue
+        Constants.Text.Positions.allCases[pickerRow].rawValue
     }
 }

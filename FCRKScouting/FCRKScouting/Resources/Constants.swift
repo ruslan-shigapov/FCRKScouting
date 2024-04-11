@@ -32,6 +32,7 @@ enum Constants {
         static let normal = UIFont(name: "Ostrovsky", size: 15)
         static let text = UIFont.systemFont(ofSize: 16, weight: .light)
         static let floatingLabel = UIFont.systemFont(ofSize: 12, weight: .light)
+        static let whiteLabel = UIFont.systemFont(ofSize: 17, weight: .semibold)
         static let description = UIFont.systemFont(ofSize: 12, weight: .thin)
     }
     // MARK: Text
@@ -64,6 +65,7 @@ enum Constants {
             static let no = "Нет"
             static let cancelAdding = "Отменить добавление"
             static let continueAdding = "Продолжить добавление"
+            static let saveAdding = "Сохранить"
             static let uploadPhoto = "Загрузить фото"
         }
         enum ScreenTitles {
@@ -100,6 +102,26 @@ enum Constants {
             static let timeSegments = ["неделя", "месяц", "год"]
             static let leagueSegments = ["все", "ЮФЛ-1", "ЮФЛ-2", "ЮФЛ-3"]
             static let footSegments = ["правая", "левая"]
+        }
+        
+        enum Positions: String, CaseIterable {
+            case notSelected = "- не выбрано -"
+            case goalkeeper = "Вратарь"
+            case leftDefender = "Левый защитник"
+            case rightDefender = "Правый защитник"
+            case centerDefender = "Центральный защитник"
+            case leftMidfield = "Левый полузащитник"
+            case rightMidfield = "Правый полузащитник"
+            case centerMidfield = "Центральный полузащитник"
+            case forward = "Нападающий"
+        }
+        
+        enum TextViewTitles {
+            static let generalInfo = "Общая информация:"
+            static let technique = "Техника:"
+            static let tactics = "Тактика:"
+            static let qualities = "Физ. качества:"
+            static let mental = "Ментальность:"
         }
     }
 }

@@ -83,6 +83,7 @@ final class RoundedTextFieldView: UIView {
         backgroundColor = .white
         addSubview(containerStackView)
         layer.cornerRadius = 12
+        setupShadow()
         setConstraints()
     }
     
