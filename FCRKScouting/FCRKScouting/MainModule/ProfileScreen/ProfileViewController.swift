@@ -127,10 +127,10 @@ private extension ProfileViewController {
             
             editButton.topAnchor.constraint(
                 equalTo: userTitleView.topAnchor,
-                constant: 16),
+                constant: 12),
             editButton.trailingAnchor.constraint(
                 equalTo: userTitleView.trailingAnchor,
-                constant: -16),
+                constant: -12),
             
             backgroundView.topAnchor.constraint(
                 equalTo: userTitleView.bottomAnchor,

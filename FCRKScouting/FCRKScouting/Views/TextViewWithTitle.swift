@@ -9,8 +9,10 @@ import UIKit
 
 final class TextViewWithTitle: UIView {
     
+    // MARK: Private Properties
     private let title: String
 
+    // MARK: Views
     private lazy var titleLabel = WhiteLabel(title: title)
     
     private lazy var roundedTextView: UITextView = {
@@ -29,6 +31,7 @@ final class TextViewWithTitle: UIView {
         return textView
     }()
 
+    // MARK: Initialize
     init(title: String) {
         self.title = title
         super.init(frame: .zero)
@@ -40,6 +43,7 @@ final class TextViewWithTitle: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Private Methods
     private func setupUI() {
         addSubview(titleLabel)
         addSubview(roundedTextView)
@@ -47,7 +51,16 @@ final class TextViewWithTitle: UIView {
         setConstraints()
     }
     
-    private func setConstraints() {
+    // MARK: Public Methods
+    func getInputText() -> String? {
+        roundedTextView.text
+    }
+}
+
+// MARK: - Layout
+private extension TextViewWithTitle {
+    
+    func setConstraints() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

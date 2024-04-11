@@ -9,13 +9,20 @@ protocol CheckTextFieldProtocol {
     var wasAnyTextFieldEmpty: (() -> Void)? { get set }
     var wasFullNameIncorrect: (() -> Void)? { get set }
     func validateInput(
-        fullName: String?,
-        accessKey: String?,
-        completion: (String, String) -> Void
+        text: [String?],
+        completion: ([String]) -> Void
     )
 }
 
 extension CheckTextFieldProtocol {
+    
+    private func checkEmptinessOf(text: [String?]) -> Bool {
+        var isTextEmpty = false
+        text.forEach {
+            if $0 == "" { isTextEmpty = true }
+        }
+        return isTextEmpty
+    }
     
     private func checkCorrectnessOf(fullName: String?) -> Bool {
         let components = fullName?.components(
@@ -25,16 +32,14 @@ extension CheckTextFieldProtocol {
     }
     
     func validateInput(
-        fullName: String?,
-        accessKey: String?,
-        completion: (String, String) -> Void
+        text: [String?],
+        completion: ([String]) -> Void
     ) {
-        if fullName == "" || accessKey == "" {
+        if checkEmptinessOf(text: text) {
             wasAnyTextFieldEmpty?()
-        } else if !checkCorrectnessOf(fullName: fullName) {
+        } else if !checkCorrectnessOf(fullName: text[0]) {
             wasFullNameIncorrect?()
-        } else if let fullName, let accessKey {
-            completion(fullName, accessKey)
         }
+        completion(text.compactMap { $0 })
     }
 }

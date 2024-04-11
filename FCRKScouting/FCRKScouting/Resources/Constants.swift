@@ -47,6 +47,7 @@ enum Constants {
         static let access = "Доступ:"
         static let onlyRead = "Только чтение"
         static let editIsAllowed = "Возможно редактирование"
+        static let unknownUser = "Неизвестный пользователь"
         
         enum Placeholders {
             static let fullName = "Имя Фамилия"
@@ -77,16 +78,19 @@ enum Constants {
         enum Alerts {
             static let emptyTextField = (
                 title: "Внимание",
-                message: "Заполните все поля для ввода")
+                message: "Заполните все обязательные поля для ввода")
             static let incorrectFullName = (
                 title: "Внимание",
-                message: "Необходимо ввести имя, фамилию и нечего лишнего")
+                message: "Необходимо ввести имя и фамилию")
             static let wrongAccessKey = (
                 title: "Не удалось войти",
                 message: "Ключ доступа неверный")
             static let wrongSomething = (
                 title: "Что-то пошло не так",
                 message: "Перезапустите приложение")
+            static let notSelectedPosition = (
+                title: "Внимание",
+                message: "Выберите позицию игрока")
             static let exit = (
                 title: "Выход",
                 message: "Покинуть аккаунт?")

@@ -10,7 +10,7 @@ import UIKit
 final class PlayerAddingViewController: UIViewController {
     
     // MARK: Private Properties 
-    private let viewModel: PlayerAddingViewModelProtocol
+    private var viewModel: PlayerAddingViewModelProtocol
     
     // MARK: Views
     private let titleLabel = HeaderLabel(
@@ -44,30 +44,20 @@ final class PlayerAddingViewController: UIViewController {
     private let fullNameTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.fullName,
         type: .name)
-    private let patronymicTextFieldView = RoundedTextFieldView(
-        placeholder: Constants.Text.Placeholders.patronymic,
-        type: .name,
-        tag: 2)
     private let citizenshipTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.citizenship,
         type: .name,
-        tag: 3)
+        tag: 2)
     private let clubTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.club,
         type: .name,
-        tag: 4)
-    private let nationalTeamTextFieldView = RoundedTextFieldView(
-        placeholder: Constants.Text.Placeholders.nationalTeam,
-        type: .name,
-        tag: 5)
+        tag: 3)
     
     private lazy var textFieldStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             fullNameTextFieldView,
-            patronymicTextFieldView,
             citizenshipTextFieldView,
-            clubTextFieldView,
-            nationalTeamTextFieldView
+            clubTextFieldView
         ])
         stackView.axis = .vertical
         stackView.spacing = 24
@@ -166,6 +156,7 @@ final class PlayerAddingViewController: UIViewController {
         view.backgroundColor = .lightGray
         addSubviews()
         addTapGesture()
+        setupAlerts()
         setupTextFields()
         setupButtons()
         setConstraints()
@@ -183,6 +174,27 @@ final class PlayerAddingViewController: UIViewController {
             action: #selector(dismissKeyboard)
         )
         verticalScrollView.addGestureRecognizer(tapGesture)
+    }
+    
+    private func setupAlerts() {
+        viewModel.wasAnyTextFieldEmpty = { [weak self] in
+            let alertController = AlertFactory.getAlert(
+                withTitle: Constants.Text.Alerts.emptyTextField.title,
+                andMessage: Constants.Text.Alerts.emptyTextField.message)
+            self?.present(alertController, animated: true)
+        }
+        viewModel.wasFullNameIncorrect = { [weak self] in
+            let alertController = AlertFactory.getAlert(
+                withTitle: Constants.Text.Alerts.incorrectFullName.title,
+                andMessage: Constants.Text.Alerts.incorrectFullName.message)
+            self?.present(alertController, animated: true)
+        }
+        viewModel.wasPositionNotSelected = { [weak self] in
+            let alertController = AlertFactory.getAlert(
+                withTitle: Constants.Text.Alerts.notSelectedPosition.title,
+                andMessage: Constants.Text.Alerts.notSelectedPosition.message)
+            self?.present(alertController, animated: true)
+        }
     }
     
     private func setupTextFields() {
@@ -218,7 +230,29 @@ final class PlayerAddingViewController: UIViewController {
     }
     
     @objc private func saveAddingButtonTapped() {
-        viewModel.savePlayer()
+        viewModel.validateInput(
+            text: [
+                fullNameTextFieldView.getInputText(),
+                citizenshipTextFieldView.getInputText(),
+                clubTextFieldView.getInputText()
+            ]
+        ) {
+            viewModel.savePlayer(
+                byFullName: $0[0],
+                citizenship: $0[1],
+                club: $0[2],
+                birthDate: birthDatePicker.date,
+                position: positionPickerView.selectedRow(inComponent: 0),
+                foot: footSegmentedControl.selectedSegmentIndex,
+                generalInfo: generalInfoTextViewWithTitle.getInputText(),
+                technique: techniqueTextViewWithTitle.getInputText(),
+                tactics: tacticsTextViewWithTitle.getInputText(),
+                qualities: qualitiesTextViewWithTitle.getInputText(),
+                mental: mentalTextViewWithTitle.getInputText()
+            ) { [weak self] in
+                self?.dismiss(animated: true)
+            }
+        }
     }
 }
 

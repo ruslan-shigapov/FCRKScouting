@@ -9,6 +9,7 @@ import CoreData
 
 final class StorageManager {
     
+    // MARK: Properties
     static let shared = StorageManager()
     
     private let persistentContainer: NSPersistentCloudKitContainer = {
@@ -27,6 +28,18 @@ final class StorageManager {
     
     private init() {}
     
+    // MARK: Private Methods
+    private func saveContext() {
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                viewContext.rollback()
+            }
+        }
+    }
+    
+    // MARK: User CRUD
     func saveUser(withFullName fullName: String, andAccess access: Bool) {
         let user = User(context: viewContext)
         user.fullName = fullName
@@ -51,13 +64,41 @@ final class StorageManager {
         }
     }
     
-    func saveContext() {
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-            } catch {
-                viewContext.rollback()
-            }
-        }
+    // MARK: Player CRUD
+    func savePlayer(
+        withFullName fullName: String,
+        citizenship: String,
+        club: String,
+        birthDate: Date,
+        position: String,
+        foot: String,
+        generalInfo: String?,
+        technique: String?,
+        tactics: String?,
+        qualities: String?,
+        mental: String?,
+        lastEditor: String
+    ) {
+        let player = Player(context: viewContext)
+        player.fullName = fullName
+        player.citizenship = citizenship
+        player.club = club
+        player.birthDate = birthDate
+        player.position = position
+        player.foot = foot
+        player.generalInfo = generalInfo
+        player.technique = technique
+        player.tactics = tactics
+        player.qualities = qualities
+        player.mental = mental
+        player.lastEditor = lastEditor
+        saveContext()
     }
+    
+    func fetchPlayers(completion: ([Player]) -> Void) {
+        let fetchRequest = Player.fetchRequest()
+        if let players = try? viewContext.fetch(fetchRequest) {
+            completion(players)
+        }
+    }    
 }

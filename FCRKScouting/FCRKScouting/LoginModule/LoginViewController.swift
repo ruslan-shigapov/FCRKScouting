@@ -154,10 +154,12 @@ final class LoginViewController: UIViewController {
     
     @objc private func loginButtonTapped() {
         viewModel.validateInput(
-            fullName: fullNameTextFieldView.getInputText(),
-            accessKey: accessKeyTextFieldView.getInputText()
+            text: [
+                fullNameTextFieldView.getInputText(),
+                accessKeyTextFieldView.getInputText()
+            ]
         ) {
-            viewModel.signUp(byFullName: $0, accessKey: $1) {
+            viewModel.signUp(byFullName: $0[0], accessKey: $0[1]) {
                 showMainScreen()
             }
         }

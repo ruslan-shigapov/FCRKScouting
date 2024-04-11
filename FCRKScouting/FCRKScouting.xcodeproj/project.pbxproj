@@ -17,7 +17,6 @@
 		E4BB484E2BC3D26A00F91513 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB484D2BC3D26A00F91513 /* Constants.swift */; };
 		E4BB48522BC3D2C700F91513 /* COPYRIGHT.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4BB484F2BC3D2C700F91513 /* COPYRIGHT.txt */; };
 		E4BB48532BC3D2C700F91513 /* Ostrovsky.otf in Resources */ = {isa = PBXBuildFile; fileRef = E4BB48502BC3D2C700F91513 /* Ostrovsky.otf */; };
-		E4BB48582BC3D33400F91513 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB48542BC3D33400F91513 /* PlayerManager.swift */; };
 		E4BB48592BC3D33400F91513 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB48552BC3D33400F91513 /* StorageManager.swift */; };
 		E4BB485A2BC3D33400F91513 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB48562BC3D33400F91513 /* UserManager.swift */; };
 		E4BB485D2BC3D4A800F91513 /* FCRKScouting.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E4BB485B2BC3D4A800F91513 /* FCRKScouting.xcdatamodeld */; };
@@ -55,7 +54,6 @@
 		E4BB484D2BC3D26A00F91513 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E4BB484F2BC3D2C700F91513 /* COPYRIGHT.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYRIGHT.txt; sourceTree = "<group>"; };
 		E4BB48502BC3D2C700F91513 /* Ostrovsky.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ostrovsky.otf; sourceTree = "<group>"; };
-		E4BB48542BC3D33400F91513 /* PlayerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
 		E4BB48552BC3D33400F91513 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		E4BB48562BC3D33400F91513 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		E4BB485C2BC3D4A800F91513 /* RubinScoutingApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RubinScoutingApp.xcdatamodel; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 			isa = PBXGroup;
 			children = (
 				E4BB48562BC3D33400F91513 /* UserManager.swift */,
-				E4BB48542BC3D33400F91513 /* PlayerManager.swift */,
 				E4BB48552BC3D33400F91513 /* StorageManager.swift */,
 			);
 			path = Services;
@@ -342,7 +339,6 @@
 				E4C0DE152BC68AB500BCD235 /* HeaderLabel.swift in Sources */,
 				E4BB48822BC3D54600F91513 /* EditButton.swift in Sources */,
 				E4BB48772BC3D53E00F91513 /* PlayerAddingViewController.swift in Sources */,
-				E4BB48582BC3D33400F91513 /* PlayerManager.swift in Sources */,
 				E4BB485D2BC3D4A800F91513 /* FCRKScouting.xcdatamodeld in Sources */,
 				E4BA69D42BC3F621002C1642 /* AlertFactory.swift in Sources */,
 				E4BB485A2BC3D33400F91513 /* UserManager.swift in Sources */,
