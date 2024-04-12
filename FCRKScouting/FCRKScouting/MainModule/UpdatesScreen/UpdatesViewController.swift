@@ -14,6 +14,11 @@ final class UpdatesViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
+        let elementKind = UICollectionView.elementKindSectionHeader
+        collectionView.register(
+            HeaderCollectionReusableView.self,
+            forSupplementaryViewOfKind: elementKind,
+            withReuseIdentifier: HeaderCollectionReusableView.identifier)
         collectionView.register(
             PlayerCollectionViewCell.self,
             forCellWithReuseIdentifier: PlayerCollectionViewCell.identifier)
@@ -22,6 +27,7 @@ final class UpdatesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         view.addSubview(playersCollectionView)
         setupNavigationBarItems()
         setConstraints()
@@ -62,6 +68,10 @@ final class UpdatesViewController: UIViewController {
 // MARK: - Collection View Data Source
 extension UpdatesViewController: UICollectionViewDataSource {
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        1
+    }
+    
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
@@ -78,10 +88,30 @@ extension UpdatesViewController: UICollectionViewDataSource {
             for: indexPath)
         return cell
     }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String, 
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: HeaderCollectionReusableView.identifier,
+            for: indexPath)
+        return headerView
+    }
 }
 
 // MARK: - Collection View Delegate Flow Layout
 extension UpdatesViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        referenceSizeForHeaderInSection section: Int
+    ) -> CGSize {
+        CGSize(width: collectionView.bounds.width, height: 18)
+    }
     
     func collectionView(
         _ collectionView: UICollectionView,
@@ -96,7 +126,7 @@ extension UpdatesViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        UIEdgeInsets(top: 8, left: 0, bottom: 12, right: 0)
+        UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
     }
 }
 
@@ -106,7 +136,8 @@ extension UpdatesViewController {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             playersCollectionView.topAnchor.constraint(
-                equalTo: view.topAnchor),
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: 8),
             playersCollectionView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor),
             playersCollectionView.bottomAnchor.constraint(

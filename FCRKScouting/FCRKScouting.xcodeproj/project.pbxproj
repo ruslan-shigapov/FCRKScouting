@@ -41,6 +41,8 @@
 		E4C0DE172BC6A3C400BCD235 /* TextViewWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C0DE162BC6A3C400BCD235 /* TextViewWithTitle.swift */; };
 		E4F4CE462BC92E0B009F9A8D /* VerticalCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */; };
 		E4F4CE482BC935BD009F9A8D /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */; };
+		E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */; };
+		E4F4CE4C2BC95122009F9A8D /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE4B2BC95122009F9A8D /* HeaderCollectionReusableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		E4C0DE162BC6A3C400BCD235 /* TextViewWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewWithTitle.swift; path = FCRKScouting/Views/TextViewWithTitle.swift; sourceTree = SOURCE_ROOT; };
 		E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionView.swift; sourceTree = "<group>"; };
 		E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
+		E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesViewModel.swift; sourceTree = "<group>"; };
+		E4F4CE4B2BC95122009F9A8D /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +241,7 @@
 			children = (
 				E4BB486E2BC3D53E00F91513 /* PlayerAddingScreen */,
 				E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */,
+				E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */,
 			);
 			path = UpdatesScreen;
 			sourceTree = "<group>";
@@ -260,6 +265,7 @@
 				E4BB487B2BC3D54600F91513 /* GraySegmentedControl.swift */,
 				E4BB487C2BC3D54600F91513 /* NavigationRightBarButton.swift */,
 				E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */,
+				E4F4CE4B2BC95122009F9A8D /* HeaderCollectionReusableView.swift */,
 				E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */,
 				E4C0DE142BC68AB500BCD235 /* HeaderLabel.swift */,
 				E412BCF92BC7C7CE00A9BCF6 /* WhiteLabel.swift */,
@@ -342,6 +348,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4BB48642BC3D53700F91513 /* LoginViewController.swift in Sources */,
+				E4F4CE4C2BC95122009F9A8D /* HeaderCollectionReusableView.swift in Sources */,
 				E4C0DE152BC68AB500BCD235 /* HeaderLabel.swift in Sources */,
 				E4BB48822BC3D54600F91513 /* EditButton.swift in Sources */,
 				E4BB48772BC3D53E00F91513 /* PlayerAddingViewController.swift in Sources */,
@@ -360,6 +367,7 @@
 				E4BB48832BC3D54600F91513 /* GraySegmentedControl.swift in Sources */,
 				E4BB48782BC3D53E00F91513 /* UpdatesViewController.swift in Sources */,
 				E4BB48592BC3D33400F91513 /* StorageManager.swift in Sources */,
+				E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */,
 				E4C0DE172BC6A3C400BCD235 /* TextViewWithTitle.swift in Sources */,
 				E4BB48862BC3D54600F91513 /* PhotoImageView.swift in Sources */,
 				E4BB48602BC3D51200F91513 /* ScreenFactory.swift in Sources */,

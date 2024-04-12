@@ -16,6 +16,7 @@
         <attribute name="qualities" optional="YES" attributeType="String"/>
         <attribute name="tactics" optional="YES" attributeType="String"/>
         <attribute name="technique" optional="YES" attributeType="String"/>
+        <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="fullName" optional="YES" attributeType="String"/>

@@ -102,7 +102,7 @@ enum Constants {
             """
         }
         enum SegmentedControlItems {
-            static let timeSegments = ["неделя", "месяц", "год"]
+            static let timeSegments = ["сегодня", "неделя", "месяц"]
             static let leagueSegments = ["все", "ЮФЛ-1", "ЮФЛ-2", "ЮФЛ-3"]
             static let footSegments = ["правая", "левая"]
         }
