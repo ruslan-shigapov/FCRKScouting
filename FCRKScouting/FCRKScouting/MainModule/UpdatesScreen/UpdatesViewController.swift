@@ -9,19 +9,20 @@ import UIKit
 
 final class UpdatesViewController: UIViewController {
     
-    private let emptyScreenLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.text = "Здесь будет отображаться список по датам - информация по последним добавленным игрокам"
-        return label
+    private lazy var playersCollectionView: UICollectionView = {
+        let collectionView = VerticalCollectionView()
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(
+            PlayerCollectionViewCell.self,
+            forCellWithReuseIdentifier: PlayerCollectionViewCell.identifier)
+        return collectionView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        view.addSubview(emptyScreenLabel)
+        view.addSubview(playersCollectionView)
         setupNavigationBarItems()
         setConstraints()
     }
@@ -58,19 +59,60 @@ final class UpdatesViewController: UIViewController {
     }
 }
 
-// MARK: - Layout
-private extension UpdatesViewController {
+// MARK: - Collection View Data Source
+extension UpdatesViewController: UICollectionViewDataSource {
     
-    func setConstraints() {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        1
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: PlayerCollectionViewCell.identifier,
+            for: indexPath)
+        return cell
+    }
+}
+
+// MARK: - Collection View Delegate Flow Layout
+extension UpdatesViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        CGSize(width: collectionView.bounds.width - 16, height: 100)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        UIEdgeInsets(top: 8, left: 0, bottom: 12, right: 0)
+    }
+}
+
+// MARK: - Layout
+extension UpdatesViewController {
+    
+    private func setConstraints() {
         NSLayoutConstraint.activate([
-            emptyScreenLabel.centerYAnchor.constraint(
-                equalTo: view.centerYAnchor),
-            emptyScreenLabel.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 40),
-            emptyScreenLabel.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: -40)
+            playersCollectionView.topAnchor.constraint(
+                equalTo: view.topAnchor),
+            playersCollectionView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor),
+            playersCollectionView.bottomAnchor.constraint(
+                equalTo: view.bottomAnchor),
+            playersCollectionView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor)
         ])
     }
 }

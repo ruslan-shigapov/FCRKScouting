@@ -27,7 +27,7 @@ final class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .white
         view.addSubview(temporarySearchBar)
         view.addSubview(emptyScreenLabel)
         setupNavigationBarButton()

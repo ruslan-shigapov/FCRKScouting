@@ -32,7 +32,6 @@ enum Constants {
         static let normal = UIFont(name: "Ostrovsky", size: 15)
         static let text = UIFont.systemFont(ofSize: 16, weight: .light)
         static let floatingLabel = UIFont.systemFont(ofSize: 12, weight: .light)
-        static let whiteLabel = UIFont.systemFont(ofSize: 17, weight: .semibold)
         static let description = UIFont.systemFont(ofSize: 12, weight: .thin)
     }
     // MARK: Text

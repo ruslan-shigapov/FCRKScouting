@@ -308,13 +308,13 @@ extension PlayerAddingViewController: UIPickerViewDelegate {
 }
 
 // MARK: - Layout
-private extension PlayerAddingViewController {
+extension PlayerAddingViewController {
     
-    func prepareForAutoLayout(view: UIView) {
+    private func prepareForAutoLayout(view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func setConstraints() {
+    private func setConstraints() {
         view.subviews.forEach(prepareForAutoLayout)
         verticalScrollView.subviews.forEach(prepareForAutoLayout)
         

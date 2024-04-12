@@ -17,7 +17,7 @@ final class WhiteLabel: UILabel {
     
     private func setupUI() {
         textColor = .white
-        font = Constants.Fonts.whiteLabel
+        font = Constants.Fonts.normal
     }
     
     @available(*, unavailable)

@@ -39,6 +39,8 @@
 		E4BB48882BC3D54600F91513 /* RoundedTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB48802BC3D54600F91513 /* RoundedTextFieldView.swift */; };
 		E4C0DE152BC68AB500BCD235 /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C0DE142BC68AB500BCD235 /* HeaderLabel.swift */; };
 		E4C0DE172BC6A3C400BCD235 /* TextViewWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C0DE162BC6A3C400BCD235 /* TextViewWithTitle.swift */; };
+		E4F4CE462BC92E0B009F9A8D /* VerticalCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */; };
+		E4F4CE482BC935BD009F9A8D /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +78,8 @@
 		E4BB48802BC3D54600F91513 /* RoundedTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedTextFieldView.swift; sourceTree = "<group>"; };
 		E4C0DE142BC68AB500BCD235 /* HeaderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLabel.swift; sourceTree = "<group>"; };
 		E4C0DE162BC6A3C400BCD235 /* TextViewWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewWithTitle.swift; path = FCRKScouting/Views/TextViewWithTitle.swift; sourceTree = SOURCE_ROOT; };
+		E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionView.swift; sourceTree = "<group>"; };
+		E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +259,8 @@
 				E4BB487F2BC3D54600F91513 /* PrimaryButton.swift */,
 				E4BB487B2BC3D54600F91513 /* GraySegmentedControl.swift */,
 				E4BB487C2BC3D54600F91513 /* NavigationRightBarButton.swift */,
+				E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */,
+				E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */,
 				E4C0DE142BC68AB500BCD235 /* HeaderLabel.swift */,
 				E412BCF92BC7C7CE00A9BCF6 /* WhiteLabel.swift */,
 				E4C0DE162BC6A3C400BCD235 /* TextViewWithTitle.swift */,
@@ -350,6 +356,7 @@
 				E4BB48762BC3D53E00F91513 /* SearchViewController.swift in Sources */,
 				E412BCFF2BC7D48600A9BCF6 /* UIView+extension.swift in Sources */,
 				E4BB48732BC3D53E00F91513 /* ProfileViewController.swift in Sources */,
+				E4F4CE462BC92E0B009F9A8D /* VerticalCollectionView.swift in Sources */,
 				E4BB48832BC3D54600F91513 /* GraySegmentedControl.swift in Sources */,
 				E4BB48782BC3D53E00F91513 /* UpdatesViewController.swift in Sources */,
 				E4BB48592BC3D33400F91513 /* StorageManager.swift in Sources */,
@@ -359,6 +366,7 @@
 				E4BB48652BC3D53700F91513 /* LoginViewModel.swift in Sources */,
 				E4BB48882BC3D54600F91513 /* RoundedTextFieldView.swift in Sources */,
 				E4BB48842BC3D54600F91513 /* NavigationRightBarButton.swift in Sources */,
+				E4F4CE482BC935BD009F9A8D /* PlayerCollectionViewCell.swift in Sources */,
 				E4BB48852BC3D54600F91513 /* PersonTitleView.swift in Sources */,
 				E4BB48872BC3D54600F91513 /* PrimaryButton.swift in Sources */,
 				E4BB484E2BC3D26A00F91513 /* Constants.swift in Sources */,

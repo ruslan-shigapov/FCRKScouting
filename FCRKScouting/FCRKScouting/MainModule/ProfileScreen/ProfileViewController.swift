@@ -17,18 +17,12 @@ final class ProfileViewController: UIViewController {
     
     private let editButton = EditButton()
     
-    private let accessLabel: UILabel = {
-        let label = UILabel()
-        label.text = Constants.Text.access
-        label.font = Constants.Fonts.normal
-        label.textColor = .white
-        return label
-    }()
+    private let accessLabel = WhiteLabel(title: Constants.Text.access)
     
     private lazy var accessValueLabel: UILabel = {
         let label = UILabel()
         label.text = viewModel.access
-        label.font = .systemFont(ofSize: 16)
+        label.font = Constants.Fonts.text
         label.textColor = .lightGray
         return label
     }()
@@ -66,7 +60,7 @@ final class ProfileViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .white
         addSubviews()
         setupButtons()
         setConstraints()
@@ -117,13 +111,13 @@ private extension ProfileViewController {
         NSLayoutConstraint.activate([
             userTitleView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
-                constant: 16),
+                constant: 8),
             userTitleView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 16),
+                constant: 8),
             userTitleView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -16),
+                constant: -8),
             
             editButton.topAnchor.constraint(
                 equalTo: userTitleView.topAnchor,
@@ -134,13 +128,13 @@ private extension ProfileViewController {
             
             backgroundView.topAnchor.constraint(
                 equalTo: userTitleView.bottomAnchor,
-                constant: 16),
+                constant: 8),
             backgroundView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 16),
+                constant: 8),
             backgroundView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -16),
+                constant: -8),
             
             accessLabel.topAnchor.constraint(
                 equalTo: backgroundView.topAnchor,

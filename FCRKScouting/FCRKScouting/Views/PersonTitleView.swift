@@ -67,10 +67,10 @@ private extension PersonTitleView {
             
             fullNameLabel.leadingAnchor.constraint(
                 equalTo: photoImageView.trailingAnchor,
-                constant: 18),
+                constant: 24),
             fullNameLabel.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -18),
+                constant: -24),
             fullNameLabel.centerYAnchor.constraint(
                 equalTo: photoImageView.centerYAnchor)
         ])
