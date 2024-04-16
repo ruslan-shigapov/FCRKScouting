@@ -13,8 +13,7 @@ final class PlayerAddingViewController: UIViewController {
     private var viewModel: PlayerAddingViewModelProtocol
     
     // MARK: Views
-    private let titleLabel = HeaderLabel(
-        title: Constants.Text.ScreenTitles.addPlayer)
+    private let titleLabel = HeaderLabel()
     
     private lazy var closeButton: UIButton = {
         let button = UIButton(type: .close)
@@ -64,7 +63,7 @@ final class PlayerAddingViewController: UIViewController {
         return stackView
     }()
     
-    private let birthDateLabel = WhiteLabel(title: Constants.Text.birthDate)
+    private let birthDateLabel = WhiteLabel()
     
     private let birthDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -73,7 +72,7 @@ final class PlayerAddingViewController: UIViewController {
         return datePicker
     }()
     
-    private let positionLabel = WhiteLabel(title: Constants.Text.position)
+    private let positionLabel = WhiteLabel()
     
     private lazy var positionPickerView: UIPickerView = {
         let pickerView = UIPickerView()
@@ -86,7 +85,7 @@ final class PlayerAddingViewController: UIViewController {
         return pickerView
     }()
     
-    private let footLabel = WhiteLabel(title: Constants.Text.foot)
+    private let footLabel = WhiteLabel()
     
     private let footSegmentedControl = GraySegmentedControl(
         items: Constants.Text.SegmentedControlItems.footSegments)
@@ -157,6 +156,7 @@ final class PlayerAddingViewController: UIViewController {
         addSubviews()
         addTapGesture()
         setupAlerts()
+        setupLabels()
         setupTextFields()
         setupButtons()
         setConstraints()
@@ -195,6 +195,13 @@ final class PlayerAddingViewController: UIViewController {
                 andMessage: Constants.Text.Alerts.notSelectedPosition.message)
             self?.present(alertController, animated: true)
         }
+    }
+    
+    private func setupLabels() {
+        titleLabel.text = Constants.Text.ScreenTitles.addPlayer
+        birthDateLabel.text = Constants.Text.birthDate
+        positionLabel.text = Constants.Text.position
+        footLabel.text = Constants.Text.foot
     }
     
     private func setupTextFields() {
@@ -310,10 +317,6 @@ extension PlayerAddingViewController: UIPickerViewDelegate {
 // MARK: - Layout
 extension PlayerAddingViewController {
     
-    private func prepareForAutoLayout(view: UIView) {
-        view.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
     private func setConstraints() {
         view.subviews.forEach(prepareForAutoLayout)
         verticalScrollView.subviews.forEach(prepareForAutoLayout)
@@ -346,6 +349,8 @@ extension PlayerAddingViewController {
             photoImageView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
+            photoImageView.heightAnchor.constraint(equalToConstant: 120),
+            photoImageView.widthAnchor.constraint(equalToConstant: 120),
             
             uploadPhotoButton.trailingAnchor.constraint(
                 equalTo: textFieldStackView.trailingAnchor),

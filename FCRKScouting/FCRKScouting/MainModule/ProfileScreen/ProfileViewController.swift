@@ -17,7 +17,7 @@ final class ProfileViewController: UIViewController {
     
     private let editButton = EditButton()
     
-    private let accessLabel = WhiteLabel(title: Constants.Text.access)
+    private let accessLabel = WhiteLabel()
     
     private lazy var accessValueLabel: UILabel = {
         let label = UILabel()
@@ -61,6 +61,7 @@ final class ProfileViewController: UIViewController {
     // MARK: Private Methods
     private func setupUI() {
         view.backgroundColor = .white
+        accessLabel.text = Constants.Text.access
         addSubviews()
         setupButtons()
         setConstraints()
@@ -99,10 +100,6 @@ final class ProfileViewController: UIViewController {
 
 // MARK: - Layout
 private extension ProfileViewController {
-    
-    func prepareForAutoLayout(view: UIView) {
-        view.translatesAutoresizingMaskIntoConstraints = false
-    }
     
     func setConstraints() {
         view.subviews.forEach(prepareForAutoLayout)

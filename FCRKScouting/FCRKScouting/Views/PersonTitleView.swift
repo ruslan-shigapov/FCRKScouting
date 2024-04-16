@@ -14,7 +14,7 @@ final class PersonTitleView: UIView {
     
     // MARK: Views
     private let photoImageView = PhotoImageView()
-    private lazy var fullNameLabel = HeaderLabel(title: title)
+    private lazy var fullNameLabel = HeaderLabel()
     
     // MARK: Initialize
     init(title: String) {
@@ -39,6 +39,7 @@ final class PersonTitleView: UIView {
         backgroundColor = .accent
         addSubview(photoImageView)
         addSubview(fullNameLabel)
+        fullNameLabel.text = title
         layer.cornerRadius = 12
         setConstraints()
     }
@@ -47,12 +48,9 @@ final class PersonTitleView: UIView {
 // MARK: - Layout
 private extension PersonTitleView {
     
-    func prepareForAutoLayout(view: UIView) {
-        view.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
     func setConstraints() {
-        subviews.forEach(prepareForAutoLayout)
+        photoImageView.translatesAutoresizingMaskIntoConstraints = false
+        fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             photoImageView.topAnchor.constraint(
@@ -64,6 +62,8 @@ private extension PersonTitleView {
             photoImageView.bottomAnchor.constraint(
                 equalTo: bottomAnchor,
                 constant: -24),
+            photoImageView.heightAnchor.constraint(equalToConstant: 100),
+            photoImageView.widthAnchor.constraint(equalToConstant: 100),
             
             fullNameLabel.leadingAnchor.constraint(
                 equalTo: photoImageView.trailingAnchor,

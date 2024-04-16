@@ -7,14 +7,13 @@
 
 import UIKit
 
-final class HeaderCollectionReusableView: UICollectionReusableView {
-    
-    private let dateLabel: UILabel = {
+final class DateCollectionReusableView: UICollectionReusableView {
+        
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "12.04.2024"
         label.font = Constants.Fonts.normal
-        label.textColor = .accent
+        label.textColor = .label
         return label
     }()
     
@@ -41,9 +40,13 @@ final class HeaderCollectionReusableView: UICollectionReusableView {
             dateLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+    
+    func configure(withDate date: String) {
+        dateLabel.text = date
+    }
 }
 
-extension HeaderCollectionReusableView {
+extension DateCollectionReusableView {
     
     static var identifier: String {
         String(describing: self)

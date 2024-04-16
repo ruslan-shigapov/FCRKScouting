@@ -13,7 +13,7 @@ final class TextViewWithTitle: UIView {
     private let title: String
 
     // MARK: Views
-    private lazy var titleLabel = WhiteLabel(title: title)
+    private lazy var titleLabel = WhiteLabel()
     
     private lazy var roundedTextView: UITextView = {
         let textView = UITextView()
@@ -47,6 +47,7 @@ final class TextViewWithTitle: UIView {
     private func setupUI() {
         addSubview(titleLabel)
         addSubview(roundedTextView)
+        titleLabel.text = title
         setupShadow()
         setConstraints()
     }

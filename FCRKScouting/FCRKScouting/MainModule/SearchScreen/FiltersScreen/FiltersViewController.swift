@@ -24,10 +24,6 @@ final class FiltersViewController: UIViewController {
         setConstraints()
     }
     
-    private func prepareForAutoLayout(view: UIView) {
-        view.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
     private func setConstraints() {
         view.subviews.forEach(prepareForAutoLayout)
         

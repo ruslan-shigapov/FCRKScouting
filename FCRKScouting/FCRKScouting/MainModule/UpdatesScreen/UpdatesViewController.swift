@@ -16,9 +16,9 @@ final class UpdatesViewController: UIViewController {
         collectionView.delegate = self
         let elementKind = UICollectionView.elementKindSectionHeader
         collectionView.register(
-            HeaderCollectionReusableView.self,
+            DateCollectionReusableView.self,
             forSupplementaryViewOfKind: elementKind,
-            withReuseIdentifier: HeaderCollectionReusableView.identifier)
+            withReuseIdentifier: DateCollectionReusableView.identifier)
         collectionView.register(
             PlayerCollectionViewCell.self,
             forCellWithReuseIdentifier: PlayerCollectionViewCell.identifier)
@@ -85,8 +85,9 @@ extension UpdatesViewController: UICollectionViewDataSource {
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: PlayerCollectionViewCell.identifier,
-            for: indexPath)
-        return cell
+            for: indexPath) as? PlayerCollectionViewCell
+        cell?.configure(withFullName: "Руслан Шигапов", age: "35 лет", photo: nil)
+        return cell ?? UICollectionViewCell()
     }
     
     func collectionView(
@@ -96,9 +97,10 @@ extension UpdatesViewController: UICollectionViewDataSource {
     ) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
-            withReuseIdentifier: HeaderCollectionReusableView.identifier,
-            for: indexPath)
-        return headerView
+            withReuseIdentifier: DateCollectionReusableView.identifier,
+            for: indexPath) as? DateCollectionReusableView
+        headerView?.configure(withDate: "16.04.2024")
+        return headerView ?? UICollectionReusableView()
     }
 }
 

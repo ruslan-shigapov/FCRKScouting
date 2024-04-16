@@ -192,10 +192,6 @@ extension LoginViewController: UITextFieldDelegate {
 // MARK: - Layout
 extension LoginViewController {
     
-    private func prepareForAutoLayout(view: UIView) {
-        view.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
     private func setConstraints() {
         view.subviews.forEach(prepareForAutoLayout)
         

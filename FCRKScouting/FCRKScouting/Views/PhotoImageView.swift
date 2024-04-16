@@ -23,13 +23,5 @@ final class PhotoImageView: UIImageView {
         backgroundColor = .lightGray
         image = Constants.Images.photoPlaceholder
         tintColor = .accent
-        setConstraints()
-    }
-    
-    private func setConstraints() {
-        NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 120),
-            widthAnchor.constraint(equalToConstant: 120)
-        ])
     }
 }

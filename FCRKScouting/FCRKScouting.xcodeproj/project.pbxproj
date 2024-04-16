@@ -42,7 +42,8 @@
 		E4F4CE462BC92E0B009F9A8D /* VerticalCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */; };
 		E4F4CE482BC935BD009F9A8D /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */; };
 		E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */; };
-		E4F4CE4C2BC95122009F9A8D /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE4B2BC95122009F9A8D /* HeaderCollectionReusableView.swift */; };
+		E4F4CE4C2BC95122009F9A8D /* DateCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE4B2BC95122009F9A8D /* DateCollectionReusableView.swift */; };
+		E4FA78102BC9C4EE00B6B48A /* UIViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FA780F2BC9C4EE00B6B48A /* UIViewController+extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,7 +84,8 @@
 		E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionView.swift; sourceTree = "<group>"; };
 		E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
 		E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesViewModel.swift; sourceTree = "<group>"; };
-		E4F4CE4B2BC95122009F9A8D /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		E4F4CE4B2BC95122009F9A8D /* DateCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionReusableView.swift; sourceTree = "<group>"; };
+		E4FA780F2BC9C4EE00B6B48A /* UIViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			children = (
 				E412BCFC2BC7D2BE00A9BCF6 /* CheckTextFieldProtocol.swift */,
 				E412BCFE2BC7D48600A9BCF6 /* UIView+extension.swift */,
+				E4FA780F2BC9C4EE00B6B48A /* UIViewController+extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -136,6 +139,35 @@
 				E4BB484C2BC3D23300F91513 /* Resources */,
 			);
 			path = FCRKScouting;
+			sourceTree = "<group>";
+		};
+		E48159E02BCE5FEB0090FC42 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				E4BB487F2BC3D54600F91513 /* PrimaryButton.swift */,
+				E4BB487C2BC3D54600F91513 /* NavigationRightBarButton.swift */,
+				E4BB487A2BC3D54600F91513 /* EditButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		E48159E12BCE601C0090FC42 /* CollectionViewBundle */ = {
+			isa = PBXGroup;
+			children = (
+				E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */,
+				E4F4CE4B2BC95122009F9A8D /* DateCollectionReusableView.swift */,
+				E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */,
+			);
+			path = CollectionViewBundle;
+			sourceTree = "<group>";
+		};
+		E48159E22BCE60570090FC42 /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				E4C0DE142BC68AB500BCD235 /* HeaderLabel.swift */,
+				E412BCF92BC7C7CE00A9BCF6 /* WhiteLabel.swift */,
+			);
+			path = Labels;
 			sourceTree = "<group>";
 		};
 		E4BB484A2BC3D21C00F91513 /* Application */ = {
@@ -260,19 +292,14 @@
 		E4BB48812BC3D54600F91513 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E48159E02BCE5FEB0090FC42 /* Buttons */,
+				E48159E12BCE601C0090FC42 /* CollectionViewBundle */,
+				E48159E22BCE60570090FC42 /* Labels */,
 				E4BB48802BC3D54600F91513 /* RoundedTextFieldView.swift */,
-				E4BB487F2BC3D54600F91513 /* PrimaryButton.swift */,
 				E4BB487B2BC3D54600F91513 /* GraySegmentedControl.swift */,
-				E4BB487C2BC3D54600F91513 /* NavigationRightBarButton.swift */,
-				E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */,
-				E4F4CE4B2BC95122009F9A8D /* HeaderCollectionReusableView.swift */,
-				E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */,
-				E4C0DE142BC68AB500BCD235 /* HeaderLabel.swift */,
-				E412BCF92BC7C7CE00A9BCF6 /* WhiteLabel.swift */,
 				E4C0DE162BC6A3C400BCD235 /* TextViewWithTitle.swift */,
 				E4BB487D2BC3D54600F91513 /* PersonTitleView.swift */,
 				E4BB487E2BC3D54600F91513 /* PhotoImageView.swift */,
-				E4BB487A2BC3D54600F91513 /* EditButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -348,7 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4BB48642BC3D53700F91513 /* LoginViewController.swift in Sources */,
-				E4F4CE4C2BC95122009F9A8D /* HeaderCollectionReusableView.swift in Sources */,
+				E4F4CE4C2BC95122009F9A8D /* DateCollectionReusableView.swift in Sources */,
 				E4C0DE152BC68AB500BCD235 /* HeaderLabel.swift in Sources */,
 				E4BB48822BC3D54600F91513 /* EditButton.swift in Sources */,
 				E4BB48772BC3D53E00F91513 /* PlayerAddingViewController.swift in Sources */,
@@ -361,6 +388,7 @@
 				E4BB48742BC3D53E00F91513 /* ProfileViewModel.swift in Sources */,
 				E46B63FD2BC5405C005B32E1 /* PlayerAddingViewModel.swift in Sources */,
 				E4BB48762BC3D53E00F91513 /* SearchViewController.swift in Sources */,
+				E4FA78102BC9C4EE00B6B48A /* UIViewController+extension.swift in Sources */,
 				E412BCFF2BC7D48600A9BCF6 /* UIView+extension.swift in Sources */,
 				E4BB48732BC3D53E00F91513 /* ProfileViewController.swift in Sources */,
 				E4F4CE462BC92E0B009F9A8D /* VerticalCollectionView.swift in Sources */,

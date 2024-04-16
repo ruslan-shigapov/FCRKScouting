@@ -9,9 +9,8 @@ import UIKit
 
 final class WhiteLabel: UILabel {
 
-    init(title: String) {
-        super.init(frame: .zero)
-        text = title
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupUI()
     }
     
