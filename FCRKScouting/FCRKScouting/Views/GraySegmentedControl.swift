@@ -20,7 +20,7 @@ final class GraySegmentedControl: UISegmentedControl {
     }
     
     private func setupUI() {
-        selectedSegmentIndex = 0
         backgroundColor = .lightGray
+        selectedSegmentIndex = 0
     }
 }

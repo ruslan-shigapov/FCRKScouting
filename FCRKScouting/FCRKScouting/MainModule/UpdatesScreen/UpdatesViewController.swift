@@ -9,6 +9,10 @@ import UIKit
 
 final class UpdatesViewController: UIViewController {
     
+    // MARK: Private Properties
+    private var viewModel: UpdatesViewModelProtocol
+    
+    // MARK: Views
     private lazy var playersCollectionView: UICollectionView = {
         let collectionView = VerticalCollectionView()
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -25,28 +29,42 @@ final class UpdatesViewController: UIViewController {
         return collectionView
     }()
     
+    // MARK: Initialize
+    init(viewModel: UpdatesViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         view.addSubview(playersCollectionView)
         setupNavigationBarItems()
         setConstraints()
     }
     
+    // MARK: Private Methods 
     private func setupNavigationBarItems() {
-        let addPlayerButton = NavigationRightBarButton(
+        let addPlayerButton = RightNavigationBarButton(
             image: Constants.Images.ButtonImages.addPlayer)
         addPlayerButton.addTarget(
             self,
             action: #selector(addPlayerButtonTapped),
             for: .touchUpInside)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            customView: addPlayerButton)
-        
-        let timeSegmentedControl = GraySegmentedControl(
-            items: Constants.Text.SegmentedControlItems.timeSegments)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            customView: timeSegmentedControl)
+        if viewModel.isAddingAllowed {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                customView: addPlayerButton)
+        }
+        let periodSegmentedControl = GraySegmentedControl(
+            items: Constants.Text.SegmentedControlItems.periodSegments)
+        let leftBarButtonItem = UIBarButtonItem(
+            customView: periodSegmentedControl)
+        navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
     @objc private func addPlayerButtonTapped() {
@@ -69,7 +87,7 @@ final class UpdatesViewController: UIViewController {
 extension UpdatesViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
+        viewModel.getNumberOfSections()
     }
     
     func collectionView(
@@ -86,7 +104,11 @@ extension UpdatesViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: PlayerCollectionViewCell.identifier,
             for: indexPath) as? PlayerCollectionViewCell
-        cell?.configure(withFullName: "Руслан Шигапов", age: "35 лет", photo: nil)
+        cell?.configureWith(
+            fullName: "Даниил Кирягин",
+            age: "18 лет",
+            position: "\"ЦЗ\"",
+            photo: nil)
         return cell ?? UICollectionViewCell()
     }
     
@@ -99,7 +121,7 @@ extension UpdatesViewController: UICollectionViewDataSource {
             ofKind: kind,
             withReuseIdentifier: DateCollectionReusableView.identifier,
             for: indexPath) as? DateCollectionReusableView
-        headerView?.configure(withDate: "16.04.2024")
+        headerView?.configureWith(date: "16.04.2024")
         return headerView ?? UICollectionReusableView()
     }
 }
@@ -112,7 +134,7 @@ extension UpdatesViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         referenceSizeForHeaderInSection section: Int
     ) -> CGSize {
-        CGSize(width: collectionView.bounds.width, height: 18)
+        CGSize(width: collectionView.bounds.width, height: 30)
     }
     
     func collectionView(
@@ -128,7 +150,11 @@ extension UpdatesViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        if section == (collectionView.numberOfSections - 1) {
+            return UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
+        } else {
+            return UIEdgeInsets.zero
+        }
     }
 }
 
@@ -138,12 +164,11 @@ extension UpdatesViewController {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             playersCollectionView.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor,
-                constant: 8),
+                equalTo: view.safeAreaLayoutGuide.topAnchor),
             playersCollectionView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor),
             playersCollectionView.bottomAnchor.constraint(
-                equalTo: view.bottomAnchor),
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             playersCollectionView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor)
         ])

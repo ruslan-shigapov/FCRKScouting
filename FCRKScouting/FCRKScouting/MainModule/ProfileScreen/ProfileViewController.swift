@@ -17,7 +17,7 @@ final class ProfileViewController: UIViewController {
     
     private let editButton = EditButton()
     
-    private let accessLabel = WhiteLabel()
+    private let accessLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
     
     private lazy var accessValueLabel: UILabel = {
         let label = UILabel()
@@ -34,10 +34,10 @@ final class ProfileViewController: UIViewController {
     private lazy var backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .accent
+        view.setCustomCornerRadius()
         view.addSubview(accessLabel)
         view.addSubview(accessValueLabel)
         view.addSubview(logoutButton)
-        view.layer.cornerRadius = 12
         return view
     }()
     
@@ -102,9 +102,12 @@ final class ProfileViewController: UIViewController {
 private extension ProfileViewController {
     
     func setConstraints() {
-        view.subviews.forEach(prepareForAutoLayout)
-        backgroundView.subviews.forEach(prepareForAutoLayout)
-        
+        view.subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        backgroundView.subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         NSLayoutConstraint.activate([
             userTitleView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,

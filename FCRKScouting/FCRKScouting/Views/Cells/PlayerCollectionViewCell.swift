@@ -9,10 +9,25 @@ import UIKit
 
 final class PlayerCollectionViewCell: UICollectionViewCell {
     
+    // MARK: Views
     private let photoImageView = PhotoImageView()
-    private lazy var fullNameLabel = HeaderLabel()
-    private lazy var ageLabel = WhiteLabel()
+    
+    private let fullNameLabel = CustomWhiteLabel(
+        font: Constants.Fonts.header,
+        numberOfLines: 2)
+    private let ageLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
+    private let positionLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
+    
+    private lazy var infoStackView: UIStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews: [ageLabel, positionLabel])
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 4
+        return stackView
+    }()
         
+    // MARK: Initialize
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -23,38 +38,37 @@ final class PlayerCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        photoImageView.layer.cornerRadius = photoImageView.frame.width / 2
-    }
-    
+    // MARK: Private Methods
     private func setupUI() {
         backgroundColor = .accent
-        ageLabel.textAlignment = .right
+        setCustomCornerRadius()
         addSubviews()
-        layer.cornerRadius = 12
         setConstraints()
     }
     
     private func addSubviews() {
         addSubview(photoImageView)
         addSubview(fullNameLabel)
-        addSubview(ageLabel)
+        addSubview(infoStackView)
     }
     
-    func configure(
-        withFullName fullName: String, 
+    // MARK: Public Methods
+    func configureWith(
+        fullName: String, 
         age: String,
+        position: String,
         photo: UIImage?
     ) {
         fullNameLabel.text = fullName
         ageLabel.text = age
+        positionLabel.text = position
         if let photo {
             photoImageView.image = photo
         }
     }
 }
 
+// MARK: - Reuse Identifier
 extension PlayerCollectionViewCell {
     
     static var identifier: String {
@@ -66,14 +80,14 @@ extension PlayerCollectionViewCell {
 private extension PlayerCollectionViewCell {
     
     func setConstraints() {
-        photoImageView.translatesAutoresizingMaskIntoConstraints = false
-        fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        ageLabel.translatesAutoresizingMaskIntoConstraints = false
+        subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
             photoImageView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: 12),
+                constant: 18),
             photoImageView.centerYAnchor.constraint(
                 equalTo: centerYAnchor),
             photoImageView.heightAnchor.constraint(equalToConstant: 70),
@@ -81,19 +95,19 @@ private extension PlayerCollectionViewCell {
             
             fullNameLabel.leadingAnchor.constraint(
                 equalTo: photoImageView.trailingAnchor,
-                constant: 24),
+                constant: 18),
             fullNameLabel.centerYAnchor.constraint(
                 equalTo: centerYAnchor),
             
-            ageLabel.leadingAnchor.constraint(
+            infoStackView.leadingAnchor.constraint(
                 equalTo: fullNameLabel.trailingAnchor,
-                constant: 24),
-            ageLabel.trailingAnchor.constraint(
+                constant: 18),
+            infoStackView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -24),
-            ageLabel.centerYAnchor.constraint(
+                constant: -12),
+            infoStackView.centerYAnchor.constraint(
                 equalTo: centerYAnchor),
-            ageLabel.widthAnchor.constraint(equalToConstant: 70)
+            infoStackView.widthAnchor.constraint(equalToConstant: 70)
         ])
     }
 }

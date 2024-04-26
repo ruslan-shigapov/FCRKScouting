@@ -15,8 +15,8 @@ enum TextFieldType {
 final class RoundedTextFieldView: UIView {
     
     // MARK: Private Properties
-    private let textFieldType: TextFieldType
     private let _placeholder: String
+    private let textFieldType: TextFieldType
     
     // MARK: Views
     private lazy var customTextField: UITextField = {
@@ -43,8 +43,8 @@ final class RoundedTextFieldView: UIView {
     
     private let floatingLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .placeholderText
-        label.font = Constants.Fonts.floatingLabel
+        label.textColor = .accent
+        label.font = Constants.Fonts.description
         label.isHidden = true
         return label
     }()
@@ -59,8 +59,8 @@ final class RoundedTextFieldView: UIView {
     
     // MARK: Initialize
     init(placeholder: String, type: TextFieldType, tag: Int = 1) {
-        self.textFieldType = type
         self._placeholder = placeholder
+        self.textFieldType = type
         super.init(frame: .zero)
         customTextField.tag = tag
         setupTextField(placeholder: placeholder)
@@ -81,9 +81,9 @@ final class RoundedTextFieldView: UIView {
     
     private func setupUI() {
         backgroundColor = .white
+        setCustomCornerRadius()
+        setCustomShadow()
         addSubview(containerStackView)
-        layer.cornerRadius = 12
-        setupShadow()
         setConstraints()
     }
     
@@ -91,7 +91,6 @@ final class RoundedTextFieldView: UIView {
         if customTextField.text == "" {
             floatingLabel.text = _placeholder
             floatingLabel.isHidden = false
-            floatingLabel.textColor = .black
             customTextField.placeholder = ""
         }
     }

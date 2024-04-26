@@ -1,16 +1,17 @@
 //
-//  HeaderLabel.swift
+//  DescriptionLabel.swift
 //  FCRKScouting
 //
-//  Created by Ruslan Shigapov on 10.04.2024.
+//  Created by Ruslan Shigapov on 19.04.2024.
 //
 
 import UIKit
 
-final class HeaderLabel: UILabel {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+final class DescriptionLabel: UILabel {
+
+    init(text: String) {
+        super.init(frame: .zero)
+        self.text = text
         setupUI()
     }
     
@@ -20,8 +21,8 @@ final class HeaderLabel: UILabel {
     }
     
     private func setupUI() {
-        font = Constants.Fonts.header
         textColor = .white
+        font = Constants.Fonts.description
         numberOfLines = 2
     }
 }

@@ -5,11 +5,11 @@
 //  Created by Ruslan Shigapov on 06.03.2024.
 //
 
-protocol LoginViewModelProtocol: CheckTextFieldProtocol {
+protocol LoginViewModelProtocol: TextFieldValidationProtocol {
     var wasAccessKeyWrong: (() -> Void)? { get set }
     var didReceiveDataError: (() -> Void)? { get set }
-    func signUp(
-        byFullName fullName: String,
+    func signUpBy(
+        fullName: String,
         accessKey: String,
         completion: () -> Void
     )
@@ -23,8 +23,8 @@ final class LoginViewModel: LoginViewModelProtocol {
     var wasAccessKeyWrong: (() -> Void)?
     var didReceiveDataError: (() -> Void)?
         
-    func signUp(
-        byFullName fullName: String,
+    func signUpBy(
+        fullName: String,
         accessKey: String,
         completion: () -> Void
     ) {

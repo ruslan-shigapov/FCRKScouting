@@ -9,9 +9,10 @@ import UIKit
 
 final class MainTabBarController: UITabBarController {
     
-    private let viewModel: ProfileViewModelProtocol
+    private let viewModel: MainTabBarViewModelProtocol
     
-    init(viewModel: ProfileViewModelProtocol) {
+    // MARK: Initialize
+    init(viewModel: MainTabBarViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -21,30 +22,35 @@ final class MainTabBarController: UITabBarController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setVCs()
+        setViewControllers()
     }
     
+    // MARK: Private Methods
     private func setupUI() {
         tabBar.backgroundColor = .accent
+        tabBar.barTintColor = .accent
         tabBar.tintColor = .white
-        tabBar.barTintColor = .white
     }
     
-    private func setVCs() {
+    private func setViewControllers() {
         viewControllers = [
             generateNavigationFlowFor(
-                viewController: UpdatesViewController(),
+                viewController: ScreenFactory.getUpdatesViewController(
+                    forUser: viewModel.user),
                 withTitle: Constants.Text.ScreenTitles.updates,
                 andTabBarIcon: Constants.Images.TabBarIcons.updates),
             generateNavigationFlowFor(
-                viewController: SearchViewController(),
+                viewController: ScreenFactory.getSearchViewController(
+                    forUser: viewModel.user), 
                 withTitle: Constants.Text.ScreenTitles.search,
                 andTabBarIcon: Constants.Images.TabBarIcons.search),
             generateNavigationFlowFor(
-                viewController: ProfileViewController(viewModel: viewModel),
+                viewController: ScreenFactory.getProfileViewController(
+                    forUser: viewModel.user),
                 withTitle: Constants.Text.ScreenTitles.profile,
                 andTabBarIcon: Constants.Images.TabBarIcons.profile)
         ]
@@ -67,14 +73,24 @@ final class MainTabBarController: UITabBarController {
     private func setupNavigationBar(
         forNavigationController navigationController: UINavigationController
     ) {
-        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.backgroundColor = .accent
-        navigationBarAppearance.largeTitleTextAttributes = [
+        let navigationBarScrollEdgeAppearance = UINavigationBarAppearance()
+        navigationBarScrollEdgeAppearance.backgroundColor = .accent
+        navigationBarScrollEdgeAppearance.largeTitleTextAttributes = [
             .foregroundColor: UIColor.white,
-            .font: Constants.Fonts.title ?? UIFont.systemFont(ofSize: 35)
+            .font: Constants.Fonts.title as Any
+        ]
+        navigationBarScrollEdgeAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.clear
         ]
         let navigationBar = navigationController.navigationBar
         navigationBar.prefersLargeTitles = true
-        navigationBar.scrollEdgeAppearance = navigationBarAppearance
+        navigationBar.scrollEdgeAppearance = navigationBarScrollEdgeAppearance
+        let navigationBarStandardAppearance = UINavigationBarAppearance()
+        let translucentColor = UIColor.accent.withAlphaComponent(0.9)
+        navigationBarStandardAppearance.backgroundColor = translucentColor
+        navigationBarStandardAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.clear
+        ]
+        navigationBar.standardAppearance = navigationBarStandardAppearance
     }
 }

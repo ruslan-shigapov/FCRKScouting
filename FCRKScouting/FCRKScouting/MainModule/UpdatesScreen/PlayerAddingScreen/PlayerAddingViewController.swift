@@ -13,7 +13,7 @@ final class PlayerAddingViewController: UIViewController {
     private var viewModel: PlayerAddingViewModelProtocol
     
     // MARK: Views
-    private let titleLabel = HeaderLabel()
+    private let titleLabel = CustomWhiteLabel(font: Constants.Fonts.header)
     
     private lazy var closeButton: UIButton = {
         let button = UIButton(type: .close)
@@ -31,8 +31,8 @@ final class PlayerAddingViewController: UIViewController {
         button.backgroundColor = .white
         button.tintColor = .label
         button.setTitle(Constants.Text.ButtonTitles.uploadPhoto, for: .normal)
-        button.layer.cornerRadius = 12
-        button.setupShadow()
+        button.setCustomCornerRadius()
+        button.setCustomShadow()
         button.addTarget(
             self,
             action: #selector(uploadPhotoButtonTapped),
@@ -63,7 +63,7 @@ final class PlayerAddingViewController: UIViewController {
         return stackView
     }()
     
-    private let birthDateLabel = WhiteLabel()
+    private let birthDateLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
     
     private let birthDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -72,20 +72,20 @@ final class PlayerAddingViewController: UIViewController {
         return datePicker
     }()
     
-    private let positionLabel = WhiteLabel()
+    private let positionLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
     
     private lazy var positionPickerView: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.backgroundColor = .white
-        pickerView.layer.cornerRadius = 12
+        pickerView.setCustomCornerRadius()
         pickerView.clipsToBounds = false
-        pickerView.setupShadow()
+        pickerView.setCustomShadow()
         pickerView.dataSource = self
         pickerView.delegate = self
         return pickerView
     }()
     
-    private let footLabel = WhiteLabel()
+    private let footLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
     
     private let footSegmentedControl = GraySegmentedControl(
         items: Constants.Text.SegmentedControlItems.footSegments)
@@ -318,9 +318,12 @@ extension PlayerAddingViewController: UIPickerViewDelegate {
 extension PlayerAddingViewController {
     
     private func setConstraints() {
-        view.subviews.forEach(prepareForAutoLayout)
-        verticalScrollView.subviews.forEach(prepareForAutoLayout)
-        
+        view.subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        verticalScrollView.subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,

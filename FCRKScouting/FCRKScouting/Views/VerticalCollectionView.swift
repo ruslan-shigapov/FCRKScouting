@@ -18,7 +18,6 @@ final class VerticalCollectionView: UICollectionView {
             collectionViewLayout: UICollectionViewFlowLayout())
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
-            layout.minimumLineSpacing = 8
         }
         setupUI()
     }

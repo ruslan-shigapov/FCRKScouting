@@ -24,8 +24,8 @@ final class PrimaryButton: UIButton {
         backgroundColor = .systemGreen
         setTitleColor(.white, for: .normal)
         titleLabel?.font = Constants.Fonts.normal
-        layer.cornerRadius = 12
-        setupShadow()
+        setCustomCornerRadius()
+        setCustomShadow()
         setConstraints()
     }
     

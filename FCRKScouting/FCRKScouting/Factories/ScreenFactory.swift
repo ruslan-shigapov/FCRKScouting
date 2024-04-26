@@ -20,13 +20,34 @@ struct ScreenFactory {
     }
     
     static func getMainViewController(forUser user: User) -> UIViewController {
-        let viewModel = ProfileViewModel(user: user)
+        let viewModel = MainTabBarViewModel(user: user)
         return MainTabBarController(viewModel: viewModel)
     }
     
     static func getLoginViewController() -> UIViewController {
         let viewModel = LoginViewModel()
         return LoginViewController(viewModel: viewModel)
+    }
+    
+    static func getUpdatesViewController(
+        forUser user: User
+    ) -> UIViewController {
+        let viewModel = UpdatesViewModel(user: user)
+        return UpdatesViewController(viewModel: viewModel)
+    }
+    
+    static func getSearchViewController(
+        forUser user: User
+    ) -> UIViewController {
+        let viewModel = SearchViewModel(user: user)
+        return SearchViewController(viewModel: viewModel)
+    }
+    
+    static func getProfileViewController(
+        forUser user: User
+    ) -> UIViewController {
+        let viewModel = ProfileViewModel(user: user)
+        return ProfileViewController(viewModel: viewModel)
     }
     
     static func getPlayerAddingViewController() -> UIViewController {

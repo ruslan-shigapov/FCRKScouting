@@ -18,10 +18,14 @@ final class PhotoImageView: UIImageView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = frame.width / 2
+    }
  
     private func setupUI() {
         backgroundColor = .lightGray
         image = Constants.Images.photoPlaceholder
-        tintColor = .accent
     }
 }

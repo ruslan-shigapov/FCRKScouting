@@ -9,6 +9,8 @@ import UIKit
 
 final class SearchViewController: UIViewController {
     
+    private var viewModel: SearchViewModelProtocol
+
     private let temporarySearchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -24,6 +26,17 @@ final class SearchViewController: UIViewController {
         label.text = "Здесь будет отображаться список с результатами поиска - совпадения с учетом примененных фильтров"
         return label
     }()
+    
+    // MARK: Initialize
+    init(viewModel: SearchViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +48,7 @@ final class SearchViewController: UIViewController {
     }
     
     private func setupNavigationBarButton() {
-        let filtersButton = NavigationRightBarButton(
+        let filtersButton = RightNavigationBarButton(
             image: Constants.Images.ButtonImages.filters)
         filtersButton.addTarget(
             self,
@@ -46,10 +59,10 @@ final class SearchViewController: UIViewController {
         
         // TODO: add status view
         
-        let leagueSegmentedControl = GraySegmentedControl(
+        let leagueSegmentedControlView = GraySegmentedControl(
             items: Constants.Text.SegmentedControlItems.leagueSegments)
         let leftBarButtonItem = UIBarButtonItem(
-            customView: leagueSegmentedControl)
+            customView: leagueSegmentedControlView)
         navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PlayerAddingViewModelProtocol: CheckTextFieldProtocol {
+protocol PlayerAddingViewModelProtocol: TextFieldValidationProtocol {
     var wasPositionNotSelected: (() -> Void)? { get set }
     func savePlayer(
         byFullName fullName: String,
@@ -64,7 +64,8 @@ final class PlayerAddingViewModel: PlayerAddingViewModelProtocol {
                 tactics: tactics,
                 qualities: qualities,
                 mental: mental,
-                lastEditor: currentUserFullName ?? Constants.Text.unknownUser)
+                lastEditor: currentUserFullName ?? Constants.Text.unknownUser, 
+                updatedDate: Date())
             completion()
         }
     }

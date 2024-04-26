@@ -1,11 +1,11 @@
 //
-//  CheckTextFieldProtocol.swift
+//  TextFieldValidationProtocol.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 11.04.2024.
 //
 
-protocol CheckTextFieldProtocol {
+protocol TextFieldValidationProtocol {
     var wasAnyTextFieldEmpty: (() -> Void)? { get set }
     var wasFullNameIncorrect: (() -> Void)? { get set }
     func validateInput(
@@ -14,12 +14,14 @@ protocol CheckTextFieldProtocol {
     )
 }
 
-extension CheckTextFieldProtocol {
+extension TextFieldValidationProtocol {
     
     private func checkEmptinessOf(text: [String?]) -> Bool {
         var isTextEmpty = false
         text.forEach {
-            if $0 == "" { isTextEmpty = true }
+            if $0 == "" {
+                isTextEmpty = true
+            }
         }
         return isTextEmpty
     }

@@ -9,7 +9,11 @@ import UIKit
 
 extension UIView {
     
-    func setupShadow() {
+    func setCustomCornerRadius() {
+        layer.cornerRadius = 12
+    }
+    
+    func setCustomShadow() {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowRadius = 7
         layer.shadowOpacity = 0.4

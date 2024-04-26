@@ -14,7 +14,11 @@ final class PersonTitleView: UIView {
     
     // MARK: Views
     private let photoImageView = PhotoImageView()
-    private lazy var fullNameLabel = HeaderLabel()
+    
+    private lazy var fullNameLabel = CustomWhiteLabel(
+        font: Constants.Fonts.header,
+        numberOfLines: 2,
+        text: title)
     
     // MARK: Initialize
     init(title: String) {
@@ -28,19 +32,12 @@ final class PersonTitleView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Lifecycle
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        photoImageView.layer.cornerRadius = photoImageView.frame.width / 2
-    }
-    
     // MARK: Private Methods
     private func setupUI() {
         backgroundColor = .accent
+        setCustomCornerRadius()
         addSubview(photoImageView)
         addSubview(fullNameLabel)
-        fullNameLabel.text = title
-        layer.cornerRadius = 12
         setConstraints()
     }
 }
@@ -49,9 +46,9 @@ final class PersonTitleView: UIView {
 private extension PersonTitleView {
     
     func setConstraints() {
-        photoImageView.translatesAutoresizingMaskIntoConstraints = false
-        fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+        subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         NSLayoutConstraint.activate([
             photoImageView.topAnchor.constraint(
                 equalTo: topAnchor,

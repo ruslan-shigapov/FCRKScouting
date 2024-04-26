@@ -1,5 +1,5 @@
 //
-//  NavigationRightBarButton.swift
+//  RightNavigationBarButton.swift
 //  RubinScoutingApp
 //
 //  Created by Ruslan Shigapov on 28.03.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class NavigationRightBarButton: UIButton {
+final class RightNavigationBarButton: UIButton {
     
     init(image: UIImage?) {
         super.init(frame: .zero)
@@ -21,9 +21,9 @@ final class NavigationRightBarButton: UIButton {
     }
     
     private func setupUI() {
+        tintColor = .white
         contentHorizontalAlignment = .fill
         contentVerticalAlignment = .fill
-        tintColor = .white
         setConstraints()
     }
     

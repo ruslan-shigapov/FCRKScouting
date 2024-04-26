@@ -13,21 +13,21 @@ final class TextViewWithTitle: UIView {
     private let title: String
 
     // MARK: Views
-    private lazy var titleLabel = WhiteLabel()
+    private lazy var titleLabel = CustomWhiteLabel(
+        font: Constants.Fonts.normal, 
+        text: title)
     
     private lazy var roundedTextView: UITextView = {
         let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = .white
         textView.font = Constants.Fonts.text
         textView.autocorrectionType = .no
-        textView.spellCheckingType = .no
         textView.textContainerInset = UIEdgeInsets(
             top: 10,
             left: 5,
             bottom: 10,
             right: 5)
-        textView.layer.cornerRadius = 12
+        textView.setCustomCornerRadius()
         return textView
     }()
 
@@ -47,8 +47,7 @@ final class TextViewWithTitle: UIView {
     private func setupUI() {
         addSubview(titleLabel)
         addSubview(roundedTextView)
-        titleLabel.text = title
-        setupShadow()
+        setCustomShadow()
         setConstraints()
     }
     
@@ -62,8 +61,9 @@ final class TextViewWithTitle: UIView {
 private extension TextViewWithTitle {
     
     func setConstraints() {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+        subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),

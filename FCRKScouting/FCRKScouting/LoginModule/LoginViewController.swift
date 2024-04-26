@@ -15,13 +15,9 @@ final class LoginViewController: UIViewController {
     // MARK: Views
     private let logoImageView = UIImageView(image: Constants.Images.logo)
     
-    private let appNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = Constants.Text.appName
-        label.font = Constants.Fonts.title
-        label.textColor = .white
-        return label
-    }()
+    private let appNameLabel = CustomWhiteLabel(
+        font: Constants.Fonts.title,
+        text: Constants.Text.appName)
     
     private let fullNameTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.fullName,
@@ -42,14 +38,8 @@ final class LoginViewController: UIViewController {
         return stackView
     }()
     
-    private let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.text = Constants.Text.accessDescription
-        label.font = Constants.Fonts.description
-        label.textColor = .white
-        label.numberOfLines = 2
-        return label
-    }()
+    private let descriptionLabel = DescriptionLabel(
+        text: Constants.Text.accessDescription)
     
     private let loginButton = PrimaryButton(
         title: Constants.Text.ButtonTitles.enter)
@@ -75,8 +65,8 @@ final class LoginViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .accent
         addSubviews()
-        setupAlerts()
         setupTextFields()
+        setupAlerts()
         setupButtons()
         setConstraints()
     }
@@ -87,6 +77,14 @@ final class LoginViewController: UIViewController {
         view.addSubview(textFieldStackView)
         view.addSubview(descriptionLabel)
         view.addSubview(loginButton)
+    }
+    
+    private func setupTextFields() {
+        textFieldStackView.subviews.forEach {
+            if let textFieldView = $0 as? RoundedTextFieldView {
+                textFieldView.setDelegate(self)
+            }
+        }
     }
     
     private func setupAlerts() {
@@ -116,32 +114,29 @@ final class LoginViewController: UIViewController {
         }
     }
     
-    private func setupTextFields() {
-        textFieldStackView.subviews.forEach {
-            if let textFieldView = $0 as? RoundedTextFieldView {
-                textFieldView.setDelegate(self)
-            }
-        }
-    }
-    
     private func setupButtons() {
         loginButton.addTarget(
             self,
             action: #selector(loginButtonTapped),
             for: .touchUpInside)
-        
+        setupToolbarButton()
+    }
+    
+    private func setupToolbarButton() {
         let toolbar = UIToolbar()
+        toolbar.translatesAutoresizingMaskIntoConstraints = true
+        toolbar.sizeToFit()
+        
         let flexibleSpace = UIBarButtonItem(
             barButtonSystemItem: .flexibleSpace,
             target: nil,
             action: nil)
-        let toolbarLoginButton = UIBarButtonItem(
+        let loginButton = UIBarButtonItem(
             title: Constants.Text.ButtonTitles.enter,
             style: .plain,
             target: self,
             action: #selector(loginButtonTapped))
-        toolbar.setItems([flexibleSpace, toolbarLoginButton], animated: false)
-        toolbar.sizeToFit()
+        toolbar.items = [flexibleSpace, loginButton]
         
         accessKeyTextFieldView.subviews.forEach {
             $0.subviews.forEach {
@@ -159,7 +154,7 @@ final class LoginViewController: UIViewController {
                 accessKeyTextFieldView.getInputText()
             ]
         ) {
-            viewModel.signUp(byFullName: $0[0], accessKey: $0[1]) {
+            viewModel.signUpBy(fullName: $0[0], accessKey: $0[1]) {
                 showMainScreen()
             }
         }
@@ -193,8 +188,9 @@ extension LoginViewController: UITextFieldDelegate {
 extension LoginViewController {
     
     private func setConstraints() {
-        view.subviews.forEach(prepareForAutoLayout)
-        
+        view.subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,

@@ -22,8 +22,7 @@ final class EditButton: UIButton {
     private func setupUI() {
         backgroundColor = .lightGray
         setImage(Constants.Images.ButtonImages.edit, for: .normal)
-        tintColor = .white
-        layer.cornerRadius = 12
+        setCustomCornerRadius()
         setConstraints()
     }
     

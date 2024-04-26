@@ -14,8 +14,8 @@ enum Constants {
         static let photoPlaceholder = UIImage(systemName: "person.circle")
         
         enum ButtonImages {
-            static let edit = UIImage(systemName: "square.and.pencil")
             static let addPlayer = UIImage(systemName: "person.badge.plus")
+            static let edit = UIImage(systemName: "square.and.pencil")
             static let filters = UIImage(
                 systemName: "slider.horizontal.2.square.on.square")
         }
@@ -31,7 +31,6 @@ enum Constants {
         static let header = UIFont(name: "Ostrovsky", size: 22)
         static let normal = UIFont(name: "Ostrovsky", size: 15)
         static let text = UIFont.systemFont(ofSize: 16, weight: .light)
-        static let floatingLabel = UIFont.systemFont(ofSize: 12, weight: .light)
         static let description = UIFont.systemFont(ofSize: 12, weight: .thin)
     }
     // MARK: Text
@@ -102,7 +101,7 @@ enum Constants {
             """
         }
         enum SegmentedControlItems {
-            static let timeSegments = ["сегодня", "неделя", "месяц"]
+            static let periodSegments = ["сегодня", "неделя", "месяц"]
             static let leagueSegments = ["все", "ЮФЛ-1", "ЮФЛ-2", "ЮФЛ-3"]
             static let footSegments = ["правая", "левая"]
         }

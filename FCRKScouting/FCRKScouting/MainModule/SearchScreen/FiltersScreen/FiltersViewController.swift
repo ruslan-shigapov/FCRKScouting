@@ -25,8 +25,9 @@ final class FiltersViewController: UIViewController {
     }
     
     private func setConstraints() {
-        view.subviews.forEach(prepareForAutoLayout)
-        
+        view.subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,

@@ -39,7 +39,7 @@ final class StorageManager {
         }
     }
     
-    // MARK: User CRUD
+    // MARK: User's CRUD
     func saveUser(withFullName fullName: String, andAccess access: Bool) {
         let user = User(context: viewContext)
         user.fullName = fullName
@@ -64,7 +64,7 @@ final class StorageManager {
         }
     }
     
-    // MARK: Player CRUD
+    // MARK: Player's CRUD
     func savePlayer(
         withFullName fullName: String,
         citizenship: String,
@@ -77,7 +77,8 @@ final class StorageManager {
         tactics: String?,
         qualities: String?,
         mental: String?,
-        lastEditor: String
+        lastEditor: String,
+        updatedDate: Date
     ) {
         let player = Player(context: viewContext)
         player.fullName = fullName
@@ -92,6 +93,7 @@ final class StorageManager {
         player.qualities = qualities
         player.mental = mental
         player.lastEditor = lastEditor
+        player.updatedDate = updatedDate
         saveContext()
     }
     
@@ -100,5 +102,16 @@ final class StorageManager {
         if let players = try? viewContext.fetch(fetchRequest) {
             completion(players)
         }
-    }    
+    }  
+    
+    func deletePlayers() {
+        let fetchRequest = Player.fetchRequest()
+        do {
+            let players = try viewContext.fetch(fetchRequest)
+            players.forEach { viewContext.delete($0) }
+            saveContext()
+        } catch {
+            viewContext.rollback()
+        }
+    }
 }
