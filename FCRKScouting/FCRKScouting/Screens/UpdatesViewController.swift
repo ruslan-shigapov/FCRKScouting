@@ -12,6 +12,16 @@ final class UpdatesViewController: UIViewController {
     // MARK: Private Properties
     private var viewModel: UpdatesViewModelProtocol
     
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(
+            self,
+            action: #selector(refresh(sender:)),
+            for: .valueChanged)
+        refreshControl.tintColor = .white
+        return refreshControl
+    }()
+    
     // MARK: Views
     private lazy var playersCollectionView: UICollectionView = {
         let collectionView = VerticalCollectionView()
@@ -26,6 +36,7 @@ final class UpdatesViewController: UIViewController {
         collectionView.register(
             PlayerCollectionViewCell.self,
             forCellWithReuseIdentifier: PlayerCollectionViewCell.identifier)
+        collectionView.refreshControl = refreshControl
         return collectionView
     }()
     
@@ -65,6 +76,10 @@ final class UpdatesViewController: UIViewController {
         let leftBarButtonItem = UIBarButtonItem(
             customView: periodSegmentedControl)
         navigationItem.leftBarButtonItem = leftBarButtonItem
+    }
+    
+    @objc private func refresh(sender: UIRefreshControl) {
+        sender.endRefreshing()
     }
     
     @objc private func addPlayerButtonTapped() {

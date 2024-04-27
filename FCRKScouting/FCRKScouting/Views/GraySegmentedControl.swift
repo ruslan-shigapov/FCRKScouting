@@ -22,5 +22,8 @@ final class GraySegmentedControl: UISegmentedControl {
     private func setupUI() {
         backgroundColor = .lightGray
         selectedSegmentIndex = 0
+        setTitleTextAttributes(
+            [.font: Constants.Fonts.description],
+            for: .normal)
     }
 }

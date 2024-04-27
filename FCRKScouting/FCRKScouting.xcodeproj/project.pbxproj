@@ -133,8 +133,8 @@
 				E4BB484A2BC3D21C00F91513 /* Application */,
 				E4BB484B2BC3D22700F91513 /* Models */,
 				E4BB48812BC3D54600F91513 /* Views */,
-				E4BB48632BC3D53700F91513 /* LoginModule */,
-				E4BB48722BC3D53E00F91513 /* MainModule */,
+				E4BB48632BC3D53700F91513 /* Screens */,
+				E491BBA22BDCD9B500232677 /* ViewModels */,
 				E4BB485F2BC3D51200F91513 /* Factories */,
 				E4BB48572BC3D33400F91513 /* Services */,
 				E412BCFB2BC7D28900A9BCF6 /* Helpers */,
@@ -160,6 +160,19 @@
 				E4D1014A2BD2B276006D2DCF /* DescriptionLabel.swift */,
 			);
 			path = Labels;
+			sourceTree = "<group>";
+		};
+		E491BBA22BDCD9B500232677 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E4BB48622BC3D53700F91513 /* LoginViewModel.swift */,
+				E48159E32BCE78F20090FC42 /* MainTabBarViewModel.swift */,
+				E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */,
+				E46B63FC2BC5405C005B32E1 /* PlayerAddingViewModel.swift */,
+				E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */,
+				E4BB48672BC3D53E00F91513 /* ProfileViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		E4BB484A2BC3D21C00F91513 /* Application */ = {
@@ -215,71 +228,18 @@
 			path = Factories;
 			sourceTree = "<group>";
 		};
-		E4BB48632BC3D53700F91513 /* LoginModule */ = {
+		E4BB48632BC3D53700F91513 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
 				E4BB48612BC3D53700F91513 /* LoginViewController.swift */,
-				E4BB48622BC3D53700F91513 /* LoginViewModel.swift */,
-			);
-			path = LoginModule;
-			sourceTree = "<group>";
-		};
-		E4BB48682BC3D53E00F91513 /* ProfileScreen */ = {
-			isa = PBXGroup;
-			children = (
-				E4BB48662BC3D53E00F91513 /* ProfileViewController.swift */,
-				E4BB48672BC3D53E00F91513 /* ProfileViewModel.swift */,
-			);
-			path = ProfileScreen;
-			sourceTree = "<group>";
-		};
-		E4BB486A2BC3D53E00F91513 /* FiltersScreen */ = {
-			isa = PBXGroup;
-			children = (
-				E4BB48692BC3D53E00F91513 /* FiltersViewController.swift */,
-			);
-			path = FiltersScreen;
-			sourceTree = "<group>";
-		};
-		E4BB486C2BC3D53E00F91513 /* SearchScreen */ = {
-			isa = PBXGroup;
-			children = (
-				E4BB486A2BC3D53E00F91513 /* FiltersScreen */,
-				E4BB486B2BC3D53E00F91513 /* SearchViewController.swift */,
-				E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */,
-			);
-			path = SearchScreen;
-			sourceTree = "<group>";
-		};
-		E4BB486E2BC3D53E00F91513 /* PlayerAddingScreen */ = {
-			isa = PBXGroup;
-			children = (
-				E4BB486D2BC3D53E00F91513 /* PlayerAddingViewController.swift */,
-				E46B63FC2BC5405C005B32E1 /* PlayerAddingViewModel.swift */,
-			);
-			path = PlayerAddingScreen;
-			sourceTree = "<group>";
-		};
-		E4BB48702BC3D53E00F91513 /* UpdatesScreen */ = {
-			isa = PBXGroup;
-			children = (
-				E4BB486E2BC3D53E00F91513 /* PlayerAddingScreen */,
-				E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */,
-				E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */,
-			);
-			path = UpdatesScreen;
-			sourceTree = "<group>";
-		};
-		E4BB48722BC3D53E00F91513 /* MainModule */ = {
-			isa = PBXGroup;
-			children = (
-				E4BB48702BC3D53E00F91513 /* UpdatesScreen */,
-				E4BB486C2BC3D53E00F91513 /* SearchScreen */,
-				E4BB48682BC3D53E00F91513 /* ProfileScreen */,
 				E4BB48712BC3D53E00F91513 /* MainTabBarController.swift */,
-				E48159E32BCE78F20090FC42 /* MainTabBarViewModel.swift */,
+				E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */,
+				E4BB486D2BC3D53E00F91513 /* PlayerAddingViewController.swift */,
+				E4BB486B2BC3D53E00F91513 /* SearchViewController.swift */,
+				E4BB48692BC3D53E00F91513 /* FiltersViewController.swift */,
+				E4BB48662BC3D53E00F91513 /* ProfileViewController.swift */,
 			);
-			path = MainModule;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		E4BB48812BC3D54600F91513 /* Views */ = {
