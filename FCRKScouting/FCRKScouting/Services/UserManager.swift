@@ -20,6 +20,10 @@ final class UserManager {
         getUser()
     }
     
+    private func getUser() {
+        StorageManager.shared.fetchUser { user = $0 }
+    }
+    
     func createUser(
         withFullName fullName: String,
         byAccessKey accessKey: String,
@@ -32,16 +36,12 @@ final class UserManager {
         }
         StorageManager.shared.saveUser(
             withFullName: fullName,
-            andAccess: accessKey == AccessType.editable.rawValue)
+            isEditingAllowed: accessKey == AccessType.editable.rawValue)
         getUser()
     }
     
     func deleteUser() {
         StorageManager.shared.deleteUsers()
-        user = nil
-    }
-    
-    private func getUser() {
-        StorageManager.shared.fetchUser { user = $0 }
+        getUser()
     }
 }

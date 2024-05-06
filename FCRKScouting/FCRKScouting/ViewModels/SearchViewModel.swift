@@ -11,9 +11,4 @@ protocol SearchViewModelProtocol {
 
 final class SearchViewModel: SearchViewModelProtocol {
     
-    private var user: User
-    
-    required init(user: User) {
-        self.user = user
-    }
 }

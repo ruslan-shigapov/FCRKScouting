@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Player" representedClassName="Player" syncable="YES" codeGenerationType="class">
-        <attribute name="birthDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="birthDate" optional="YES" attributeType="String"/>
         <attribute name="citizenship" optional="YES" attributeType="String"/>
         <attribute name="club" optional="YES" attributeType="String"/>
         <attribute name="foot" optional="YES" attributeType="String"/>
@@ -16,11 +16,11 @@
         <attribute name="qualities" optional="YES" attributeType="String"/>
         <attribute name="tactics" optional="YES" attributeType="String"/>
         <attribute name="technique" optional="YES" attributeType="String"/>
-        <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="updatedDate" optional="YES" attributeType="String"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="fullName" optional="YES" attributeType="String"/>
-        <attribute name="isEditAllowed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isEditingAllowed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="photo" optional="YES" attributeType="Binary"/>
     </entity>
 </model>

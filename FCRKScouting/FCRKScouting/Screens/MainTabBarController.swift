@@ -8,19 +8,6 @@
 import UIKit
 
 final class MainTabBarController: UITabBarController {
-    
-    private let viewModel: MainTabBarViewModelProtocol
-    
-    // MARK: Initialize
-    init(viewModel: MainTabBarViewModelProtocol) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -39,18 +26,15 @@ final class MainTabBarController: UITabBarController {
     private func setViewControllers() {
         viewControllers = [
             generateNavigationFlowFor(
-                viewController: ScreenFactory.getUpdatesViewController(
-                    forUser: viewModel.user),
+                viewController: ScreenFactory.getUpdatesViewController(),
                 withTitle: Constants.Text.ScreenTitles.updates,
                 andTabBarIcon: Constants.Images.TabBarIcons.updates),
             generateNavigationFlowFor(
-                viewController: ScreenFactory.getSearchViewController(
-                    forUser: viewModel.user), 
+                viewController: ScreenFactory.getSearchViewController(),
                 withTitle: Constants.Text.ScreenTitles.search,
                 andTabBarIcon: Constants.Images.TabBarIcons.search),
             generateNavigationFlowFor(
-                viewController: ScreenFactory.getProfileViewController(
-                    forUser: viewModel.user),
+                viewController: ScreenFactory.getProfileViewController(),
                 withTitle: Constants.Text.ScreenTitles.profile,
                 andTabBarIcon: Constants.Images.TabBarIcons.profile)
         ]

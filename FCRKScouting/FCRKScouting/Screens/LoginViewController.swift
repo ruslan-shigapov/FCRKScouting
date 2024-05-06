@@ -162,9 +162,8 @@ final class LoginViewController: UIViewController {
     
     private func showMainScreen() {
         viewModel.logIn {
-            let mainVC = ScreenFactory.getMainViewController(forUser: $0)
-            mainVC.modalPresentationStyle = .fullScreen
-            present(mainVC, animated: true)
+            let mainTabBarController = ScreenFactory.getMainTabBarController()
+            present(mainTabBarController, animated: true)
         }
     }
 }

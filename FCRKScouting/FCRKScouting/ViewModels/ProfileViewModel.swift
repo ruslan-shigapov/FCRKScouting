@@ -13,20 +13,18 @@ protocol ProfileViewModelProtocol {
 
 final class ProfileViewModel: ProfileViewModelProtocol {
     
+    var isAddingAllowed: Bool {
+        UserManager.shared.user?.isEditingAllowed ?? false
+    }
+    
     var fullName: String {
-        user.fullName ?? ""
+        UserManager.shared.user?.fullName ?? ""
     }
     
     var access: String {
-        user.isEditAllowed
-        ? Constants.Text.editIsAllowed
+        isAddingAllowed
+        ? Constants.Text.editable
         : Constants.Text.onlyRead
-    }
-    
-    private var user: User
-    
-    required init(user: User) {
-        self.user = user
     }
     
     func logOut() {

@@ -8,29 +8,41 @@
 protocol UpdatesViewModelProtocol {
     var isAddingAllowed: Bool { get }
     var players: [Player] { get }
+    var playersByDate: [String: [Player]] { get }
+    var uniqueDates: [String] { get }
     func getNumberOfSections() -> Int
+    func getNumberOfItemsInSection() -> Int
 }
 
 final class UpdatesViewModel: UpdatesViewModelProtocol {
-    
+            
     var isAddingAllowed: Bool {
-        user.isEditAllowed
+        UserManager.shared.user?.isEditingAllowed ?? false
     }
     
     var players: [Player] = []
     
-    func getNumberOfSections() -> Int {
-        1
+    var playersByDate: [String: [Player]] {
+        Dictionary(grouping: players) { $0.updatedDate ?? "Дата неизвестна" }
     }
     
-    private var user: User
-    
-    required init(user: User) {
-        self.user = user
+    var uniqueDates: [String] {
+        Array(playersByDate.keys)
+    }
+        
+    init() {
         fetchPlayers()
     }
     
     private func fetchPlayers() {
         StorageManager.shared.fetchPlayers { players = $0 }
+    }
+    
+    func getNumberOfSections() -> Int {
+        playersByDate.keys.count
+    }
+    
+    func getNumberOfItemsInSection() -> Int {
+        playersByDate.values.count
     }
 }

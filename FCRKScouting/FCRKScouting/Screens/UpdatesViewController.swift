@@ -93,7 +93,6 @@ final class UpdatesViewController: UIViewController {
     
     private func showPlayerAddingScreen() {
         let playerAddingVC = ScreenFactory.getPlayerAddingViewController()
-        playerAddingVC.modalPresentationStyle = .fullScreen
         present(playerAddingVC, animated: true)
     }
 }
@@ -109,7 +108,8 @@ extension UpdatesViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        1
+        let date = viewModel.uniqueDates[section]
+        return viewModel.playersByDate[date]?.count ?? 0
     }
     
     func collectionView(
@@ -119,8 +119,9 @@ extension UpdatesViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: PlayerCollectionViewCell.identifier,
             for: indexPath) as? PlayerCollectionViewCell
+        let date = viewModel.uniqueDates[indexPath.section]
         cell?.configureWith(
-            fullName: "Даниил Кирягин",
+            fullName: viewModel.playersByDate[date]?[indexPath.item].fullName ?? "",
             age: "18 лет",
             position: "\"ЦЗ\"",
             photo: nil)
@@ -136,7 +137,8 @@ extension UpdatesViewController: UICollectionViewDataSource {
             ofKind: kind,
             withReuseIdentifier: DateCollectionReusableView.identifier,
             for: indexPath) as? DateCollectionReusableView
-        headerView?.configureWith(date: "16.04.2024")
+        headerView?.configureWith(
+            date: viewModel.uniqueDates[indexPath.section])
         return headerView ?? UICollectionReusableView()
     }
 }

@@ -13,7 +13,7 @@ protocol LoginViewModelProtocol: TextFieldValidationProtocol {
         accessKey: String,
         completion: () -> Void
     )
-    func logIn(completion: (User) -> Void)
+    func logIn(completion: () -> Void)
 }
 
 final class LoginViewModel: LoginViewModelProtocol {
@@ -37,9 +37,9 @@ final class LoginViewModel: LoginViewModelProtocol {
         completion()
     }
     
-    func logIn(completion: (User) -> Void) {
-        if let user = UserManager.shared.user {
-            completion(user)
+    func logIn(completion: () -> Void) {
+        if UserManager.shared.user != nil {
+            completion()
         } else {
             didReceiveDataError?()
         }

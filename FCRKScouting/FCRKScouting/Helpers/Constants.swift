@@ -44,7 +44,7 @@ enum Constants {
         static let position = "Позиция:"
         static let access = "Доступ:"
         static let onlyRead = "Только чтение"
-        static let editIsAllowed = "Возможно редактирование"
+        static let editable = "Возможно редактирование"
         static let unknownUser = "Неизвестный пользователь"
         
         enum Placeholders {

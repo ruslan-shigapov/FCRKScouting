@@ -9,7 +9,6 @@ import CoreData
 
 final class StorageManager {
     
-    // MARK: Properties
     static let shared = StorageManager()
     
     private let persistentContainer: NSPersistentCloudKitContainer = {
@@ -28,7 +27,6 @@ final class StorageManager {
     
     private init() {}
     
-    // MARK: Private Methods
     private func saveContext() {
         if viewContext.hasChanges {
             do {
@@ -39,11 +37,11 @@ final class StorageManager {
         }
     }
     
-    // MARK: User's CRUD
-    func saveUser(withFullName fullName: String, andAccess access: Bool) {
+    // MARK: - User's CRUD
+    func saveUser(withFullName fullName: String, isEditingAllowed: Bool) {
         let user = User(context: viewContext)
         user.fullName = fullName
-        user.isEditAllowed = access
+        user.isEditingAllowed = isEditingAllowed
         saveContext()
     }
     
@@ -64,12 +62,12 @@ final class StorageManager {
         }
     }
     
-    // MARK: Player's CRUD
+    // MARK: - Player's CRUD
     func savePlayer(
         withFullName fullName: String,
         citizenship: String,
         club: String,
-        birthDate: Date,
+        birthDate: String,
         position: String,
         foot: String,
         generalInfo: String?,
@@ -78,7 +76,7 @@ final class StorageManager {
         qualities: String?,
         mental: String?,
         lastEditor: String,
-        updatedDate: Date
+        updatedDate: String
     ) {
         let player = Player(context: viewContext)
         player.fullName = fullName

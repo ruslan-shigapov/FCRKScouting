@@ -29,6 +29,12 @@ protocol PlayerAddingViewModelProtocol: TextFieldValidationProtocol {
 }
 
 final class PlayerAddingViewModel: PlayerAddingViewModelProtocol {
+    
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        return formatter
+    }()
 
     var wasAnyTextFieldEmpty: (() -> Void)?
     var wasFullNameIncorrect: (() -> Void)?
@@ -56,7 +62,7 @@ final class PlayerAddingViewModel: PlayerAddingViewModelProtocol {
                 withFullName: fullName,
                 citizenship: citizenship,
                 club: club,
-                birthDate: birthDate,
+                birthDate: dateFormatter.string(from: birthDate),
                 position: Constants.Text.Positions.allCases[position].rawValue,
                 foot: Constants.Text.SegmentedControlItems.footSegments[foot],
                 generalInfo: generalInfo,
@@ -65,7 +71,7 @@ final class PlayerAddingViewModel: PlayerAddingViewModelProtocol {
                 qualities: qualities,
                 mental: mental,
                 lastEditor: currentUserFullName ?? Constants.Text.unknownUser, 
-                updatedDate: Date())
+                updatedDate: dateFormatter.string(from: Date()))
             completion()
         }
     }

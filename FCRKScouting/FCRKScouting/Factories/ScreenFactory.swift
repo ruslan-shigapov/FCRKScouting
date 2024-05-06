@@ -11,17 +11,17 @@ struct ScreenFactory {
         
     static func setRootViewController() {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        if let currentUser = UserManager.shared.user {
-            appDelegate?.window?.rootViewController = getMainViewController(
-                forUser: currentUser)
+        if UserManager.shared.user != nil {
+            appDelegate?.window?.rootViewController = MainTabBarController()
         } else {
             appDelegate?.window?.rootViewController = getLoginViewController()
         }
     }
     
-    static func getMainViewController(forUser user: User) -> UIViewController {
-        let viewModel = MainTabBarViewModel(user: user)
-        return MainTabBarController(viewModel: viewModel)
+    static func getMainTabBarController() -> UIViewController {
+        let tabBarController = MainTabBarController()
+        tabBarController.modalPresentationStyle = .fullScreen
+        return tabBarController
     }
     
     static func getLoginViewController() -> UIViewController {
@@ -29,30 +29,26 @@ struct ScreenFactory {
         return LoginViewController(viewModel: viewModel)
     }
     
-    static func getUpdatesViewController(
-        forUser user: User
-    ) -> UIViewController {
-        let viewModel = UpdatesViewModel(user: user)
+    static func getUpdatesViewController() -> UIViewController {
+        let viewModel = UpdatesViewModel()
         return UpdatesViewController(viewModel: viewModel)
     }
     
-    static func getSearchViewController(
-        forUser user: User
-    ) -> UIViewController {
-        let viewModel = SearchViewModel(user: user)
+    static func getSearchViewController() -> UIViewController {
+        let viewModel = SearchViewModel()
         return SearchViewController(viewModel: viewModel)
     }
     
-    static func getProfileViewController(
-        forUser user: User
-    ) -> UIViewController {
-        let viewModel = ProfileViewModel(user: user)
+    static func getProfileViewController() -> UIViewController {
+        let viewModel = ProfileViewModel()
         return ProfileViewController(viewModel: viewModel)
     }
     
     static func getPlayerAddingViewController() -> UIViewController {
         let viewModel = PlayerAddingViewModel()
-        return PlayerAddingViewController(viewModel: viewModel)
+        let viewController = PlayerAddingViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .fullScreen
+        return viewController
     }
     
     static func getFiltersViewController() -> UIViewController {
