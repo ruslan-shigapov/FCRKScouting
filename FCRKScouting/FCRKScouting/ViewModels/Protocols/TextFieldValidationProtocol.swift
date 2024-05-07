@@ -28,7 +28,8 @@ extension TextFieldValidationProtocol {
     
     private func checkCorrectnessOf(fullName: String?) -> Bool {
         let components = fullName?.components(
-            separatedBy: .whitespacesAndNewlines)
+            separatedBy: .whitespacesAndNewlines
+        )
         let words = components?.filter { !$0.isEmpty }
         return words?.count == 2
     }

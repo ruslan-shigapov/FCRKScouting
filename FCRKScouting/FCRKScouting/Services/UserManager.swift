@@ -36,7 +36,8 @@ final class UserManager {
         }
         StorageManager.shared.saveUser(
             withFullName: fullName,
-            isEditingAllowed: accessKey == AccessType.editable.rawValue)
+            isEditingAllowed: accessKey == AccessType.editable.rawValue
+        )
         getUser()
     }
     

@@ -17,7 +17,8 @@ enum Constants {
             static let addPlayer = UIImage(systemName: "person.badge.plus")
             static let edit = UIImage(systemName: "square.and.pencil")
             static let filters = UIImage(
-                systemName: "slider.horizontal.2.square.on.square")
+                systemName: "slider.horizontal.2.square.on.square"
+            )
         }
         enum TabBarIcons {
             static let updates = UIImage(systemName: "plus.circle")
@@ -76,22 +77,28 @@ enum Constants {
         enum Alerts {
             static let emptyTextField = (
                 title: "Внимание",
-                message: "Заполните все обязательные поля для ввода")
+                message: "Заполните все обязательные поля для ввода"
+            )
             static let incorrectFullName = (
                 title: "Внимание",
-                message: "Необходимо ввести имя и фамилию")
+                message: "Необходимо ввести имя и фамилию"
+            )
             static let wrongAccessKey = (
                 title: "Не удалось войти",
-                message: "Ключ доступа неверный")
+                message: "Ключ доступа неверный"
+            )
             static let wrongSomething = (
                 title: "Что-то пошло не так",
-                message: "Перезапустите приложение")
+                message: "Перезапустите приложение"
+            )
             static let notSelectedPosition = (
                 title: "Внимание",
-                message: "Выберите позицию игрока")
+                message: "Выберите позицию игрока"
+            )
             static let exit = (
                 title: "Выход",
-                message: "Покинуть аккаунт?")
+                message: "Покинуть аккаунт?"
+            )
             static let playerAdding = "Добавить нового игрока?"
         }
         enum ActionSheets {
@@ -105,7 +112,6 @@ enum Constants {
             static let leagueSegments = ["все", "ЮФЛ-1", "ЮФЛ-2", "ЮФЛ-3"]
             static let footSegments = ["правая", "левая"]
         }
-        
         enum Positions: String, CaseIterable {
             case notSelected = "- не выбрано -"
             case goalkeeper = "Вратарь"
@@ -116,8 +122,21 @@ enum Constants {
             case rightMidfield = "Правый полузащитник"
             case centerMidfield = "Центральный полузащитник"
             case forward = "Нападающий"
+            
+            func abbreviate() -> String {
+                switch self {
+                case .notSelected: ""
+                case .goalkeeper: "\"ВР\""
+                case .leftDefender: "\"ЛЗ\""
+                case .rightDefender: "\"ПЗ\""
+                case .centerDefender: "\"ЦЗ\""
+                case .leftMidfield: "\"ЛП\""
+                case .rightMidfield: "\"ПП\""
+                case .centerMidfield: "\"ЦП\""
+                case .forward: "\"НП\""
+                }
+            }
         }
-        
         enum TextViewTitles {
             static let generalInfo = "Общая информация:"
             static let technique = "Техника:"

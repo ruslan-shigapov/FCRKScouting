@@ -12,12 +12,14 @@ final class UpdatesViewController: UIViewController {
     // MARK: Private Properties
     private var viewModel: UpdatesViewModelProtocol
     
+    // TODO: здесь нужно докрутить логику разных моментов
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(
             self,
             action: #selector(refresh(sender:)),
-            for: .valueChanged)
+            for: .valueChanged
+        )
         refreshControl.tintColor = .white
         return refreshControl
     }()
@@ -30,12 +32,14 @@ final class UpdatesViewController: UIViewController {
         collectionView.delegate = self
         let elementKind = UICollectionView.elementKindSectionHeader
         collectionView.register(
-            DateCollectionReusableView.self,
+            DateHeaderView.self,
             forSupplementaryViewOfKind: elementKind,
-            withReuseIdentifier: DateCollectionReusableView.identifier)
+            withReuseIdentifier: String(describing: DateHeaderView.self)
+        )
         collectionView.register(
-            PlayerCollectionViewCell.self,
-            forCellWithReuseIdentifier: PlayerCollectionViewCell.identifier)
+            PlayerCell.self,
+            forCellWithReuseIdentifier: String(describing: PlayerCell.self)
+        )
         collectionView.refreshControl = refreshControl
         return collectionView
     }()
@@ -61,20 +65,25 @@ final class UpdatesViewController: UIViewController {
     
     // MARK: Private Methods 
     private func setupNavigationBarItems() {
-        let addPlayerButton = RightNavigationBarButton(
-            image: Constants.Images.ButtonImages.addPlayer)
+        let addPlayerButton = CustomNavigationBarButton(
+            image: Constants.Images.ButtonImages.addPlayer
+        )
         addPlayerButton.addTarget(
             self,
             action: #selector(addPlayerButtonTapped),
-            for: .touchUpInside)
-        if viewModel.isAddingAllowed {
+            for: .touchUpInside
+        )
+        if viewModel.isEditingAllowed {
             navigationItem.rightBarButtonItem = UIBarButtonItem(
-                customView: addPlayerButton)
+                customView: addPlayerButton
+            )
         }
         let periodSegmentedControl = GraySegmentedControl(
-            items: Constants.Text.SegmentedControlItems.periodSegments)
+            items: Constants.Text.SegmentedControlItems.periodSegments
+        )
         let leftBarButtonItem = UIBarButtonItem(
-            customView: periodSegmentedControl)
+            customView: periodSegmentedControl
+        )
         navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
@@ -109,6 +118,7 @@ extension UpdatesViewController: UICollectionViewDataSource {
         numberOfItemsInSection section: Int
     ) -> Int {
         let date = viewModel.uniqueDates[section]
+        // TODO: какая-то непонятка 
         return viewModel.playersByDate[date]?.count ?? 0
     }
     
@@ -117,14 +127,9 @@ extension UpdatesViewController: UICollectionViewDataSource {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: PlayerCollectionViewCell.identifier,
-            for: indexPath) as? PlayerCollectionViewCell
-        let date = viewModel.uniqueDates[indexPath.section]
-        cell?.configureWith(
-            fullName: viewModel.playersByDate[date]?[indexPath.item].fullName ?? "",
-            age: "18 лет",
-            position: "\"ЦЗ\"",
-            photo: nil)
+            withReuseIdentifier: String(describing: PlayerCell.self),
+            for: indexPath) as? PlayerCell
+        cell?.viewModel = viewModel.getPlayerCellViewModel(at: indexPath)
         return cell ?? UICollectionViewCell()
     }
     
@@ -135,10 +140,11 @@ extension UpdatesViewController: UICollectionViewDataSource {
     ) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
-            withReuseIdentifier: DateCollectionReusableView.identifier,
-            for: indexPath) as? DateCollectionReusableView
+            withReuseIdentifier: String(describing: DateHeaderView.self),
+            for: indexPath) as? DateHeaderView
         headerView?.configureWith(
-            date: viewModel.uniqueDates[indexPath.section])
+            date: viewModel.uniqueDates[indexPath.section]
+        )
         return headerView ?? UICollectionReusableView()
     }
 }
@@ -181,13 +187,17 @@ extension UpdatesViewController {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             playersCollectionView.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor),
+                equalTo: view.safeAreaLayoutGuide.topAnchor
+            ),
             playersCollectionView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor),
+                equalTo: view.leadingAnchor
+            ),
             playersCollectionView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor
+            ),
             playersCollectionView.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor)
+                equalTo: view.trailingAnchor
+            )
         ])
     }
 }

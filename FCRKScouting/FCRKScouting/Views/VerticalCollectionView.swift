@@ -15,7 +15,8 @@ final class VerticalCollectionView: UICollectionView {
     ) {
         super.init(
             frame: frame,
-            collectionViewLayout: UICollectionViewFlowLayout())
+            collectionViewLayout: UICollectionViewFlowLayout()
+        )
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
         }

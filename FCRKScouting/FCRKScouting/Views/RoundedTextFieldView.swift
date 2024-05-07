@@ -33,11 +33,13 @@ final class RoundedTextFieldView: UIView {
         textField.addTarget(
             self,
             action: #selector(addFloatingLabel),
-            for: .editingDidBegin)
+            for: .editingDidBegin
+        )
         textField.addTarget(
             self,
             action: #selector(removeFloatingLabel),
-            for: .editingDidEnd)
+            for: .editingDidEnd
+        )
         return textField
     }()
     
@@ -51,7 +53,8 @@ final class RoundedTextFieldView: UIView {
     
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView(
-            arrangedSubviews: [floatingLabel, customTextField])
+            arrangedSubviews: [floatingLabel, customTextField]
+        )
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         return stackView
@@ -76,7 +79,8 @@ final class RoundedTextFieldView: UIView {
     private func setupTextField(placeholder: String) {
         customTextField.attributedPlaceholder = NSAttributedString(
             string: placeholder,
-            attributes: [.font: Constants.Fonts.text])
+            attributes: [.font: Constants.Fonts.text]
+        )
     }
     
     private func setupUI() {
@@ -123,10 +127,12 @@ private extension RoundedTextFieldView {
             containerStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             containerStackView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: 16),
+                constant: 16
+            ),
             containerStackView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -16)
+                constant: -16
+            )
         ])
     }
 }

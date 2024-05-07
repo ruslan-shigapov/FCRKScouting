@@ -1,5 +1,5 @@
 //
-//  PlayerCollectionViewCell.swift
+//  PlayerCell.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 12.04.2024.
@@ -7,26 +7,38 @@
 
 import UIKit
 
-final class PlayerCollectionViewCell: UICollectionViewCell {
+final class PlayerCell: UICollectionViewCell {
     
     // MARK: Views
     private let photoImageView = PhotoImageView()
     
     private let fullNameLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
-        numberOfLines: 2)
+        numberOfLines: 2
+    )
+    
     private let ageLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
     private let positionLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
     
     private lazy var infoStackView: UIStackView = {
         let stackView = UIStackView(
-            arrangedSubviews: [ageLabel, positionLabel])
+            arrangedSubviews: [ageLabel, positionLabel]
+        )
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.spacing = 4
         return stackView
     }()
-        
+    
+    // MARK: Public Properties
+    var viewModel: PlayerCellViewModelProtocol? {
+        didSet {
+            fullNameLabel.text = viewModel?.fullName
+            ageLabel.text = viewModel?.ageDescription
+            positionLabel.text = viewModel?.position
+        }
+    }
+            
     // MARK: Initialize
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,62 +63,45 @@ final class PlayerCollectionViewCell: UICollectionViewCell {
         addSubview(fullNameLabel)
         addSubview(infoStackView)
     }
-    
-    // MARK: Public Methods
-    func configureWith(
-        fullName: String, 
-        age: String,
-        position: String,
-        photo: UIImage?
-    ) {
-        fullNameLabel.text = fullName
-        ageLabel.text = age
-        positionLabel.text = position
-        if let photo {
-            photoImageView.image = photo
-        }
-    }
-}
-
-// MARK: - Reuse Identifier
-extension PlayerCollectionViewCell {
-    
-    static var identifier: String {
-        String(describing: self)
-    }
 }
 
 // MARK: - Layout
-private extension PlayerCollectionViewCell {
+private extension PlayerCell {
     
     func setConstraints() {
         subviews.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        
         NSLayoutConstraint.activate([
             photoImageView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: 18),
+                constant: 18
+            ),
             photoImageView.centerYAnchor.constraint(
-                equalTo: centerYAnchor),
+                equalTo: centerYAnchor
+            ),
             photoImageView.heightAnchor.constraint(equalToConstant: 70),
             photoImageView.widthAnchor.constraint(equalToConstant: 70),
             
             fullNameLabel.leadingAnchor.constraint(
                 equalTo: photoImageView.trailingAnchor,
-                constant: 18),
+                constant: 18
+            ),
             fullNameLabel.centerYAnchor.constraint(
-                equalTo: centerYAnchor),
+                equalTo: centerYAnchor
+            ),
             
             infoStackView.leadingAnchor.constraint(
                 equalTo: fullNameLabel.trailingAnchor,
-                constant: 18),
+                constant: 18
+            ),
             infoStackView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -12),
+                constant: -12
+            ),
             infoStackView.centerYAnchor.constraint(
-                equalTo: centerYAnchor),
+                equalTo: centerYAnchor
+            ),
             infoStackView.widthAnchor.constraint(equalToConstant: 70)
         ])
     }

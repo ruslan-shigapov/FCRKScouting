@@ -48,21 +48,25 @@ final class SearchViewController: UIViewController {
     }
     
     private func setupNavigationBarButton() {
-        let filtersButton = RightNavigationBarButton(
-            image: Constants.Images.ButtonImages.filters)
+        let filtersButton = CustomNavigationBarButton(
+            image: Constants.Images.ButtonImages.filters
+        )
         filtersButton.addTarget(
             self,
             action: #selector(changeFiltersButtonTapped),
-            for: .touchUpInside)
+            for: .touchUpInside
+        )
         let barButtonItem = UIBarButtonItem(customView: filtersButton)
         navigationItem.rightBarButtonItem = barButtonItem
         
-        // TODO: add status view
+        // TODO: добавить какой-нибудь статус фильтрам
         
         let leagueSegmentedControlView = GraySegmentedControl(
-            items: Constants.Text.SegmentedControlItems.leagueSegments)
+            items: Constants.Text.SegmentedControlItems.leagueSegments
+        )
         let leftBarButtonItem = UIBarButtonItem(
-            customView: leagueSegmentedControlView)
+            customView: leagueSegmentedControlView
+        )
         navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
@@ -78,21 +82,27 @@ private extension SearchViewController {
     func setConstraints() {
         NSLayoutConstraint.activate([
             temporarySearchBar.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor),
+                equalTo: view.safeAreaLayoutGuide.topAnchor
+            ),
             temporarySearchBar.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor),
+                equalTo: view.leadingAnchor
+            ),
             temporarySearchBar.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor),
+                equalTo: view.trailingAnchor
+            ),
         
             
             emptyScreenLabel.centerYAnchor.constraint(
-                equalTo: view.centerYAnchor),
+                equalTo: view.centerYAnchor
+            ),
             emptyScreenLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 40),
+                constant: 40
+            ),
             emptyScreenLabel.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -40)
+                constant: -40
+            )
         ])
     }
 }

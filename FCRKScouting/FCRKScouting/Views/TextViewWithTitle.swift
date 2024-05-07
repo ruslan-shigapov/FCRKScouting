@@ -15,7 +15,8 @@ final class TextViewWithTitle: UIView {
     // MARK: Views
     private lazy var titleLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal, 
-        text: title)
+        text: title
+    )
     
     private lazy var roundedTextView: UITextView = {
         let textView = UITextView()
@@ -26,7 +27,8 @@ final class TextViewWithTitle: UIView {
             top: 10,
             left: 5,
             bottom: 10,
-            right: 5)
+            right: 5
+        )
         textView.setCustomCornerRadius()
         return textView
     }()
@@ -70,7 +72,8 @@ private extension TextViewWithTitle {
             
             roundedTextView.topAnchor.constraint(
                 equalTo: titleLabel.bottomAnchor,
-                constant: 8),
+                constant: 8
+            ),
             roundedTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
             roundedTextView.bottomAnchor.constraint(equalTo: bottomAnchor),
             roundedTextView.trailingAnchor.constraint(equalTo: trailingAnchor),

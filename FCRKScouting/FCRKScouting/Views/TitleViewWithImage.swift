@@ -1,5 +1,5 @@
 //
-//  PersonTitleView.swift
+//  TitleViewWithImage.swift
 //  RubinScoutingApp
 //
 //  Created by Ruslan Shigapov on 14.03.2024.
@@ -7,22 +7,23 @@
 
 import UIKit
 
-final class PersonTitleView: UIView {
+final class TitleViewWithImage: UIView {
     
     // MARK: Private Properties
     private let title: String
+    private let imageView: UIImageView
     
     // MARK: Views
-    private let photoImageView = PhotoImageView()
-    
     private lazy var fullNameLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
         numberOfLines: 2,
-        text: title)
+        text: title
+    )
     
     // MARK: Initialize
-    init(title: String) {
+    init(title: String, imageView: UIImageView) {
         self.title = title
+        self.imageView = imageView
         super.init(frame: .zero)
         setupUI()
     }
@@ -35,41 +36,48 @@ final class PersonTitleView: UIView {
     // MARK: Private Methods
     private func setupUI() {
         backgroundColor = .accent
+        fullNameLabel.textAlignment = .center // TODO: временно
         setCustomCornerRadius()
-        addSubview(photoImageView)
+        addSubview(imageView)
         addSubview(fullNameLabel)
         setConstraints()
     }
 }
 
 // MARK: - Layout
-private extension PersonTitleView {
+private extension TitleViewWithImage {
     
     func setConstraints() {
         subviews.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         NSLayoutConstraint.activate([
-            photoImageView.topAnchor.constraint(
+            imageView.topAnchor.constraint(
                 equalTo: topAnchor,
-                constant: 24),
-            photoImageView.leadingAnchor.constraint(
+                constant: 24
+            ),
+            imageView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: 24),
-            photoImageView.bottomAnchor.constraint(
+                constant: 24
+            ),
+            imageView.bottomAnchor.constraint(
                 equalTo: bottomAnchor,
-                constant: -24),
-            photoImageView.heightAnchor.constraint(equalToConstant: 100),
-            photoImageView.widthAnchor.constraint(equalToConstant: 100),
+                constant: -24
+            ),
+            imageView.heightAnchor.constraint(equalToConstant: 100),
+            imageView.widthAnchor.constraint(equalToConstant: 100),
             
             fullNameLabel.leadingAnchor.constraint(
-                equalTo: photoImageView.trailingAnchor,
-                constant: 24),
+                equalTo: imageView.trailingAnchor,
+                constant: 24
+            ),
             fullNameLabel.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -24),
+                constant: -24
+            ),
             fullNameLabel.centerYAnchor.constraint(
-                equalTo: photoImageView.centerYAnchor)
+                equalTo: imageView.centerYAnchor
+            )
         ])
     }
 }

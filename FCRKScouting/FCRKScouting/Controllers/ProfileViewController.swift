@@ -13,7 +13,10 @@ final class ProfileViewController: UIViewController {
     private var viewModel: ProfileViewModelProtocol
         
     // MARK: Views
-    private lazy var userTitleView = PersonTitleView(title: viewModel.fullName)
+    private lazy var userTitleView = TitleViewWithImage(
+        title: viewModel.fullName,
+        imageView: UIImageView(image: Constants.Images.logo)
+    )
     
     private let editButton = EditButton()
     
@@ -28,8 +31,8 @@ final class ProfileViewController: UIViewController {
     }()
     
     private let logoutButton = PrimaryButton(
-        title: Constants.Text.ButtonTitles.exit)
-    
+        title: Constants.Text.ButtonTitles.exit
+    )
     
     private lazy var backgroundView: UIView = {
         let view = UIView()
@@ -77,11 +80,13 @@ final class ProfileViewController: UIViewController {
         logoutButton.addTarget(
             self,
             action: #selector(logOutButtonTapped),
-            for: .touchUpInside)
+            for: .touchUpInside
+        )
         editButton.addTarget(
             self,
             action: #selector(editButtonTapped),
-            for: .touchUpInside)
+            for: .touchUpInside
+        )
     }
     
     @objc private func logOutButtonTapped() {
@@ -93,7 +98,8 @@ final class ProfileViewController: UIViewController {
     
     @objc private func editButtonTapped() {
         let editAlert = AlertFactory.getEditAlert(
-            withTitle: Constants.Text.ActionSheets.edit)
+            withTitle: Constants.Text.ActionSheets.edit
+        )
         present(editAlert, animated: true)
     }
 }
@@ -111,53 +117,68 @@ private extension ProfileViewController {
         NSLayoutConstraint.activate([
             userTitleView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
-                constant: 8),
+                constant: 8
+            ),
             userTitleView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 8),
+                constant: 8
+            ),
             userTitleView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -8),
+                constant: -8
+            ),
             
             editButton.topAnchor.constraint(
                 equalTo: userTitleView.topAnchor,
-                constant: 12),
+                constant: 12
+            ),
             editButton.trailingAnchor.constraint(
                 equalTo: userTitleView.trailingAnchor,
-                constant: -12),
+                constant: -12
+            ),
             
             backgroundView.topAnchor.constraint(
                 equalTo: userTitleView.bottomAnchor,
-                constant: 8),
+                constant: 8
+            ),
             backgroundView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 8),
+                constant: 8
+            ),
             backgroundView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -8),
+                constant: -8
+            ),
             
             accessLabel.topAnchor.constraint(
                 equalTo: backgroundView.topAnchor,
-                constant: 24),
+                constant: 24
+            ),
             accessLabel.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,
-                constant: 24),
+                constant: 24
+            ),
             
             accessValueLabel.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,
-                constant: 24),
+                constant: 24
+            ),
             accessValueLabel.topAnchor.constraint(
                 equalTo: accessLabel.bottomAnchor,
-                constant: 5),
+                constant: 5
+            ),
             
             logoutButton.topAnchor.constraint(
                 equalTo: accessLabel.bottomAnchor,
-                constant: 48),
+                constant: 48
+            ),
             logoutButton.bottomAnchor.constraint(
                 equalTo: backgroundView.bottomAnchor,
-                constant: -24),
+                constant: -24
+            ),
             logoutButton.centerXAnchor.constraint(
-                equalTo: backgroundView.centerXAnchor)    
+                equalTo: backgroundView.centerXAnchor
+            )    
         ])
     }
 }

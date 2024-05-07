@@ -1,5 +1,5 @@
 //
-//  HeaderCollectionReusableView.swift
+//  DateHeaderView.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 12.04.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DateCollectionReusableView: UICollectionReusableView {
+final class DateHeaderView: UICollectionReusableView {
         
     // MARK: Views
     private let dateLabel: UILabel = {
@@ -41,24 +41,18 @@ final class DateCollectionReusableView: UICollectionReusableView {
     }
 }
 
-// MARK: - Reuse Identifier
-extension DateCollectionReusableView {
-    
-    static var identifier: String {
-        String(describing: self)
-    }
-}
-
 // MARK: - Layout
-private extension DateCollectionReusableView {
+private extension DateHeaderView {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
             dateLabel.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: 8),
+                constant: 8
+            ),
             dateLabel.centerYAnchor.constraint(
-                equalTo: centerYAnchor)
+                equalTo: centerYAnchor
+            )
         ])
     }
 }

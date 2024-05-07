@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: возможно обойтись без нее или как-то оптимизировать..?
 final class EditButton: UIButton {
 
     override init(frame: CGRect) {

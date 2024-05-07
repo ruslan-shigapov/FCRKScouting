@@ -36,8 +36,11 @@ final class StorageManager {
             }
         }
     }
+}
+
+// MARK: - User CRUD
+extension StorageManager {
     
-    // MARK: - User's CRUD
     func saveUser(withFullName fullName: String, isEditingAllowed: Bool) {
         let user = User(context: viewContext)
         user.fullName = fullName
@@ -50,6 +53,8 @@ final class StorageManager {
         let user = try? viewContext.fetch(fetchRequest).first
         completion(user)
     }
+    
+    // TODO: добавить изменение
         
     func deleteUsers() {
         let fetchRequest = User.fetchRequest()
@@ -61,13 +66,16 @@ final class StorageManager {
             viewContext.rollback()
         }
     }
+}
+
+// MARK: - Player CRUD
+extension StorageManager {
     
-    // MARK: - Player's CRUD
     func savePlayer(
         withFullName fullName: String,
         citizenship: String,
         club: String,
-        birthDate: String,
+        birthDate: Date,
         position: String,
         foot: String,
         generalInfo: String?,
@@ -76,7 +84,7 @@ final class StorageManager {
         qualities: String?,
         mental: String?,
         lastEditor: String,
-        updatedDate: String
+        updatedDate: Date
     ) {
         let player = Player(context: viewContext)
         player.fullName = fullName
@@ -100,7 +108,9 @@ final class StorageManager {
         if let players = try? viewContext.fetch(fetchRequest) {
             completion(players)
         }
-    }  
+    }
+    
+    // TODO: добавить изменение
     
     func deletePlayers() {
         let fetchRequest = Player.fetchRequest()

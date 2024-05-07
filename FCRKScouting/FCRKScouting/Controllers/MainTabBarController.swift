@@ -28,15 +28,18 @@ final class MainTabBarController: UITabBarController {
             generateNavigationFlowFor(
                 viewController: ScreenFactory.getUpdatesViewController(),
                 withTitle: Constants.Text.ScreenTitles.updates,
-                andTabBarIcon: Constants.Images.TabBarIcons.updates),
+                andTabBarIcon: Constants.Images.TabBarIcons.updates
+            ),
             generateNavigationFlowFor(
                 viewController: ScreenFactory.getSearchViewController(),
                 withTitle: Constants.Text.ScreenTitles.search,
-                andTabBarIcon: Constants.Images.TabBarIcons.search),
+                andTabBarIcon: Constants.Images.TabBarIcons.search
+            ),
             generateNavigationFlowFor(
                 viewController: ScreenFactory.getProfileViewController(),
                 withTitle: Constants.Text.ScreenTitles.profile,
-                andTabBarIcon: Constants.Images.TabBarIcons.profile)
+                andTabBarIcon: Constants.Images.TabBarIcons.profile
+            )
         ]
     }
     
@@ -49,7 +52,8 @@ final class MainTabBarController: UITabBarController {
         viewController.tabBarItem.title = title
         viewController.tabBarItem.image = icon
         let navigationController = UINavigationController(
-            rootViewController: viewController)
+            rootViewController: viewController
+        )
         setupNavigationBar(forNavigationController: navigationController)
         return navigationController
     }
@@ -57,6 +61,13 @@ final class MainTabBarController: UITabBarController {
     private func setupNavigationBar(
         forNavigationController navigationController: UINavigationController
     ) {
+        let navigationBar = navigationController.navigationBar
+        navigationBar.prefersLargeTitles = true
+        navigationBar.scrollEdgeAppearance = setNavBarScrollEdgeAppearance()
+        navigationBar.standardAppearance = setNavBarStandardAppearance()
+    }
+    
+    private func setNavBarScrollEdgeAppearance() -> UINavigationBarAppearance {
         let navigationBarScrollEdgeAppearance = UINavigationBarAppearance()
         navigationBarScrollEdgeAppearance.backgroundColor = .accent
         navigationBarScrollEdgeAppearance.largeTitleTextAttributes = [
@@ -66,15 +77,16 @@ final class MainTabBarController: UITabBarController {
         navigationBarScrollEdgeAppearance.titleTextAttributes = [
             .foregroundColor: UIColor.clear
         ]
-        let navigationBar = navigationController.navigationBar
-        navigationBar.prefersLargeTitles = true
-        navigationBar.scrollEdgeAppearance = navigationBarScrollEdgeAppearance
+        return navigationBarScrollEdgeAppearance
+    }
+    
+    private func setNavBarStandardAppearance() -> UINavigationBarAppearance {
         let navigationBarStandardAppearance = UINavigationBarAppearance()
         let translucentColor = UIColor.accent.withAlphaComponent(0.9)
         navigationBarStandardAppearance.backgroundColor = translucentColor
         navigationBarStandardAppearance.titleTextAttributes = [
             .foregroundColor: UIColor.clear
         ]
-        navigationBar.standardAppearance = navigationBarStandardAppearance
+        return navigationBarStandardAppearance
     }
 }

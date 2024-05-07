@@ -1,5 +1,5 @@
 //
-//  RightNavigationBarButton.swift
+//  CustomNavigationBarButton.swift
 //  RubinScoutingApp
 //
 //  Created by Ruslan Shigapov on 28.03.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RightNavigationBarButton: UIButton {
+final class CustomNavigationBarButton: UIButton {
     
     init(image: UIImage?) {
         super.init(frame: .zero)
@@ -29,8 +29,8 @@ final class RightNavigationBarButton: UIButton {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 32),
-            widthAnchor.constraint(equalToConstant: 32)
+            heightAnchor.constraint(equalToConstant: 35),
+            widthAnchor.constraint(equalToConstant: 35)
         ])
     }
 }
