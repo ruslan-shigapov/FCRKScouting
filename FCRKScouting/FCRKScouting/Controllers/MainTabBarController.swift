@@ -62,7 +62,6 @@ final class MainTabBarController: UITabBarController {
         forNavigationController navigationController: UINavigationController
     ) {
         let navigationBar = navigationController.navigationBar
-        navigationBar.prefersLargeTitles = true
         navigationBar.scrollEdgeAppearance = setNavBarScrollEdgeAppearance()
         navigationBar.standardAppearance = setNavBarStandardAppearance()
     }
@@ -70,12 +69,13 @@ final class MainTabBarController: UITabBarController {
     private func setNavBarScrollEdgeAppearance() -> UINavigationBarAppearance {
         let navigationBarScrollEdgeAppearance = UINavigationBarAppearance()
         navigationBarScrollEdgeAppearance.backgroundColor = .accent
-        navigationBarScrollEdgeAppearance.largeTitleTextAttributes = [
-            .foregroundColor: UIColor.white,
-            .font: Constants.Fonts.title as Any
-        ]
+        navigationBarScrollEdgeAppearance.titlePositionAdjustment = UIOffset(
+            horizontal: 10 - UIScreen.main.bounds.width / 2,
+            vertical: 5
+        )
         navigationBarScrollEdgeAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.clear
+            .foregroundColor: UIColor.white,
+            .font: Constants.Fonts.title as Any,
         ]
         return navigationBarScrollEdgeAppearance
     }

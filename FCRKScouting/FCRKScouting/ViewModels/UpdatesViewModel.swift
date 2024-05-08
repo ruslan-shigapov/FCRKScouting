@@ -12,14 +12,13 @@ protocol UpdatesViewModelProtocol: UserViewModelProtocol {
     var playersByDate: [String: [Player]] { get }
     var uniqueDates: [String] { get }
     func getNumberOfSections() -> Int
-    func getNumberOfItemsInSection() -> Int
+    func getNumberOfItemsIn(_ section: Int) -> Int
     func getPlayerCellViewModel(
-        at indexPath: IndexPath) -> PlayerCellViewModelProtocol
+        at indexPath: IndexPath) -> PlayerCellViewModelProtocol?
 }
 
 final class UpdatesViewModel: UpdatesViewModelProtocol {
     
-    // TODO: докрутить логику преобразования там, где это требуется
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
@@ -30,10 +29,12 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
     
     var playersByDate: [String: [Player]] {
         Dictionary(grouping: players) {
-            let formattedDate = dateFormatter.string(
-                from: $0.updatedDate! // TODO: не забудь нормально извлечь и ниже
-            )
-            return formattedDate
+            if let date = $0.updatedDate {
+                let formattedDate = dateFormatter.string(from: date)
+                return formattedDate
+            } else {
+                return "Дата неизвестна"
+            }
         }
     }
     
@@ -53,16 +54,16 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
         playersByDate.keys.count
     }
     
-    func getNumberOfItemsInSection() -> Int {
-        playersByDate.values.count
+    func getNumberOfItemsIn(_ section: Int) -> Int {
+        let date = uniqueDates[section]
+        return playersByDate[date]?.count ?? 0
     }
     
     func getPlayerCellViewModel(
         at indexPath: IndexPath
-    ) -> PlayerCellViewModelProtocol {
+    ) -> PlayerCellViewModelProtocol? {
         let date = uniqueDates[indexPath.section]
-        return PlayerCellViewModel(
-            player: playersByDate[date]![indexPath.item]
-        )
+        let playersForDate = playersByDate[date]?[indexPath.item]
+        return playersForDate.map { PlayerCellViewModel(player: $0) }
     }
 }

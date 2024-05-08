@@ -30,7 +30,6 @@ final class LoginViewController: UIViewController {
         tag: 2
     )
     
-    // TODO: тут есть необходимость в стеке? как раз бы та цепочка стала короче
     private lazy var textFieldStackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [
@@ -40,6 +39,11 @@ final class LoginViewController: UIViewController {
         )
         stackView.axis = .vertical
         stackView.spacing = 24
+        stackView.subviews.forEach {
+            if let textFieldView = $0 as? RoundedTextFieldView {
+                textFieldView.setDelegate(self)
+            }
+        }
         return stackView
     }()
     
@@ -47,9 +51,15 @@ final class LoginViewController: UIViewController {
         text: Constants.Text.accessDescription
     )
     
-    private let loginButton = PrimaryButton(
-        title: Constants.Text.ButtonTitles.enter
-    )
+    private lazy var loginButton: UIButton = {
+        let button = PrimaryButton(title: Constants.Text.ButtonTitles.enter)
+        button.addTarget(
+            self,
+            action: #selector(loginButtonTapped),
+            for: .touchUpInside
+        )
+        return button
+    }()
     
     // MARK: Initialize
     init(viewModel: LoginViewModelProtocol) {
@@ -72,9 +82,8 @@ final class LoginViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .accent
         addSubviews()
-        setupTextFields()
         setupAlerts()
-        setupButtons()
+        setupToolbar()
         setConstraints()
     }
     
@@ -84,14 +93,6 @@ final class LoginViewController: UIViewController {
         view.addSubview(textFieldStackView)
         view.addSubview(descriptionLabel)
         view.addSubview(loginButton)
-    }
-    
-    private func setupTextFields() {
-        textFieldStackView.subviews.forEach {
-            if let textFieldView = $0 as? RoundedTextFieldView {
-                textFieldView.setDelegate(self)
-            }
-        }
     }
     
     private func setupAlerts() {
@@ -123,15 +124,6 @@ final class LoginViewController: UIViewController {
             )
             self?.present(alertController, animated: true)
         }
-    }
-    
-    private func setupButtons() {
-        loginButton.addTarget(
-            self,
-            action: #selector(loginButtonTapped),
-            for: .touchUpInside
-        )
-        setupToolbar()
     }
     
     private func setupToolbar() {

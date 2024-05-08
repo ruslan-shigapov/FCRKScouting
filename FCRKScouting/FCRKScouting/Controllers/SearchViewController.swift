@@ -60,14 +60,6 @@ final class SearchViewController: UIViewController {
         navigationItem.rightBarButtonItem = barButtonItem
         
         // TODO: добавить какой-нибудь статус фильтрам
-        
-        let leagueSegmentedControlView = GraySegmentedControl(
-            items: Constants.Text.SegmentedControlItems.leagueSegments
-        )
-        let leftBarButtonItem = UIBarButtonItem(
-            customView: leagueSegmentedControlView
-        )
-        navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
     @objc private func changeFiltersButtonTapped() {

@@ -57,7 +57,6 @@ final class PlayerAddingViewController: UIViewController {
         tag: 3
     )
     
-    // TODO: то же самое: нужен ли стек?
     private lazy var textFieldStackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [

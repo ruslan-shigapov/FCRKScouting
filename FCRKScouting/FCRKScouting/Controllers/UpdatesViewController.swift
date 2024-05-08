@@ -12,22 +12,13 @@ final class UpdatesViewController: UIViewController {
     // MARK: Private Properties
     private var viewModel: UpdatesViewModelProtocol
     
-    // TODO: здесь нужно докрутить логику разных моментов
-    private lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(
-            self,
-            action: #selector(refresh(sender:)),
-            for: .valueChanged
-        )
-        refreshControl.tintColor = .white
-        return refreshControl
-    }()
-    
     // MARK: Views
+    private let periodSegmentedControl = GraySegmentedControl(
+        items: Constants.Text.SegmentedControlItems.periodSegments
+    )
+    
     private lazy var playersCollectionView: UICollectionView = {
         let collectionView = VerticalCollectionView()
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
         let elementKind = UICollectionView.elementKindSectionHeader
@@ -40,7 +31,6 @@ final class UpdatesViewController: UIViewController {
             PlayerCell.self,
             forCellWithReuseIdentifier: String(describing: PlayerCell.self)
         )
-        collectionView.refreshControl = refreshControl
         return collectionView
     }()
     
@@ -58,6 +48,8 @@ final class UpdatesViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+        view.addSubview(periodSegmentedControl)
         view.addSubview(playersCollectionView)
         setupNavigationBarItems()
         setConstraints()
@@ -65,6 +57,9 @@ final class UpdatesViewController: UIViewController {
     
     // MARK: Private Methods 
     private func setupNavigationBarItems() {
+        let refreshButton = CustomNavigationBarButton(
+            image: UIImage(named: "repeat")
+        )
         let addPlayerButton = CustomNavigationBarButton(
             image: Constants.Images.ButtonImages.addPlayer
         )
@@ -74,21 +69,15 @@ final class UpdatesViewController: UIViewController {
             for: .touchUpInside
         )
         if viewModel.isEditingAllowed {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(
-                customView: addPlayerButton
-            )
+            // TODO: не отображается вторая кнопка
+//            navigationItem.rightBarButtonItem = UIBarButtonItem(
+//                customView: addPlayerButton
+//            )
         }
-        let periodSegmentedControl = GraySegmentedControl(
-            items: Constants.Text.SegmentedControlItems.periodSegments
-        )
-        let leftBarButtonItem = UIBarButtonItem(
-            customView: periodSegmentedControl
-        )
-        navigationItem.leftBarButtonItem = leftBarButtonItem
-    }
-    
-    @objc private func refresh(sender: UIRefreshControl) {
-        sender.endRefreshing()
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(customView: addPlayerButton),
+            UIBarButtonItem(customView: refreshButton)
+        ]
     }
     
     @objc private func addPlayerButtonTapped() {
@@ -117,9 +106,7 @@ extension UpdatesViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        let date = viewModel.uniqueDates[section]
-        // TODO: какая-то непонятка 
-        return viewModel.playersByDate[date]?.count ?? 0
+        viewModel.getNumberOfItemsIn(section)
     }
     
     func collectionView(
@@ -185,9 +172,26 @@ extension UpdatesViewController: UICollectionViewDelegateFlowLayout {
 extension UpdatesViewController {
     
     private func setConstraints() {
+        view.subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         NSLayoutConstraint.activate([
+            periodSegmentedControl.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: 4
+            ),
+            periodSegmentedControl.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor, 
+                constant: 8
+            ),
+            periodSegmentedControl.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor, 
+                constant: -8
+            ),
+            
             playersCollectionView.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor
+                equalTo: periodSegmentedControl.bottomAnchor,
+                constant: 2
             ),
             playersCollectionView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor

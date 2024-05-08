@@ -17,7 +17,7 @@ enum Constants {
             static let addPlayer = UIImage(systemName: "person.badge.plus")
             static let edit = UIImage(systemName: "square.and.pencil")
             static let filters = UIImage(
-                systemName: "slider.horizontal.2.square.on.square"
+                systemName: "slider.horizontal.below.rectangle"
             )
         }
         enum TabBarIcons {
@@ -28,11 +28,11 @@ enum Constants {
     }
     // MARK: Fonts
     enum Fonts {
-        static let title = UIFont(name: "Ostrovsky", size: 35)
+        static let title = UIFont(name: "Ostrovsky", size: 34)
         static let header = UIFont(name: "Ostrovsky", size: 22)
-        static let normal = UIFont(name: "Ostrovsky", size: 15)
-        static let text = UIFont.systemFont(ofSize: 16, weight: .light)
-        static let description = UIFont.systemFont(ofSize: 12, weight: .thin)
+        static let normal = UIFont(name: "Ostrovsky", size: 17)
+        static let text = UIFont.systemFont(ofSize: 17, weight: .light)
+        static let description = UIFont.systemFont(ofSize: 13, weight: .thin)
     }
     // MARK: Text
     enum Text {
