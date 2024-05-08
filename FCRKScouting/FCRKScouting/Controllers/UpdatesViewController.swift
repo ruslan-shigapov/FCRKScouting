@@ -48,7 +48,7 @@ final class UpdatesViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .accent
         view.addSubview(periodSegmentedControl)
         view.addSubview(playersCollectionView)
         setupNavigationBarItems()
@@ -129,8 +129,9 @@ extension UpdatesViewController: UICollectionViewDataSource {
             ofKind: kind,
             withReuseIdentifier: String(describing: DateHeaderView.self),
             for: indexPath) as? DateHeaderView
+        let sectionDate = viewModel.sortedDates[indexPath.section]
         headerView?.configureWith(
-            date: viewModel.uniqueDates[indexPath.section]
+            date: viewModel.format(sectionDate)
         )
         return headerView ?? UICollectionReusableView()
     }
@@ -191,7 +192,7 @@ extension UpdatesViewController {
             
             playersCollectionView.topAnchor.constraint(
                 equalTo: periodSegmentedControl.bottomAnchor,
-                constant: 2
+                constant: 8
             ),
             playersCollectionView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor

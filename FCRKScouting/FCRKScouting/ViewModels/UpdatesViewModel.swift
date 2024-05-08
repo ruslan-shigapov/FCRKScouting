@@ -8,38 +8,27 @@
 import Foundation
 
 protocol UpdatesViewModelProtocol: UserViewModelProtocol {
-    var players: [Player] { get }
-    var playersByDate: [String: [Player]] { get }
-    var uniqueDates: [String] { get }
+    var sortedDates: [Date] { get }
     func getNumberOfSections() -> Int
     func getNumberOfItemsIn(_ section: Int) -> Int
     func getPlayerCellViewModel(
         at indexPath: IndexPath) -> PlayerCellViewModelProtocol?
+    func format(_ date: Date) -> String
 }
 
 final class UpdatesViewModel: UpdatesViewModelProtocol {
     
-    private let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        return formatter
-    }()
+    private var players: [Player] = []
     
-    var players: [Player] = []
-    
-    var playersByDate: [String: [Player]] {
+    private var sortedPlayersByDate: [Date: [Player]] {
         Dictionary(grouping: players) {
-            if let date = $0.updatedDate {
-                let formattedDate = dateFormatter.string(from: date)
-                return formattedDate
-            } else {
-                return "Дата неизвестна"
-            }
+            Calendar.current.startOfDay(for: $0.updatedDate ?? Date())
         }
+        .mapValues { $0.reversed() }
     }
     
-    var uniqueDates: [String] {
-        Array(playersByDate.keys)
+    var sortedDates: [Date] {
+        sortedPlayersByDate.keys.sorted()
     }
         
     init() {
@@ -51,19 +40,30 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
     }
     
     func getNumberOfSections() -> Int {
-        playersByDate.keys.count
+        sortedPlayersByDate.count
     }
     
     func getNumberOfItemsIn(_ section: Int) -> Int {
-        let date = uniqueDates[section]
-        return playersByDate[date]?.count ?? 0
+        let sectionDate = sortedDates[section]
+        return sortedPlayersByDate[sectionDate]?.count ?? 0
     }
     
     func getPlayerCellViewModel(
         at indexPath: IndexPath
     ) -> PlayerCellViewModelProtocol? {
-        let date = uniqueDates[indexPath.section]
-        let playersForDate = playersByDate[date]?[indexPath.item]
-        return playersForDate.map { PlayerCellViewModel(player: $0) }
+        guard indexPath.section < sortedDates.count else { return nil }
+        let sectionDate = sortedDates[indexPath.section]
+        guard let playersInSection = sortedPlayersByDate[sectionDate] else {
+            return nil
+        }
+        guard indexPath.item < playersInSection.count else { return nil }
+        let player = playersInSection[indexPath.item]
+        return PlayerCellViewModel(player: player)
+    }
+    
+    func format(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        return formatter.string(from: date)
     }
 }
