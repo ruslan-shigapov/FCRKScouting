@@ -10,7 +10,7 @@ import UIKit
 final class TitleViewWithImage: UIView {
     
     // MARK: Private Properties
-    private let title: String
+    private let title: String?
     private let imageView: UIImageView
     
     // MARK: Views
@@ -21,7 +21,7 @@ final class TitleViewWithImage: UIView {
     )
     
     // MARK: Initialize
-    init(title: String, imageView: UIImageView) {
+    init(title: String?, imageView: UIImageView) {
         self.title = title
         self.imageView = imageView
         super.init(frame: .zero)
@@ -36,7 +36,7 @@ final class TitleViewWithImage: UIView {
     // MARK: Private Methods
     private func setupUI() {
         backgroundColor = .accent
-        fullNameLabel.textAlignment = .center // TODO: временно
+        fullNameLabel.textAlignment = .center 
         setCustomCornerRadius()
         addSubview(imageView)
         addSubview(fullNameLabel)

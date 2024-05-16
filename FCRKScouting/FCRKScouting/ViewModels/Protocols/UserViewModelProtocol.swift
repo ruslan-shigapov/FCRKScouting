@@ -7,7 +7,7 @@
 
 protocol UserViewModelProtocol {
     var isEditingAllowed: Bool { get }
-    var fullName: String { get }
+    var fullName: String? { get }
 }
 
 extension UserViewModelProtocol {
@@ -16,8 +16,11 @@ extension UserViewModelProtocol {
         UserManager.shared.user?.isEditingAllowed ?? false
     }
     
-    var fullName: String {
-        UserManager.shared.user?.fullName ?? ""
+    var fullName: String? {
+        UserManager.shared.user?.fullName?.replacingOccurrences(
+            of: " ",
+            with: "\n"
+        )
     }
 }
 

@@ -16,7 +16,6 @@ final class PlayerCell: UICollectionViewCell {
         font: Constants.Fonts.header,
         numberOfLines: 2
     )
-    
     private let ageLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
     private let positionLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
     
@@ -27,12 +26,20 @@ final class PlayerCell: UICollectionViewCell {
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.spacing = 4
+        stackView.subviews.forEach {
+            if let label = $0 as? UILabel {
+                label.textColor = .darkGray
+            }
+        }
         return stackView
     }()
     
     // MARK: Public Properties
     var viewModel: PlayerCellViewModelProtocol? {
         didSet {
+            if let photo = viewModel?.photo {
+                photoImageView.image = photo
+            }
             fullNameLabel.text = viewModel?.fullName
             ageLabel.text = viewModel?.ageDescription
             positionLabel.text = viewModel?.position
@@ -52,10 +59,22 @@ final class PlayerCell: UICollectionViewCell {
     
     // MARK: Private Methods
     private func setupUI() {
-        backgroundColor = .accent
-        setCustomCornerRadius()
+        setupLayer()
         addSubviews()
         setConstraints()
+    }
+    
+    private func setupLayer() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.colors = [
+            UIColor.gray.withAlphaComponent(0.7).cgColor,
+            UIColor.gray.withAlphaComponent(0.1).cgColor
+        ]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        gradientLayer.cornerRadius = 10
+        layer.insertSublayer(gradientLayer, at: 0)
     }
     
     private func addSubviews() {
@@ -75,7 +94,7 @@ private extension PlayerCell {
         NSLayoutConstraint.activate([
             photoImageView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: 18
+                constant: 12
             ),
             photoImageView.centerYAnchor.constraint(
                 equalTo: centerYAnchor
@@ -85,7 +104,7 @@ private extension PlayerCell {
             
             fullNameLabel.leadingAnchor.constraint(
                 equalTo: photoImageView.trailingAnchor,
-                constant: 18
+                constant: 12
             ),
             fullNameLabel.centerYAnchor.constraint(
                 equalTo: centerYAnchor
@@ -93,11 +112,11 @@ private extension PlayerCell {
             
             infoStackView.leadingAnchor.constraint(
                 equalTo: fullNameLabel.trailingAnchor,
-                constant: 18
+                constant: 12
             ),
             infoStackView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -12
+                constant: -10
             ),
             infoStackView.centerYAnchor.constraint(
                 equalTo: centerYAnchor

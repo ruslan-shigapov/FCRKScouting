@@ -11,11 +11,50 @@ final class UpdatesViewController: UIViewController {
     
     // MARK: Private Properties
     private var viewModel: UpdatesViewModelProtocol
+//        didSet {
+//            viewModel.playerWasAdded = { [weak self] in
+//                self?.viewModel.refreshPlayers {
+//                    self?.playersCollectionView.reloadData()
+//                }
+//            }
+//        }
+//    }
     
     // MARK: Views
-    private let periodSegmentedControl = GraySegmentedControl(
-        items: Constants.Text.SegmentedControlItems.periodSegments
-    )
+    private lazy var addPlayerButton: UIButton = {
+        let button = CustomNavigationBarButton(
+            image: Constants.Images.ButtonImages.addPlayer
+        )
+        button.addTarget(
+            self,
+            action: #selector(addPlayerButtonTapped),
+            for: .touchUpInside
+        )
+        return button
+    }()
+    
+    private lazy var refreshButton: UIButton = {
+        let button = CustomNavigationBarButton(
+            image: Constants.Images.ButtonImages.refresh
+        )
+        button.addTarget(
+            self,
+            action: #selector(refreshButtonTapped),
+            for: .touchUpInside
+        )
+        return button
+    }()
+    
+    private lazy var intervalSegmentedControl: UISegmentedControl = {
+        let segmentedControl = GraySegmentedControl(
+            items: Constants.Text.SegmentedControlItems.periodSegments
+        )
+        segmentedControl.addTarget(
+            self,
+            action: #selector(intervalSegmentedControlValueChanged),
+            for: .valueChanged)
+        return segmentedControl
+    }()
     
     private lazy var playersCollectionView: UICollectionView = {
         let collectionView = VerticalCollectionView()
@@ -49,48 +88,55 @@ final class UpdatesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .accent
-        view.addSubview(periodSegmentedControl)
+        view.addSubview(intervalSegmentedControl)
         view.addSubview(playersCollectionView)
-        setupNavigationBarItems()
+        addNavigationBarButtons()
         setConstraints()
+        viewModel.playerWasAdded = { [weak self] in
+            self?.viewModel.refreshPlayers {
+                self?.updateCollectionView()
+            }
+        }
     }
     
     // MARK: Private Methods 
-    private func setupNavigationBarItems() {
-        let refreshButton = CustomNavigationBarButton(
-            image: UIImage(named: "repeat")
-        )
-        let addPlayerButton = CustomNavigationBarButton(
-            image: Constants.Images.ButtonImages.addPlayer
-        )
-        addPlayerButton.addTarget(
-            self,
-            action: #selector(addPlayerButtonTapped),
-            for: .touchUpInside
-        )
-        if viewModel.isEditingAllowed {
-            // TODO: не отображается вторая кнопка
-//            navigationItem.rightBarButtonItem = UIBarButtonItem(
-//                customView: addPlayerButton
-//            )
-        }
+    private func addNavigationBarButtons() {
         navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(customView: addPlayerButton),
             UIBarButtonItem(customView: refreshButton)
         ]
+        if viewModel.isEditingAllowed {
+            navigationItem.rightBarButtonItems?.append(
+                UIBarButtonItem(customView: addPlayerButton)
+            )
+        }
     }
     
     @objc private func addPlayerButtonTapped() {
-        let allowAlert = AlertFactory.getAllowAlert(
-            withTitle: Constants.Text.Alerts.playerAdding
-        ) { [weak self] in
-            self?.showPlayerAddingScreen()
+        showPlayerAddingScreen()
+    }
+    
+    @objc private func refreshButtonTapped() {
+        viewModel.refreshPlayers {
+            updateCollectionView()
         }
-        present(allowAlert, animated: true)
+    }
+    
+    @objc private func intervalSegmentedControlValueChanged(
+        _ sender: UISegmentedControl
+    ) {
+        viewModel.currentInterval = sender.selectedSegmentIndex
+        updateCollectionView()
+    }
+    
+    private func updateCollectionView() {
+        playersCollectionView.setContentOffset(.zero, animated: true)
+        playersCollectionView.reloadData()
     }
     
     private func showPlayerAddingScreen() {
-        let playerAddingVC = ScreenFactory.getPlayerAddingViewController()
+        let playerAddingVC = ScreenFactory.getPlayerAddingViewController(
+            withDelegate: viewModel as PlayerAddingViewControllerDelegate
+        )
         present(playerAddingVC, animated: true)
     }
 }
@@ -177,21 +223,21 @@ extension UpdatesViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         NSLayoutConstraint.activate([
-            periodSegmentedControl.topAnchor.constraint(
+            intervalSegmentedControl.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
                 constant: 4
             ),
-            periodSegmentedControl.leadingAnchor.constraint(
+            intervalSegmentedControl.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor, 
                 constant: 8
             ),
-            periodSegmentedControl.trailingAnchor.constraint(
+            intervalSegmentedControl.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor, 
                 constant: -8
             ),
             
             playersCollectionView.topAnchor.constraint(
-                equalTo: periodSegmentedControl.bottomAnchor,
+                equalTo: intervalSegmentedControl.bottomAnchor,
                 constant: 8
             ),
             playersCollectionView.leadingAnchor.constraint(

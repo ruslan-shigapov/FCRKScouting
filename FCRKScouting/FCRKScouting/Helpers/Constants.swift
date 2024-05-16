@@ -14,11 +14,12 @@ enum Constants {
         static let photoPlaceholder = UIImage(systemName: "person.circle")
         
         enum ButtonImages {
-            static let addPlayer = UIImage(systemName: "person.badge.plus")
-            static let edit = UIImage(systemName: "square.and.pencil")
-            static let filters = UIImage(
-                systemName: "slider.horizontal.below.rectangle"
+            static let refresh = UIImage(systemName: "arrow.clockwise.circle")
+            static let addPlayer = UIImage(
+                systemName: "person.crop.circle.badge.plus"
             )
+            static let edit = UIImage(systemName: "pencil.circle")
+            static let filters = UIImage(systemName: "binoculars.circle")
         }
         enum TabBarIcons {
             static let updates = UIImage(systemName: "plus.circle")
@@ -99,7 +100,6 @@ enum Constants {
                 title: "Выход",
                 message: "Покинуть аккаунт?"
             )
-            static let playerAdding = "Добавить нового игрока?"
         }
         enum ActionSheets {
             static let edit = "Изменить"
@@ -108,7 +108,7 @@ enum Constants {
             """
         }
         enum SegmentedControlItems {
-            static let periodSegments = ["сегодня", "неделя", "месяц"]
+            static let periodSegments = ["сегодня", "за неделю", "за месяц"]
             static let leagueSegments = ["все", "ЮФЛ-1", "ЮФЛ-2", "ЮФЛ-3"]
             static let footSegments = ["правая", "левая"]
         }
@@ -126,14 +126,14 @@ enum Constants {
             func abbreviate() -> String {
                 switch self {
                 case .notSelected: ""
-                case .goalkeeper: "\"ВР\""
-                case .leftDefender: "\"ЛЗ\""
-                case .rightDefender: "\"ПЗ\""
-                case .centerDefender: "\"ЦЗ\""
-                case .leftMidfield: "\"ЛП\""
-                case .rightMidfield: "\"ПП\""
-                case .centerMidfield: "\"ЦП\""
-                case .forward: "\"НП\""
+                case .goalkeeper: "ВР"
+                case .leftDefender: "ЛЗ"
+                case .rightDefender: "ПЗ"
+                case .centerDefender: "ЦЗ"
+                case .leftMidfield: "ЛП"
+                case .rightMidfield: "ПП"
+                case .centerMidfield: "ЦП"
+                case .forward: "НП"
                 }
             }
         }

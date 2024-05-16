@@ -14,7 +14,7 @@ final class DateHeaderView: UICollectionReusableView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.Fonts.normal
-        label.textColor = .label
+        label.textColor = .darkGray
         return label
     }()
     
@@ -51,7 +51,8 @@ private extension DateHeaderView {
                 constant: 8
             ),
             dateLabel.centerYAnchor.constraint(
-                equalTo: centerYAnchor
+                equalTo: centerYAnchor,
+                constant: 1
             )
         ])
     }

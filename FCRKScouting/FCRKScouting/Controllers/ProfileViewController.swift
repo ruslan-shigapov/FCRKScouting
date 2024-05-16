@@ -18,7 +18,8 @@ final class ProfileViewController: UIViewController {
         imageView: UIImageView(image: Constants.Images.logo)
     )
     
-    private let editButton = EditButton()
+    // TODO: remove to nav bar
+    private let editButton2 = CustomNavigationBarButton(image: Constants.Images.ButtonImages.edit)
     
     private let accessLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
     
@@ -72,7 +73,7 @@ final class ProfileViewController: UIViewController {
     
     private func addSubviews() {
         view.addSubview(userTitleView)
-        view.addSubview(editButton)
+        view.addSubview(editButton2)
         view.addSubview(backgroundView)
     }
     
@@ -82,7 +83,7 @@ final class ProfileViewController: UIViewController {
             action: #selector(logOutButtonTapped),
             for: .touchUpInside
         )
-        editButton.addTarget(
+        editButton2.addTarget(
             self,
             action: #selector(editButtonTapped),
             for: .touchUpInside
@@ -128,11 +129,11 @@ private extension ProfileViewController {
                 constant: -8
             ),
             
-            editButton.topAnchor.constraint(
+            editButton2.topAnchor.constraint(
                 equalTo: userTitleView.topAnchor,
                 constant: 12
             ),
-            editButton.trailingAnchor.constraint(
+            editButton2.trailingAnchor.constraint(
                 equalTo: userTitleView.trailingAnchor,
                 constant: -12
             ),

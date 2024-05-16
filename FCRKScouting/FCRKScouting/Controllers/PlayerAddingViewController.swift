@@ -11,6 +11,7 @@ final class PlayerAddingViewController: UIViewController {
     
     // MARK: Private Properties 
     private var viewModel: PlayerAddingViewModelProtocol
+    private var delegate: PlayerAddingViewControllerDelegate
     
     // MARK: Views
     private let titleLabel = CustomWhiteLabel(font: Constants.Fonts.header)
@@ -150,8 +151,12 @@ final class PlayerAddingViewController: UIViewController {
     }()
     
     // MARK: Initialize
-    init(viewModel: PlayerAddingViewModelProtocol) {
+    init(
+        viewModel: PlayerAddingViewModelProtocol,
+        delegate: PlayerAddingViewControllerDelegate
+    ) {
         self.viewModel = viewModel
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -277,7 +282,9 @@ final class PlayerAddingViewController: UIViewController {
                 qualities: qualitiesTextViewWithTitle.getInputText(),
                 mental: mentalTextViewWithTitle.getInputText()
             ) { [weak self] in
-                self?.dismiss(animated: true)
+                self?.dismiss(animated: true) { [weak self] in
+                    self?.delegate.playerWasAdded?()
+                }
             }
         }
     }

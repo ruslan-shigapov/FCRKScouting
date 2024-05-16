@@ -11,7 +11,7 @@ final class SearchViewController: UIViewController {
     
     private var viewModel: SearchViewModelProtocol
 
-    private let temporarySearchBar: UISearchBar = {
+    private lazy var temporarySearchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = "Начните вводить..."
@@ -40,7 +40,7 @@ final class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .accent
         view.addSubview(temporarySearchBar)
         view.addSubview(emptyScreenLabel)
         setupNavigationBarButton()

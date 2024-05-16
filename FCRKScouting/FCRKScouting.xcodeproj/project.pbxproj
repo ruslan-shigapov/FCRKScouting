@@ -32,7 +32,6 @@
 		E4BB48772BC3D53E00F91513 /* PlayerAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB486D2BC3D53E00F91513 /* PlayerAddingViewController.swift */; };
 		E4BB48782BC3D53E00F91513 /* UpdatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */; };
 		E4BB48792BC3D53E00F91513 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB48712BC3D53E00F91513 /* MainTabBarController.swift */; };
-		E4BB48822BC3D54600F91513 /* EditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB487A2BC3D54600F91513 /* EditButton.swift */; };
 		E4BB48832BC3D54600F91513 /* GraySegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB487B2BC3D54600F91513 /* GraySegmentedControl.swift */; };
 		E4BB48842BC3D54600F91513 /* CustomNavigationBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB487C2BC3D54600F91513 /* CustomNavigationBarButton.swift */; };
 		E4BB48852BC3D54600F91513 /* TitleViewWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB487D2BC3D54600F91513 /* TitleViewWithImage.swift */; };
@@ -76,7 +75,6 @@
 		E4BB486D2BC3D53E00F91513 /* PlayerAddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAddingViewController.swift; sourceTree = "<group>"; };
 		E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatesViewController.swift; sourceTree = "<group>"; };
 		E4BB48712BC3D53E00F91513 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
-		E4BB487A2BC3D54600F91513 /* EditButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditButton.swift; sourceTree = "<group>"; };
 		E4BB487B2BC3D54600F91513 /* GraySegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraySegmentedControl.swift; sourceTree = "<group>"; };
 		E4BB487C2BC3D54600F91513 /* CustomNavigationBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBarButton.swift; sourceTree = "<group>"; };
 		E4BB487D2BC3D54600F91513 /* TitleViewWithImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleViewWithImage.swift; sourceTree = "<group>"; };
@@ -157,9 +155,8 @@
 			isa = PBXGroup;
 			children = (
 				E4BB487F2BC3D54600F91513 /* PrimaryButton.swift */,
-				E4BB487B2BC3D54600F91513 /* GraySegmentedControl.swift */,
 				E4BB487C2BC3D54600F91513 /* CustomNavigationBarButton.swift */,
-				E4BB487A2BC3D54600F91513 /* EditButton.swift */,
+				E4BB487B2BC3D54600F91513 /* GraySegmentedControl.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -350,7 +347,6 @@
 			files = (
 				E4BB48642BC3D53700F91513 /* LoginViewController.swift in Sources */,
 				E4F4CE4C2BC95122009F9A8D /* DateHeaderView.swift in Sources */,
-				E4BB48822BC3D54600F91513 /* EditButton.swift in Sources */,
 				E4BB48772BC3D53E00F91513 /* PlayerAddingViewController.swift in Sources */,
 				E48159E62BCE7BAB0090FC42 /* SearchViewModel.swift in Sources */,
 				E4BB485D2BC3D4A800F91513 /* FCRKScouting.xcdatamodeld in Sources */,

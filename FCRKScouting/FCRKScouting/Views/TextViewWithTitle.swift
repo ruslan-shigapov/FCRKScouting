@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: change fully 
 final class TextViewWithTitle: UIView {
     
     // MARK: Private Properties
