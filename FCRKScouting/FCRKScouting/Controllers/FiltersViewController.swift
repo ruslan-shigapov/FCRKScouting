@@ -21,13 +21,11 @@ final class FiltersViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
         view.addSubview(titleLabel)
+        view.prepareForAutoLayout()
         setConstraints()
     }
     
     private func setConstraints() {
-        view.subviews.forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,

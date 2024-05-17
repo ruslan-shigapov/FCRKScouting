@@ -25,7 +25,7 @@ final class PhotoImageView: UIImageView {
     }
  
     private func setupUI() {
-        tintColor = .darkGray
+        tintColor = .white
         image = Constants.Images.photoPlaceholder
     }
 }

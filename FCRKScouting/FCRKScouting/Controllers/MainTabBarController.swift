@@ -73,7 +73,7 @@ final class MainTabBarController: UITabBarController {
         navigationBarScrollEdgeAppearance.shadowColor = .clear
         navigationBarScrollEdgeAppearance.titlePositionAdjustment = UIOffset(
             horizontal: -UIScreen.main.bounds.width / 2,
-            vertical: 5
+            vertical: 6
         )
         navigationBarScrollEdgeAppearance.titleTextAttributes = [
             .foregroundColor: UIColor.white,

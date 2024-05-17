@@ -38,8 +38,8 @@ final class TitleViewWithImage: UIView {
         backgroundColor = .accent
         fullNameLabel.textAlignment = .center 
         setCustomCornerRadius()
-        addSubview(imageView)
-        addSubview(fullNameLabel)
+        addSubviews(imageView, fullNameLabel)
+        prepareForAutoLayout()
         setConstraints()
     }
 }
@@ -48,9 +48,6 @@ final class TitleViewWithImage: UIView {
 private extension TitleViewWithImage {
     
     func setConstraints() {
-        subviews.forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(
                 equalTo: topAnchor,

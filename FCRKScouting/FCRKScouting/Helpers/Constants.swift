@@ -18,8 +18,9 @@ enum Constants {
             static let addPlayer = UIImage(
                 systemName: "person.crop.circle.badge.plus"
             )
-            static let edit = UIImage(systemName: "pencil.circle")
+            static let close = UIImage(systemName: "xmark.circle")
             static let filters = UIImage(systemName: "binoculars.circle")
+            static let edit = UIImage(systemName: "pencil.circle")
         }
         enum TabBarIcons {
             static let updates = UIImage(systemName: "plus.circle")
@@ -44,7 +45,7 @@ enum Constants {
         static let birthDate = "Дата рождения:"
         static let foot = "Рабочая нога:"
         static let position = "Позиция:"
-        static let access = "Доступ:"
+        static let access = "Уровень доступа:"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
         static let unknownUser = "Неизвестный пользователь"

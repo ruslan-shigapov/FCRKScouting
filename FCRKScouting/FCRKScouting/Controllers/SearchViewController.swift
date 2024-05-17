@@ -13,14 +13,12 @@ final class SearchViewController: UIViewController {
 
     private lazy var temporarySearchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = "Начните вводить..."
         return searchBar
     }()
     
     private let emptyScreenLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textAlignment = .center
         label.text = "Здесь будет отображаться список с результатами поиска - совпадения с учетом примененных фильтров"
@@ -40,10 +38,14 @@ final class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .accent
-        view.addSubview(temporarySearchBar)
-        view.addSubview(emptyScreenLabel)
+        setupUI()
+    }
+    
+    private func setupUI() {
         setupNavigationBarButton()
+        view.backgroundColor = .accent
+        view.addSubviews(temporarySearchBar, emptyScreenLabel)
+        view.prepareForAutoLayout()
         setConstraints()
     }
     

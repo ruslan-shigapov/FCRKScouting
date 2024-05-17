@@ -13,6 +13,7 @@
 		E412BCFF2BC7D48600A9BCF6 /* UIView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E412BCFE2BC7D48600A9BCF6 /* UIView+extension.swift */; };
 		E44855AC2BC3D01300E5FCD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */; };
 		E44855B82BC3D01400E5FCD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E44855B72BC3D01400E5FCD8 /* Assets.xcassets */; };
+		E46AC8AF2BF773C600A3C801 /* CustomNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46AC8AE2BF773C600A3C801 /* CustomNavigationButton.swift */; };
 		E46B63FD2BC5405C005B32E1 /* PlayerAddingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46B63FC2BC5405C005B32E1 /* PlayerAddingViewModel.swift */; };
 		E48159E62BCE7BAB0090FC42 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */; };
 		E4BA69D42BC3F621002C1642 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BA69D32BC3F621002C1642 /* AlertFactory.swift */; };
@@ -56,6 +57,7 @@
 		E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E44855B72BC3D01400E5FCD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E44855BC2BC3D01400E5FCD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E46AC8AE2BF773C600A3C801 /* CustomNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationButton.swift; sourceTree = "<group>"; };
 		E46B63FC2BC5405C005B32E1 /* PlayerAddingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAddingViewModel.swift; sourceTree = "<group>"; };
 		E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		E4BA69D32BC3F621002C1642 /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				E4BB487F2BC3D54600F91513 /* PrimaryButton.swift */,
 				E4BB487C2BC3D54600F91513 /* CustomNavigationBarButton.swift */,
 				E4BB487B2BC3D54600F91513 /* GraySegmentedControl.swift */,
+				E46AC8AE2BF773C600A3C801 /* CustomNavigationButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				ru,
+				Base,
 			);
 			mainGroup = E448559F2BC3D01300E5FCD8;
 			productRefGroup = E44855A92BC3D01300E5FCD8 /* Products */;
@@ -351,6 +355,7 @@
 				E48159E62BCE7BAB0090FC42 /* SearchViewModel.swift in Sources */,
 				E4BB485D2BC3D4A800F91513 /* FCRKScouting.xcdatamodeld in Sources */,
 				E4BA69D42BC3F621002C1642 /* AlertFactory.swift in Sources */,
+				E46AC8AF2BF773C600A3C801 /* CustomNavigationButton.swift in Sources */,
 				E4BB485A2BC3D33400F91513 /* UserManager.swift in Sources */,
 				E4BB48752BC3D53E00F91513 /* FiltersViewController.swift in Sources */,
 				E44855AC2BC3D01300E5FCD8 /* AppDelegate.swift in Sources */,

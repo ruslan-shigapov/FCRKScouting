@@ -17,7 +17,9 @@ final class PlayerAddingViewController: UIViewController {
     private let titleLabel = CustomWhiteLabel(font: Constants.Fonts.header)
     
     private lazy var closeButton: UIButton = {
-        let button = UIButton(type: .close)
+        let button = CustomNavigationBarButton(
+            image: Constants.Images.ButtonImages.close
+        )
         button.addTarget(
             self,
             action: #selector(closeButtonTapped),
@@ -127,26 +129,43 @@ final class PlayerAddingViewController: UIViewController {
         )
         stackView.axis = .vertical
         stackView.spacing = 12
+        stackView.subviews.forEach {
+            if let textFieldView = $0 as? RoundedTextFieldView {
+                textFieldView.setDelegate(self)
+            }
+        }
         return stackView
     }()
     
-    private lazy var saveAddingButton = PrimaryButton(
-        title: Constants.Text.ButtonTitles.saveAdding
-    )
-    
+    private lazy var saveAddingButton: UIButton = {
+        let button = PrimaryButton(
+            title: Constants.Text.ButtonTitles.saveAdding
+        )
+        button.addTarget(
+            self,
+            action: #selector(saveAddingButtonTapped),
+            for: .touchUpInside
+        )
+        return button
+    }()
+
     private lazy var verticalScrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.addSubview(photoImageView)
-        scrollView.addSubview(uploadPhotoButton)
-        scrollView.addSubview(textFieldStackView)
-        scrollView.addSubview(birthDateLabel)
-        scrollView.addSubview(birthDatePicker)
-        scrollView.addSubview(positionLabel)
-        scrollView.addSubview(positionPickerView)
-        scrollView.addSubview(footLabel)
-        scrollView.addSubview(footSegmentedControl)
-        scrollView.addSubview(textViewStackView)
-        scrollView.addSubview(saveAddingButton)
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.addSubviews(
+            photoImageView,
+            uploadPhotoButton,
+            textFieldStackView,
+            birthDateLabel,
+            birthDatePicker,
+            positionLabel,
+            positionPickerView,
+            footLabel,
+            footSegmentedControl,
+            textViewStackView,
+            saveAddingButton
+        )
+        scrollView.prepareForAutoLayout()
         return scrollView
     }()
     
@@ -173,28 +192,20 @@ final class PlayerAddingViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
-        view.backgroundColor = .lightGray
-        addSubviews()
-        addTapGesture()
-        setupAlerts()
-        setupLabels()
-        setupTextFields()
-        setupButtons()
+        view.setCustomAccentAndGreenGradient()
+        view.addSubviews(titleLabel, closeButton, verticalScrollView)
+        view.prepareForAutoLayout()
         setConstraints()
+        configureLabels()
+        setupAlerts()
+        addTapGesture()
     }
     
-    private func addSubviews() {
-        view.addSubview(titleLabel)
-        view.addSubview(closeButton)
-        view.addSubview(verticalScrollView)
-    }
-    
-    private func addTapGesture() {
-        let tapGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(dismissKeyboard)
-        )
-        verticalScrollView.addGestureRecognizer(tapGesture)
+    private func configureLabels() {
+        titleLabel.text = Constants.Text.ScreenTitles.addPlayer
+        birthDateLabel.text = Constants.Text.birthDate
+        positionLabel.text = Constants.Text.position
+        footLabel.text = Constants.Text.foot
     }
     
     private func setupAlerts() {
@@ -221,27 +232,12 @@ final class PlayerAddingViewController: UIViewController {
         }
     }
     
-    private func setupLabels() {
-        titleLabel.text = Constants.Text.ScreenTitles.addPlayer
-        birthDateLabel.text = Constants.Text.birthDate
-        positionLabel.text = Constants.Text.position
-        footLabel.text = Constants.Text.foot
-    }
-    
-    private func setupTextFields() {
-        textFieldStackView.subviews.forEach {
-            if let textFieldView = $0 as? RoundedTextFieldView {
-                textFieldView.setDelegate(self)
-            }
-        }
-    }
-    
-    private func setupButtons() {
-        saveAddingButton.addTarget(
-            self,
-            action: #selector(saveAddingButtonTapped),
-            for: .touchUpInside
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
         )
+        verticalScrollView.addGestureRecognizer(tapGesture)
     }
     
     @objc private func closeButtonTapped() {
@@ -255,10 +251,6 @@ final class PlayerAddingViewController: UIViewController {
     
     @objc private func uploadPhotoButtonTapped() {
         
-    }
-    
-    @objc private func dismissKeyboard() {
-        view.endEditing(true)
     }
     
     @objc private func saveAddingButtonTapped() {
@@ -287,6 +279,10 @@ final class PlayerAddingViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
@@ -333,11 +329,11 @@ extension PlayerAddingViewController: UIPickerViewDelegate {
         forComponent component: Int,
         reusing view: UIView?
     ) -> UIView {
-        let titleLabel = UILabel()
-        titleLabel.text = viewModel.getTitleFor(pickerRow: row)
-        titleLabel.font = Constants.Fonts.text
-        titleLabel.textAlignment = .center
-        return titleLabel
+        let rowLabel = UILabel()
+        rowLabel.text = viewModel.getTitleFor(pickerRow: row)
+        rowLabel.font = Constants.Fonts.text
+        rowLabel.textAlignment = .center
+        return rowLabel
     }
 }
 
@@ -345,23 +341,19 @@ extension PlayerAddingViewController: UIPickerViewDelegate {
 extension PlayerAddingViewController {
     
     private func setConstraints() {
-        view.subviews.forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
-        verticalScrollView.subviews.forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 24
             ),
-            titleLabel.bottomAnchor.constraint(
-                equalTo: closeButton.bottomAnchor
+            titleLabel.centerYAnchor.constraint(
+                equalTo: closeButton.centerYAnchor,
+                constant: 2
             ),
             
             closeButton.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: 4
             ),
             closeButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,

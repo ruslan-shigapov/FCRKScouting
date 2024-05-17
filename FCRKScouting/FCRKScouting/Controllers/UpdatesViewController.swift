@@ -11,14 +11,6 @@ final class UpdatesViewController: UIViewController {
     
     // MARK: Private Properties
     private var viewModel: UpdatesViewModelProtocol
-//        didSet {
-//            viewModel.playerWasAdded = { [weak self] in
-//                self?.viewModel.refreshPlayers {
-//                    self?.playersCollectionView.reloadData()
-//                }
-//            }
-//        }
-//    }
     
     // MARK: Views
     private lazy var addPlayerButton: UIButton = {
@@ -52,7 +44,8 @@ final class UpdatesViewController: UIViewController {
         segmentedControl.addTarget(
             self,
             action: #selector(intervalSegmentedControlValueChanged),
-            for: .valueChanged)
+            for: .valueChanged
+        )
         return segmentedControl
     }()
     
@@ -87,19 +80,19 @@ final class UpdatesViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .accent
-        view.addSubview(intervalSegmentedControl)
-        view.addSubview(playersCollectionView)
-        addNavigationBarButtons()
-        setConstraints()
-        viewModel.playerWasAdded = { [weak self] in
-            self?.viewModel.refreshPlayers {
-                self?.updateCollectionView()
-            }
-        }
+        setupUI()
+        handlePlayerAddition()
     }
     
     // MARK: Private Methods 
+    private func setupUI() {
+        addNavigationBarButtons()
+        view.backgroundColor = .accent
+        view.addSubviews(intervalSegmentedControl, playersCollectionView)
+        view.prepareForAutoLayout()
+        setConstraints()
+    }
+    
     private func addNavigationBarButtons() {
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(customView: refreshButton)
@@ -111,14 +104,22 @@ final class UpdatesViewController: UIViewController {
         }
     }
     
-    @objc private func addPlayerButtonTapped() {
-        showPlayerAddingScreen()
+    private func handlePlayerAddition() {
+        viewModel.playerWasAdded = { [weak self] in
+            self?.viewModel.refreshPlayers {
+                self?.updateCollectionView()
+            }
+        }
     }
     
     @objc private func refreshButtonTapped() {
         viewModel.refreshPlayers {
             updateCollectionView()
         }
+    }
+    
+    @objc private func addPlayerButtonTapped() {
+        showPlayerAddingScreen()
     }
     
     @objc private func intervalSegmentedControlValueChanged(
@@ -161,7 +162,8 @@ extension UpdatesViewController: UICollectionViewDataSource {
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: String(describing: PlayerCell.self),
-            for: indexPath) as? PlayerCell
+            for: indexPath
+        ) as? PlayerCell
         cell?.viewModel = viewModel.getPlayerCellViewModel(at: indexPath)
         return cell ?? UICollectionViewCell()
     }
@@ -174,7 +176,8 @@ extension UpdatesViewController: UICollectionViewDataSource {
         let headerView = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
             withReuseIdentifier: String(describing: DateHeaderView.self),
-            for: indexPath) as? DateHeaderView
+            for: indexPath
+        ) as? DateHeaderView
         let sectionDate = viewModel.sortedDates[indexPath.section]
         headerView?.configureWith(
             date: viewModel.format(sectionDate)
@@ -199,7 +202,7 @@ extension UpdatesViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        CGSize(width: collectionView.bounds.width - 16, height: 100)
+        CGSize(width: collectionView.bounds.width - 16, height: 90)
     }
     
     func collectionView(
@@ -219,9 +222,6 @@ extension UpdatesViewController: UICollectionViewDelegateFlowLayout {
 extension UpdatesViewController {
     
     private func setConstraints() {
-        view.subviews.forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
         NSLayoutConstraint.activate([
             intervalSegmentedControl.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,

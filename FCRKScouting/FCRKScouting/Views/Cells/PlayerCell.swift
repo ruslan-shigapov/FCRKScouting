@@ -25,7 +25,11 @@ final class PlayerCell: UICollectionViewCell {
         )
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.spacing = 4
+        stackView.distribution = .fillEqually
+        stackView.spacing = -10
+        stackView.layer.borderWidth = 2
+        stackView.layer.borderColor = UIColor.white.cgColor
+        stackView.layer.cornerRadius = 10
         stackView.subviews.forEach {
             if let label = $0 as? UILabel {
                 label.textColor = .darkGray
@@ -59,28 +63,10 @@ final class PlayerCell: UICollectionViewCell {
     
     // MARK: Private Methods
     private func setupUI() {
-        setupLayer()
-        addSubviews()
+        setGrayRoundedGradientLayer()
+        addSubviews(photoImageView, fullNameLabel, infoStackView)
+        prepareForAutoLayout()
         setConstraints()
-    }
-    
-    private func setupLayer() {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = bounds
-        gradientLayer.colors = [
-            UIColor.gray.withAlphaComponent(0.7).cgColor,
-            UIColor.gray.withAlphaComponent(0.1).cgColor
-        ]
-        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-        gradientLayer.cornerRadius = 10
-        layer.insertSublayer(gradientLayer, at: 0)
-    }
-    
-    private func addSubviews() {
-        addSubview(photoImageView)
-        addSubview(fullNameLabel)
-        addSubview(infoStackView)
     }
 }
 
@@ -88,9 +74,6 @@ final class PlayerCell: UICollectionViewCell {
 private extension PlayerCell {
     
     func setConstraints() {
-        subviews.forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
         NSLayoutConstraint.activate([
             photoImageView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
@@ -116,12 +99,13 @@ private extension PlayerCell {
             ),
             infoStackView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -10
+                constant: -12
             ),
             infoStackView.centerYAnchor.constraint(
                 equalTo: centerYAnchor
             ),
-            infoStackView.widthAnchor.constraint(equalToConstant: 70)
+            infoStackView.widthAnchor.constraint(equalToConstant: 50),
+            infoStackView.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
 }

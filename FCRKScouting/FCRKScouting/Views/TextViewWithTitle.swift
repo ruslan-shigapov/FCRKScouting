@@ -48,9 +48,9 @@ final class TextViewWithTitle: UIView {
     
     // MARK: Private Methods
     private func setupUI() {
-        addSubview(titleLabel)
-        addSubview(roundedTextView)
         setCustomShadow()
+        addSubviews(titleLabel, roundedTextView)
+        prepareForAutoLayout()
         setConstraints()
     }
     
@@ -64,9 +64,6 @@ final class TextViewWithTitle: UIView {
 private extension TextViewWithTitle {
     
     func setConstraints() {
-        subviews.forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),

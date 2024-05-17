@@ -5,14 +5,14 @@
 //  Created by Ruslan Shigapov on 12.03.2024.
 //
 
-private enum AccessType: String {
-    case readOnly = "332211"
-    case editable = "220888"
-}
-
 final class UserManager {
     
     static let shared = UserManager()
+    
+    private let accessLevels = [
+        "332211": false, // readOnly
+        "220888": true   // editable
+    ]
     
     var user: User?
     
@@ -29,14 +29,13 @@ final class UserManager {
         byAccessKey accessKey: String,
         completion: () -> Void
     ) {
-        guard accessKey == AccessType.readOnly.rawValue ||
-              accessKey == AccessType.editable.rawValue else {
+        guard let isEditable = accessLevels[accessKey] else {
             completion()
             return
         }
         StorageManager.shared.saveUser(
             withFullName: fullName,
-            isEditingAllowed: accessKey == AccessType.editable.rawValue
+            isEditingAllowed: isEditable
         )
         getUser()
     }

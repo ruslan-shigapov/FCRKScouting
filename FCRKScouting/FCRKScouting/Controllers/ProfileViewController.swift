@@ -18,10 +18,15 @@ final class ProfileViewController: UIViewController {
         imageView: UIImageView(image: Constants.Images.logo)
     )
     
-    // TODO: remove to nav bar
-    private let editButton2 = CustomNavigationBarButton(image: Constants.Images.ButtonImages.edit)
+    private lazy var viewingPlanNavigationButton: UIButton = {
+        let button = CustomNavigationButton(title: "План просмотра")
+        return button
+    }()
     
-    private let accessLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
+    private let accessLabel = CustomWhiteLabel(
+        font: Constants.Fonts.normal,
+        text: Constants.Text.access
+    )
     
     private lazy var accessValueLabel: UILabel = {
         let label = UILabel()
@@ -31,17 +36,24 @@ final class ProfileViewController: UIViewController {
         return label
     }()
     
-    private let logoutButton = PrimaryButton(
-        title: Constants.Text.ButtonTitles.exit
-    )
+    private lazy var logoutButton: UIButton = {
+        let button = PrimaryButton(
+            title: Constants.Text.ButtonTitles.exit
+        )
+        button.addTarget(
+            self,
+            action: #selector(logOutButtonTapped),
+            for: .touchUpInside
+        )
+        return button
+    }()
     
     private lazy var backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .accent
         view.setCustomCornerRadius()
-        view.addSubview(accessLabel)
-        view.addSubview(accessValueLabel)
-        view.addSubview(logoutButton)
+        view.addSubviews(accessLabel, accessValueLabel, logoutButton)
+        view.prepareForAutoLayout()
         return view
     }()
     
@@ -64,30 +76,28 @@ final class ProfileViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
+        setupNavigationBarButton()
         view.backgroundColor = .white
-        accessLabel.text = Constants.Text.access
-        addSubviews()
-        setupButtons()
+        view.addSubviews(
+            userTitleView,
+            viewingPlanNavigationButton,
+            backgroundView
+        )
+        view.prepareForAutoLayout()
         setConstraints()
     }
     
-    private func addSubviews() {
-        view.addSubview(userTitleView)
-        view.addSubview(editButton2)
-        view.addSubview(backgroundView)
-    }
-    
-    private func setupButtons() {
-        logoutButton.addTarget(
-            self,
-            action: #selector(logOutButtonTapped),
-            for: .touchUpInside
+    private func setupNavigationBarButton() {
+        let editButton = CustomNavigationBarButton(
+            image: Constants.Images.ButtonImages.edit
         )
-        editButton2.addTarget(
+        editButton.addTarget(
             self,
             action: #selector(editButtonTapped),
             for: .touchUpInside
         )
+        let barButtonItem = UIBarButtonItem(customView: editButton)
+        navigationItem.rightBarButtonItem = barButtonItem
     }
     
     @objc private func logOutButtonTapped() {
@@ -109,12 +119,6 @@ final class ProfileViewController: UIViewController {
 private extension ProfileViewController {
     
     func setConstraints() {
-        view.subviews.forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
-        backgroundView.subviews.forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
         NSLayoutConstraint.activate([
             userTitleView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
@@ -129,17 +133,24 @@ private extension ProfileViewController {
                 constant: -8
             ),
             
-            editButton2.topAnchor.constraint(
-                equalTo: userTitleView.topAnchor,
-                constant: 12
+            viewingPlanNavigationButton.topAnchor.constraint(
+                equalTo: userTitleView.bottomAnchor,
+                constant: 8
             ),
-            editButton2.trailingAnchor.constraint(
-                equalTo: userTitleView.trailingAnchor,
-                constant: -12
+            viewingPlanNavigationButton.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 8
+            ),
+            viewingPlanNavigationButton.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -8
+            ),
+            viewingPlanNavigationButton.heightAnchor.constraint(
+                equalToConstant: 74
             ),
             
             backgroundView.topAnchor.constraint(
-                equalTo: userTitleView.bottomAnchor,
+                equalTo: viewingPlanNavigationButton.bottomAnchor,
                 constant: 8
             ),
             backgroundView.leadingAnchor.constraint(

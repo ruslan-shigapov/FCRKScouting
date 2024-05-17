@@ -81,18 +81,17 @@ final class LoginViewController: UIViewController {
     // MARK: Private Methods
     private func setupUI() {
         view.backgroundColor = .accent
-        addSubviews()
+        view.addSubviews(
+            logoImageView,
+            appNameLabel,
+            textFieldStackView,
+            descriptionLabel,
+            loginButton
+        )
+        view.prepareForAutoLayout()
+        setConstraints()
         setupAlerts()
         setupToolbar()
-        setConstraints()
-    }
-    
-    private func addSubviews() {
-        view.addSubview(logoImageView)
-        view.addSubview(appNameLabel)
-        view.addSubview(textFieldStackView)
-        view.addSubview(descriptionLabel)
-        view.addSubview(loginButton)
     }
     
     private func setupAlerts() {
@@ -191,9 +190,6 @@ extension LoginViewController: UITextFieldDelegate {
 extension LoginViewController {
     
     private func setConstraints() {
-        view.subviews.forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,

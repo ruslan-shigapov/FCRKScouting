@@ -18,7 +18,8 @@ protocol UpdatesViewModelProtocol: UserViewModelProtocol,
     func getNumberOfSections() -> Int
     func getNumberOfItemsIn(_ section: Int) -> Int
     func getPlayerCellViewModel(
-        at indexPath: IndexPath) -> PlayerCellViewModelProtocol?
+        at indexPath: IndexPath
+    ) -> PlayerCellViewModelProtocol?
     func format(_ date: Date) -> String
     func refreshPlayers(completion: () -> Void)
 }
