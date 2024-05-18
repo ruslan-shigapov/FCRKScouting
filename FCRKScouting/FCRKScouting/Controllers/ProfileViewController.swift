@@ -13,13 +13,27 @@ final class ProfileViewController: UIViewController {
     private var viewModel: ProfileViewModelProtocol
         
     // MARK: Views
-    private lazy var userTitleView = TitleViewWithImage(
-        title: viewModel.fullName,
-        imageView: UIImageView(image: Constants.Images.logo)
+    private let logoImageView = UIImageView(image: Constants.Images.logo)
+
+    private lazy var fullNameLabel = CustomWhiteLabel(
+        font: Constants.Fonts.header,
+        numberOfLines: 2,
+        text: viewModel.fullName
     )
     
+    private lazy var topBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .accent
+        view.setCustomCornerRadius()
+        view.addSubviews(logoImageView, fullNameLabel)
+        view.prepareForAutoLayout()
+        return view
+    }()
+    
     private lazy var viewingPlanNavigationButton: UIButton = {
-        let button = CustomNavigationButton(title: "План просмотра")
+        let button = CustomNavigationButton(
+            title: Constants.Text.viewingPlan
+        )
         return button
     }()
     
@@ -48,7 +62,7 @@ final class ProfileViewController: UIViewController {
         return button
     }()
     
-    private lazy var backgroundView: UIView = {
+    private lazy var bottomBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .accent
         view.setCustomCornerRadius()
@@ -76,42 +90,22 @@ final class ProfileViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
-        setupNavigationBarButton()
+        fullNameLabel.textAlignment = .center
         view.backgroundColor = .white
         view.addSubviews(
-            userTitleView,
+            topBackgroundView,
             viewingPlanNavigationButton,
-            backgroundView
+            bottomBackgroundView
         )
         view.prepareForAutoLayout()
         setConstraints()
     }
-    
-    private func setupNavigationBarButton() {
-        let editButton = CustomNavigationBarButton(
-            image: Constants.Images.ButtonImages.edit
-        )
-        editButton.addTarget(
-            self,
-            action: #selector(editButtonTapped),
-            for: .touchUpInside
-        )
-        let barButtonItem = UIBarButtonItem(customView: editButton)
-        navigationItem.rightBarButtonItem = barButtonItem
-    }
-    
+
     @objc private func logOutButtonTapped() {
         let exitAlert = AlertFactory.getExitAlert { [weak self] in
             self?.viewModel.logOut()
         }
         present(exitAlert, animated: true)
-    }
-    
-    @objc private func editButtonTapped() {
-        let editAlert = AlertFactory.getEditAlert(
-            withTitle: Constants.Text.ActionSheets.edit
-        )
-        present(editAlert, animated: true)
     }
 }
 
@@ -120,21 +114,48 @@ private extension ProfileViewController {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
-            userTitleView.topAnchor.constraint(
+            topBackgroundView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
                 constant: 8
             ),
-            userTitleView.leadingAnchor.constraint(
+            topBackgroundView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 8
             ),
-            userTitleView.trailingAnchor.constraint(
+            topBackgroundView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -8
             ),
             
+            logoImageView.topAnchor.constraint(
+                equalTo: topBackgroundView.topAnchor,
+                constant: 24
+            ),
+            logoImageView.leadingAnchor.constraint(
+                equalTo: topBackgroundView.leadingAnchor,
+                constant: 24
+            ),
+            logoImageView.bottomAnchor.constraint(
+                equalTo: topBackgroundView.bottomAnchor,
+                constant: -24
+            ),
+            logoImageView.heightAnchor.constraint(equalToConstant: 100),
+            logoImageView.widthAnchor.constraint(equalToConstant: 90),
+            
+            fullNameLabel.leadingAnchor.constraint(
+                equalTo: logoImageView.trailingAnchor,
+                constant: 24
+            ),
+            fullNameLabel.trailingAnchor.constraint(
+                equalTo: topBackgroundView.trailingAnchor,
+                constant: -24
+            ),
+            fullNameLabel.centerYAnchor.constraint(
+                equalTo: topBackgroundView.centerYAnchor
+            ),
+            
             viewingPlanNavigationButton.topAnchor.constraint(
-                equalTo: userTitleView.bottomAnchor,
+                equalTo: topBackgroundView.bottomAnchor,
                 constant: 8
             ),
             viewingPlanNavigationButton.leadingAnchor.constraint(
@@ -149,30 +170,30 @@ private extension ProfileViewController {
                 equalToConstant: 74
             ),
             
-            backgroundView.topAnchor.constraint(
+            bottomBackgroundView.topAnchor.constraint(
                 equalTo: viewingPlanNavigationButton.bottomAnchor,
                 constant: 8
             ),
-            backgroundView.leadingAnchor.constraint(
+            bottomBackgroundView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 8
             ),
-            backgroundView.trailingAnchor.constraint(
+            bottomBackgroundView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -8
             ),
             
             accessLabel.topAnchor.constraint(
-                equalTo: backgroundView.topAnchor,
+                equalTo: bottomBackgroundView.topAnchor,
                 constant: 24
             ),
             accessLabel.leadingAnchor.constraint(
-                equalTo: backgroundView.leadingAnchor,
+                equalTo: bottomBackgroundView.leadingAnchor,
                 constant: 24
             ),
             
             accessValueLabel.leadingAnchor.constraint(
-                equalTo: backgroundView.leadingAnchor,
+                equalTo: bottomBackgroundView.leadingAnchor,
                 constant: 24
             ),
             accessValueLabel.topAnchor.constraint(
@@ -185,11 +206,11 @@ private extension ProfileViewController {
                 constant: 48
             ),
             logoutButton.bottomAnchor.constraint(
-                equalTo: backgroundView.bottomAnchor,
+                equalTo: bottomBackgroundView.bottomAnchor,
                 constant: -24
             ),
             logoutButton.centerXAnchor.constraint(
-                equalTo: backgroundView.centerXAnchor
+                equalTo: bottomBackgroundView.centerXAnchor
             )    
         ])
     }

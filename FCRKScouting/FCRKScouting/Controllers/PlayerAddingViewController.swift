@@ -139,7 +139,7 @@ final class PlayerAddingViewController: UIViewController {
     
     private lazy var saveAddingButton: UIButton = {
         let button = PrimaryButton(
-            title: Constants.Text.ButtonTitles.saveAdding
+            title: Constants.Text.ButtonTitles.save
         )
         button.addTarget(
             self,
@@ -210,21 +210,21 @@ final class PlayerAddingViewController: UIViewController {
     
     private func setupAlerts() {
         viewModel.wasAnyTextFieldEmpty = { [weak self] in
-            let alertController = AlertFactory.getAlert(
+            let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.emptyTextField.title,
                 andMessage: Constants.Text.Alerts.emptyTextField.message
             )
             self?.present(alertController, animated: true)
         }
         viewModel.wasFullNameIncorrect = { [weak self] in
-            let alertController = AlertFactory.getAlert(
+            let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.incorrectFullName.title,
                 andMessage: Constants.Text.Alerts.incorrectFullName.message
             )
             self?.present(alertController, animated: true)
         }
         viewModel.wasPositionNotSelected = { [weak self] in
-            let alertController = AlertFactory.getAlert(
+            let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.notSelectedPosition.title,
                 andMessage: Constants.Text.Alerts.notSelectedPosition.message
             )
@@ -242,7 +242,8 @@ final class PlayerAddingViewController: UIViewController {
     
     @objc private func closeButtonTapped() {
         let cancelAlert = AlertFactory.getCancelAlert(
-            withTitle: Constants.Text.ActionSheets.cancelAdding
+            withTitle: Constants.Text.ActionSheets.cancelAdding,
+            andButtonTitle: Constants.Text.ButtonTitles.continueAdding
         ) { [weak self] in
             self?.dismiss(animated: true)
         }

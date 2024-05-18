@@ -9,7 +9,7 @@ import UIKit
 
 struct AlertFactory {
     
-    static func getAlert(
+    static func getWarningAlert(
         withTitle title: String,
         andMessage message: String
     ) -> UIAlertController {
@@ -26,32 +26,9 @@ struct AlertFactory {
         return alertController
     }
     
-    static func getAllowAlert(
-        withTitle title: String,
-        completion: @escaping () -> Void
-    ) -> UIAlertController {
-        let alertController = UIAlertController(
-            title: title,
-            message: nil,
-            preferredStyle: .alert
-        )
-        let allowAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.yes,
-            style: .default
-        ) { _ in
-                completion()
-            }
-        let cancelAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.no,
-            style: .cancel
-        )
-        alertController.addAction(allowAction)
-        alertController.addAction(cancelAction)
-        return alertController
-    }
-    
     static func getCancelAlert(
         withTitle title: String,
+        andButtonTitle buttonTitle: String,
         completion: @escaping () -> Void
     ) -> UIAlertController {
         let alertController = UIAlertController(
@@ -63,59 +40,23 @@ struct AlertFactory {
             NSAttributedString(
                 string: title,
                 attributes: [
-                    .font: UIFont.systemFont(ofSize: 16, weight: .medium)
+                    .font: UIFont.systemFont(ofSize: 17, weight: .medium)
                 ]
             ),
             forKey: "attributedTitle"
         )
         let cancelAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.cancelAdding,
+            title: Constants.Text.ButtonTitles.cancel,
             style: .destructive
         ) { _ in
                 completion()
             }
         let continueAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.continueAdding,
+            title: buttonTitle,
             style: .cancel
         )
         alertController.addAction(cancelAction)
         alertController.addAction(continueAction)
-        return alertController
-    }
-    
-    static func getEditAlert(withTitle title: String) -> UIAlertController {
-        let alertController = UIAlertController(
-            title: title,
-            message: nil,
-            preferredStyle: .actionSheet
-        )
-        alertController.setValue(
-            NSAttributedString(
-                string: title,
-                attributes: [
-                    .font: UIFont.systemFont(ofSize: 18, weight: .medium)
-                ]
-            ),
-            forKey: "attributedTitle"
-        )
-        let editPhoto = UIAlertAction(
-            title: "Фотографию",
-            style: .default
-        )
-        let editFullName = UIAlertAction(
-            title: "Имя и фамилию",
-            style: .default
-        )
-        
-        // TODO: закончить в экшнами 
-        
-        let cancelAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.cancel,
-            style: .cancel
-        )
-        alertController.addAction(editPhoto)
-        alertController.addAction(editFullName)
-        alertController.addAction(cancelAction)
         return alertController
     }
     

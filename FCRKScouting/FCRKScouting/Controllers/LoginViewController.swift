@@ -96,28 +96,28 @@ final class LoginViewController: UIViewController {
     
     private func setupAlerts() {
         viewModel.wasAnyTextFieldEmpty = { [weak self] in
-            let alertController = AlertFactory.getAlert(
+            let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.emptyTextField.title,
                 andMessage: Constants.Text.Alerts.emptyTextField.message
             )
             self?.present(alertController, animated: true)
         }
         viewModel.wasFullNameIncorrect = { [weak self] in
-            let alertController = AlertFactory.getAlert(
+            let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.incorrectFullName.title,
                 andMessage: Constants.Text.Alerts.incorrectFullName.message
             )
             self?.present(alertController, animated: true)
         }
         viewModel.wasAccessKeyWrong = { [weak self] in
-            let alertController = AlertFactory.getAlert(
+            let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.wrongAccessKey.title,
                 andMessage: Constants.Text.Alerts.wrongAccessKey.message
             )
             self?.present(alertController, animated: true)
         }
         viewModel.didReceiveDataError = { [weak self] in
-            let alertController = AlertFactory.getAlert(
+            let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.wrongSomething.title,
                 andMessage: Constants.Text.Alerts.wrongSomething.message
             )

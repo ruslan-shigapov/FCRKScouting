@@ -45,9 +45,10 @@ enum Constants {
         static let birthDate = "Дата рождения:"
         static let foot = "Рабочая нога:"
         static let position = "Позиция:"
-        static let access = "Уровень доступа:"
+        static let access = "Доступ:"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
+        static let viewingPlan = "План просмотра"
         static let unknownUser = "Неизвестный пользователь"
         
         enum Placeholders {
@@ -62,12 +63,12 @@ enum Constants {
             static let enter = "Войти"
             static let exit = "Выйти"
             static let ok = "OK"
-            static let cancel = "Отмена"
             static let yes = "Да"
             static let no = "Нет"
-            static let cancelAdding = "Отменить добавление"
             static let continueAdding = "Продолжить добавление"
-            static let saveAdding = "Сохранить"
+            static let continueEditing = "Продолжить редактирование"
+            static let cancel = "Отменить"
+            static let save = "Сохранить"
             static let uploadPhoto = "Загрузить фото"
         }
         enum ScreenTitles {
@@ -75,6 +76,7 @@ enum Constants {
             static let search = "Поиск"
             static let profile = "Профиль"
             static let addPlayer = "Добавить игрока"
+            static let editPlayer = "Редактировать игрока"
         }
         enum Alerts {
             static let emptyTextField = (
@@ -103,14 +105,15 @@ enum Constants {
             )
         }
         enum ActionSheets {
-            static let edit = "Изменить"
             static let cancelAdding = """
             Вы уверены, что хотите отменить добавление нового игрока?
+            """
+            static let cancelEditing = """
+            Вы уверены, что хотите отменить редактирование этого игрока?
             """
         }
         enum SegmentedControlItems {
             static let periodSegments = ["сегодня", "за неделю", "за месяц"]
-            static let leagueSegments = ["все", "ЮФЛ-1", "ЮФЛ-2", "ЮФЛ-3"]
             static let footSegments = ["правая", "левая"]
         }
         enum Positions: String, CaseIterable {
