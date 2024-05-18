@@ -28,13 +28,8 @@ final class PlayerCell: UICollectionViewCell {
         stackView.distribution = .fillEqually
         stackView.spacing = -10
         stackView.layer.borderWidth = 2
-        stackView.layer.borderColor = UIColor.white.cgColor
+        stackView.layer.borderColor = UIColor.accent.cgColor
         stackView.layer.cornerRadius = 10
-        stackView.subviews.forEach {
-            if let label = $0 as? UILabel {
-                label.textColor = .darkGray
-            }
-        }
         return stackView
     }()
     
@@ -63,7 +58,8 @@ final class PlayerCell: UICollectionViewCell {
     
     // MARK: Private Methods
     private func setupUI() {
-        setGrayRoundedGradientLayer()
+        backgroundColor = .systemGreen.withAlphaComponent(0.7)
+        setCustomCornerRadius()
         addSubviews(photoImageView, fullNameLabel, infoStackView)
         prepareForAutoLayout()
         setConstraints()

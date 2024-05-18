@@ -10,20 +10,6 @@ import UIKit
 final class SearchViewController: UIViewController {
     
     private var viewModel: SearchViewModelProtocol
-
-    private lazy var temporarySearchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = "Начните вводить..."
-        return searchBar
-    }()
-    
-    private let emptyScreenLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.text = "Здесь будет отображаться список с результатами поиска - совпадения с учетом примененных фильтров"
-        return label
-    }()
     
     // MARK: Initialize
     init(viewModel: SearchViewModelProtocol) {
@@ -43,8 +29,14 @@ final class SearchViewController: UIViewController {
     
     private func setupUI() {
         setupNavigationBarButton()
-        view.backgroundColor = .accent
-        view.addSubviews(temporarySearchBar, emptyScreenLabel)
+        
+        let sc = UISearchController()
+        sc.searchBar.searchTextField.backgroundColor = .white
+        sc.searchBar.tintColor = .lightGray
+        sc.searchBar.placeholder = "Начните вводить"
+        navigationItem.searchController = sc
+        
+        view.setCustomGradientLayer()
         view.prepareForAutoLayout()
         setConstraints()
     }
@@ -58,8 +50,17 @@ final class SearchViewController: UIViewController {
             action: #selector(changeFiltersButtonTapped),
             for: .touchUpInside
         )
-        let barButtonItem = UIBarButtonItem(customView: filtersButton)
-        navigationItem.rightBarButtonItem = barButtonItem
+        let featuresButton = CustomNavigationBarButton(
+            image: UIImage(systemName: "star.circle")
+        )
+        let relatedButton = CustomNavigationBarButton(
+            image: UIImage(systemName: "personalhotspot.circle")
+        )
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(customView: filtersButton),
+            UIBarButtonItem(customView: featuresButton),
+            UIBarButtonItem(customView: relatedButton)
+        ]
         
         // TODO: добавить какой-нибудь статус фильтрам
     }
@@ -75,28 +76,7 @@ private extension SearchViewController {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
-            temporarySearchBar.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor
-            ),
-            temporarySearchBar.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor
-            ),
-            temporarySearchBar.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor
-            ),
-        
             
-            emptyScreenLabel.centerYAnchor.constraint(
-                equalTo: view.centerYAnchor
-            ),
-            emptyScreenLabel.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 40
-            ),
-            emptyScreenLabel.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: -40
-            )
         ])
     }
 }

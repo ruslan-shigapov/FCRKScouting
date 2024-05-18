@@ -14,7 +14,7 @@ final class DateHeaderView: UICollectionReusableView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.Fonts.normal
-        label.textColor = .darkGray
+        label.textColor = .white
         return label
     }()
     

@@ -192,7 +192,7 @@ final class PlayerAddingViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
-        view.setCustomAccentAndGreenGradient()
+        view.backgroundColor = .lightGray
         view.addSubviews(titleLabel, closeButton, verticalScrollView)
         view.prepareForAutoLayout()
         setConstraints()

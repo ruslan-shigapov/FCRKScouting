@@ -41,12 +41,20 @@ final class UpdatesViewController: UIViewController {
         let segmentedControl = GraySegmentedControl(
             items: Constants.Text.SegmentedControlItems.periodSegments
         )
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.addTarget(
             self,
             action: #selector(intervalSegmentedControlValueChanged),
             for: .valueChanged
         )
         return segmentedControl
+    }()
+    
+    private lazy var segmentedControlBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .accent
+        view.addSubview(intervalSegmentedControl)
+        return view
     }()
     
     private lazy var playersCollectionView: UICollectionView = {
@@ -87,8 +95,8 @@ final class UpdatesViewController: UIViewController {
     // MARK: Private Methods 
     private func setupUI() {
         addNavigationBarButtons()
-        view.backgroundColor = .accent
-        view.addSubviews(intervalSegmentedControl, playersCollectionView)
+        view.setCustomGradientLayer()
+        view.addSubviews(segmentedControlBackgroundView, playersCollectionView)
         view.prepareForAutoLayout()
         setConstraints()
     }
@@ -223,22 +231,35 @@ extension UpdatesViewController {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
+            segmentedControlBackgroundView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor
+            ),
+            segmentedControlBackgroundView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor
+            ),
+            segmentedControlBackgroundView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor
+            ),
+            
             intervalSegmentedControl.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                equalTo: segmentedControlBackgroundView.topAnchor,
                 constant: 4
             ),
             intervalSegmentedControl.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor, 
+                equalTo: segmentedControlBackgroundView.leadingAnchor,
                 constant: 8
             ),
+            intervalSegmentedControl.bottomAnchor.constraint(
+                equalTo: segmentedControlBackgroundView.bottomAnchor,
+                constant: -8
+            ),
             intervalSegmentedControl.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor, 
+                equalTo: segmentedControlBackgroundView.trailingAnchor,
                 constant: -8
             ),
             
             playersCollectionView.topAnchor.constraint(
-                equalTo: intervalSegmentedControl.bottomAnchor,
-                constant: 8
+                equalTo: segmentedControlBackgroundView.bottomAnchor
             ),
             playersCollectionView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor

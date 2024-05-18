@@ -15,7 +15,7 @@ final class CustomNavigationButton: UIButton {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(systemName: "chevron.right")
-        imageView.tintColor = .white
+        imageView.tintColor = .systemGreen
         return imageView
     }()
 

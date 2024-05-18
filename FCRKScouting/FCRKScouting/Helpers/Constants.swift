@@ -15,24 +15,22 @@ enum Constants {
         
         enum ButtonImages {
             static let refresh = UIImage(systemName: "arrow.clockwise.circle")
-            static let addPlayer = UIImage(
-                systemName: "person.crop.circle.badge.plus"
-            )
+            static let addPlayer = UIImage(systemName: "plus.circle")
             static let close = UIImage(systemName: "xmark.circle")
-            static let filters = UIImage(systemName: "binoculars.circle")
+            static let filters = UIImage(systemName: "magnifyingglass.circle")
             static let edit = UIImage(systemName: "pencil.circle")
         }
         enum TabBarIcons {
-            static let updates = UIImage(systemName: "plus.circle")
-            static let search = UIImage(systemName: "magnifyingglass.circle")
-            static let profile = UIImage(systemName: "person.crop.circle")
+            static let updates = UIImage(systemName: "newspaper")
+            static let search = UIImage(systemName: "binoculars.fill")
+            static let profile = UIImage(systemName: "soccerball")
         }
     }
     // MARK: Fonts
     enum Fonts {
         static let title = UIFont(name: "Ostrovsky", size: 34)
-        static let header = UIFont(name: "Ostrovsky", size: 22)
-        static let normal = UIFont(name: "Ostrovsky", size: 17)
+        static let header = UIFont(name: "Ostrovsky", size: 21)
+        static let normal = UIFont(name: "Ostrovsky", size: 16)
         static let text = UIFont.systemFont(ofSize: 17, weight: .light)
         static let description = UIFont.systemFont(ofSize: 13, weight: .thin)
     }
@@ -45,10 +43,12 @@ enum Constants {
         static let birthDate = "Дата рождения:"
         static let foot = "Рабочая нога:"
         static let position = "Позиция:"
+        static let post = "Должность:"
         static let access = "Доступ:"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
         static let viewingPlan = "План просмотра"
+        static let allReports = "Все отчёты"
         static let unknownUser = "Неизвестный пользователь"
         
         enum Placeholders {

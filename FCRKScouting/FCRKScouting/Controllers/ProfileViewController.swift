@@ -37,18 +37,17 @@ final class ProfileViewController: UIViewController {
         return button
     }()
     
-    private let accessLabel = CustomWhiteLabel(
-        font: Constants.Fonts.normal,
-        text: Constants.Text.access
-    )
-    
-    private lazy var accessValueLabel: UILabel = {
-        let label = UILabel()
-        label.text = viewModel.access
-        label.font = Constants.Fonts.text
-        label.textColor = .lightGray
-        return label
+    private lazy var allReportsNavigationButton: UIButton = {
+        let button = CustomNavigationButton(
+            title: Constants.Text.allReports
+        )
+        return button
     }()
+    
+    private lazy var userInfoView = UserInfoView(
+        post: "Руководитель отдела селекции",
+        access: viewModel.access
+    )
     
     private lazy var logoutButton: UIButton = {
         let button = PrimaryButton(
@@ -66,7 +65,7 @@ final class ProfileViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = .accent
         view.setCustomCornerRadius()
-        view.addSubviews(accessLabel, accessValueLabel, logoutButton)
+        view.addSubviews(userInfoView, logoutButton)
         view.prepareForAutoLayout()
         return view
     }()
@@ -90,17 +89,36 @@ final class ProfileViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
+        setupNavigationBarButton()
         fullNameLabel.textAlignment = .center
-        view.backgroundColor = .white
+        view.setCustomGradientLayer()
         view.addSubviews(
             topBackgroundView,
             viewingPlanNavigationButton,
+            allReportsNavigationButton,
             bottomBackgroundView
         )
         view.prepareForAutoLayout()
         setConstraints()
     }
+    
+    private func setupNavigationBarButton() {
+        let filtersButton = CustomNavigationBarButton(
+            image: Constants.Images.ButtonImages.edit
+        )
+        filtersButton.addTarget(
+            self,
+            action: #selector(editButtonTapped),
+            for: .touchUpInside
+        )
+        let barButtonItem = UIBarButtonItem(customView: filtersButton)
+        navigationItem.rightBarButtonItem = barButtonItem
+    }
 
+    @objc private func editButtonTapped() {
+        
+    }
+    
     @objc private func logOutButtonTapped() {
         let exitAlert = AlertFactory.getExitAlert { [weak self] in
             self?.viewModel.logOut()
@@ -170,8 +188,24 @@ private extension ProfileViewController {
                 equalToConstant: 74
             ),
             
-            bottomBackgroundView.topAnchor.constraint(
+            allReportsNavigationButton.topAnchor.constraint(
                 equalTo: viewingPlanNavigationButton.bottomAnchor,
+                constant: 8
+            ),
+            allReportsNavigationButton.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 8
+            ),
+            allReportsNavigationButton.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -8
+            ),
+            allReportsNavigationButton.heightAnchor.constraint(
+                equalToConstant: 74
+            ),
+            
+            bottomBackgroundView.topAnchor.constraint(
+                equalTo: allReportsNavigationButton.bottomAnchor,
                 constant: 8
             ),
             bottomBackgroundView.leadingAnchor.constraint(
@@ -183,27 +217,22 @@ private extension ProfileViewController {
                 constant: -8
             ),
             
-            accessLabel.topAnchor.constraint(
+            userInfoView.topAnchor.constraint(
                 equalTo: bottomBackgroundView.topAnchor,
                 constant: 24
             ),
-            accessLabel.leadingAnchor.constraint(
+            userInfoView.leadingAnchor.constraint(
                 equalTo: bottomBackgroundView.leadingAnchor,
                 constant: 24
             ),
-            
-            accessValueLabel.leadingAnchor.constraint(
-                equalTo: bottomBackgroundView.leadingAnchor,
-                constant: 24
-            ),
-            accessValueLabel.topAnchor.constraint(
-                equalTo: accessLabel.bottomAnchor,
-                constant: 5
+            userInfoView.trailingAnchor.constraint(
+                equalTo: bottomBackgroundView.trailingAnchor,
+                constant: -24
             ),
             
             logoutButton.topAnchor.constraint(
-                equalTo: accessLabel.bottomAnchor,
-                constant: 48
+                equalTo: userInfoView.bottomAnchor,
+                constant: 24
             ),
             logoutButton.bottomAnchor.constraint(
                 equalTo: bottomBackgroundView.bottomAnchor,

@@ -29,7 +29,7 @@ final class VerticalCollectionView: UICollectionView {
     }
     
     private func setupUI() {
-        backgroundColor = .white
+        backgroundColor = .clear
         showsVerticalScrollIndicator = false
     }
 }

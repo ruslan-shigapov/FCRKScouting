@@ -21,7 +21,7 @@ final class PrimaryButton: UIButton {
     }
     
     private func setupUI() {
-        backgroundColor = .systemGreen
+        backgroundColor = .systemGreen.withAlphaComponent(0.8)
         setTitleColor(.white, for: .normal)
         titleLabel?.font = Constants.Fonts.normal
         setCustomCornerRadius()
