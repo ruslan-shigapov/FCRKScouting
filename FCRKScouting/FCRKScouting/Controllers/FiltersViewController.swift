@@ -29,12 +29,10 @@ final class FiltersViewController: UIViewController {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 24
-            ),
+                constant: 24),
             titleLabel.topAnchor.constraint(
                 equalTo: view.topAnchor, 
-                constant: 24
-            ),
+                constant: 24),
         ])
     }
 }

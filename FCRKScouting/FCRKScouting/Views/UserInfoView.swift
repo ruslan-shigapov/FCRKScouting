@@ -16,13 +16,11 @@ final class UserInfoView: UIView {
     // MARK: Views
     private let postLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.post
-    )
+        text: Constants.Text.post)
     
     private let accessLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.access
-    )
+        text: Constants.Text.access)
     
     private lazy var postValueLabel: UILabel = {
         let label = UILabel()
@@ -71,20 +69,17 @@ private extension UserInfoView {
             
             postValueLabel.topAnchor.constraint(
                 equalTo: postLabel.bottomAnchor,
-                constant: 2
-            ),
+                constant: 2),
             postValueLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             
             accessLabel.topAnchor.constraint(
                 equalTo: postValueLabel.bottomAnchor,
-                constant: 12
-            ),
+                constant: 12),
             accessLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             
             accessValueLabel.topAnchor.constraint(
                 equalTo: accessLabel.bottomAnchor,
-                constant: 2
-            ),
+                constant: 2),
             accessValueLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             accessValueLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])

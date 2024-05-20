@@ -18,13 +18,11 @@ final class PlayerAddingViewController: UIViewController {
     
     private lazy var closeButton: UIButton = {
         let button = CustomNavigationBarButton(
-            image: Constants.Images.ButtonImages.close
-        )
+            image: Constants.Images.ButtonImages.close)
         button.addTarget(
             self,
             action: #selector(closeButtonTapped),
-            for: .touchUpInside
-        )
+            for: .touchUpInside)
         return button
     }()
     
@@ -40,25 +38,21 @@ final class PlayerAddingViewController: UIViewController {
         button.addTarget(
             self,
             action: #selector(uploadPhotoButtonTapped),
-            for: .touchUpInside
-        )
+            for: .touchUpInside)
         return button
     }()
     
     private let fullNameTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.fullName,
-        type: .name
-    )
+        type: .name)
     private let citizenshipTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.citizenship,
         type: .name,
-        tag: 2
-    )
+        tag: 2)
     private let clubTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.club,
         type: .name,
-        tag: 3
-    )
+        tag: 3)
     
     private lazy var textFieldStackView: UIStackView = {
         let stackView = UIStackView(
@@ -66,8 +60,7 @@ final class PlayerAddingViewController: UIViewController {
                 fullNameTextFieldView,
                 citizenshipTextFieldView,
                 clubTextFieldView
-            ]
-        )
+            ])
         stackView.axis = .vertical
         stackView.spacing = 24
         return stackView
@@ -98,24 +91,18 @@ final class PlayerAddingViewController: UIViewController {
     private let footLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
     
     private let footSegmentedControl = GraySegmentedControl(
-        items: Constants.Text.SegmentedControlItems.footSegments
-    )
+        items: Constants.Text.SegmentedControlItems.footSegments)
     
     private let generalInfoTextViewWithTitle = TextViewWithTitle(
-        title: Constants.Text.TextViewTitles.generalInfo
-    )
+        title: Constants.Text.TextViewTitles.generalInfo)
     private let techniqueTextViewWithTitle = TextViewWithTitle(
-        title: Constants.Text.TextViewTitles.technique
-    )
+        title: Constants.Text.TextViewTitles.technique)
     private let tacticsTextViewWithTitle = TextViewWithTitle(
-        title: Constants.Text.TextViewTitles.tactics
-    )
+        title: Constants.Text.TextViewTitles.tactics)
     private let qualitiesTextViewWithTitle = TextViewWithTitle(
-        title: Constants.Text.TextViewTitles.qualities
-    )
+        title: Constants.Text.TextViewTitles.qualities)
     private let mentalTextViewWithTitle = TextViewWithTitle(
-        title: Constants.Text.TextViewTitles.mental
-    )
+        title: Constants.Text.TextViewTitles.mental)
     
     private lazy var textViewStackView: UIStackView = {
         let stackView = UIStackView(
@@ -125,13 +112,12 @@ final class PlayerAddingViewController: UIViewController {
                 tacticsTextViewWithTitle,
                 qualitiesTextViewWithTitle,
                 mentalTextViewWithTitle
-            ]
-        )
+            ])
         stackView.axis = .vertical
         stackView.spacing = 12
         stackView.subviews.forEach {
             if let textFieldView = $0 as? RoundedTextFieldView {
-                textFieldView.setDelegate(self)
+                textFieldView.set(delegate: self)
             }
         }
         return stackView
@@ -139,13 +125,11 @@ final class PlayerAddingViewController: UIViewController {
     
     private lazy var saveAddingButton: UIButton = {
         let button = PrimaryButton(
-            title: Constants.Text.ButtonTitles.save
-        )
+            title: Constants.Text.ButtonTitles.save)
         button.addTarget(
             self,
             action: #selector(saveAddingButtonTapped),
-            for: .touchUpInside
-        )
+            for: .touchUpInside)
         return button
     }()
 
@@ -163,8 +147,7 @@ final class PlayerAddingViewController: UIViewController {
             footLabel,
             footSegmentedControl,
             textViewStackView,
-            saveAddingButton
-        )
+            saveAddingButton)
         scrollView.prepareForAutoLayout()
         return scrollView
     }()
@@ -209,25 +192,22 @@ final class PlayerAddingViewController: UIViewController {
     }
     
     private func setupAlerts() {
-        viewModel.wasAnyTextFieldEmpty = { [weak self] in
+        viewModel.wereRequiredTextFieldsEmpty = { [weak self] in
             let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.emptyTextField.title,
-                andMessage: Constants.Text.Alerts.emptyTextField.message
-            )
+                withTitle: Constants.Text.Alerts.emptyTextFields.title,
+                andMessage: Constants.Text.Alerts.emptyTextFields.message)
             self?.present(alertController, animated: true)
         }
         viewModel.wasFullNameIncorrect = { [weak self] in
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.incorrectFullName.title,
-                andMessage: Constants.Text.Alerts.incorrectFullName.message
-            )
+                andMessage: Constants.Text.Alerts.incorrectFullName.message)
             self?.present(alertController, animated: true)
         }
         viewModel.wasPositionNotSelected = { [weak self] in
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.notSelectedPosition.title,
-                andMessage: Constants.Text.Alerts.notSelectedPosition.message
-            )
+                andMessage: Constants.Text.Alerts.notSelectedPosition.message)
             self?.present(alertController, animated: true)
         }
     }
@@ -235,8 +215,7 @@ final class PlayerAddingViewController: UIViewController {
     private func addTapGesture() {
         let tapGesture = UITapGestureRecognizer(
             target: self,
-            action: #selector(dismissKeyboard)
-        )
+            action: #selector(dismissKeyboard))
         verticalScrollView.addGestureRecognizer(tapGesture)
     }
     
@@ -255,31 +234,31 @@ final class PlayerAddingViewController: UIViewController {
     }
     
     @objc private func saveAddingButtonTapped() {
-        viewModel.validateInput(
-            text: [
-                fullNameTextFieldView.getInputText(),
-                citizenshipTextFieldView.getInputText(),
-                clubTextFieldView.getInputText()
-            ]
-        ) {
-            viewModel.savePlayer(
-                byFullName: $0[0],
-                citizenship: $0[1],
-                club: $0[2],
-                birthDate: birthDatePicker.date,
-                position: positionPickerView.selectedRow(inComponent: 0),
-                foot: footSegmentedControl.selectedSegmentIndex,
-                generalInfo: generalInfoTextViewWithTitle.getInputText(),
-                technique: techniqueTextViewWithTitle.getInputText(),
-                tactics: tacticsTextViewWithTitle.getInputText(),
-                qualities: qualitiesTextViewWithTitle.getInputText(),
-                mental: mentalTextViewWithTitle.getInputText()
-            ) { [weak self] in
-                self?.dismiss(animated: true) { [weak self] in
-                    self?.delegate.playerWasAdded?()
-                }
-            }
-        }
+//        viewModel.validateInput(
+//            text: [
+//                fullNameTextFieldView.getInputText(),
+//                citizenshipTextFieldView.getInputText(),
+//                clubTextFieldView.getInputText()
+//            ]
+//        ) {
+//            viewModel.savePlayer(
+//                byFullName: $0[0],
+//                citizenship: $0[1],
+//                club: $0[2],
+//                birthDate: birthDatePicker.date,
+//                position: positionPickerView.selectedRow(inComponent: 0),
+//                foot: footSegmentedControl.selectedSegmentIndex,
+//                generalInfo: generalInfoTextViewWithTitle.getInputText(),
+//                technique: techniqueTextViewWithTitle.getInputText(),
+//                tactics: tacticsTextViewWithTitle.getInputText(),
+//                qualities: qualitiesTextViewWithTitle.getInputText(),
+//                mental: mentalTextViewWithTitle.getInputText()
+//            ) { [weak self] in
+//                self?.dismiss(animated: true) { [weak self] in
+//                    self?.delegate.playerWasAdded?()
+//                }
+//            }
+//        }
     }
     
     @objc private func dismissKeyboard() {
@@ -345,140 +324,107 @@ extension PlayerAddingViewController {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 24
-            ),
+                constant: 24),
             titleLabel.centerYAnchor.constraint(
                 equalTo: closeButton.centerYAnchor,
-                constant: 2
-            ),
+                constant: 2),
             
             closeButton.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
-                constant: 4
-            ),
+                constant: 4),
             closeButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -24
-            ),
+                constant: -24),
             
             verticalScrollView.topAnchor.constraint(
                 equalTo: closeButton.bottomAnchor,
-                constant: 12
-            ),
+                constant: 12),
             verticalScrollView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor
-            ),
+                equalTo: view.leadingAnchor),
             verticalScrollView.bottomAnchor.constraint(
-                equalTo: view.bottomAnchor
-            ),
+                equalTo: view.bottomAnchor),
             verticalScrollView.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor
-            ),
+                equalTo: view.trailingAnchor),
             
             photoImageView.topAnchor.constraint(
-                equalTo: verticalScrollView.topAnchor
-            ),
+                equalTo: verticalScrollView.topAnchor),
             photoImageView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 24
-            ),
+                constant: 24),
             photoImageView.heightAnchor.constraint(equalToConstant: 120),
             photoImageView.widthAnchor.constraint(equalToConstant: 120),
             
             uploadPhotoButton.trailingAnchor.constraint(
-                equalTo: textFieldStackView.trailingAnchor
-            ),
+                equalTo: textFieldStackView.trailingAnchor),
             uploadPhotoButton.centerYAnchor.constraint(
-                equalTo: photoImageView.centerYAnchor
-            ),
+                equalTo: photoImageView.centerYAnchor),
             uploadPhotoButton.widthAnchor.constraint(equalToConstant: 150),
             
             textFieldStackView.topAnchor.constraint(
                 equalTo: photoImageView.bottomAnchor,
-                constant: 12
-            ),
+                constant: 12),
             textFieldStackView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 24
-            ),
+                constant: 24),
             
             birthDateLabel.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 24
-            ),
+                constant: 24),
             birthDateLabel.centerYAnchor.constraint(
-                equalTo: birthDatePicker.centerYAnchor
-            ),
+                equalTo: birthDatePicker.centerYAnchor),
             
             birthDatePicker.topAnchor.constraint(
                 equalTo: textFieldStackView.bottomAnchor,
-                constant: 12
-            ),
+                constant: 12),
             birthDatePicker.trailingAnchor.constraint(
-                equalTo: textFieldStackView.trailingAnchor
-            ),
+                equalTo: textFieldStackView.trailingAnchor),
             
             positionLabel.topAnchor.constraint(
                 equalTo: birthDatePicker.bottomAnchor,
-                constant: 12
-            ),
+                constant: 12),
             positionLabel.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 24
-            ),
+                constant: 24),
             
             positionPickerView.topAnchor.constraint(
                 equalTo: positionLabel.bottomAnchor,
-                constant: 8
-            ),
+                constant: 8),
             positionPickerView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 24
-            ),
+                constant: 24),
             positionPickerView.heightAnchor.constraint(equalToConstant: 96),
             positionPickerView.widthAnchor.constraint(
-                equalTo: textFieldStackView.widthAnchor
-            ),
+                equalTo: textFieldStackView.widthAnchor),
             
             footLabel.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 24
-            ),
+                constant: 24),
             footLabel.centerYAnchor.constraint(
-                equalTo: footSegmentedControl.centerYAnchor
-            ),
+                equalTo: footSegmentedControl.centerYAnchor),
             
             footSegmentedControl.topAnchor.constraint(
                 equalTo: positionPickerView.bottomAnchor,
-                constant: 12
-            ),
+                constant: 12),
             footSegmentedControl.trailingAnchor.constraint(
-                equalTo: textFieldStackView.trailingAnchor
-            ),
+                equalTo: textFieldStackView.trailingAnchor),
             
             textViewStackView.topAnchor.constraint(
                 equalTo: footSegmentedControl.bottomAnchor,
-                constant: 12
-            ),
+                constant: 12),
             textViewStackView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 24
-            ),
+                constant: 24),
             textViewStackView.widthAnchor.constraint(
-                equalTo: textFieldStackView.widthAnchor
-            ),
+                equalTo: textFieldStackView.widthAnchor),
             
             saveAddingButton.topAnchor.constraint(
                 equalTo: textViewStackView.bottomAnchor,
-                constant: 24
-            ),
+                constant: 24),
             saveAddingButton.bottomAnchor.constraint(
                 equalTo: verticalScrollView.bottomAnchor,
-                constant: -24
-            ),
+                constant: -24),
             saveAddingButton.centerXAnchor.constraint(
-                equalTo: verticalScrollView.centerXAnchor
-            )
+                equalTo: verticalScrollView.centerXAnchor)
         ])
     }
 }

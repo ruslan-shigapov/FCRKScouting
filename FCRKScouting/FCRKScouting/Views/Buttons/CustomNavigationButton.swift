@@ -14,7 +14,7 @@ final class CustomNavigationButton: UIButton {
     private let arrowImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "chevron.right")
+        imageView.image = Constants.Images.ButtonImages.arrow
         imageView.tintColor = .systemGreen
         return imageView
     }()
@@ -42,9 +42,10 @@ final class CustomNavigationButton: UIButton {
         NSLayoutConstraint.activate([
             arrowImageView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -16
-            ),
-            arrowImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -2)
+                constant: -16),
+            arrowImageView.centerYAnchor.constraint(
+                equalTo: centerYAnchor,
+                constant: -2)
         ])
     }
 }

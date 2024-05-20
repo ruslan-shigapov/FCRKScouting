@@ -17,8 +17,11 @@ enum Constants {
             static let refresh = UIImage(systemName: "arrow.clockwise.circle")
             static let addPlayer = UIImage(systemName: "plus.circle")
             static let close = UIImage(systemName: "xmark.circle")
+            static let related = UIImage(systemName: "personalhotspot.circle")
+            static let features = UIImage(systemName: "star.circle")
             static let filters = UIImage(systemName: "magnifyingglass.circle")
             static let edit = UIImage(systemName: "pencil.circle")
+            static let arrow = UIImage(systemName: "chevron.right")
         }
         enum TabBarIcons {
             static let updates = UIImage(systemName: "newspaper")
@@ -44,6 +47,7 @@ enum Constants {
         static let foot = "Рабочая нога:"
         static let position = "Позиция:"
         static let post = "Должность:"
+        static let notSpecified = "Не указана"
         static let access = "Доступ:"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
@@ -53,6 +57,7 @@ enum Constants {
         
         enum Placeholders {
             static let fullName = "Имя Фамилия"
+            static let post = "Должность (необязательно)"
             static let accessKey = "Ключ доступа"
             static let patronymic = "Отчество (необязательно)"
             static let citizenship = "Гражданство"
@@ -69,35 +74,42 @@ enum Constants {
             static let continueEditing = "Продолжить редактирование"
             static let cancel = "Отменить"
             static let save = "Сохранить"
+            static let next = "Далее"
             static let uploadPhoto = "Загрузить фото"
         }
         enum ScreenTitles {
+            static let form = "Добро пожаловать!"
             static let updates = "Обновления"
             static let search = "Поиск"
             static let profile = "Профиль"
             static let addPlayer = "Добавить игрока"
             static let editPlayer = "Редактировать игрока"
+            
+        }
+        enum Tips {
+            static let title = "Подсказка:"
+            static let related = "- Добавленное мной"
+            static let features = "- Избранное"
+            static let filters = "- Применить фильтры"
         }
         enum Alerts {
-            static let emptyTextField = (
+            static let emptyTextFields = (
                 title: "Внимание",
-                message: "Заполните все обязательные поля для ввода"
+                message: "Пожалуйста, заполните обязательные поля для ввода"
             )
             static let incorrectFullName = (
                 title: "Внимание",
-                message: "Необходимо ввести имя и фамилию"
+                message: """
+                Пожалуйста, введите ваше имя и фамилию, и ничего лишнего
+                """
             )
             static let wrongAccessKey = (
                 title: "Не удалось войти",
                 message: "Ключ доступа неверный"
             )
-            static let wrongSomething = (
-                title: "Что-то пошло не так",
-                message: "Перезапустите приложение"
-            )
             static let notSelectedPosition = (
                 title: "Внимание",
-                message: "Выберите позицию игрока"
+                message: "Пожалуйства, выберите позицию игрока"
             )
             static let exit = (
                 title: "Выход",

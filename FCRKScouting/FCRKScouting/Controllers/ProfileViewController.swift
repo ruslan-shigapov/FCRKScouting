@@ -18,8 +18,7 @@ final class ProfileViewController: UIViewController {
     private lazy var fullNameLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
         numberOfLines: 2,
-        text: viewModel.fullName
-    )
+        text: viewModel.fullName)
     
     private lazy var topBackgroundView: UIView = {
         let view = UIView()
@@ -32,32 +31,26 @@ final class ProfileViewController: UIViewController {
     
     private lazy var viewingPlanNavigationButton: UIButton = {
         let button = CustomNavigationButton(
-            title: Constants.Text.viewingPlan
-        )
+            title: Constants.Text.viewingPlan)
         return button
     }()
     
     private lazy var allReportsNavigationButton: UIButton = {
         let button = CustomNavigationButton(
-            title: Constants.Text.allReports
-        )
+            title: Constants.Text.allReports)
         return button
     }()
     
     private lazy var userInfoView = UserInfoView(
-        post: "Руководитель отдела селекции",
-        access: viewModel.access
-    )
+        post: viewModel.post,
+        access: viewModel.access)
     
     private lazy var logoutButton: UIButton = {
-        let button = PrimaryButton(
-            title: Constants.Text.ButtonTitles.exit
-        )
+        let button = PrimaryButton(title: Constants.Text.ButtonTitles.exit)
         button.addTarget(
             self,
             action: #selector(logOutButtonTapped),
-            for: .touchUpInside
-        )
+            for: .touchUpInside)
         return button
     }()
     
@@ -96,21 +89,18 @@ final class ProfileViewController: UIViewController {
             topBackgroundView,
             viewingPlanNavigationButton,
             allReportsNavigationButton,
-            bottomBackgroundView
-        )
+            bottomBackgroundView)
         view.prepareForAutoLayout()
         setConstraints()
     }
     
     private func setupNavigationBarButton() {
         let filtersButton = CustomNavigationBarButton(
-            image: Constants.Images.ButtonImages.edit
-        )
+            image: Constants.Images.ButtonImages.edit)
         filtersButton.addTarget(
             self,
             action: #selector(editButtonTapped),
-            for: .touchUpInside
-        )
+            for: .touchUpInside)
         let barButtonItem = UIBarButtonItem(customView: filtersButton)
         navigationItem.rightBarButtonItem = barButtonItem
     }
@@ -134,113 +124,87 @@ private extension ProfileViewController {
         NSLayoutConstraint.activate([
             topBackgroundView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
-                constant: 8
-            ),
+                constant: 8),
             topBackgroundView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 8
-            ),
+                constant: 8),
             topBackgroundView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -8
-            ),
+                constant: -8),
             
             logoImageView.topAnchor.constraint(
                 equalTo: topBackgroundView.topAnchor,
-                constant: 24
-            ),
+                constant: 24),
             logoImageView.leadingAnchor.constraint(
                 equalTo: topBackgroundView.leadingAnchor,
-                constant: 24
-            ),
+                constant: 24),
             logoImageView.bottomAnchor.constraint(
                 equalTo: topBackgroundView.bottomAnchor,
-                constant: -24
-            ),
+                constant: -24),
             logoImageView.heightAnchor.constraint(equalToConstant: 100),
             logoImageView.widthAnchor.constraint(equalToConstant: 90),
             
             fullNameLabel.leadingAnchor.constraint(
                 equalTo: logoImageView.trailingAnchor,
-                constant: 24
-            ),
+                constant: 24),
             fullNameLabel.trailingAnchor.constraint(
                 equalTo: topBackgroundView.trailingAnchor,
-                constant: -24
-            ),
+                constant: -24),
             fullNameLabel.centerYAnchor.constraint(
-                equalTo: topBackgroundView.centerYAnchor
-            ),
+                equalTo: topBackgroundView.centerYAnchor),
             
             viewingPlanNavigationButton.topAnchor.constraint(
                 equalTo: topBackgroundView.bottomAnchor,
-                constant: 8
-            ),
+                constant: 8),
             viewingPlanNavigationButton.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 8
-            ),
+                constant: 8),
             viewingPlanNavigationButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -8
-            ),
+                constant: -8),
             viewingPlanNavigationButton.heightAnchor.constraint(
-                equalToConstant: 74
-            ),
+                equalToConstant: 74),
             
             allReportsNavigationButton.topAnchor.constraint(
                 equalTo: viewingPlanNavigationButton.bottomAnchor,
-                constant: 8
-            ),
+                constant: 8),
             allReportsNavigationButton.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 8
-            ),
+                constant: 8),
             allReportsNavigationButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -8
-            ),
+                constant: -8),
             allReportsNavigationButton.heightAnchor.constraint(
-                equalToConstant: 74
-            ),
+                equalToConstant: 74),
             
             bottomBackgroundView.topAnchor.constraint(
                 equalTo: allReportsNavigationButton.bottomAnchor,
-                constant: 8
-            ),
+                constant: 8),
             bottomBackgroundView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 8
-            ),
+                constant: 8),
             bottomBackgroundView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -8
-            ),
+                constant: -8),
             
             userInfoView.topAnchor.constraint(
                 equalTo: bottomBackgroundView.topAnchor,
-                constant: 24
-            ),
+                constant: 24),
             userInfoView.leadingAnchor.constraint(
                 equalTo: bottomBackgroundView.leadingAnchor,
-                constant: 24
-            ),
+                constant: 24),
             userInfoView.trailingAnchor.constraint(
                 equalTo: bottomBackgroundView.trailingAnchor,
-                constant: -24
-            ),
+                constant: -24),
             
             logoutButton.topAnchor.constraint(
                 equalTo: userInfoView.bottomAnchor,
-                constant: 24
-            ),
+                constant: 24),
             logoutButton.bottomAnchor.constraint(
                 equalTo: bottomBackgroundView.bottomAnchor,
-                constant: -24
-            ),
+                constant: -24),
             logoutButton.centerXAnchor.constraint(
-                equalTo: bottomBackgroundView.centerXAnchor
-            )    
+                equalTo: bottomBackgroundView.centerXAnchor)    
         ])
     }
 }

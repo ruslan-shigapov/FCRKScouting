@@ -11,22 +11,31 @@ struct ScreenFactory {
         
     static func setRootViewController() {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        if UserManager.shared.user != nil {
-            appDelegate?.window?.rootViewController = MainTabBarController()
-        } else {
+        if UserManager.shared.user == nil {
             appDelegate?.window?.rootViewController = getLoginViewController()
+        } else {
+            appDelegate?.window?.rootViewController = MainTabBarController()
         }
+    }
+    
+    static func getLoginViewController() -> UIViewController {
+        let viewModel = LoginViewModel()
+        return LoginViewController(viewModel: viewModel)
+    }
+    
+    static func getFormController(
+        withAccessValue accessValue: Bool
+    ) -> UIViewController {
+        let viewModel = FormViewModel(accessValue: accessValue)
+        let viewController = FormViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .fullScreen
+        return viewController
     }
     
     static func getMainTabBarController() -> UIViewController {
         let tabBarController = MainTabBarController()
         tabBarController.modalPresentationStyle = .fullScreen
         return tabBarController
-    }
-    
-    static func getLoginViewController() -> UIViewController {
-        let viewModel = LoginViewModel()
-        return LoginViewController(viewModel: viewModel)
     }
     
     static func getUpdatesViewController() -> UIViewController {
@@ -50,8 +59,7 @@ struct ScreenFactory {
         let viewModel = PlayerAddingViewModel()
         let viewController = PlayerAddingViewController(
             viewModel: viewModel,
-            delegate: delegate
-        )
+            delegate: delegate)
         viewController.modalPresentationStyle = .fullScreen
         return viewController
     }

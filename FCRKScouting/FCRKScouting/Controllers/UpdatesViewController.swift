@@ -15,38 +15,32 @@ final class UpdatesViewController: UIViewController {
     // MARK: Views
     private lazy var addPlayerButton: UIButton = {
         let button = CustomNavigationBarButton(
-            image: Constants.Images.ButtonImages.addPlayer
-        )
+            image: Constants.Images.ButtonImages.addPlayer)
         button.addTarget(
             self,
             action: #selector(addPlayerButtonTapped),
-            for: .touchUpInside
-        )
+            for: .touchUpInside)
         return button
     }()
     
     private lazy var refreshButton: UIButton = {
         let button = CustomNavigationBarButton(
-            image: Constants.Images.ButtonImages.refresh
-        )
+            image: Constants.Images.ButtonImages.refresh)
         button.addTarget(
             self,
             action: #selector(refreshButtonTapped),
-            for: .touchUpInside
-        )
+            for: .touchUpInside)
         return button
     }()
     
     private lazy var intervalSegmentedControl: UISegmentedControl = {
         let segmentedControl = GraySegmentedControl(
-            items: Constants.Text.SegmentedControlItems.periodSegments
-        )
+            items: Constants.Text.SegmentedControlItems.periodSegments)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.addTarget(
             self,
             action: #selector(intervalSegmentedControlValueChanged),
-            for: .valueChanged
-        )
+            for: .valueChanged)
         return segmentedControl
     }()
     
@@ -65,12 +59,10 @@ final class UpdatesViewController: UIViewController {
         collectionView.register(
             DateHeaderView.self,
             forSupplementaryViewOfKind: elementKind,
-            withReuseIdentifier: String(describing: DateHeaderView.self)
-        )
+            withReuseIdentifier: String(describing: DateHeaderView.self))
         collectionView.register(
             PlayerCell.self,
-            forCellWithReuseIdentifier: String(describing: PlayerCell.self)
-        )
+            forCellWithReuseIdentifier: String(describing: PlayerCell.self))
         return collectionView
     }()
     
@@ -107,27 +99,28 @@ final class UpdatesViewController: UIViewController {
         ]
         if viewModel.isEditingAllowed {
             navigationItem.rightBarButtonItems?.append(
-                UIBarButtonItem(customView: addPlayerButton)
-            )
+                UIBarButtonItem(customView: addPlayerButton))
         }
     }
     
     private func handlePlayerAddition() {
         viewModel.playerWasAdded = { [weak self] in
-            self?.viewModel.refreshPlayers {
+            self?.viewModel.refreshPlayersList {
                 self?.updateCollectionView()
             }
         }
     }
     
     @objc private func refreshButtonTapped() {
-        viewModel.refreshPlayers {
+        viewModel.refreshPlayersList {
             updateCollectionView()
         }
     }
     
     @objc private func addPlayerButtonTapped() {
-        showPlayerAddingScreen()
+        let playerAddingVC = ScreenFactory.getPlayerAddingViewController(
+            withDelegate: viewModel as PlayerAddingViewControllerDelegate)
+        present(playerAddingVC, animated: true)
     }
     
     @objc private func intervalSegmentedControlValueChanged(
@@ -140,13 +133,6 @@ final class UpdatesViewController: UIViewController {
     private func updateCollectionView() {
         playersCollectionView.setContentOffset(.zero, animated: true)
         playersCollectionView.reloadData()
-    }
-    
-    private func showPlayerAddingScreen() {
-        let playerAddingVC = ScreenFactory.getPlayerAddingViewController(
-            withDelegate: viewModel as PlayerAddingViewControllerDelegate
-        )
-        present(playerAddingVC, animated: true)
     }
 }
 
@@ -170,8 +156,7 @@ extension UpdatesViewController: UICollectionViewDataSource {
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: String(describing: PlayerCell.self),
-            for: indexPath
-        ) as? PlayerCell
+            for: indexPath) as? PlayerCell
         cell?.viewModel = viewModel.getPlayerCellViewModel(at: indexPath)
         return cell ?? UICollectionViewCell()
     }
@@ -184,12 +169,9 @@ extension UpdatesViewController: UICollectionViewDataSource {
         let headerView = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
             withReuseIdentifier: String(describing: DateHeaderView.self),
-            for: indexPath
-        ) as? DateHeaderView
+            for: indexPath) as? DateHeaderView
         let sectionDate = viewModel.sortedDates[indexPath.section]
-        headerView?.configureWith(
-            date: viewModel.format(sectionDate)
-        )
+        headerView?.configureWith(date: viewModel.formatDate(sectionDate))
         return headerView ?? UICollectionReusableView()
     }
 }
@@ -232,44 +214,33 @@ extension UpdatesViewController {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             segmentedControlBackgroundView.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor
-            ),
+                equalTo: view.safeAreaLayoutGuide.topAnchor),
             segmentedControlBackgroundView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor
-            ),
+                equalTo: view.leadingAnchor),
             segmentedControlBackgroundView.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor
-            ),
+                equalTo: view.trailingAnchor),
             
             intervalSegmentedControl.topAnchor.constraint(
                 equalTo: segmentedControlBackgroundView.topAnchor,
-                constant: 4
-            ),
+                constant: 4),
             intervalSegmentedControl.leadingAnchor.constraint(
                 equalTo: segmentedControlBackgroundView.leadingAnchor,
-                constant: 8
-            ),
+                constant: 8),
             intervalSegmentedControl.bottomAnchor.constraint(
                 equalTo: segmentedControlBackgroundView.bottomAnchor,
-                constant: -8
-            ),
+                constant: -8),
             intervalSegmentedControl.trailingAnchor.constraint(
                 equalTo: segmentedControlBackgroundView.trailingAnchor,
-                constant: -8
-            ),
+                constant: -8),
             
             playersCollectionView.topAnchor.constraint(
-                equalTo: segmentedControlBackgroundView.bottomAnchor
-            ),
+                equalTo: segmentedControlBackgroundView.bottomAnchor),
             playersCollectionView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor
-            ),
+                equalTo: view.leadingAnchor),
             playersCollectionView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor
-            ),
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             playersCollectionView.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor
-            )
+                equalTo: view.trailingAnchor)
         ])
     }
 }

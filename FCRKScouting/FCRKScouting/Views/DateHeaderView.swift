@@ -48,12 +48,10 @@ private extension DateHeaderView {
         NSLayoutConstraint.activate([
             dateLabel.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: 8
-            ),
+                constant: 8),
             dateLabel.centerYAnchor.constraint(
                 equalTo: centerYAnchor,
-                constant: 1
-            )
+                constant: 1)
         ])
     }
 }

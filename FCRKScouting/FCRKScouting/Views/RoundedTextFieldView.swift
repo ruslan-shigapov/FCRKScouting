@@ -33,13 +33,11 @@ final class RoundedTextFieldView: UIView {
         textField.addTarget(
             self,
             action: #selector(addFloatingLabel),
-            for: .editingDidBegin
-        )
+            for: .editingDidBegin)
         textField.addTarget(
             self,
             action: #selector(removeFloatingLabel),
-            for: .editingDidEnd
-        )
+            for: .editingDidEnd)
         return textField
     }()
     
@@ -53,8 +51,7 @@ final class RoundedTextFieldView: UIView {
     
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView(
-            arrangedSubviews: [floatingLabel, customTextField]
-        )
+            arrangedSubviews: [floatingLabel, customTextField])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         return stackView
@@ -79,8 +76,7 @@ final class RoundedTextFieldView: UIView {
     private func setupTextField(placeholder: String) {
         customTextField.attributedPlaceholder = NSAttributedString(
             string: placeholder,
-            attributes: [.font: Constants.Fonts.text]
-        )
+            attributes: [.font: Constants.Fonts.text])
     }
     
     private func setupUI() {
@@ -107,12 +103,13 @@ final class RoundedTextFieldView: UIView {
     }
     
     // MARK: Public Methods
-    func setDelegate(_ delegate: UIViewController) {
+    func set(delegate: UIViewController) {
         customTextField.delegate = delegate as? any UITextFieldDelegate
     }
     
-    func getInputText() -> String? {
-        customTextField.text
+    func getInputText() -> String {
+        guard let text = customTextField.text else { return "" }
+        return text
     }
 }
 
@@ -127,12 +124,10 @@ private extension RoundedTextFieldView {
             containerStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             containerStackView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: 16
-            ),
+                constant: 16),
             containerStackView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -16
-            )
+                constant: -16)
         ])
     }
 }

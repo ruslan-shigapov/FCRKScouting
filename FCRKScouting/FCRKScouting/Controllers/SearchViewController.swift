@@ -11,6 +11,8 @@ final class SearchViewController: UIViewController {
     
     private var viewModel: SearchViewModelProtocol
     
+    private let searchTipsView = SearchTipsView()
+    
     // MARK: Initialize
     init(viewModel: SearchViewModelProtocol) {
         self.viewModel = viewModel
@@ -37,32 +39,29 @@ final class SearchViewController: UIViewController {
         navigationItem.searchController = sc
         
         view.setCustomGradientLayer()
+        view.addSubview(searchTipsView)
         view.prepareForAutoLayout()
         setConstraints()
     }
     
     private func setupNavigationBarButton() {
         let filtersButton = CustomNavigationBarButton(
-            image: Constants.Images.ButtonImages.filters
-        )
+            image: Constants.Images.ButtonImages.filters)
         filtersButton.addTarget(
             self,
             action: #selector(changeFiltersButtonTapped),
-            for: .touchUpInside
-        )
+            for: .touchUpInside)
         let featuresButton = CustomNavigationBarButton(
-            image: UIImage(systemName: "star.circle")
-        )
+            image: Constants.Images.ButtonImages.features)
         let relatedButton = CustomNavigationBarButton(
-            image: UIImage(systemName: "personalhotspot.circle")
-        )
+            image: Constants.Images.ButtonImages.related)
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(customView: filtersButton),
             UIBarButtonItem(customView: featuresButton),
             UIBarButtonItem(customView: relatedButton)
         ]
         
-        // TODO: добавить какой-нибудь статус фильтрам
+        // TODO: добавить green статус фильтрам
     }
     
     @objc private func changeFiltersButtonTapped() {
@@ -76,7 +75,9 @@ private extension SearchViewController {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
-            
+            searchTipsView.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor),
+            searchTipsView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 }

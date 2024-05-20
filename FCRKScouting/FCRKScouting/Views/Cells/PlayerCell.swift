@@ -14,15 +14,13 @@ final class PlayerCell: UICollectionViewCell {
     
     private let fullNameLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
-        numberOfLines: 2
-    )
+        numberOfLines: 2)
     private let ageLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
     private let positionLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
     
     private lazy var infoStackView: UIStackView = {
         let stackView = UIStackView(
-            arrangedSubviews: [ageLabel, positionLabel]
-        )
+            arrangedSubviews: [ageLabel, positionLabel])
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .fillEqually
@@ -73,33 +71,23 @@ private extension PlayerCell {
         NSLayoutConstraint.activate([
             photoImageView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: 12
-            ),
-            photoImageView.centerYAnchor.constraint(
-                equalTo: centerYAnchor
-            ),
+                constant: 12),
+            photoImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             photoImageView.heightAnchor.constraint(equalToConstant: 70),
             photoImageView.widthAnchor.constraint(equalToConstant: 70),
             
             fullNameLabel.leadingAnchor.constraint(
                 equalTo: photoImageView.trailingAnchor,
-                constant: 12
-            ),
-            fullNameLabel.centerYAnchor.constraint(
-                equalTo: centerYAnchor
-            ),
+                constant: 12),
+            fullNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             infoStackView.leadingAnchor.constraint(
                 equalTo: fullNameLabel.trailingAnchor,
-                constant: 12
-            ),
+                constant: 12),
             infoStackView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -12
-            ),
-            infoStackView.centerYAnchor.constraint(
-                equalTo: centerYAnchor
-            ),
+                constant: -12),
+            infoStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             infoStackView.widthAnchor.constraint(equalToConstant: 50),
             infoStackView.heightAnchor.constraint(equalToConstant: 60)
         ])

@@ -9,11 +9,6 @@ final class UserManager {
     
     static let shared = UserManager()
     
-    private let accessLevels = [
-        "332211": false, // readOnly
-        "220888": true   // editable
-    ]
-    
     var user: User?
     
     private init() {
@@ -26,21 +21,22 @@ final class UserManager {
     
     func createUser(
         withFullName fullName: String,
-        byAccessKey accessKey: String,
+        post: String,
+        accessValue: Bool,
         completion: () -> Void
     ) {
-        guard let isEditable = accessLevels[accessKey] else {
-            completion()
-            return
-        }
         StorageManager.shared.saveUser(
             withFullName: fullName,
-            isEditingAllowed: isEditable
-        )
-        getUser()
+            post: post,
+            isEditingAllowed: accessValue
+        ) {
+            getUser()
+            completion()
+        }
     }
     
     func deleteUser() {
+        // TODO: удалять только текущего пользователя
         StorageManager.shared.deleteUsers()
         getUser()
     }

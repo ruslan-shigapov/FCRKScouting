@@ -41,11 +41,18 @@ final class StorageManager {
 // MARK: - User CRUD
 extension StorageManager {
     
-    func saveUser(withFullName fullName: String, isEditingAllowed: Bool) {
+    func saveUser(
+        withFullName fullName: String,
+        post: String,
+        isEditingAllowed: Bool,
+        completion: () -> Void
+    ) {
         let user = User(context: viewContext)
         user.fullName = fullName
+        user.post = post
         user.isEditingAllowed = isEditingAllowed
         saveContext()
+        completion()
     }
     
     func fetchUser(completion: (User?) -> Void) {

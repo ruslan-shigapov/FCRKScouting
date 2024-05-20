@@ -36,7 +36,7 @@ extension UIView {
             UIColor.accent.withAlphaComponent(0.7).cgColor,
             UIColor.systemGreen.withAlphaComponent(0.5).cgColor
         ]
-        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.4)
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
         gradientLayer.frame = bounds
         layer.insertSublayer(gradientLayer, at: 0)

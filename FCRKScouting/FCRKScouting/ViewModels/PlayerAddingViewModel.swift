@@ -21,8 +21,7 @@ protocol PlayerAddingViewModelProtocol: TextFieldValidationProtocol {
         tactics: String?,
         qualities: String?,
         mental: String?,
-        completion: () -> Void
-    )
+        completion: () -> Void)
     func getNumberOfComponentsInPicker() -> Int
     func getNumberOfRowsInPicker() -> Int
     func getTitleFor(pickerRow: Int) -> String
@@ -30,7 +29,7 @@ protocol PlayerAddingViewModelProtocol: TextFieldValidationProtocol {
 
 final class PlayerAddingViewModel: PlayerAddingViewModelProtocol {
 
-    var wasAnyTextFieldEmpty: (() -> Void)?
+    var wereRequiredTextFieldsEmpty: (() -> Void)?
     var wasFullNameIncorrect: (() -> Void)?
     var wasPositionNotSelected: (() -> Void)?
     
@@ -65,8 +64,7 @@ final class PlayerAddingViewModel: PlayerAddingViewModelProtocol {
                 qualities: qualities,
                 mental: mental,
                 lastEditor: currentUserFullName ?? Constants.Text.unknownUser, 
-                updatedDate: Date()
-            )
+                updatedDate: Date())
             completion()
         }
     }

@@ -5,43 +5,26 @@
 //  Created by Ruslan Shigapov on 06.03.2024.
 //
 
-protocol LoginViewModelProtocol: TextFieldValidationProtocol {
+protocol LoginViewModelProtocol {
     var wasAccessKeyWrong: (() -> Void)? { get set }
-    var didReceiveDataError: (() -> Void)? { get set }
-    func signUpBy(
-        fullName: String,
-        accessKey: String,
-        completion: () -> Void
-    )
-    func logIn(completion: () -> Void)
+    func logInBy(accessKey: String, completion: (Bool) -> Void)
 }
 
 final class LoginViewModel: LoginViewModelProtocol {
     
-    var wasAnyTextFieldEmpty: (() -> Void)?
-    var wasFullNameIncorrect: (() -> Void)?
-    var wasAccessKeyWrong: (() -> Void)?
-    var didReceiveDataError: (() -> Void)?
-        
-    func signUpBy(
-        fullName: String,
-        accessKey: String,
-        completion: () -> Void
-    ) {
-        UserManager.shared.createUser(
-            withFullName: fullName,
-            byAccessKey: accessKey
-        ) {
-            wasAccessKeyWrong?()
-        }
-        completion()
-    }
+    private let accessLevels = [
+        "200458": false, // readOnly
+        "220888": true   // editable
+    ]
     
-    func logIn(completion: () -> Void) {
-        if UserManager.shared.user != nil {
-            completion()
-        } else {
-            didReceiveDataError?()
+    var wasAccessKeyWrong: (() -> Void)?
+    
+    func logInBy(accessKey: String, completion: (Bool) -> Void) {
+        if accessKey.isEmpty { return }
+        guard let isEditable = accessLevels[accessKey] else {
+            wasAccessKeyWrong?()
+            return
         }
+        completion(isEditable)
     }
 }

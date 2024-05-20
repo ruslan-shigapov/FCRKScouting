@@ -18,10 +18,9 @@ protocol UpdatesViewModelProtocol: UserViewModelProtocol,
     func getNumberOfSections() -> Int
     func getNumberOfItemsIn(_ section: Int) -> Int
     func getPlayerCellViewModel(
-        at indexPath: IndexPath
-    ) -> PlayerCellViewModelProtocol?
-    func format(_ date: Date) -> String
-    func refreshPlayers(completion: () -> Void)
+        at indexPath: IndexPath) -> PlayerCellViewModelProtocol?
+    func formatDate(_ date: Date) -> String
+    func refreshPlayersList(completion: () -> Void)
 }
 
 final class UpdatesViewModel: UpdatesViewModelProtocol {
@@ -63,8 +62,7 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
             let startDate = Calendar.current.date(
                 byAdding: .weekOfYear,
                 value: -1,
-                to: Date()
-            )
+                to: Date())
             filteredPlayersByDate = groupedPlayersByDate.filter { date, _ in
                 date >= startDate ?? Date()
             }
@@ -72,8 +70,7 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
             let startDate = Calendar.current.date(
                 byAdding: .month,
                 value: -1,
-                to: Date()
-            )
+                to: Date())
             filteredPlayersByDate = groupedPlayersByDate.filter { date, _ in
                 date >= startDate ?? Date()
             }
@@ -107,13 +104,13 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
         return PlayerCellViewModel(player: player)
     }
     
-    func format(_ date: Date) -> String {
+    func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         return formatter.string(from: date)
     }
     
-    func refreshPlayers(completion: () -> Void) {
+    func refreshPlayersList(completion: () -> Void) {
         fetchPlayers()
         filterPlayersByDate()
         completion()

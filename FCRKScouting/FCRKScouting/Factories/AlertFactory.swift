@@ -16,12 +16,10 @@ struct AlertFactory {
         let alertController = UIAlertController(
             title: title,
             message: message,
-            preferredStyle: .alert
-        )
+            preferredStyle: .alert)
         let alertAction = UIAlertAction(
             title: Constants.Text.ButtonTitles.ok,
-            style: .cancel
-        )
+            style: .cancel)
         alertController.addAction(alertAction)
         return alertController
     }
@@ -34,15 +32,13 @@ struct AlertFactory {
         let alertController = UIAlertController(
             title: title,
             message: nil,
-            preferredStyle: .actionSheet
-        )
+            preferredStyle: .actionSheet)
         alertController.setValue(
             NSAttributedString(
                 string: title,
                 attributes: [
                     .font: UIFont.systemFont(ofSize: 17, weight: .medium)
-                ]
-            ),
+                ]),
             forKey: "attributedTitle"
         )
         let cancelAction = UIAlertAction(
@@ -53,8 +49,7 @@ struct AlertFactory {
             }
         let continueAction = UIAlertAction(
             title: buttonTitle,
-            style: .cancel
-        )
+            style: .cancel)
         alertController.addAction(cancelAction)
         alertController.addAction(continueAction)
         return alertController
@@ -66,8 +61,7 @@ struct AlertFactory {
         let alertController = UIAlertController(
             title: Constants.Text.Alerts.exit.title,
             message: Constants.Text.Alerts.exit.message,
-            preferredStyle: .alert
-        )
+            preferredStyle: .alert)
         let exitAction = UIAlertAction(
             title: Constants.Text.ButtonTitles.yes,
             style: .destructive) { _ in
@@ -75,8 +69,7 @@ struct AlertFactory {
             }
         let cancelAction = UIAlertAction(
             title: Constants.Text.ButtonTitles.no,
-            style: .cancel
-        )
+            style: .cancel)
         alertController.addAction(exitAction)
         alertController.addAction(cancelAction)
         return alertController
