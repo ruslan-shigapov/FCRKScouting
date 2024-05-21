@@ -1,5 +1,5 @@
 //
-//  PlayerAddingViewController.swift
+//  EditorViewController.swift
 //  RubinScoutingApp
 //
 //  Created by Ruslan Shigapov on 29.03.2024.
@@ -7,14 +7,16 @@
 
 import UIKit
 
-final class PlayerAddingViewController: UIViewController {
+final class EditorViewController: UIViewController {
     
     // MARK: Private Properties 
-    private var viewModel: PlayerAddingViewModelProtocol
+    private var viewModel: EditorViewModelProtocol
     private var delegate: PlayerAddingViewControllerDelegate
     
     // MARK: Views
-    private let titleLabel = CustomWhiteLabel(font: Constants.Fonts.header)
+    private let titleLabel = CustomWhiteLabel(
+        font: Constants.Fonts.header,
+        text: Constants.Text.ScreenTitles.addPlayer)
     
     private lazy var closeButton: UIButton = {
         let button = CustomNavigationBarButton(
@@ -32,6 +34,7 @@ final class PlayerAddingViewController: UIViewController {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
         button.tintColor = .label
+        button.titleLabel?.font = Constants.Fonts.description
         button.setTitle(Constants.Text.ButtonTitles.uploadPhoto, for: .normal)
         button.setCustomCornerRadius()
         button.setCustomShadow()
@@ -63,19 +66,40 @@ final class PlayerAddingViewController: UIViewController {
             ])
         stackView.axis = .vertical
         stackView.spacing = 24
+        stackView.subviews.forEach {
+            if let textFieldView = $0 as? RoundedTextFieldView {
+                textFieldView.set(delegate: self)
+            }
+        }
         return stackView
     }()
     
-    private let birthDateLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
+    private let birthDateLabel = CustomWhiteLabel(
+        font: Constants.Fonts.normal,
+        numberOfLines: 2,
+        text: Constants.Text.birthDate)
     
     private let birthDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
+        datePicker.maximumDate = Date()
         return datePicker
     }()
     
-    private let positionLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
+    private lazy var dateBackgroundView: UIView = {
+        let view = UIView()
+        view.addSubview(birthDatePicker)
+        view.backgroundColor = .white
+        view.setCustomCornerRadius()
+        view.setCustomShadow()
+        return view
+    }()
+    
+    private let positionLabel = CustomWhiteLabel(
+        font: Constants.Fonts.normal,
+        text: Constants.Text.position)
     
     private lazy var positionPickerView: UIPickerView = {
         let pickerView = UIPickerView()
@@ -88,7 +112,9 @@ final class PlayerAddingViewController: UIViewController {
         return pickerView
     }()
     
-    private let footLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
+    private let footLabel = CustomWhiteLabel(
+        font: Constants.Fonts.normal,
+        text: Constants.Text.foot)
     
     private let footSegmentedControl = GraySegmentedControl(
         items: Constants.Text.SegmentedControlItems.footSegments)
@@ -140,8 +166,8 @@ final class PlayerAddingViewController: UIViewController {
             photoImageView,
             uploadPhotoButton,
             textFieldStackView,
+            dateBackgroundView,
             birthDateLabel,
-            birthDatePicker,
             positionLabel,
             positionPickerView,
             footLabel,
@@ -154,7 +180,7 @@ final class PlayerAddingViewController: UIViewController {
     
     // MARK: Initialize
     init(
-        viewModel: PlayerAddingViewModelProtocol,
+        viewModel: EditorViewModelProtocol,
         delegate: PlayerAddingViewControllerDelegate
     ) {
         self.viewModel = viewModel
@@ -168,6 +194,11 @@ final class PlayerAddingViewController: UIViewController {
     }
 
     // MARK: Lifecycle
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+//        view.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.7)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -175,20 +206,14 @@ final class PlayerAddingViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
-        view.backgroundColor = .lightGray
+        
+        view.backgroundColor = UIColor(red: 76.0/255.0, green: 140.0/255.0, blue: 74.0/255.0, alpha: 1.0)
+        
         view.addSubviews(titleLabel, closeButton, verticalScrollView)
         view.prepareForAutoLayout()
         setConstraints()
-        configureLabels()
         setupAlerts()
         addTapGesture()
-    }
-    
-    private func configureLabels() {
-        titleLabel.text = Constants.Text.ScreenTitles.addPlayer
-        birthDateLabel.text = Constants.Text.birthDate
-        positionLabel.text = Constants.Text.position
-        footLabel.text = Constants.Text.foot
     }
     
     private func setupAlerts() {
@@ -220,7 +245,7 @@ final class PlayerAddingViewController: UIViewController {
     }
     
     @objc private func closeButtonTapped() {
-        let cancelAlert = AlertFactory.getCancelAlert(
+        let cancelAlert = AlertFactory.getCancelActionSheet(
             withTitle: Constants.Text.ActionSheets.cancelAdding,
             andButtonTitle: Constants.Text.ButtonTitles.continueAdding
         ) { [weak self] in
@@ -267,7 +292,7 @@ final class PlayerAddingViewController: UIViewController {
 }
 
 // MARK: - Text Field Delegate
-extension PlayerAddingViewController: UITextFieldDelegate {
+extension EditorViewController: UITextFieldDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -286,7 +311,7 @@ extension PlayerAddingViewController: UITextFieldDelegate {
 }
 
 // MARK: - Picker View Data Source
-extension PlayerAddingViewController: UIPickerViewDataSource {
+extension EditorViewController: UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         viewModel.getNumberOfComponentsInPicker()
@@ -301,7 +326,7 @@ extension PlayerAddingViewController: UIPickerViewDataSource {
 }
 
 // MARK: - Picker View Delegate
-extension PlayerAddingViewController: UIPickerViewDelegate {
+extension EditorViewController: UIPickerViewDelegate {
     
     func pickerView(
         _ pickerView: UIPickerView,
@@ -318,7 +343,7 @@ extension PlayerAddingViewController: UIPickerViewDelegate {
 }
 
 // MARK: - Layout
-extension PlayerAddingViewController {
+extension EditorViewController {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
@@ -351,14 +376,15 @@ extension PlayerAddingViewController {
             photoImageView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
-            photoImageView.heightAnchor.constraint(equalToConstant: 120),
-            photoImageView.widthAnchor.constraint(equalToConstant: 120),
+            photoImageView.heightAnchor.constraint(equalToConstant: 110),
+            photoImageView.widthAnchor.constraint(equalToConstant: 110),
             
             uploadPhotoButton.trailingAnchor.constraint(
                 equalTo: textFieldStackView.trailingAnchor),
             uploadPhotoButton.centerYAnchor.constraint(
                 equalTo: photoImageView.centerYAnchor),
             uploadPhotoButton.widthAnchor.constraint(equalToConstant: 150),
+            uploadPhotoButton.heightAnchor.constraint(equalToConstant: 32),
             
             textFieldStackView.topAnchor.constraint(
                 equalTo: photoImageView.bottomAnchor,
@@ -367,21 +393,30 @@ extension PlayerAddingViewController {
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
             
+            dateBackgroundView.topAnchor.constraint(
+                equalTo: textFieldStackView.bottomAnchor,
+                constant: 24),
+            dateBackgroundView.trailingAnchor.constraint(
+                equalTo: textViewStackView.trailingAnchor),
+            dateBackgroundView.heightAnchor.constraint(equalToConstant: 35),
+            dateBackgroundView.widthAnchor.constraint(equalTo: birthDatePicker.widthAnchor),
+            
             birthDateLabel.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
             birthDateLabel.centerYAnchor.constraint(
-                equalTo: birthDatePicker.centerYAnchor),
+                equalTo: dateBackgroundView.centerYAnchor,
+                constant: 1),
+            birthDateLabel.widthAnchor.constraint(equalToConstant: 120),
             
-            birthDatePicker.topAnchor.constraint(
-                equalTo: textFieldStackView.bottomAnchor,
-                constant: 12),
-            birthDatePicker.trailingAnchor.constraint(
-                equalTo: textFieldStackView.trailingAnchor),
+            birthDatePicker.centerXAnchor.constraint(
+                equalTo: dateBackgroundView.centerXAnchor),
+            birthDatePicker.centerYAnchor.constraint(
+                equalTo: dateBackgroundView.centerYAnchor),
             
             positionLabel.topAnchor.constraint(
                 equalTo: birthDatePicker.bottomAnchor,
-                constant: 12),
+                constant: 24),
             positionLabel.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
@@ -399,18 +434,19 @@ extension PlayerAddingViewController {
             footLabel.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
-            footLabel.centerYAnchor.constraint(
-                equalTo: footSegmentedControl.centerYAnchor),
             
             footSegmentedControl.topAnchor.constraint(
                 equalTo: positionPickerView.bottomAnchor,
-                constant: 12),
+                constant: 24),
             footSegmentedControl.trailingAnchor.constraint(
                 equalTo: textFieldStackView.trailingAnchor),
+            footSegmentedControl.centerYAnchor.constraint(
+                equalTo: footLabel.centerYAnchor,
+                constant: -1),
             
             textViewStackView.topAnchor.constraint(
                 equalTo: footSegmentedControl.bottomAnchor,
-                constant: 12),
+                constant: 24),
             textViewStackView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),

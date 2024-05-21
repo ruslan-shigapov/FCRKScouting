@@ -30,7 +30,7 @@ final class FormViewController: UIViewController {
         let stackView = UIStackView(
             arrangedSubviews: [fullNameTextFieldView, postTextFieldView])
         stackView.axis = .vertical
-        stackView.spacing = 12
+        stackView.spacing = 24
         stackView.subviews.forEach {
             if let textFieldView = $0 as? RoundedTextFieldView {
                 textFieldView.set(delegate: self)

@@ -51,14 +51,14 @@ final class SearchViewController: UIViewController {
             self,
             action: #selector(changeFiltersButtonTapped),
             for: .touchUpInside)
-        let featuresButton = CustomNavigationBarButton(
-            image: Constants.Images.ButtonImages.features)
         let relatedButton = CustomNavigationBarButton(
             image: Constants.Images.ButtonImages.related)
+        let featuresButton = CustomNavigationBarButton(
+            image: Constants.Images.ButtonImages.features)
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(customView: filtersButton),
-            UIBarButtonItem(customView: featuresButton),
-            UIBarButtonItem(customView: relatedButton)
+            UIBarButtonItem(customView: relatedButton),
+            UIBarButtonItem(customView: featuresButton)
         ]
         
         // TODO: добавить green статус фильтрам

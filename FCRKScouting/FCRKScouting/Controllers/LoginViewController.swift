@@ -130,7 +130,7 @@ extension LoginViewController {
             
             loginButton.topAnchor.constraint(
                 equalTo: accessKeyTextFieldView.bottomAnchor,
-                constant: 80),
+                constant: 70),
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }

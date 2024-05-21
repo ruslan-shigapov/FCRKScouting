@@ -17,12 +17,12 @@ final class SearchTipsView: UIView {
         return label
     }()
     
-    private let relatedStackView = TipStackView(
-        image: Constants.Images.ButtonImages.related,
-        text: Constants.Text.Tips.related)
     private let featuresStackView = TipStackView(
         image: Constants.Images.ButtonImages.features,
         text: Constants.Text.Tips.features)
+    private let relatedStackView = TipStackView(
+        image: Constants.Images.ButtonImages.related,
+        text: Constants.Text.Tips.related)
     private let filtersStackView = TipStackView(
         image: Constants.Images.ButtonImages.filters,
         text: Constants.Text.Tips.filters)
@@ -31,11 +31,12 @@ final class SearchTipsView: UIView {
         let stackView = UIStackView(
             arrangedSubviews: [
                 titleLabel,
-                relatedStackView,
                 featuresStackView,
+                relatedStackView,
                 filtersStackView
             ])
         stackView.axis = .vertical
+        stackView.spacing = 1
         return stackView
     }()
 

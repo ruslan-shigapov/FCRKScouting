@@ -14,7 +14,7 @@
 		E44855AC2BC3D01300E5FCD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */; };
 		E44855B82BC3D01400E5FCD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E44855B72BC3D01400E5FCD8 /* Assets.xcassets */; };
 		E46AC8AF2BF773C600A3C801 /* CustomNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46AC8AE2BF773C600A3C801 /* CustomNavigationButton.swift */; };
-		E46B63FD2BC5405C005B32E1 /* PlayerAddingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46B63FC2BC5405C005B32E1 /* PlayerAddingViewModel.swift */; };
+		E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */; };
 		E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471B2082BFB4543003C0DCD /* FormViewController.swift */; };
 		E471B20B2BFB6062003C0DCD /* FormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471B20A2BFB6062003C0DCD /* FormViewModel.swift */; };
 		E48159E62BCE7BAB0090FC42 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */; };
@@ -32,7 +32,7 @@
 		E4BB48742BC3D53E00F91513 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB48672BC3D53E00F91513 /* ProfileViewModel.swift */; };
 		E4BB48752BC3D53E00F91513 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB48692BC3D53E00F91513 /* FiltersViewController.swift */; };
 		E4BB48762BC3D53E00F91513 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB486B2BC3D53E00F91513 /* SearchViewController.swift */; };
-		E4BB48772BC3D53E00F91513 /* PlayerAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB486D2BC3D53E00F91513 /* PlayerAddingViewController.swift */; };
+		E4BB48772BC3D53E00F91513 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB486D2BC3D53E00F91513 /* EditorViewController.swift */; };
 		E4BB48782BC3D53E00F91513 /* UpdatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */; };
 		E4BB48792BC3D53E00F91513 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB48712BC3D53E00F91513 /* MainTabBarController.swift */; };
 		E4BB48832BC3D54600F91513 /* GraySegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB487B2BC3D54600F91513 /* GraySegmentedControl.swift */; };
@@ -62,7 +62,7 @@
 		E44855B72BC3D01400E5FCD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E44855BC2BC3D01400E5FCD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E46AC8AE2BF773C600A3C801 /* CustomNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationButton.swift; sourceTree = "<group>"; };
-		E46B63FC2BC5405C005B32E1 /* PlayerAddingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAddingViewModel.swift; sourceTree = "<group>"; };
+		E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
 		E471B2082BFB4543003C0DCD /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		E471B20A2BFB6062003C0DCD /* FormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewModel.swift; sourceTree = "<group>"; };
 		E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		E4BB48672BC3D53E00F91513 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		E4BB48692BC3D53E00F91513 /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		E4BB486B2BC3D53E00F91513 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		E4BB486D2BC3D53E00F91513 /* PlayerAddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAddingViewController.swift; sourceTree = "<group>"; };
+		E4BB486D2BC3D53E00F91513 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatesViewController.swift; sourceTree = "<group>"; };
 		E4BB48712BC3D53E00F91513 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E4BB487B2BC3D54600F91513 /* GraySegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraySegmentedControl.swift; sourceTree = "<group>"; };
@@ -189,7 +189,7 @@
 				E471B20A2BFB6062003C0DCD /* FormViewModel.swift */,
 				E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */,
 				E404BEA82BE9087C0078961C /* PlayerCellViewModel.swift */,
-				E46B63FC2BC5405C005B32E1 /* PlayerAddingViewModel.swift */,
+				E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */,
 				E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */,
 				E4BB48672BC3D53E00F91513 /* ProfileViewModel.swift */,
 			);
@@ -256,7 +256,7 @@
 				E471B2082BFB4543003C0DCD /* FormViewController.swift */,
 				E4BB48712BC3D53E00F91513 /* MainTabBarController.swift */,
 				E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */,
-				E4BB486D2BC3D53E00F91513 /* PlayerAddingViewController.swift */,
+				E4BB486D2BC3D53E00F91513 /* EditorViewController.swift */,
 				E4BB486B2BC3D53E00F91513 /* SearchViewController.swift */,
 				E4BB48692BC3D53E00F91513 /* FiltersViewController.swift */,
 				E4BB48662BC3D53E00F91513 /* ProfileViewController.swift */,
@@ -363,7 +363,7 @@
 			files = (
 				E4BB48642BC3D53700F91513 /* LoginViewController.swift in Sources */,
 				E4F4CE4C2BC95122009F9A8D /* DateHeaderView.swift in Sources */,
-				E4BB48772BC3D53E00F91513 /* PlayerAddingViewController.swift in Sources */,
+				E4BB48772BC3D53E00F91513 /* EditorViewController.swift in Sources */,
 				E4BFCA992BF9472200C4FDD2 /* SearchTipsView.swift in Sources */,
 				E48159E62BCE7BAB0090FC42 /* SearchViewModel.swift in Sources */,
 				E4BB485D2BC3D4A800F91513 /* FCRKScouting.xcdatamodeld in Sources */,
@@ -375,7 +375,7 @@
 				E4BB48742BC3D53E00F91513 /* ProfileViewModel.swift in Sources */,
 				E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */,
 				E4D101492BD27742006D2DCF /* CustomWhiteLabel.swift in Sources */,
-				E46B63FD2BC5405C005B32E1 /* PlayerAddingViewModel.swift in Sources */,
+				E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */,
 				E404BEA92BE9087C0078961C /* PlayerCellViewModel.swift in Sources */,
 				E4BB48762BC3D53E00F91513 /* SearchViewController.swift in Sources */,
 				E412BCFF2BC7D48600A9BCF6 /* UIView+extension.swift in Sources */,

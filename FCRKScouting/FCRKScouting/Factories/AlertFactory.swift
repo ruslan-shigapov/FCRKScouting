@@ -24,7 +24,7 @@ struct AlertFactory {
         return alertController
     }
     
-    static func getCancelAlert(
+    static func getCancelActionSheet(
         withTitle title: String,
         andButtonTitle buttonTitle: String,
         completion: @escaping () -> Void

@@ -1,5 +1,5 @@
 //
-//  PlayerAddingViewModel.swift
+//  EditorViewModel.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 09.04.2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PlayerAddingViewModelProtocol: TextFieldValidationProtocol {
+protocol EditorViewModelProtocol: TextFieldValidationProtocol {
     var wasPositionNotSelected: (() -> Void)? { get set }
     func savePlayer(
         byFullName fullName: String,
@@ -27,7 +27,7 @@ protocol PlayerAddingViewModelProtocol: TextFieldValidationProtocol {
     func getTitleFor(pickerRow: Int) -> String
 }
 
-final class PlayerAddingViewModel: PlayerAddingViewModelProtocol {
+final class EditorViewModel: EditorViewModelProtocol {
 
     var wereRequiredTextFieldsEmpty: (() -> Void)?
     var wasFullNameIncorrect: (() -> Void)?
@@ -49,6 +49,7 @@ final class PlayerAddingViewModel: PlayerAddingViewModelProtocol {
     ) {
         if position == 0 {
             wasPositionNotSelected?()
+            return
         } else {
             let currentUserFullName = UserManager.shared.user?.fullName
             StorageManager.shared.savePlayer(

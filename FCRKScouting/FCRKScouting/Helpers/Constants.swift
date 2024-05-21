@@ -87,10 +87,10 @@ enum Constants {
             
         }
         enum Tips {
-            static let title = "Подсказка:"
+            static let title = "Справка:"
             static let related = "- Добавленное мной"
             static let features = "- Избранное"
-            static let filters = "- Применить фильтры"
+            static let filters = "- Составные фильтры"
         }
         enum Alerts {
             static let emptyTextFields = (
@@ -134,9 +134,11 @@ enum Constants {
             case leftDefender = "Левый защитник"
             case rightDefender = "Правый защитник"
             case centerDefender = "Центральный защитник"
-            case leftMidfield = "Левый полузащитник"
-            case rightMidfield = "Правый полузащитник"
-            case centerMidfield = "Центральный полузащитник"
+            case leftMidfielder = "Левый полузащитник"
+            case rightMidfielder = "Правый полузащитник"
+            case centerMidfielder = "Центральный полузащитник"
+            case supportingMidfielder = "Опорный полузащитник"
+            case attackingMidfielder = "Атакующий полузащитник"
             case forward = "Нападающий"
             
             func abbreviate() -> String {
@@ -146,9 +148,11 @@ enum Constants {
                 case .leftDefender: "ЛЗ"
                 case .rightDefender: "ПЗ"
                 case .centerDefender: "ЦЗ"
-                case .leftMidfield: "ЛП"
-                case .rightMidfield: "ПП"
-                case .centerMidfield: "ЦП"
+                case .leftMidfielder: "ЛП"
+                case .rightMidfielder: "ПП"
+                case .centerMidfielder: "ЦП"
+                case .supportingMidfielder: "ОП"
+                case .attackingMidfielder: "АП"
                 case .forward: "НП"
                 }
             }

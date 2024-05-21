@@ -17,8 +17,8 @@ final class TipStackView: UIStackView {
         imageView.image = image
         imageView.tintColor = .lightGray
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 25).isActive = true
         return imageView
     }()
     

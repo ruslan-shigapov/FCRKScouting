@@ -56,8 +56,8 @@ struct ScreenFactory {
     static func getPlayerAddingViewController(
         withDelegate delegate: PlayerAddingViewControllerDelegate
     ) -> UIViewController {
-        let viewModel = PlayerAddingViewModel()
-        let viewController = PlayerAddingViewController(
+        let viewModel = EditorViewModel()
+        let viewController = EditorViewController(
             viewModel: viewModel,
             delegate: delegate)
         viewController.modalPresentationStyle = .fullScreen
