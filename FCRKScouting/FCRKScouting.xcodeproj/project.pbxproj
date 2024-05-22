@@ -18,6 +18,7 @@
 		E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471B2082BFB4543003C0DCD /* FormViewController.swift */; };
 		E471B20B2BFB6062003C0DCD /* FormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471B20A2BFB6062003C0DCD /* FormViewModel.swift */; };
 		E48159E62BCE7BAB0090FC42 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */; };
+		E486D13D2BFDE49D006B2BA9 /* AddTextFieldButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486D13C2BFDE49D006B2BA9 /* AddTextFieldButton.swift */; };
 		E4BA69D42BC3F621002C1642 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BA69D32BC3F621002C1642 /* AlertFactory.swift */; };
 		E4BB484E2BC3D26A00F91513 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB484D2BC3D26A00F91513 /* Constants.swift */; };
 		E4BB48522BC3D2C700F91513 /* COPYRIGHT.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4BB484F2BC3D2C700F91513 /* COPYRIGHT.txt */; };
@@ -66,6 +67,7 @@
 		E471B2082BFB4543003C0DCD /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		E471B20A2BFB6062003C0DCD /* FormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewModel.swift; sourceTree = "<group>"; };
 		E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		E486D13C2BFDE49D006B2BA9 /* AddTextFieldButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextFieldButton.swift; sourceTree = "<group>"; };
 		E4BA69D32BC3F621002C1642 /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
 		E4BB484D2BC3D26A00F91513 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E4BB484F2BC3D2C700F91513 /* COPYRIGHT.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYRIGHT.txt; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				E4BB487C2BC3D54600F91513 /* CustomNavigationBarButton.swift */,
 				E4BB487B2BC3D54600F91513 /* GraySegmentedControl.swift */,
 				E46AC8AE2BF773C600A3C801 /* CustomNavigationButton.swift */,
+				E486D13C2BFDE49D006B2BA9 /* AddTextFieldButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */,
 				E4D101492BD27742006D2DCF /* CustomWhiteLabel.swift in Sources */,
 				E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */,
+				E486D13D2BFDE49D006B2BA9 /* AddTextFieldButton.swift in Sources */,
 				E404BEA92BE9087C0078961C /* PlayerCellViewModel.swift in Sources */,
 				E4BB48762BC3D53E00F91513 /* SearchViewController.swift in Sources */,
 				E412BCFF2BC7D48600A9BCF6 /* UIView+extension.swift in Sources */,

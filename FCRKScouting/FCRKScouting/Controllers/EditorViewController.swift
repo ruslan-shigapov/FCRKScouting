@@ -74,6 +74,24 @@ final class EditorViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var addPatronymicTextFieldButton: UIButton = {
+        let button = AddTextFieldButton()
+        button.addTarget(
+            self,
+            action: #selector(addPatronymicTextFieldButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var addNationalTeamTextFieldButton: UIButton = {
+        let button = AddTextFieldButton()
+        button.addTarget(
+            self,
+            action: #selector(addNationalTeamTextFieldButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    
     private let birthDateLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
         numberOfLines: 2,
@@ -88,7 +106,7 @@ final class EditorViewController: UIViewController {
         return datePicker
     }()
     
-    private lazy var dateBackgroundView: UIView = {
+    private lazy var datePickerBackgroundView: UIView = {
         let view = UIView()
         view.addSubview(birthDatePicker)
         view.backgroundColor = .white
@@ -120,43 +138,28 @@ final class EditorViewController: UIViewController {
         items: Constants.Text.SegmentedControlItems.footSegments)
     
     private let generalInfoTextViewWithTitle = TextViewWithTitle(
-        title: Constants.Text.TextViewTitles.generalInfo)
-    private let techniqueTextViewWithTitle = TextViewWithTitle(
-        title: Constants.Text.TextViewTitles.technique)
-    private let tacticsTextViewWithTitle = TextViewWithTitle(
-        title: Constants.Text.TextViewTitles.tactics)
-    private let qualitiesTextViewWithTitle = TextViewWithTitle(
-        title: Constants.Text.TextViewTitles.qualities)
-    private let mentalTextViewWithTitle = TextViewWithTitle(
-        title: Constants.Text.TextViewTitles.mental)
+        view: CustomWhiteLabel(
+            font: Constants.Fonts.normal,
+            text: Constants.Text.TextViewTitles.generalInfo))
+    // TODO: temporary decision >>
+    private lazy var peculiaritiesTextViewWithTitle = TextViewWithTitle(
+        view: GraySegmentedControl(
+            items: [
+                Constants.Text.TextViewTitles.technique,
+                Constants.Text.TextViewTitles.tactics,
+                Constants.Text.TextViewTitles.qualities,
+                Constants.Text.TextViewTitles.mental
+            ]))
     
     private lazy var textViewStackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [
                 generalInfoTextViewWithTitle,
-                techniqueTextViewWithTitle,
-                tacticsTextViewWithTitle,
-                qualitiesTextViewWithTitle,
-                mentalTextViewWithTitle
+                peculiaritiesTextViewWithTitle
             ])
         stackView.axis = .vertical
-        stackView.spacing = 12
-        stackView.subviews.forEach {
-            if let textFieldView = $0 as? RoundedTextFieldView {
-                textFieldView.set(delegate: self)
-            }
-        }
+        stackView.spacing = 24
         return stackView
-    }()
-    
-    private lazy var saveAddingButton: UIButton = {
-        let button = PrimaryButton(
-            title: Constants.Text.ButtonTitles.save)
-        button.addTarget(
-            self,
-            action: #selector(saveAddingButtonTapped),
-            for: .touchUpInside)
-        return button
     }()
 
     private lazy var verticalScrollView: UIScrollView = {
@@ -166,16 +169,33 @@ final class EditorViewController: UIViewController {
             photoImageView,
             uploadPhotoButton,
             textFieldStackView,
-            dateBackgroundView,
+            addPatronymicTextFieldButton,
+            addNationalTeamTextFieldButton,
+            datePickerBackgroundView,
             birthDateLabel,
             positionLabel,
             positionPickerView,
             footLabel,
             footSegmentedControl,
-            textViewStackView,
-            saveAddingButton)
+            textViewStackView)
         scrollView.prepareForAutoLayout()
         return scrollView
+    }()
+    
+    private let dividerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
+    private lazy var saveButton: UIButton = {
+        let button = PrimaryButton(
+            title: Constants.Text.ButtonTitles.save)
+        button.addTarget(
+            self,
+            action: #selector(saveButtonTapped),
+            for: .touchUpInside)
+        return button
     }()
     
     // MARK: Initialize
@@ -194,11 +214,6 @@ final class EditorViewController: UIViewController {
     }
 
     // MARK: Lifecycle
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-//        view.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.7)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -206,10 +221,13 @@ final class EditorViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
-        
-        view.backgroundColor = UIColor(red: 76.0/255.0, green: 140.0/255.0, blue: 74.0/255.0, alpha: 1.0)
-        
-        view.addSubviews(titleLabel, closeButton, verticalScrollView)
+        view.backgroundColor = Constants.Colors.deepGreen
+        view.addSubviews(
+            titleLabel,
+            closeButton,
+            verticalScrollView,
+            dividerView,
+            saveButton)
         view.prepareForAutoLayout()
         setConstraints()
         setupAlerts()
@@ -258,32 +276,42 @@ final class EditorViewController: UIViewController {
         
     }
     
-    @objc private func saveAddingButtonTapped() {
-//        viewModel.validateInput(
-//            text: [
-//                fullNameTextFieldView.getInputText(),
-//                citizenshipTextFieldView.getInputText(),
-//                clubTextFieldView.getInputText()
-//            ]
-//        ) {
-//            viewModel.savePlayer(
-//                byFullName: $0[0],
-//                citizenship: $0[1],
-//                club: $0[2],
-//                birthDate: birthDatePicker.date,
-//                position: positionPickerView.selectedRow(inComponent: 0),
-//                foot: footSegmentedControl.selectedSegmentIndex,
-//                generalInfo: generalInfoTextViewWithTitle.getInputText(),
+    @objc private func addPatronymicTextFieldButtonTapped(_ sender: UIButton) {
+        sender.isSelected.toggle()
+    }
+    
+    @objc private func addNationalTeamTextFieldButtonTapped(
+        _ sender: UIButton
+    ) {
+        sender.isSelected.toggle()
+    }
+    
+    @objc private func saveButtonTapped() {
+        viewModel.validateInput(
+            text: [
+                fullNameTextFieldView.getInputText(),
+                citizenshipTextFieldView.getInputText(),
+                clubTextFieldView.getInputText()
+            ]
+        ) {
+            viewModel.savePlayer(
+                byFullName: $0[0],
+                citizenship: $0[1],
+                club: $0[2],
+                birthDate: birthDatePicker.date,
+                position: positionPickerView.selectedRow(inComponent: 0),
+                foot: footSegmentedControl.selectedSegmentIndex,
+                generalInfo: generalInfoTextViewWithTitle.getInputText()
 //                technique: techniqueTextViewWithTitle.getInputText(),
 //                tactics: tacticsTextViewWithTitle.getInputText(),
 //                qualities: qualitiesTextViewWithTitle.getInputText(),
 //                mental: mentalTextViewWithTitle.getInputText()
-//            ) { [weak self] in
-//                self?.dismiss(animated: true) { [weak self] in
-//                    self?.delegate.playerWasAdded?()
-//                }
-//            }
-//        }
+            ) { [weak self] in
+                self?.dismiss(animated: true) { [weak self] in
+                    self?.delegate.playerWasAdded?()
+                }
+            }
+        }
     }
     
     @objc private func dismissKeyboard() {
@@ -366,8 +394,6 @@ extension EditorViewController {
                 constant: 12),
             verticalScrollView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor),
-            verticalScrollView.bottomAnchor.constraint(
-                equalTo: view.bottomAnchor),
             verticalScrollView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor),
             
@@ -393,26 +419,40 @@ extension EditorViewController {
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
             
-            dateBackgroundView.topAnchor.constraint(
+            addPatronymicTextFieldButton.centerYAnchor.constraint(
+                equalTo: fullNameTextFieldView.centerYAnchor,
+                constant: -2),
+            addPatronymicTextFieldButton.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -24),
+            
+            addNationalTeamTextFieldButton.centerYAnchor.constraint(
+                equalTo: clubTextFieldView.centerYAnchor,
+                constant: -2),
+            addNationalTeamTextFieldButton.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -24),
+            
+            datePickerBackgroundView.topAnchor.constraint(
                 equalTo: textFieldStackView.bottomAnchor,
                 constant: 24),
-            dateBackgroundView.trailingAnchor.constraint(
+            datePickerBackgroundView.trailingAnchor.constraint(
                 equalTo: textViewStackView.trailingAnchor),
-            dateBackgroundView.heightAnchor.constraint(equalToConstant: 35),
-            dateBackgroundView.widthAnchor.constraint(equalTo: birthDatePicker.widthAnchor),
+            datePickerBackgroundView.heightAnchor.constraint(equalToConstant: 35),
+            datePickerBackgroundView.widthAnchor.constraint(equalTo: birthDatePicker.widthAnchor),
             
             birthDateLabel.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
             birthDateLabel.centerYAnchor.constraint(
-                equalTo: dateBackgroundView.centerYAnchor,
+                equalTo: datePickerBackgroundView.centerYAnchor,
                 constant: 1),
             birthDateLabel.widthAnchor.constraint(equalToConstant: 120),
             
             birthDatePicker.centerXAnchor.constraint(
-                equalTo: dateBackgroundView.centerXAnchor),
+                equalTo: datePickerBackgroundView.centerXAnchor),
             birthDatePicker.centerYAnchor.constraint(
-                equalTo: dateBackgroundView.centerYAnchor),
+                equalTo: datePickerBackgroundView.centerYAnchor),
             
             positionLabel.topAnchor.constraint(
                 equalTo: birthDatePicker.bottomAnchor,
@@ -450,17 +490,25 @@ extension EditorViewController {
             textViewStackView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 24),
+            textViewStackView.bottomAnchor.constraint(
+                equalTo: verticalScrollView.bottomAnchor,
+                constant: -24),
             textViewStackView.widthAnchor.constraint(
                 equalTo: textFieldStackView.widthAnchor),
             
-            saveAddingButton.topAnchor.constraint(
-                equalTo: textViewStackView.bottomAnchor,
-                constant: 24),
-            saveAddingButton.bottomAnchor.constraint(
-                equalTo: verticalScrollView.bottomAnchor,
-                constant: -24),
-            saveAddingButton.centerXAnchor.constraint(
-                equalTo: verticalScrollView.centerXAnchor)
+            dividerView.topAnchor.constraint(
+                equalTo: verticalScrollView.bottomAnchor),
+            dividerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dividerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dividerView.heightAnchor.constraint(equalToConstant: 2),
+            
+            saveButton.topAnchor.constraint(
+                equalTo: dividerView.bottomAnchor,
+                constant: 12),
+            saveButton.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            saveButton.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor)
         ])
     }
 }

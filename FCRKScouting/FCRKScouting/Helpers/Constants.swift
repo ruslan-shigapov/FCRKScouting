@@ -8,6 +8,10 @@
 import UIKit
 
 enum Constants {
+    // MARK: Colors
+    enum Colors {
+        static let deepGreen = UIColor(named: "DeepGreen")
+    }
     // MARK: Images
     enum Images {
         static let logo = UIImage(named: "Logo")
@@ -17,6 +21,8 @@ enum Constants {
             static let refresh = UIImage(systemName: "arrow.clockwise.circle")
             static let addPlayer = UIImage(systemName: "plus.circle")
             static let close = UIImage(systemName: "xmark.circle")
+            static let plus = UIImage(systemName: "plus.square")
+            static let minus = UIImage(systemName: "minus.square")
             static let related = UIImage(systemName: "personalhotspot.circle")
             static let features = UIImage(systemName: "star.circle")
             static let filters = UIImage(systemName: "magnifyingglass.circle")
@@ -90,7 +96,7 @@ enum Constants {
             static let title = "Справка:"
             static let related = "- Добавленное мной"
             static let features = "- Избранное"
-            static let filters = "- Составные фильтры"
+            static let filters = "- Расшренные  фильтры"
         }
         enum Alerts {
             static let emptyTextFields = (
@@ -159,10 +165,10 @@ enum Constants {
         }
         enum TextViewTitles {
             static let generalInfo = "Общая информация:"
-            static let technique = "Техника:"
-            static let tactics = "Тактика:"
-            static let qualities = "Физ. качества:"
-            static let mental = "Ментальность:"
+            static let technique = "Техника"
+            static let tactics = "Тактика"
+            static let qualities = "Физ. качества"
+            static let mental = "Ментальность"
         }
     }
 }

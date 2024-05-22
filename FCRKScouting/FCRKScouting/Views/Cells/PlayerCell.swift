@@ -56,7 +56,7 @@ final class PlayerCell: UICollectionViewCell {
     
     // MARK: Private Methods
     private func setupUI() {
-        backgroundColor = .systemGreen.withAlphaComponent(0.7)
+        backgroundColor = Constants.Colors.deepGreen
         setCustomCornerRadius()
         addSubviews(photoImageView, fullNameLabel, infoStackView)
         prepareForAutoLayout()

@@ -17,10 +17,10 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol {
         position: Int,
         foot: Int,
         generalInfo: String?,
-        technique: String?,
-        tactics: String?,
-        qualities: String?,
-        mental: String?,
+//        technique: String?,
+//        tactics: String?,
+//        qualities: String?,
+//        mental: String?,
         completion: () -> Void)
     func getNumberOfComponentsInPicker() -> Int
     func getNumberOfRowsInPicker() -> Int
@@ -41,10 +41,10 @@ final class EditorViewModel: EditorViewModelProtocol {
         position: Int,
         foot: Int,
         generalInfo: String?,
-        technique: String?,
-        tactics: String?,
-        qualities: String?,
-        mental: String?,
+//        technique: String? = nil,
+//        tactics: String? = nil,
+//        qualities: String? = nil,
+//        mental: String? = nil,
         completion: () -> Void
     ) {
         if position == 0 {
@@ -60,10 +60,10 @@ final class EditorViewModel: EditorViewModelProtocol {
                 position: Constants.Text.Positions.allCases[position].rawValue,
                 foot: Constants.Text.SegmentedControlItems.footSegments[foot],
                 generalInfo: generalInfo,
-                technique: technique,
-                tactics: tactics,
-                qualities: qualities,
-                mental: mental,
+//                technique: technique,
+//                tactics: tactics,
+//                qualities: qualities,
+//                mental: mental,
                 lastEditor: currentUserFullName ?? Constants.Text.unknownUser, 
                 updatedDate: Date())
             completion()

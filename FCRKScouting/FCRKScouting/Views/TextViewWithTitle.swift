@@ -7,17 +7,12 @@
 
 import UIKit
 
-// TODO: change fully 
 final class TextViewWithTitle: UIView {
     
     // MARK: Private Properties
-    private let title: String
+    private let titleView: UIView
 
     // MARK: Views
-    private lazy var titleLabel = CustomWhiteLabel(
-        font: Constants.Fonts.normal, 
-        text: title)
-    
     private lazy var roundedTextView: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = .white
@@ -33,8 +28,8 @@ final class TextViewWithTitle: UIView {
     }()
 
     // MARK: Initialize
-    init(title: String) {
-        self.title = title
+    init(view: UIView) {
+        self.titleView = view
         super.init(frame: .zero)
         setupUI()
     }
@@ -47,14 +42,15 @@ final class TextViewWithTitle: UIView {
     // MARK: Private Methods
     private func setupUI() {
         setCustomShadow()
-        addSubviews(titleLabel, roundedTextView)
+        addSubviews(titleView, roundedTextView)
         prepareForAutoLayout()
         setConstraints()
     }
     
     // MARK: Public Methods
-    func getInputText() -> String? {
-        roundedTextView.text
+    func getInputText() -> String {
+        guard let text = roundedTextView.text else { return "" }
+        return text
     }
 }
 
@@ -63,11 +59,11 @@ private extension TextViewWithTitle {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleView.topAnchor.constraint(equalTo: topAnchor),
+            titleView.leadingAnchor.constraint(equalTo: leadingAnchor),
             
             roundedTextView.topAnchor.constraint(
-                equalTo: titleLabel.bottomAnchor,
+                equalTo: titleView.bottomAnchor,
                 constant: 8),
             roundedTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
             roundedTextView.bottomAnchor.constraint(equalTo: bottomAnchor),

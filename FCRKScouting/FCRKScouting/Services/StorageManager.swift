@@ -86,10 +86,10 @@ extension StorageManager {
         position: String,
         foot: String,
         generalInfo: String?,
-        technique: String?,
-        tactics: String?,
-        qualities: String?,
-        mental: String?,
+//        technique: String?,
+//        tactics: String?,
+//        qualities: String?,
+//        mental: String?,
         lastEditor: String,
         updatedDate: Date
     ) {
@@ -101,10 +101,10 @@ extension StorageManager {
         player.position = position
         player.foot = foot
         player.generalInfo = generalInfo
-        player.technique = technique
-        player.tactics = tactics
-        player.qualities = qualities
-        player.mental = mental
+//        player.technique = technique
+//        player.tactics = tactics
+//        player.qualities = qualities
+//        player.mental = mental
         player.lastEditor = lastEditor
         player.updatedDate = updatedDate
         saveContext()
