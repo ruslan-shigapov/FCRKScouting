@@ -37,7 +37,6 @@ final class EditorViewController: UIViewController {
         button.titleLabel?.font = Constants.Fonts.description
         button.setTitle(Constants.Text.ButtonTitles.uploadPhoto, for: .normal)
         button.setCustomCornerRadius()
-        button.setCustomShadow()
         button.addTarget(
             self,
             action: #selector(uploadPhotoButtonTapped),
@@ -48,14 +47,18 @@ final class EditorViewController: UIViewController {
     private let fullNameTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.fullName,
         type: .name)
+    private let patronymicTextFieldView = RoundedTextFieldView(
+        placeholder: Constants.Text.Placeholders.patronymic,
+        type: .name)
     private let citizenshipTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.citizenship,
-        type: .name,
-        tag: 2)
+        type: .name)
     private let clubTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.club,
-        type: .name,
-        tag: 3)
+        type: .name)
+    private let nationalTeamTextFieldView = RoundedTextFieldView(
+        placeholder: Constants.Text.Placeholders.nationalTeam,
+        type: .name)
     
     private lazy var textFieldStackView: UIStackView = {
         let stackView = UIStackView(
@@ -66,9 +69,10 @@ final class EditorViewController: UIViewController {
             ])
         stackView.axis = .vertical
         stackView.spacing = 24
-        stackView.subviews.forEach {
-            if let textFieldView = $0 as? RoundedTextFieldView {
+        for (index, view) in stackView.subviews.enumerated() {
+            if let textFieldView = view as? RoundedTextFieldView {
                 textFieldView.set(delegate: self)
+                textFieldView.set(tag: index)
             }
         }
         return stackView
@@ -78,7 +82,7 @@ final class EditorViewController: UIViewController {
         let button = AddTextFieldButton()
         button.addTarget(
             self,
-            action: #selector(addPatronymicTextFieldButtonTapped),
+            action: #selector(togglePatronymicTFRepresentationButtonTapped),
             for: .touchUpInside)
         return button
     }()
@@ -87,7 +91,7 @@ final class EditorViewController: UIViewController {
         let button = AddTextFieldButton()
         button.addTarget(
             self,
-            action: #selector(addNationalTeamTextFieldButtonTapped),
+            action: #selector(toggleNationalTeamTFRepresentationButtonTapped),
             for: .touchUpInside)
         return button
     }()
@@ -111,7 +115,6 @@ final class EditorViewController: UIViewController {
         view.addSubview(birthDatePicker)
         view.backgroundColor = .white
         view.setCustomCornerRadius()
-        view.setCustomShadow()
         return view
     }()
     
@@ -123,8 +126,6 @@ final class EditorViewController: UIViewController {
         let pickerView = UIPickerView()
         pickerView.backgroundColor = .white
         pickerView.setCustomCornerRadius()
-        pickerView.clipsToBounds = false
-        pickerView.setCustomShadow()
         pickerView.dataSource = self
         pickerView.delegate = self
         return pickerView
@@ -138,30 +139,18 @@ final class EditorViewController: UIViewController {
         items: Constants.Text.SegmentedControlItems.footSegments)
     
     private let generalInfoTextViewWithTitle = TextViewWithTitle(
-        view: CustomWhiteLabel(
-            font: Constants.Fonts.normal,
-            text: Constants.Text.TextViewTitles.generalInfo))
-    // TODO: temporary decision >>
-    private lazy var peculiaritiesTextViewWithTitle = TextViewWithTitle(
-        view: GraySegmentedControl(
-            items: [
-                Constants.Text.TextViewTitles.technique,
-                Constants.Text.TextViewTitles.tactics,
-                Constants.Text.TextViewTitles.qualities,
-                Constants.Text.TextViewTitles.mental
-            ]))
+        Constants.Text.TextViewTitles.generalInfo)
+    private let techniqueTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.TextViewTitles.technique)
+    private let tacticsTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.TextViewTitles.tactics)
+    private let qualitiesTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.TextViewTitles.qualities)
+    private let mentalTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.TextViewTitles.mental)
     
-    private lazy var textViewStackView: UIStackView = {
-        let stackView = UIStackView(
-            arrangedSubviews: [
-                generalInfoTextViewWithTitle,
-                peculiaritiesTextViewWithTitle
-            ])
-        stackView.axis = .vertical
-        stackView.spacing = 24
-        return stackView
-    }()
-
+    private let textViewSliderView = HorizontalSliderView()
+    
     private lazy var verticalScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -177,7 +166,7 @@ final class EditorViewController: UIViewController {
             positionPickerView,
             footLabel,
             footSegmentedControl,
-            textViewStackView)
+            textViewSliderView)
         scrollView.prepareForAutoLayout()
         return scrollView
     }()
@@ -217,6 +206,23 @@ final class EditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        uploadPhotoButton.setCustomShadow()
+        datePickerBackgroundView.setCustomShadow()
+        positionPickerView.setCustomShadow()
+        footSegmentedControl.setCustomShadow()
+        
+        textViewSliderView.configure(
+            with: [
+                generalInfoTextViewWithTitle,
+                techniqueTextViewWithTitle,
+                tacticsTextViewWithTitle,
+                qualitiesTextViewWithTitle,
+                mentalTextViewWithTitle
+            ])
     }
     
     // MARK: Private Methods
@@ -276,14 +282,32 @@ final class EditorViewController: UIViewController {
         
     }
     
-    @objc private func addPatronymicTextFieldButtonTapped(_ sender: UIButton) {
-        sender.isSelected.toggle()
-    }
-    
-    @objc private func addNationalTeamTextFieldButtonTapped(
+    @objc private func togglePatronymicTFRepresentationButtonTapped(
         _ sender: UIButton
     ) {
         sender.isSelected.toggle()
+        if sender.isSelected {
+            textFieldStackView.insertArrangedSubview(
+                patronymicTextFieldView,
+                at: 1)
+            patronymicTextFieldView.set(delegate: self)
+        } else {
+            textFieldStackView.removeArrangedSubview(patronymicTextFieldView)
+            patronymicTextFieldView.removeFromSuperview()
+        }
+    }
+    
+    @objc private func toggleNationalTeamTFRepresentationButtonTapped(
+        _ sender: UIButton
+    ) {
+        sender.isSelected.toggle()
+        if sender.isSelected {
+            textFieldStackView.addArrangedSubview(nationalTeamTextFieldView)
+            nationalTeamTextFieldView.set(delegate: self)
+        } else {
+            textFieldStackView.removeArrangedSubview(nationalTeamTextFieldView)
+            nationalTeamTextFieldView.removeFromSuperview()
+        }
     }
     
     @objc private func saveButtonTapped() {
@@ -296,16 +320,18 @@ final class EditorViewController: UIViewController {
         ) {
             viewModel.savePlayer(
                 byFullName: $0[0],
+                patronymic: patronymicTextFieldView.getInputText(),
                 citizenship: $0[1],
                 club: $0[2],
+                nationalTeam: nationalTeamTextFieldView.getInputText(),
                 birthDate: birthDatePicker.date,
                 position: positionPickerView.selectedRow(inComponent: 0),
                 foot: footSegmentedControl.selectedSegmentIndex,
-                generalInfo: generalInfoTextViewWithTitle.getInputText()
-//                technique: techniqueTextViewWithTitle.getInputText(),
-//                tactics: tacticsTextViewWithTitle.getInputText(),
-//                qualities: qualitiesTextViewWithTitle.getInputText(),
-//                mental: mentalTextViewWithTitle.getInputText()
+                generalInfo: generalInfoTextViewWithTitle.getInputText(),
+                technique: techniqueTextViewWithTitle.getInputText(),
+                tactics: tacticsTextViewWithTitle.getInputText(),
+                qualities: qualitiesTextViewWithTitle.getInputText(),
+                mental: mentalTextViewWithTitle.getInputText()
             ) { [weak self] in
                 self?.dismiss(animated: true) { [weak self] in
                     self?.delegate.playerWasAdded?()
@@ -377,7 +403,7 @@ extension EditorViewController {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 24),
+                constant: 16),
             titleLabel.centerYAnchor.constraint(
                 equalTo: closeButton.centerYAnchor,
                 constant: 2),
@@ -387,7 +413,7 @@ extension EditorViewController {
                 constant: 4),
             closeButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -24),
+                constant: -16),
             
             verticalScrollView.topAnchor.constraint(
                 equalTo: closeButton.bottomAnchor,
@@ -401,7 +427,7 @@ extension EditorViewController {
                 equalTo: verticalScrollView.topAnchor),
             photoImageView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 24),
+                constant: 16),
             photoImageView.heightAnchor.constraint(equalToConstant: 110),
             photoImageView.widthAnchor.constraint(equalToConstant: 110),
             
@@ -417,33 +443,38 @@ extension EditorViewController {
                 constant: 12),
             textFieldStackView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 24),
+                constant: 16),
+            textFieldStackView.trailingAnchor.constraint(
+                equalTo: addPatronymicTextFieldButton.leadingAnchor,
+                constant: -16),
             
             addPatronymicTextFieldButton.centerYAnchor.constraint(
                 equalTo: fullNameTextFieldView.centerYAnchor,
                 constant: -2),
             addPatronymicTextFieldButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -24),
+                constant: -16),
             
             addNationalTeamTextFieldButton.centerYAnchor.constraint(
                 equalTo: clubTextFieldView.centerYAnchor,
                 constant: -2),
             addNationalTeamTextFieldButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -24),
+                constant: -16),
             
             datePickerBackgroundView.topAnchor.constraint(
                 equalTo: textFieldStackView.bottomAnchor,
                 constant: 24),
             datePickerBackgroundView.trailingAnchor.constraint(
-                equalTo: textViewStackView.trailingAnchor),
-            datePickerBackgroundView.heightAnchor.constraint(equalToConstant: 35),
-            datePickerBackgroundView.widthAnchor.constraint(equalTo: birthDatePicker.widthAnchor),
+                equalTo: textFieldStackView.trailingAnchor),
+            datePickerBackgroundView.heightAnchor.constraint(
+                equalToConstant: 35),
+            datePickerBackgroundView.widthAnchor.constraint(
+                equalTo: birthDatePicker.widthAnchor),
             
             birthDateLabel.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 24),
+                constant: 16),
             birthDateLabel.centerYAnchor.constraint(
                 equalTo: datePickerBackgroundView.centerYAnchor,
                 constant: 1),
@@ -459,21 +490,21 @@ extension EditorViewController {
                 constant: 24),
             positionLabel.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 24),
+                constant: 16),
             
             positionPickerView.topAnchor.constraint(
                 equalTo: positionLabel.bottomAnchor,
                 constant: 8),
             positionPickerView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 24),
+                constant: 16),
             positionPickerView.heightAnchor.constraint(equalToConstant: 96),
             positionPickerView.widthAnchor.constraint(
                 equalTo: textFieldStackView.widthAnchor),
             
             footLabel.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 24),
+                constant: 16),
             
             footSegmentedControl.topAnchor.constraint(
                 equalTo: positionPickerView.bottomAnchor,
@@ -484,17 +515,19 @@ extension EditorViewController {
                 equalTo: footLabel.centerYAnchor,
                 constant: -1),
             
-            textViewStackView.topAnchor.constraint(
+            textViewSliderView.topAnchor.constraint(
                 equalTo: footSegmentedControl.bottomAnchor,
                 constant: 24),
-            textViewStackView.leadingAnchor.constraint(
+            textViewSliderView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 24),
-            textViewStackView.bottomAnchor.constraint(
+                constant: 16),
+            textViewSliderView.bottomAnchor.constraint(
                 equalTo: verticalScrollView.bottomAnchor,
                 constant: -24),
-            textViewStackView.widthAnchor.constraint(
-                equalTo: textFieldStackView.widthAnchor),
+            textViewSliderView.widthAnchor.constraint(
+                equalTo: textFieldStackView.widthAnchor,
+                constant: 20),
+            textViewSliderView.heightAnchor.constraint(equalToConstant: 140),
             
             dividerView.topAnchor.constraint(
                 equalTo: verticalScrollView.bottomAnchor),
@@ -505,8 +538,15 @@ extension EditorViewController {
             saveButton.topAnchor.constraint(
                 equalTo: dividerView.bottomAnchor,
                 constant: 12),
+            saveButton.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 16),
             saveButton.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: -12),
+            saveButton.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -16),
             saveButton.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor)
         ])

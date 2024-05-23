@@ -11,16 +11,18 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol {
     var wasPositionNotSelected: (() -> Void)? { get set }
     func savePlayer(
         byFullName fullName: String,
+        patronymic: String?,
         citizenship: String,
         club: String,
+        nationalTeam: String?,
         birthDate: Date,
         position: Int,
         foot: Int,
         generalInfo: String?,
-//        technique: String?,
-//        tactics: String?,
-//        qualities: String?,
-//        mental: String?,
+        technique: String?,
+        tactics: String?,
+        qualities: String?,
+        mental: String?,
         completion: () -> Void)
     func getNumberOfComponentsInPicker() -> Int
     func getNumberOfRowsInPicker() -> Int
@@ -32,19 +34,21 @@ final class EditorViewModel: EditorViewModelProtocol {
     var wereRequiredTextFieldsEmpty: (() -> Void)?
     var wasFullNameIncorrect: (() -> Void)?
     var wasPositionNotSelected: (() -> Void)?
-    
+        
     func savePlayer(
         byFullName fullName: String,
-        citizenship: String, 
+        patronymic: String?,
+        citizenship: String,
         club: String,
-        birthDate: Date, 
+        nationalTeam: String?,
+        birthDate: Date,
         position: Int,
         foot: Int,
         generalInfo: String?,
-//        technique: String? = nil,
-//        tactics: String? = nil,
-//        qualities: String? = nil,
-//        mental: String? = nil,
+        technique: String?,
+        tactics: String?,
+        qualities: String?,
+        mental: String?,
         completion: () -> Void
     ) {
         if position == 0 {
@@ -54,16 +58,18 @@ final class EditorViewModel: EditorViewModelProtocol {
             let currentUserFullName = UserManager.shared.user?.fullName
             StorageManager.shared.savePlayer(
                 withFullName: fullName,
+                patronymic: patronymic,
                 citizenship: citizenship,
                 club: club,
+                nationalTeam: nationalTeam,
                 birthDate: birthDate,
                 position: Constants.Text.Positions.allCases[position].rawValue,
                 foot: Constants.Text.SegmentedControlItems.footSegments[foot],
                 generalInfo: generalInfo,
-//                technique: technique,
-//                tactics: tactics,
-//                qualities: qualities,
-//                mental: mental,
+                technique: technique,
+                tactics: tactics,
+                qualities: qualities,
+                mental: mental,
                 lastEditor: currentUserFullName ?? Constants.Text.unknownUser, 
                 updatedDate: Date())
             completion()

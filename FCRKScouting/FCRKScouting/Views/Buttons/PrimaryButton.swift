@@ -35,19 +35,16 @@ final class PrimaryButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setCustomShadow()
+    }
+    
     private func setupUI() {
+        heightAnchor.constraint(equalToConstant: 48).isActive = true
         backgroundColor = .systemGreen.withAlphaComponent(0.8)
         setTitleColor(.white, for: .normal)
         titleLabel?.font = Constants.Fonts.normal
         setCustomCornerRadius()
-        setCustomShadow()
-        setConstraints()
-    }
-    
-    private func setConstraints() {
-        NSLayoutConstraint.activate([
-            widthAnchor.constraint(equalToConstant: 300),
-            heightAnchor.constraint(equalToConstant: 48)
-        ])
     }
 }

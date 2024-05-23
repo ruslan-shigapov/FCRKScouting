@@ -200,8 +200,14 @@ private extension ProfileViewController {
             logoutButton.topAnchor.constraint(
                 equalTo: userInfoView.bottomAnchor,
                 constant: 24),
+            logoutButton.leadingAnchor.constraint(
+                equalTo: bottomBackgroundView.leadingAnchor,
+                constant: 24),
             logoutButton.bottomAnchor.constraint(
                 equalTo: bottomBackgroundView.bottomAnchor,
+                constant: -24),
+            logoutButton.trailingAnchor.constraint(
+                equalTo: bottomBackgroundView.trailingAnchor,
                 constant: -24),
             logoutButton.centerXAnchor.constraint(
                 equalTo: bottomBackgroundView.centerXAnchor)    

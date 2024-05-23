@@ -42,8 +42,7 @@ final class PlayerCellViewModel: PlayerCellViewModelProtocol {
     private func getYear(from date: Date?) -> String? {
         guard let date else { return nil }
         let year = Calendar.current.component(.year, from: date)
-        let lastTwoDigits = String(year).suffix(2)
-        return "'" + lastTwoDigits
+        return String(year)
     }
     
     private func format(position: String?) -> String? {

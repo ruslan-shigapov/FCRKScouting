@@ -61,17 +61,22 @@ extension StorageManager {
         completion(user)
     }
     
+    func fetchUsersCount() -> Int? {
+        let fetchRequest = User.fetchRequest()
+        let users = try? viewContext.fetch(fetchRequest)
+        return users?.count
+    }
+    
     // TODO: добавить изменение
         
-    func deleteUsers() {
+    func deleteUser(by fullName: String) {
         let fetchRequest = User.fetchRequest()
-        do {
-            let users = try viewContext.fetch(fetchRequest)
-            users.forEach { viewContext.delete($0) }
-            saveContext()
-        } catch {
-            viewContext.rollback()
+        let users = try? viewContext.fetch(fetchRequest)
+        guard let user = users?.first(where: { $0.fullName == fullName }) else {
+            return
         }
+        viewContext.delete(user)
+        saveContext()
     }
 }
 
@@ -80,31 +85,35 @@ extension StorageManager {
     
     func savePlayer(
         withFullName fullName: String,
+        patronymic: String?,
         citizenship: String,
         club: String,
+        nationalTeam: String?,
         birthDate: Date,
         position: String,
         foot: String,
         generalInfo: String?,
-//        technique: String?,
-//        tactics: String?,
-//        qualities: String?,
-//        mental: String?,
+        technique: String?,
+        tactics: String?,
+        qualities: String?,
+        mental: String?,
         lastEditor: String,
         updatedDate: Date
     ) {
         let player = Player(context: viewContext)
         player.fullName = fullName
+        player.patronymic = patronymic
         player.citizenship = citizenship
         player.club = club
+        player.nationalTeam = nationalTeam
         player.birthDate = birthDate
         player.position = position
         player.foot = foot
         player.generalInfo = generalInfo
-//        player.technique = technique
-//        player.tactics = tactics
-//        player.qualities = qualities
-//        player.mental = mental
+        player.technique = technique
+        player.tactics = tactics
+        player.qualities = qualities
+        player.mental = mental
         player.lastEditor = lastEditor
         player.updatedDate = updatedDate
         saveContext()
@@ -117,16 +126,12 @@ extension StorageManager {
         }
     }
     
-    // TODO: добавить изменение
+    // TODO: добавить изменение and delete only one player
     
     func deletePlayers() {
         let fetchRequest = Player.fetchRequest()
-        do {
-            let players = try viewContext.fetch(fetchRequest)
-            players.forEach { viewContext.delete($0) }
-            saveContext()
-        } catch {
-            viewContext.rollback()
-        }
+        let players = try? viewContext.fetch(fetchRequest)
+        players?.forEach { viewContext.delete($0) }
+        saveContext()
     }
 }

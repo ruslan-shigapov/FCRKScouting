@@ -10,14 +10,16 @@ import UIKit
 final class TextViewWithTitle: UIView {
     
     // MARK: Private Properties
-    private let titleView: UIView
-
+    private let title: String
+    
     // MARK: Views
+    private lazy var titleLabel = CustomWhiteLabel(
+        font: Constants.Fonts.normal,
+        text: title)
+
     private lazy var roundedTextView: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = .white
         textView.font = Constants.Fonts.text
-        textView.autocorrectionType = .no
         textView.textContainerInset = UIEdgeInsets(
             top: 10,
             left: 5,
@@ -28,8 +30,8 @@ final class TextViewWithTitle: UIView {
     }()
 
     // MARK: Initialize
-    init(view: UIView) {
-        self.titleView = view
+    init(_ title: String) {
+        self.title = title
         super.init(frame: .zero)
         setupUI()
     }
@@ -39,10 +41,14 @@ final class TextViewWithTitle: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        roundedTextView.setCustomShadow()
+    }
+    
     // MARK: Private Methods
     private func setupUI() {
-        setCustomShadow()
-        addSubviews(titleView, roundedTextView)
+        addSubviews(titleLabel, roundedTextView)
         prepareForAutoLayout()
         setConstraints()
     }
@@ -59,16 +65,19 @@ private extension TextViewWithTitle {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
-            titleView.topAnchor.constraint(equalTo: topAnchor),
-            titleView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             
             roundedTextView.topAnchor.constraint(
-                equalTo: titleView.bottomAnchor,
+                equalTo: titleLabel.bottomAnchor,
                 constant: 8),
             roundedTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            roundedTextView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            roundedTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            roundedTextView.heightAnchor.constraint(equalToConstant: 96)
+            roundedTextView.bottomAnchor.constraint(
+                equalTo: bottomAnchor,
+                constant: -20),
+            roundedTextView.trailingAnchor.constraint(
+                equalTo: trailingAnchor,
+                constant: -20)
         ])
     }
 }

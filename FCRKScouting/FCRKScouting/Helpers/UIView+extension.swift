@@ -14,10 +14,14 @@ extension UIView {
     }
     
     func setCustomShadow() {
-        layer.shadowColor = UIColor.black.cgColor
+        clipsToBounds = false
+        layer.shadowColor = UIColor.label.cgColor
         layer.shadowRadius = 7
         layer.shadowOpacity = 0.4
-        layer.shadowOffset = CGSize(width: 10, height: -10)
+        layer.shadowOffset = CGSize(width: 8, height: 8)
+        layer.shadowPath = UIBezierPath(
+            roundedRect: bounds,
+            cornerRadius: layer.cornerRadius).cgPath
     }
     
     func addSubviews(_ subviews: UIView...) {

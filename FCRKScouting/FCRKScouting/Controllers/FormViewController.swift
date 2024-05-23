@@ -23,17 +23,17 @@ final class FormViewController: UIViewController {
         type: .name)
     private let postTextFieldView = RoundedTextFieldView(
         placeholder: Constants.Text.Placeholders.post,
-        type: .name,
-        tag: 2)
+        type: .name)
     
     private lazy var textFieldStackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [fullNameTextFieldView, postTextFieldView])
         stackView.axis = .vertical
         stackView.spacing = 24
-        stackView.subviews.forEach {
-            if let textFieldView = $0 as? RoundedTextFieldView {
+        for (index, view) in stackView.subviews.enumerated() {
+            if let textFieldView = view as? RoundedTextFieldView {
                 textFieldView.set(delegate: self)
+                textFieldView.set(tag: index)
             }
         }
         return stackView
@@ -147,6 +147,8 @@ extension FormViewController {
             textFieldStackView.topAnchor.constraint(
                 equalTo: titleLabel.bottomAnchor,
                 constant: 48),
+            textFieldStackView.widthAnchor.constraint(
+                equalTo: nextButton.widthAnchor),
             textFieldStackView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
             
@@ -154,6 +156,12 @@ extension FormViewController {
                 equalTo: textFieldStackView.bottomAnchor,
                 constant: 48
             ),
+            nextButton.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 48),
+            nextButton.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -48),
             nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }

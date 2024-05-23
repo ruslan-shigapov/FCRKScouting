@@ -88,7 +88,7 @@ private extension PlayerCell {
                 equalTo: trailingAnchor,
                 constant: -12),
             infoStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            infoStackView.widthAnchor.constraint(equalToConstant: 50),
+            infoStackView.widthAnchor.constraint(equalToConstant: 60),
             infoStackView.heightAnchor.constraint(equalToConstant: 60)
         ])
     }

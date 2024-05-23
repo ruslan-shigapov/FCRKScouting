@@ -115,12 +115,14 @@ extension LoginViewController {
             accessKeyTextFieldView.topAnchor.constraint(
                 equalTo: appNameLabel.bottomAnchor,
                 constant: 32),
+            accessKeyTextFieldView.widthAnchor.constraint(
+                equalTo: loginButton.widthAnchor),
             accessKeyTextFieldView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
             
             descriptionLabel.topAnchor.constraint(
                 equalTo: accessKeyTextFieldView.bottomAnchor,
-                constant: 5),
+                constant: 8),
             descriptionLabel.leadingAnchor.constraint(
                 equalTo: accessKeyTextFieldView.leadingAnchor,
                 constant: 5),
@@ -131,6 +133,12 @@ extension LoginViewController {
             loginButton.topAnchor.constraint(
                 equalTo: accessKeyTextFieldView.bottomAnchor,
                 constant: 70),
+            loginButton.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 48),
+            loginButton.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -48),
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }

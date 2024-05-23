@@ -58,11 +58,10 @@ final class RoundedTextFieldView: UIView {
     }()
     
     // MARK: Initialize
-    init(placeholder: String, type: TextFieldType, tag: Int = 1) {
+    init(placeholder: String, type: TextFieldType) {
         self._placeholder = placeholder
         self.textFieldType = type
         super.init(frame: .zero)
-        customTextField.tag = tag
         setupTextField(placeholder: placeholder)
         setupUI()
     }
@@ -70,6 +69,11 @@ final class RoundedTextFieldView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setCustomShadow()
     }
     
     // MARK: Private Methods
@@ -82,7 +86,6 @@ final class RoundedTextFieldView: UIView {
     private func setupUI() {
         backgroundColor = .white
         setCustomCornerRadius()
-        setCustomShadow()
         addSubview(containerStackView)
         setConstraints()
     }
@@ -107,6 +110,10 @@ final class RoundedTextFieldView: UIView {
         customTextField.delegate = delegate as? any UITextFieldDelegate
     }
     
+    func set(tag: Int) {
+        customTextField.tag = tag
+    }
+    
     func getInputText() -> String {
         guard let text = customTextField.text else { return "" }
         return text
@@ -118,7 +125,6 @@ private extension RoundedTextFieldView {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
-            widthAnchor.constraint(equalToConstant: 300),
             heightAnchor.constraint(equalToConstant: 48),
             
             containerStackView.centerYAnchor.constraint(equalTo: centerYAnchor),

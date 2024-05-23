@@ -36,8 +36,8 @@ final class UserManager {
     }
     
     func deleteUser() {
-        // TODO: удалять только текущего пользователя
-        StorageManager.shared.deleteUsers()
+        guard let fullName = user?.fullName else { return }
+        StorageManager.shared.deleteUser(by: fullName)
         getUser()
     }
 }

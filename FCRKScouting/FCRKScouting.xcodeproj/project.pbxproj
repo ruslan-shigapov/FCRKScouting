@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E404BEA42BE904500078961C /* UserViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404BEA32BE904500078961C /* UserViewModelProtocol.swift */; };
 		E404BEA92BE9087C0078961C /* PlayerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404BEA82BE9087C0078961C /* PlayerCellViewModel.swift */; };
+		E40C7FEC2BFF2F5D0043DC3E /* HorizontalSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40C7FEB2BFF2F5D0043DC3E /* HorizontalSliderView.swift */; };
 		E412BCFD2BC7D2BE00A9BCF6 /* TextFieldValidationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E412BCFC2BC7D2BE00A9BCF6 /* TextFieldValidationProtocol.swift */; };
 		E412BCFF2BC7D48600A9BCF6 /* UIView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E412BCFE2BC7D48600A9BCF6 /* UIView+extension.swift */; };
 		E44855AC2BC3D01300E5FCD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */; };
@@ -56,6 +57,7 @@
 /* Begin PBXFileReference section */
 		E404BEA32BE904500078961C /* UserViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModelProtocol.swift; sourceTree = "<group>"; };
 		E404BEA82BE9087C0078961C /* PlayerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCellViewModel.swift; sourceTree = "<group>"; };
+		E40C7FEB2BFF2F5D0043DC3E /* HorizontalSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSliderView.swift; sourceTree = "<group>"; };
 		E412BCFC2BC7D2BE00A9BCF6 /* TextFieldValidationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidationProtocol.swift; sourceTree = "<group>"; };
 		E412BCFE2BC7D48600A9BCF6 /* UIView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extension.swift"; sourceTree = "<group>"; };
 		E44855A82BC3D01300E5FCD8 /* FCRKScouting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FCRKScouting.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -277,6 +279,7 @@
 				E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */,
 				E4F4CE4B2BC95122009F9A8D /* DateHeaderView.swift */,
 				E4BB487E2BC3D54600F91513 /* PhotoImageView.swift */,
+				E40C7FEB2BFF2F5D0043DC3E /* HorizontalSliderView.swift */,
 				E4C0DE162BC6A3C400BCD235 /* TextViewWithTitle.swift */,
 				E4BFCA9A2BF94C1200C4FDD2 /* TipStackView.swift */,
 				E4BFCA982BF9472200C4FDD2 /* SearchTipsView.swift */,
@@ -388,6 +391,7 @@
 				E4BB48832BC3D54600F91513 /* GraySegmentedControl.swift in Sources */,
 				E4BB48782BC3D53E00F91513 /* UpdatesViewController.swift in Sources */,
 				E4BB48592BC3D33400F91513 /* StorageManager.swift in Sources */,
+				E40C7FEC2BFF2F5D0043DC3E /* HorizontalSliderView.swift in Sources */,
 				E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */,
 				E4C0DE172BC6A3C400BCD235 /* TextViewWithTitle.swift in Sources */,
 				E4BB48862BC3D54600F91513 /* PhotoImageView.swift in Sources */,

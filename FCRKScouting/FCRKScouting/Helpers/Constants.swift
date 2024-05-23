@@ -150,25 +150,25 @@ enum Constants {
             func abbreviate() -> String {
                 switch self {
                 case .notSelected: ""
-                case .goalkeeper: "ВР"
-                case .leftDefender: "ЛЗ"
-                case .rightDefender: "ПЗ"
-                case .centerDefender: "ЦЗ"
-                case .leftMidfielder: "ЛП"
-                case .rightMidfielder: "ПП"
-                case .centerMidfielder: "ЦП"
-                case .supportingMidfielder: "ОП"
-                case .attackingMidfielder: "АП"
-                case .forward: "НП"
+                case .goalkeeper: "\"ВР\""
+                case .leftDefender: "\"ЛЗ\""
+                case .rightDefender: "\"ПЗ\""
+                case .centerDefender: "\"ЦЗ\""
+                case .leftMidfielder: "\"ЛП\""
+                case .rightMidfielder: "\"ПП\""
+                case .centerMidfielder: "\"ЦП\""
+                case .supportingMidfielder: "\"ОП\""
+                case .attackingMidfielder: "\"АП\""
+                case .forward: "\"НП\""
                 }
             }
         }
         enum TextViewTitles {
-            static let generalInfo = "Общая информация:"
-            static let technique = "Техника"
-            static let tactics = "Тактика"
-            static let qualities = "Физ. качества"
-            static let mental = "Ментальность"
+            static let generalInfo = "Общ. информация:"
+            static let technique = "Техника:"
+            static let tactics = "Тактика:"
+            static let qualities = "Физ. качества:"
+            static let mental = "Ментальность:"
         }
     }
 }
