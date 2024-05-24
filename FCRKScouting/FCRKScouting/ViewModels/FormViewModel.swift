@@ -21,7 +21,6 @@ final class FormViewModel: FormViewModelProtocol {
     }
     
     func enterBy(fullName: String, post: String, completion: () -> Void) {
-        // TODO: сопоставить с Apple ID
         UserManager.shared.createUser(
             withFullName: fullName,
             post: post,

@@ -10,6 +10,7 @@ import UIKit
 enum TextFieldType {
     case name
     case key
+    // TODO: add one more type for numbers?
 }
 
 final class RoundedTextFieldView: UIView {
@@ -71,6 +72,7 @@ final class RoundedTextFieldView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
         setCustomShadow()

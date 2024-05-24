@@ -12,7 +12,7 @@ final class TipStackView: UIStackView {
     private let image: UIImage?
     private let text: String
     
-    private lazy var imageView: UIImageView = {
+    private lazy var customImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = image
         imageView.tintColor = .lightGray
@@ -43,7 +43,7 @@ final class TipStackView: UIStackView {
     
     private func setupUI() {
         spacing = 2
-        addArrangedSubview(imageView)
+        addArrangedSubview(customImageView)
         addArrangedSubview(descriptionLabel)
     }
 }

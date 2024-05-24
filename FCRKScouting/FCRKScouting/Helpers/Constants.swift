@@ -46,21 +46,28 @@ enum Constants {
     // MARK: Text
     enum Text {
         static let appName = "FCRK SCOUTING"
-        static let accessDescription = """
-        Вход возможен только для сотрудников системы ФК \u{AB}Рубин\u{BB} Казань
-        """
         static let birthDate = "Дата рождения:"
         static let foot = "Рабочая нога:"
         static let position = "Позиция:"
+        static let career = "Движение по фут. вертикали"
+        static let athletics = "Антропомерия/атлет. данные"
+        static let transfer = "Трансферные детали"
+        static let viewingPlan = "План просмотра"
+        static let allReports = "Все отчёты"
         static let post = "Должность:"
         static let notSpecified = "Не указана"
         static let access = "Доступ:"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
-        static let viewingPlan = "План просмотра"
-        static let allReports = "Все отчёты"
-        static let unknownUser = "Неизвестный пользователь"
         
+        enum Descriptions {
+            static let access = """
+            Вход возможен только для сотрудников системы ФК \"Рубин\" Казань
+            """
+            static let textView = """
+            Поля в этом слайдере необязательные, любые данные можно добавить или изменить позже
+            """
+        }
         enum Placeholders {
             static let fullName = "Имя Фамилия"
             static let post = "Должность (необязательно)"
@@ -96,7 +103,7 @@ enum Constants {
             static let title = "Справка:"
             static let related = "- Добавленное мной"
             static let features = "- Избранное"
-            static let filters = "- Расшренные  фильтры"
+            static let filters = "- Расширенные фильтры"
         }
         enum Alerts {
             static let emptyTextFields = (

@@ -1,5 +1,5 @@
 //
-//  HorizontalSliderView.swift
+//  PageSliderView.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 23.05.2024.
@@ -7,8 +7,9 @@
 
 import UIKit
 
-final class HorizontalSliderView: UIView {
+final class PageSliderView: UIView {
 
+    // MARK: Views
     private lazy var horizontalScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
@@ -36,6 +37,7 @@ final class HorizontalSliderView: UIView {
     
     private let patchView = UIView()
     
+    // MARK: Initialize
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -46,6 +48,7 @@ final class HorizontalSliderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Private Methods
     private func setupUI() {
         patchView.backgroundColor = Constants.Colors.deepGreen
         addSubviews(horizontalScrollView, pageControlBackgroundView, patchView)
@@ -69,6 +72,7 @@ final class HorizontalSliderView: UIView {
         }
     }
     
+    // MARK: Public Methods
     func configure(with pages: [UIView]) {
         generateScrollView(with: pages)
         customPageControl.numberOfPages = pages.count
@@ -76,7 +80,7 @@ final class HorizontalSliderView: UIView {
 }
 
 // MARK: - Scroll View Delegate
-extension HorizontalSliderView: UIScrollViewDelegate {
+extension PageSliderView: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentPage = round(
@@ -86,7 +90,7 @@ extension HorizontalSliderView: UIScrollViewDelegate {
 }
 
 // MARK: - Layout
-private extension HorizontalSliderView {
+private extension PageSliderView {
     
     func setConstraints() {
         NSLayoutConstraint.activate([

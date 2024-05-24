@@ -15,7 +15,7 @@ final class LoginViewController: UIViewController {
     // MARK: Views
     private let logoImageView = UIImageView(image: Constants.Images.logo)
     
-    private let appNameLabel = CustomWhiteLabel(
+    private let appNameLabel = PrimaryLabel(
         font: Constants.Fonts.title,
         text: Constants.Text.appName)
 
@@ -23,8 +23,8 @@ final class LoginViewController: UIViewController {
         placeholder: Constants.Text.Placeholders.accessKey,
         type: .key)
     
-    private let descriptionLabel = DescriptionLabel(
-        text: Constants.Text.accessDescription)
+    private let accessDescriptionLabel = DescriptionLabel(
+        text: Constants.Text.Descriptions.access)
     
     private lazy var loginButton: UIButton = {
         let button = PrimaryButton(title: Constants.Text.ButtonTitles.enter)
@@ -60,7 +60,7 @@ final class LoginViewController: UIViewController {
             logoImageView,
             appNameLabel,
             accessKeyTextFieldView,
-            descriptionLabel,
+            accessDescriptionLabel,
             loginButton)
         view.prepareForAutoLayout()
         setConstraints()
@@ -120,13 +120,13 @@ extension LoginViewController {
             accessKeyTextFieldView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
             
-            descriptionLabel.topAnchor.constraint(
+            accessDescriptionLabel.topAnchor.constraint(
                 equalTo: accessKeyTextFieldView.bottomAnchor,
                 constant: 8),
-            descriptionLabel.leadingAnchor.constraint(
+            accessDescriptionLabel.leadingAnchor.constraint(
                 equalTo: accessKeyTextFieldView.leadingAnchor,
                 constant: 5),
-            descriptionLabel.trailingAnchor.constraint(
+            accessDescriptionLabel.trailingAnchor.constraint(
                 equalTo: accessKeyTextFieldView.trailingAnchor,
                 constant: -5),
             

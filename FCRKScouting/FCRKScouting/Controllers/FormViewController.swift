@@ -13,7 +13,7 @@ final class FormViewController: UIViewController {
     private var viewModel: FormViewModelProtocol
     
     // MARK: Views
-    private let titleLabel = CustomWhiteLabel(
+    private let titleLabel = PrimaryLabel(
         font: Constants.Fonts.title,
         numberOfLines: 2,
         text: Constants.Text.ScreenTitles.form)
@@ -119,12 +119,7 @@ extension FormViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let nextTF = textField.superview?.superview?.superview?.viewWithTag(
-            textField.tag + 1) as? UITextField {
-            nextTF.becomeFirstResponder()
-        } else {
-            textField.resignFirstResponder()
-        }
+        textField.focusNextResponder()
         return true
     }
 }

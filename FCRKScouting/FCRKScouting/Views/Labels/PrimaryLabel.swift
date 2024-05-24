@@ -1,5 +1,5 @@
 //
-//  CustomWhiteLabel.swift
+//  PrimaryLabel.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 19.04.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CustomWhiteLabel: UILabel {
+final class PrimaryLabel: UILabel {
 
     init(font: UIFont?, numberOfLines: Int = 1, text: String? = nil) {
         super.init(frame: .zero)

@@ -14,11 +14,11 @@ final class UserInfoView: UIView {
     private let access: String
     
     // MARK: Views
-    private let postLabel = CustomWhiteLabel(
+    private let postLabel = PrimaryLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.post)
     
-    private let accessLabel = CustomWhiteLabel(
+    private let accessLabel = PrimaryLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.access)
     

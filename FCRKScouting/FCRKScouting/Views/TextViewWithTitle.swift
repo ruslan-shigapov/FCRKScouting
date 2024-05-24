@@ -13,7 +13,7 @@ final class TextViewWithTitle: UIView {
     private let title: String
     
     // MARK: Views
-    private lazy var titleLabel = CustomWhiteLabel(
+    private lazy var titleLabel = PrimaryLabel(
         font: Constants.Fonts.normal,
         text: title)
 
@@ -41,16 +41,17 @@ final class TextViewWithTitle: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
         roundedTextView.setCustomShadow()
+        setConstraints()
     }
     
     // MARK: Private Methods
     private func setupUI() {
         addSubviews(titleLabel, roundedTextView)
         prepareForAutoLayout()
-        setConstraints()
     }
     
     // MARK: Public Methods
@@ -77,7 +78,7 @@ private extension TextViewWithTitle {
                 constant: -20),
             roundedTextView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -20)
+                constant: -20),
         ])
     }
 }

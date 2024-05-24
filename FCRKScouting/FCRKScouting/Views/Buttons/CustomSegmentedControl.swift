@@ -1,5 +1,5 @@
 //
-//  GraySegmentedControl.swift
+//  CustomSegmentedControl.swift
 //  RubinScoutingApp
 //
 //  Created by Ruslan Shigapov on 29.03.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class GraySegmentedControl: UISegmentedControl {
+final class CustomSegmentedControl: UISegmentedControl {
     
     override init(items: [Any]?) {
         super.init(items: items)

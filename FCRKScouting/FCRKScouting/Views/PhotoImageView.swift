@@ -8,7 +8,7 @@
 import UIKit
 
 final class PhotoImageView: UIImageView {
-
+    
     init() {
         super.init(frame: .zero)
         setupUI()
@@ -25,7 +25,6 @@ final class PhotoImageView: UIImageView {
     }
  
     private func setupUI() {
-        tintColor = .white
         image = Constants.Images.photoPlaceholder
     }
 }

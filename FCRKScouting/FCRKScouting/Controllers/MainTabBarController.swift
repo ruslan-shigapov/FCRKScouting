@@ -9,14 +9,12 @@ import UIKit
 
 final class MainTabBarController: UITabBarController {
     
-    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setViewControllers()
     }
     
-    // MARK: Private Methods
     private func setupUI() {
         tabBar.backgroundColor = .accent
         tabBar.barTintColor = .accent
@@ -58,32 +56,20 @@ final class MainTabBarController: UITabBarController {
         _ navigationController: UINavigationController
     ) {
         let navigationBar = navigationController.navigationBar
-        navigationBar.scrollEdgeAppearance = setupScrollEdgeAppearance()
-        // TODO: или вовсе удалить, или настроить
-//        navigationBar.standardAppearance = setupStandardAppearance()
+        navigationBar.scrollEdgeAppearance = setupNavigationBarAppearance()
     }
     
-    private func setupScrollEdgeAppearance() -> UINavigationBarAppearance {
-        let navigationBarScrollEdgeAppearance = UINavigationBarAppearance()
-        navigationBarScrollEdgeAppearance.backgroundColor = .accent
-        navigationBarScrollEdgeAppearance.shadowColor = .clear
-        navigationBarScrollEdgeAppearance.titlePositionAdjustment = UIOffset(
+    private func setupNavigationBarAppearance() -> UINavigationBarAppearance {
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.backgroundColor = .accent
+        navigationBarAppearance.shadowColor = .clear
+        navigationBarAppearance.titlePositionAdjustment = UIOffset(
             horizontal: -UIScreen.main.bounds.width / 2,
             vertical: 6)
-        navigationBarScrollEdgeAppearance.titleTextAttributes = [
+        navigationBarAppearance.titleTextAttributes = [
             .foregroundColor: UIColor.white,
             .font: Constants.Fonts.title as Any,
         ]
-        return navigationBarScrollEdgeAppearance
+        return navigationBarAppearance
     }
-    
-//    private func setupStandardAppearance() -> UINavigationBarAppearance {
-//        let navigationBarStandardAppearance = UINavigationBarAppearance()
-//        let translucentColor = UIColor.accent.withAlphaComponent(0.9)
-//        navigationBarStandardAppearance.backgroundColor = translucentColor
-//        navigationBarStandardAppearance.titleTextAttributes = [
-//            .foregroundColor: UIColor.clear
-//        ]
-//        return navigationBarStandardAppearance
-//    }
 }

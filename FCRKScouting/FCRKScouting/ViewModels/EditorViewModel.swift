@@ -70,7 +70,7 @@ final class EditorViewModel: EditorViewModelProtocol {
                 tactics: tactics,
                 qualities: qualities,
                 mental: mental,
-                lastEditor: currentUserFullName ?? Constants.Text.unknownUser, 
+                lastEditor: currentUserFullName ?? "", 
                 updatedDate: Date())
             completion()
         }

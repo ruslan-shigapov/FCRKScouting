@@ -12,11 +12,11 @@ final class PlayerCell: UICollectionViewCell {
     // MARK: Views
     private let photoImageView = PhotoImageView()
     
-    private let fullNameLabel = CustomWhiteLabel(
+    private let fullNameLabel = PrimaryLabel(
         font: Constants.Fonts.header,
         numberOfLines: 2)
-    private let ageLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
-    private let positionLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
+    private let ageLabel = PrimaryLabel(font: Constants.Fonts.normal)
+    private let positionLabel = PrimaryLabel(font: Constants.Fonts.normal)
     
     private lazy var infoStackView: UIStackView = {
         let stackView = UIStackView(
@@ -27,7 +27,7 @@ final class PlayerCell: UICollectionViewCell {
         stackView.spacing = -10
         stackView.layer.borderWidth = 2
         stackView.layer.borderColor = UIColor.accent.cgColor
-        stackView.layer.cornerRadius = 10
+        stackView.setCustomCornerRadius()
         return stackView
     }()
     
@@ -72,7 +72,8 @@ private extension PlayerCell {
             photoImageView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
                 constant: 12),
-            photoImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            photoImageView.centerYAnchor.constraint(
+                equalTo: centerYAnchor),
             photoImageView.heightAnchor.constraint(equalToConstant: 70),
             photoImageView.widthAnchor.constraint(equalToConstant: 70),
             

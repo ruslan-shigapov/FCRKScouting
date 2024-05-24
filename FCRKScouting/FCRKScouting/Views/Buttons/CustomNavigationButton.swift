@@ -8,9 +8,7 @@
 import UIKit
 
 final class CustomNavigationButton: UIButton {
-    
-    private let paddingView = UIView()
-    
+        
     private let arrowImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +40,7 @@ final class CustomNavigationButton: UIButton {
         NSLayoutConstraint.activate([
             arrowImageView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -16),
+                constant: -24),
             arrowImageView.centerYAnchor.constraint(
                 equalTo: centerYAnchor,
                 constant: -2)

@@ -14,7 +14,7 @@ final class EditorViewController: UIViewController {
     private var delegate: PlayerAddingViewControllerDelegate
     
     // MARK: Views
-    private let titleLabel = CustomWhiteLabel(
+    private let titleLabel = PrimaryLabel(
         font: Constants.Fonts.header,
         text: Constants.Text.ScreenTitles.addPlayer)
     
@@ -78,25 +78,25 @@ final class EditorViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var addPatronymicTextFieldButton: UIButton = {
-        let button = AddTextFieldButton()
+    private lazy var togglePatronymicFieldDisplayButton: UIButton = {
+        let button = ToggleTextFieldDisplayButton()
         button.addTarget(
             self,
-            action: #selector(togglePatronymicTFRepresentationButtonTapped),
+            action: #selector(togglePatronymicFieldDisplayButtonTapped),
             for: .touchUpInside)
         return button
     }()
     
-    private lazy var addNationalTeamTextFieldButton: UIButton = {
-        let button = AddTextFieldButton()
+    private lazy var toggleNationalTeamFieldDisplayButton: UIButton = {
+        let button = ToggleTextFieldDisplayButton()
         button.addTarget(
             self,
-            action: #selector(toggleNationalTeamTFRepresentationButtonTapped),
+            action: #selector(toggleNationalTeamFieldDisplayButtonTapped),
             for: .touchUpInside)
         return button
     }()
     
-    private let birthDateLabel = CustomWhiteLabel(
+    private let birthDateLabel = PrimaryLabel(
         font: Constants.Fonts.normal,
         numberOfLines: 2,
         text: Constants.Text.birthDate)
@@ -118,7 +118,7 @@ final class EditorViewController: UIViewController {
         return view
     }()
     
-    private let positionLabel = CustomWhiteLabel(
+    private let positionLabel = PrimaryLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.position)
     
@@ -131,12 +131,39 @@ final class EditorViewController: UIViewController {
         return pickerView
     }()
     
-    private let footLabel = CustomWhiteLabel(
+    private let footLabel = PrimaryLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.foot)
     
-    private let footSegmentedControl = GraySegmentedControl(
+    private let footSegmentedControl = CustomSegmentedControl(
         items: Constants.Text.SegmentedControlItems.footSegments)
+    
+    private lazy var showAthleticsDetailsButton: UIButton = {
+        let button = ShowDetailsButton(title: Constants.Text.athletics)
+        button.addTarget(
+            self,
+            action: #selector(showAthleticsDetailsButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var showCareerDetailsButton: UIButton = {
+        let button = ShowDetailsButton(title: Constants.Text.career)
+        button.addTarget(
+            self,
+            action: #selector(showCareerDetailsButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var showTransferDetailsButton: UIButton = {
+        let button = ShowDetailsButton(title: Constants.Text.transfer)
+        button.addTarget(
+            self,
+            action: #selector(showTransferDetailsButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
     
     private let generalInfoTextViewWithTitle = TextViewWithTitle(
         Constants.Text.TextViewTitles.generalInfo)
@@ -149,7 +176,10 @@ final class EditorViewController: UIViewController {
     private let mentalTextViewWithTitle = TextViewWithTitle(
         Constants.Text.TextViewTitles.mental)
     
-    private let textViewSliderView = HorizontalSliderView()
+    private let pageSliderView = PageSliderView()
+    
+    private let textViewDescription = DescriptionLabel(
+        text: Constants.Text.Descriptions.textView)
     
     private lazy var verticalScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -158,24 +188,24 @@ final class EditorViewController: UIViewController {
             photoImageView,
             uploadPhotoButton,
             textFieldStackView,
-            addPatronymicTextFieldButton,
-            addNationalTeamTextFieldButton,
+            togglePatronymicFieldDisplayButton,
+            toggleNationalTeamFieldDisplayButton,
             datePickerBackgroundView,
             birthDateLabel,
             positionLabel,
             positionPickerView,
             footLabel,
             footSegmentedControl,
-            textViewSliderView)
+            showCareerDetailsButton,
+            showAthleticsDetailsButton,
+            showTransferDetailsButton,
+            pageSliderView,
+            textViewDescription)
         scrollView.prepareForAutoLayout()
         return scrollView
     }()
     
-    private let dividerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
-    }()
+    private let dividerView = UIView()
     
     private lazy var saveButton: UIButton = {
         let button = PrimaryButton(
@@ -214,8 +244,7 @@ final class EditorViewController: UIViewController {
         datePickerBackgroundView.setCustomShadow()
         positionPickerView.setCustomShadow()
         footSegmentedControl.setCustomShadow()
-        
-        textViewSliderView.configure(
+        pageSliderView.configure(
             with: [
                 generalInfoTextViewWithTitle,
                 techniqueTextViewWithTitle,
@@ -227,6 +256,7 @@ final class EditorViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
+        dividerView.backgroundColor = .lightGray
         view.backgroundColor = Constants.Colors.deepGreen
         view.addSubviews(
             titleLabel,
@@ -282,7 +312,7 @@ final class EditorViewController: UIViewController {
         
     }
     
-    @objc private func togglePatronymicTFRepresentationButtonTapped(
+    @objc private func togglePatronymicFieldDisplayButtonTapped(
         _ sender: UIButton
     ) {
         sender.isSelected.toggle()
@@ -297,7 +327,7 @@ final class EditorViewController: UIViewController {
         }
     }
     
-    @objc private func toggleNationalTeamTFRepresentationButtonTapped(
+    @objc private func toggleNationalTeamFieldDisplayButtonTapped(
         _ sender: UIButton
     ) {
         sender.isSelected.toggle()
@@ -308,6 +338,18 @@ final class EditorViewController: UIViewController {
             textFieldStackView.removeArrangedSubview(nationalTeamTextFieldView)
             nationalTeamTextFieldView.removeFromSuperview()
         }
+    }
+    
+    @objc private func showAthleticsDetailsButtonTapped() {
+        
+    }
+    
+    @objc private func showCareerDetailsButtonTapped() {
+        
+    }
+    
+    @objc private func showTransferDetailsButtonTapped() {
+        
     }
     
     @objc private func saveButtonTapped() {
@@ -354,12 +396,7 @@ extension EditorViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let nextTF = textField.superview?.superview?.superview?.viewWithTag(
-            textField.tag + 1) as? UITextField {
-            nextTF.becomeFirstResponder()
-        } else {
-            textField.resignFirstResponder()
-        }
+        textField.focusNextResponder()
         return true
     }
 }
@@ -427,9 +464,11 @@ extension EditorViewController {
                 equalTo: verticalScrollView.topAnchor),
             photoImageView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
-                constant: 16),
-            photoImageView.heightAnchor.constraint(equalToConstant: 110),
-            photoImageView.widthAnchor.constraint(equalToConstant: 110),
+                constant: 24),
+            photoImageView.trailingAnchor.constraint(
+                equalTo: uploadPhotoButton.leadingAnchor,
+                constant: -24),
+            photoImageView.heightAnchor.constraint(equalTo: photoImageView.widthAnchor),
             
             uploadPhotoButton.trailingAnchor.constraint(
                 equalTo: textFieldStackView.trailingAnchor),
@@ -445,20 +484,20 @@ extension EditorViewController {
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 16),
             textFieldStackView.trailingAnchor.constraint(
-                equalTo: addPatronymicTextFieldButton.leadingAnchor,
+                equalTo: togglePatronymicFieldDisplayButton.leadingAnchor,
                 constant: -16),
             
-            addPatronymicTextFieldButton.centerYAnchor.constraint(
+            togglePatronymicFieldDisplayButton.centerYAnchor.constraint(
                 equalTo: fullNameTextFieldView.centerYAnchor,
                 constant: -2),
-            addPatronymicTextFieldButton.trailingAnchor.constraint(
+            togglePatronymicFieldDisplayButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -16),
             
-            addNationalTeamTextFieldButton.centerYAnchor.constraint(
+            toggleNationalTeamFieldDisplayButton.centerYAnchor.constraint(
                 equalTo: clubTextFieldView.centerYAnchor,
                 constant: -2),
-            addNationalTeamTextFieldButton.trailingAnchor.constraint(
+            toggleNationalTeamFieldDisplayButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -16),
             
@@ -513,21 +552,58 @@ extension EditorViewController {
                 equalTo: textFieldStackView.trailingAnchor),
             footSegmentedControl.centerYAnchor.constraint(
                 equalTo: footLabel.centerYAnchor,
-                constant: -1),
+                constant: -2),
             
-            textViewSliderView.topAnchor.constraint(
+            showAthleticsDetailsButton.topAnchor.constraint(
                 equalTo: footSegmentedControl.bottomAnchor,
                 constant: 24),
-            textViewSliderView.leadingAnchor.constraint(
+            showAthleticsDetailsButton.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 16),
-            textViewSliderView.bottomAnchor.constraint(
+            showAthleticsDetailsButton.trailingAnchor.constraint(
+                equalTo: textFieldStackView.trailingAnchor),
+            
+            showCareerDetailsButton.topAnchor.constraint(
+                equalTo: showAthleticsDetailsButton.bottomAnchor,
+                constant: 16),
+            showCareerDetailsButton.leadingAnchor.constraint(
+                equalTo: verticalScrollView.leadingAnchor,
+                constant: 16),
+            showCareerDetailsButton.trailingAnchor.constraint(
+                equalTo: textFieldStackView.trailingAnchor),
+            
+            showTransferDetailsButton.topAnchor.constraint(
+                equalTo: showCareerDetailsButton.bottomAnchor,
+                constant: 16),
+            showTransferDetailsButton.leadingAnchor.constraint(
+                equalTo: verticalScrollView.leadingAnchor,
+                constant: 16),
+            showTransferDetailsButton.trailingAnchor.constraint(
+                equalTo: textFieldStackView.trailingAnchor),
+            
+            pageSliderView.topAnchor.constraint(
+                equalTo: showTransferDetailsButton.bottomAnchor,
+                constant: 24),
+            pageSliderView.leadingAnchor.constraint(
+                equalTo: verticalScrollView.leadingAnchor,
+                constant: 16),
+            pageSliderView.bottomAnchor.constraint(
                 equalTo: verticalScrollView.bottomAnchor,
                 constant: -24),
-            textViewSliderView.widthAnchor.constraint(
+            pageSliderView.widthAnchor.constraint(
                 equalTo: textFieldStackView.widthAnchor,
                 constant: 20),
-            textViewSliderView.heightAnchor.constraint(equalToConstant: 140),
+            pageSliderView.heightAnchor.constraint(equalToConstant: 140),
+            
+            textViewDescription.topAnchor.constraint(
+                equalTo: pageSliderView.bottomAnchor,
+                constant: -12),
+            textViewDescription.leadingAnchor.constraint(
+                equalTo: pageSliderView.leadingAnchor,
+                constant: 5),
+            textViewDescription.trailingAnchor.constraint(
+                equalTo: pageSliderView.trailingAnchor,
+                constant: -5),
             
             dividerView.topAnchor.constraint(
                 equalTo: verticalScrollView.bottomAnchor),

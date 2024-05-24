@@ -34,7 +34,7 @@ final class UpdatesViewController: UIViewController {
     }()
     
     private lazy var intervalSegmentedControl: UISegmentedControl = {
-        let segmentedControl = GraySegmentedControl(
+        let segmentedControl = CustomSegmentedControl(
             items: Constants.Text.SegmentedControlItems.periodSegments)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.addTarget(
@@ -52,7 +52,7 @@ final class UpdatesViewController: UIViewController {
     }()
     
     private lazy var playersCollectionView: UICollectionView = {
-        let collectionView = VerticalCollectionView()
+        let collectionView = CustomCollectionView()
         collectionView.dataSource = self
         collectionView.delegate = self
         let elementKind = UICollectionView.elementKindSectionHeader
@@ -192,7 +192,7 @@ extension UpdatesViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        CGSize(width: collectionView.bounds.width - 16, height: 90)
+        CGSize(width: collectionView.bounds.width - 32, height: 90)
     }
     
     func collectionView(
@@ -225,13 +225,13 @@ extension UpdatesViewController {
                 constant: 4),
             intervalSegmentedControl.leadingAnchor.constraint(
                 equalTo: segmentedControlBackgroundView.leadingAnchor,
-                constant: 8),
+                constant: 16),
             intervalSegmentedControl.bottomAnchor.constraint(
                 equalTo: segmentedControlBackgroundView.bottomAnchor,
-                constant: -8),
+                constant: -16),
             intervalSegmentedControl.trailingAnchor.constraint(
                 equalTo: segmentedControlBackgroundView.trailingAnchor,
-                constant: -8),
+                constant: -16),
             
             playersCollectionView.topAnchor.constraint(
                 equalTo: segmentedControlBackgroundView.bottomAnchor),

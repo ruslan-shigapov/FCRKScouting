@@ -15,7 +15,7 @@ final class ProfileViewController: UIViewController {
     // MARK: Views
     private let logoImageView = UIImageView(image: Constants.Images.logo)
 
-    private lazy var fullNameLabel = CustomWhiteLabel(
+    private lazy var fullNameLabel = PrimaryLabel(
         font: Constants.Fonts.header,
         numberOfLines: 2,
         text: viewModel.fullName)
@@ -30,14 +30,20 @@ final class ProfileViewController: UIViewController {
     }()
     
     private lazy var viewingPlanNavigationButton: UIButton = {
-        let button = CustomNavigationButton(
-            title: Constants.Text.viewingPlan)
+        let button = CustomNavigationButton(title: Constants.Text.viewingPlan)
+        button.addTarget(
+            self,
+            action: #selector(viewingPlanNavigationButtonTapped),
+            for: .touchUpInside)
         return button
     }()
     
     private lazy var allReportsNavigationButton: UIButton = {
-        let button = CustomNavigationButton(
-            title: Constants.Text.allReports)
+        let button = CustomNavigationButton(title: Constants.Text.allReports)
+        button.addTarget(
+            self,
+            action: #selector(allReportsNavigationButtonTapped),
+            for: .touchUpInside)
         return button
     }()
     
@@ -95,17 +101,25 @@ final class ProfileViewController: UIViewController {
     }
     
     private func setupNavigationBarButton() {
-        let filtersButton = CustomNavigationBarButton(
+        let editButton = CustomNavigationBarButton(
             image: Constants.Images.ButtonImages.edit)
-        filtersButton.addTarget(
+        editButton.addTarget(
             self,
             action: #selector(editButtonTapped),
             for: .touchUpInside)
-        let barButtonItem = UIBarButtonItem(customView: filtersButton)
+        let barButtonItem = UIBarButtonItem(customView: editButton)
         navigationItem.rightBarButtonItem = barButtonItem
     }
 
     @objc private func editButtonTapped() {
+        
+    }
+    
+    @objc private func viewingPlanNavigationButtonTapped() {
+        
+    }
+    
+    @objc private func allReportsNavigationButtonTapped() {
         
     }
     

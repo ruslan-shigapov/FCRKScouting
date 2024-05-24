@@ -39,9 +39,9 @@ final class SearchTipsView: UIView {
         stackView.spacing = 1
         return stackView
     }()
-
-    init() {
-        super.init(frame: .zero)
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupUI()
     }
     

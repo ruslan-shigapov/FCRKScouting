@@ -9,13 +9,9 @@ import UIKit
 
 final class FiltersViewController: UIViewController {
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Применить фильтры"
-        label.font = Constants.Fonts.header
-        label.textColor = .white
-        return label
-    }()
+    private let titleLabel = PrimaryLabel(
+        font: Constants.Fonts.header,
+        text: "Применить фильтры")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +25,7 @@ final class FiltersViewController: UIViewController {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 24),
+                constant: 16),
             titleLabel.topAnchor.constraint(
                 equalTo: view.topAnchor, 
                 constant: 24),
