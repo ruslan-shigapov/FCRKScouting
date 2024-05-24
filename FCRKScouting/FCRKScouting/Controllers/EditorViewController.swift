@@ -138,17 +138,19 @@ final class EditorViewController: UIViewController {
     private let footSegmentedControl = CustomSegmentedControl(
         items: Constants.Text.SegmentedControlItems.footSegments)
     
-    private lazy var showAthleticsDetailsButton: UIButton = {
-        let button = ShowDetailsButton(title: Constants.Text.athletics)
+    private lazy var showAthleticDetailsButton: UIButton = {
+        let button = ShowDetailsButton(
+            title: Constants.Text.ButtonTitles.athleticDetails)
         button.addTarget(
             self,
-            action: #selector(showAthleticsDetailsButtonTapped),
+            action: #selector(showAthleticDetailsButtonTapped),
             for: .touchUpInside)
         return button
     }()
     
     private lazy var showCareerDetailsButton: UIButton = {
-        let button = ShowDetailsButton(title: Constants.Text.career)
+        let button = ShowDetailsButton(
+            title: Constants.Text.ButtonTitles.career)
         button.addTarget(
             self,
             action: #selector(showCareerDetailsButtonTapped),
@@ -157,7 +159,7 @@ final class EditorViewController: UIViewController {
     }()
     
     private lazy var showTransferDetailsButton: UIButton = {
-        let button = ShowDetailsButton(title: Constants.Text.transfer)
+        let button = ShowDetailsButton(title: Constants.Text.transferDetails)
         button.addTarget(
             self,
             action: #selector(showTransferDetailsButtonTapped),
@@ -197,7 +199,7 @@ final class EditorViewController: UIViewController {
             footLabel,
             footSegmentedControl,
             showCareerDetailsButton,
-            showAthleticsDetailsButton,
+            showAthleticDetailsButton,
             showTransferDetailsButton,
             pageSliderView,
             textViewDescription)
@@ -340,8 +342,9 @@ final class EditorViewController: UIViewController {
         }
     }
     
-    @objc private func showAthleticsDetailsButtonTapped() {
-        
+    @objc private func showAthleticDetailsButtonTapped() {
+        let athleticDetailsVC = ScreenFactory.getAthleticDetailsViewController()
+        present(athleticDetailsVC, animated: true)
     }
     
     @objc private func showCareerDetailsButtonTapped() {
@@ -349,7 +352,8 @@ final class EditorViewController: UIViewController {
     }
     
     @objc private func showTransferDetailsButtonTapped() {
-        
+        let transferDetails = ScreenFactory.getTransferDetailsViewController()
+        present(transferDetails, animated: true)
     }
     
     @objc private func saveButtonTapped() {
@@ -554,17 +558,17 @@ extension EditorViewController {
                 equalTo: footLabel.centerYAnchor,
                 constant: -2),
             
-            showAthleticsDetailsButton.topAnchor.constraint(
+            showAthleticDetailsButton.topAnchor.constraint(
                 equalTo: footSegmentedControl.bottomAnchor,
                 constant: 24),
-            showAthleticsDetailsButton.leadingAnchor.constraint(
+            showAthleticDetailsButton.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 16),
-            showAthleticsDetailsButton.trailingAnchor.constraint(
+            showAthleticDetailsButton.trailingAnchor.constraint(
                 equalTo: textFieldStackView.trailingAnchor),
             
             showCareerDetailsButton.topAnchor.constraint(
-                equalTo: showAthleticsDetailsButton.bottomAnchor,
+                equalTo: showAthleticDetailsButton.bottomAnchor,
                 constant: 16),
             showCareerDetailsButton.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
@@ -583,7 +587,7 @@ extension EditorViewController {
             
             pageSliderView.topAnchor.constraint(
                 equalTo: showTransferDetailsButton.bottomAnchor,
-                constant: 24),
+                constant: 32),
             pageSliderView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 16),

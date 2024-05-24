@@ -64,6 +64,14 @@ struct ScreenFactory {
         return viewController
     }
     
+    static func getAthleticDetailsViewController() -> UIViewController {
+        AthleticDetailsViewController()
+    }
+    
+    static func getTransferDetailsViewController() -> UIViewController {
+        TransferDetailsViewController()
+    }
+    
     static func getFiltersViewController() -> UIViewController {
         FiltersViewController()
     }
