@@ -6,12 +6,24 @@
 //
 
 protocol FormViewModelProtocol: TextFieldValidationProtocol {
-    func enterBy(fullName: String, post: String, completion: () -> Void)
+    var fullName: String? { get }
+    var post: String? { get }
+    func saveUserBy(
+        fullName: String,
+        post: String,
+        completion: (_ isEditing: Bool) -> Void)
 }
 
 final class FormViewModel: FormViewModelProtocol {
     
     private let accessValue: Bool
+
+    var fullName: String? {
+        UserManager.shared.user?.fullName
+    }
+    var post: String? {
+        UserManager.shared.user?.post
+    }
     
     var wereRequiredTextFieldsEmpty: (() -> Void)?
     var wasFullNameIncorrect: (() -> Void)?
@@ -20,13 +32,23 @@ final class FormViewModel: FormViewModelProtocol {
         self.accessValue = accessValue
     }
     
-    func enterBy(fullName: String, post: String, completion: () -> Void) {
-        UserManager.shared.createUser(
-            withFullName: fullName,
-            post: post,
-            accessValue: accessValue
-        ) {
-            completion()
+    func saveUserBy(
+        fullName: String,
+        post: String,
+        completion: (_ isEditing: Bool) -> Void
+    ) {
+        if let _ = self.fullName {
+            UserManager.shared.updateUser(fullName: fullName, post: post) {
+                completion(true)
+            }
+        } else {
+            UserManager.shared.createUserWith(
+                fullName: fullName,
+                post: post,
+                accessValue: accessValue
+            ) {
+                completion(false)
+            }
         }
     }
-}
+ }

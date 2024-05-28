@@ -9,7 +9,7 @@ import UIKit
 
 final class DateHeaderView: UICollectionReusableView {
         
-    private let dateLabel = PrimaryLabel(font: Constants.Fonts.normal)
+    private let dateLabel = CustomLabel(font: Constants.Fonts.normal)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

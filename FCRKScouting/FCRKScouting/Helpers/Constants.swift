@@ -78,7 +78,6 @@ enum Constants {
         enum ButtonTitles {
             static let enter = "Войти"
             static let exit = "Выйти"
-            static let next = "Далее"
             static let ok = "OK"
             static let yes = "Да"
             static let no = "Нет"
@@ -91,7 +90,7 @@ enum Constants {
             static let save = "Сохранить"
         }
         enum ScreenTitles {
-            static let form = "Добро пожаловать!"
+            static let form = "Личные данные"
             static let updates = "Обновления"
             static let search = "Поиск"
             static let profile = "Профиль"

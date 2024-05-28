@@ -23,12 +23,14 @@ struct ScreenFactory {
         return LoginViewController(viewModel: viewModel)
     }
     
-    static func getFormController(
-        withAccessValue accessValue: Bool
+    static func getFormControllerWith(
+        accessValue: Bool,
+        delegate: FormViewControllerDelegate?
     ) -> UIViewController {
         let viewModel = FormViewModel(accessValue: accessValue)
-        let viewController = FormViewController(viewModel: viewModel)
-        viewController.modalPresentationStyle = .fullScreen
+        let viewController = FormViewController(
+            viewModel: viewModel,
+            delegate: delegate)
         return viewController
     }
     
@@ -53,8 +55,8 @@ struct ScreenFactory {
         return ProfileViewController(viewModel: viewModel)
     }
     
-    static func getPlayerAddingViewController(
-        withDelegate delegate: PlayerAddingViewControllerDelegate
+    static func getEditorViewControllerWith(
+        delegate: EditorViewControllerDelegate
     ) -> UIViewController {
         let viewModel = EditorViewModel()
         let viewController = EditorViewController(

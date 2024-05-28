@@ -5,12 +5,19 @@
 //  Created by Ruslan Shigapov on 15.03.2024.
 //
 
-protocol ProfileViewModelProtocol: UserViewModelProtocol {
+protocol FormViewControllerDelegate {
+    var userWasUpdated: (() -> Void)? { get set }
+}
+
+protocol ProfileViewModelProtocol: UserViewModelProtocol,
+                                   FormViewControllerDelegate {
     var access: String { get }
     func logOut()
 }
 
 final class ProfileViewModel: ProfileViewModelProtocol {
+    
+    var userWasUpdated: (() -> Void)?
     
     var access: String {
         isEditingAllowed

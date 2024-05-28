@@ -16,6 +16,8 @@
 		E414C35B2C00A5340068077E /* UITextField+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414C35A2C00A5340068077E /* UITextField+extension.swift */; };
 		E414C35D2C00C2230068077E /* AthleticDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414C35C2C00C2230068077E /* AthleticDetailsViewController.swift */; };
 		E414C35F2C00C3D00068077E /* TransferDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414C35E2C00C3D00068077E /* TransferDetailsViewController.swift */; };
+		E41FEF202C05FAFC0083F9DB /* DefaultLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41FEF1F2C05FAFC0083F9DB /* DefaultLabel.swift */; };
+		E41FEF222C05FC450083F9DB /* NormativeStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41FEF212C05FC450083F9DB /* NormativeStackView.swift */; };
 		E44855AC2BC3D01300E5FCD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */; };
 		E44855B82BC3D01400E5FCD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E44855B72BC3D01400E5FCD8 /* Assets.xcassets */; };
 		E46AC8AF2BF773C600A3C801 /* CustomNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46AC8AE2BF773C600A3C801 /* CustomNavigationButton.swift */; };
@@ -50,7 +52,7 @@
 		E4BFCA992BF9472200C4FDD2 /* SearchTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BFCA982BF9472200C4FDD2 /* SearchTipsView.swift */; };
 		E4BFCA9B2BF94C1200C4FDD2 /* TipStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BFCA9A2BF94C1200C4FDD2 /* TipStackView.swift */; };
 		E4C0DE172BC6A3C400BCD235 /* TextViewWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C0DE162BC6A3C400BCD235 /* TextViewWithTitle.swift */; };
-		E4D101492BD27742006D2DCF /* PrimaryLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D101482BD27742006D2DCF /* PrimaryLabel.swift */; };
+		E4D101492BD27742006D2DCF /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D101482BD27742006D2DCF /* CustomLabel.swift */; };
 		E4D1014B2BD2B276006D2DCF /* DescriptionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D1014A2BD2B276006D2DCF /* DescriptionLabel.swift */; };
 		E4F4CE462BC92E0B009F9A8D /* CustomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE452BC92E0B009F9A8D /* CustomCollectionView.swift */; };
 		E4F4CE482BC935BD009F9A8D /* PlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE472BC935BD009F9A8D /* PlayerCell.swift */; };
@@ -68,6 +70,8 @@
 		E414C35A2C00A5340068077E /* UITextField+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+extension.swift"; sourceTree = "<group>"; };
 		E414C35C2C00C2230068077E /* AthleticDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleticDetailsViewController.swift; sourceTree = "<group>"; };
 		E414C35E2C00C3D00068077E /* TransferDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewController.swift; sourceTree = "<group>"; };
+		E41FEF1F2C05FAFC0083F9DB /* DefaultLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLabel.swift; sourceTree = "<group>"; };
+		E41FEF212C05FC450083F9DB /* NormativeStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormativeStackView.swift; sourceTree = "<group>"; };
 		E44855A82BC3D01300E5FCD8 /* FCRKScouting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FCRKScouting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E44855B72BC3D01400E5FCD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -104,7 +108,7 @@
 		E4BFCA982BF9472200C4FDD2 /* SearchTipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTipsView.swift; sourceTree = "<group>"; };
 		E4BFCA9A2BF94C1200C4FDD2 /* TipStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipStackView.swift; sourceTree = "<group>"; };
 		E4C0DE162BC6A3C400BCD235 /* TextViewWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewWithTitle.swift; path = FCRKScouting/Views/TextViewWithTitle.swift; sourceTree = SOURCE_ROOT; };
-		E4D101482BD27742006D2DCF /* PrimaryLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryLabel.swift; sourceTree = "<group>"; };
+		E4D101482BD27742006D2DCF /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		E4D1014A2BD2B276006D2DCF /* DescriptionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionLabel.swift; sourceTree = "<group>"; };
 		E4F4CE452BC92E0B009F9A8D /* CustomCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionView.swift; sourceTree = "<group>"; };
 		E4F4CE472BC935BD009F9A8D /* PlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCell.swift; sourceTree = "<group>"; };
@@ -190,8 +194,9 @@
 		E48159E22BCE60570090FC42 /* Labels */ = {
 			isa = PBXGroup;
 			children = (
-				E4D101482BD27742006D2DCF /* PrimaryLabel.swift */,
+				E4D101482BD27742006D2DCF /* CustomLabel.swift */,
 				E4D1014A2BD2B276006D2DCF /* DescriptionLabel.swift */,
+				E41FEF1F2C05FAFC0083F9DB /* DefaultLabel.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -292,6 +297,7 @@
 				E4F4CE4B2BC95122009F9A8D /* DateHeaderView.swift */,
 				E4BB487E2BC3D54600F91513 /* PhotoImageView.swift */,
 				E4C0DE162BC6A3C400BCD235 /* TextViewWithTitle.swift */,
+				E41FEF212C05FC450083F9DB /* NormativeStackView.swift */,
 				E40C7FEB2BFF2F5D0043DC3E /* PageSliderView.swift */,
 				E4BFCA9A2BF94C1200C4FDD2 /* TipStackView.swift */,
 				E4BFCA982BF9472200C4FDD2 /* SearchTipsView.swift */,
@@ -392,7 +398,7 @@
 				E44855AC2BC3D01300E5FCD8 /* AppDelegate.swift in Sources */,
 				E4BB48742BC3D53E00F91513 /* ProfileViewModel.swift in Sources */,
 				E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */,
-				E4D101492BD27742006D2DCF /* PrimaryLabel.swift in Sources */,
+				E4D101492BD27742006D2DCF /* CustomLabel.swift in Sources */,
 				E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */,
 				E486D13D2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift in Sources */,
 				E404BEA92BE9087C0078961C /* PlayerCellViewModel.swift in Sources */,
@@ -404,11 +410,13 @@
 				E4BB48732BC3D53E00F91513 /* ProfileViewController.swift in Sources */,
 				E4F4CE462BC92E0B009F9A8D /* CustomCollectionView.swift in Sources */,
 				E4BB48832BC3D54600F91513 /* CustomSegmentedControl.swift in Sources */,
+				E41FEF222C05FC450083F9DB /* NormativeStackView.swift in Sources */,
 				E4BB48782BC3D53E00F91513 /* UpdatesViewController.swift in Sources */,
 				E4BB48592BC3D33400F91513 /* StorageManager.swift in Sources */,
 				E40C7FEC2BFF2F5D0043DC3E /* PageSliderView.swift in Sources */,
 				E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */,
 				E4C0DE172BC6A3C400BCD235 /* TextViewWithTitle.swift in Sources */,
+				E41FEF202C05FAFC0083F9DB /* DefaultLabel.swift in Sources */,
 				E4BB48862BC3D54600F91513 /* PhotoImageView.swift in Sources */,
 				E4BB48602BC3D51200F91513 /* ScreenFactory.swift in Sources */,
 				E4BB48652BC3D53700F91513 /* LoginViewModel.swift in Sources */,

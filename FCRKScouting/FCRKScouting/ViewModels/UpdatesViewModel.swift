@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol PlayerAddingViewControllerDelegate {
+protocol EditorViewControllerDelegate {
     var playerWasAdded: (() -> Void)? { get set }
 }
 
 protocol UpdatesViewModelProtocol: UserViewModelProtocol, 
-                                   PlayerAddingViewControllerDelegate {
+                                   EditorViewControllerDelegate {
     var currentInterval: Int { get set }
     var sortedDates: [Date] { get }
     func getNumberOfSections() -> Int

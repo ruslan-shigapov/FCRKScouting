@@ -19,14 +19,14 @@ final class UserManager {
         StorageManager.shared.fetchUser { user = $0 }
     }
     
-    func createUser(
-        withFullName fullName: String,
+    func createUserWith(
+        fullName: String,
         post: String,
         accessValue: Bool,
         completion: () -> Void
     ) {
-        StorageManager.shared.saveUser(
-            withFullName: fullName,
+        StorageManager.shared.saveUserWith(
+            fullName: fullName,
             post: post,
             isEditingAllowed: accessValue
         ) {
@@ -35,9 +35,20 @@ final class UserManager {
         }
     }
     
+    func updateUser(
+        fullName: String,
+        post: String,
+        completion: () -> Void
+    ) {
+        StorageManager.shared.updateUser(fullName: fullName, post: post) {
+            getUser()
+            completion()
+        }
+    }
+    
     func deleteUser() {
         guard let fullName = user?.fullName else { return }
-        StorageManager.shared.deleteUser(by: fullName)
+        StorageManager.shared.deleteUserBy(fullName)
         getUser()
     }
 }

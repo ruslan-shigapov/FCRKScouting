@@ -46,7 +46,6 @@ final class RoundedTextFieldView: UIView {
         let label = UILabel()
         label.textColor = .accent
         label.font = Constants.Fonts.description
-        label.isHidden = true
         return label
     }()
     
@@ -76,6 +75,9 @@ final class RoundedTextFieldView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         setCustomShadow()
+        if let text = customTextField.text, !text.isEmpty {
+            addFloatingLabel()
+        }
     }
     
     // MARK: Private Methods
@@ -93,11 +95,9 @@ final class RoundedTextFieldView: UIView {
     }
     
     @objc private func addFloatingLabel() {
-        if customTextField.text == "" {
-            floatingLabel.text = _placeholder
-            floatingLabel.isHidden = false
-            customTextField.placeholder = ""
-        }
+        floatingLabel.text = _placeholder
+        floatingLabel.isHidden = false
+        customTextField.placeholder = ""
     }
     
     @objc private func removeFloatingLabel() {
@@ -109,11 +109,16 @@ final class RoundedTextFieldView: UIView {
     
     // MARK: Public Methods
     func set(delegate: UIViewController) {
-        customTextField.delegate = delegate as? any UITextFieldDelegate
+        customTextField.delegate = delegate as? UITextFieldDelegate
     }
     
     func set(tag: Int) {
         customTextField.tag = tag
+    }
+    
+    func set(text: String?) {
+        guard let text else { return }
+        customTextField.text = text
     }
     
     func getInputText() -> String {

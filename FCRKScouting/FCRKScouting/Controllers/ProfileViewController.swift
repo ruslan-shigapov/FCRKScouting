@@ -15,7 +15,7 @@ final class ProfileViewController: UIViewController {
     // MARK: Views
     private let logoImageView = UIImageView(image: Constants.Images.logo)
 
-    private lazy var fullNameLabel = PrimaryLabel(
+    private lazy var fullNameLabel = CustomLabel(
         font: Constants.Fonts.header,
         numberOfLines: 2,
         text: viewModel.fullName)
@@ -47,9 +47,7 @@ final class ProfileViewController: UIViewController {
         return button
     }()
     
-    private lazy var userInfoView = UserInfoView(
-        post: viewModel.post,
-        access: viewModel.access)
+    private let userInfoView = UserInfoView()
     
     private lazy var logoutButton: UIButton = {
         let button = PrimaryButton(title: Constants.Text.ButtonTitles.exit)
@@ -84,12 +82,16 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        handleUserChanges()
     }
     
     // MARK: Private Methods
     private func setupUI() {
         setupNavigationBarButton()
         fullNameLabel.textAlignment = .center
+        userInfoView.configureWith(
+            post: viewModel.post,
+            access: viewModel.access)
         view.setCustomGradientLayer()
         view.addSubviews(
             topBackgroundView,
@@ -110,9 +112,23 @@ final class ProfileViewController: UIViewController {
         let barButtonItem = UIBarButtonItem(customView: editButton)
         navigationItem.rightBarButtonItem = barButtonItem
     }
+    
+    private func handleUserChanges() {
+        viewModel.userWasUpdated = { [weak self] in
+            // TODO: do with "self" the same everywhere 
+            guard let self else { return }
+            fullNameLabel.text = viewModel.fullName
+            userInfoView.configureWith(
+                post: viewModel.post,
+                access: viewModel.access)
+        }
+    }
 
     @objc private func editButtonTapped() {
-        
+        let formVC = ScreenFactory.getFormControllerWith(
+            accessValue: viewModel.isEditingAllowed,
+            delegate: viewModel as FormViewControllerDelegate)
+        present(formVC, animated: true)
     }
     
     @objc private func viewingPlanNavigationButtonTapped() {

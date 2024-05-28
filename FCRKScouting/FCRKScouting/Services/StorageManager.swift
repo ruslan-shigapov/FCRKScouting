@@ -41,8 +41,8 @@ final class StorageManager {
 // MARK: - User CRUD
 extension StorageManager {
     
-    func saveUser(
-        withFullName fullName: String,
+    func saveUserWith(
+        fullName: String,
         post: String,
         isEditingAllowed: Bool,
         completion: () -> Void
@@ -58,18 +58,20 @@ extension StorageManager {
     func fetchUser(completion: (User?) -> Void) {
         let fetchRequest = User.fetchRequest()
         let user = try? viewContext.fetch(fetchRequest).first
+        // TODO: find the user by its name ???
         completion(user)
     }
     
-    func fetchUsersCount() -> Int? {
-        let fetchRequest = User.fetchRequest()
-        let users = try? viewContext.fetch(fetchRequest)
-        return users?.count
+    func updateUser(fullName: String, post: String, completion: () -> Void) {
+        fetchUser {
+            $0?.fullName = fullName
+            $0?.post = post
+        }
+        saveContext()
+        completion()
     }
-    
-    // TODO: добавить изменение
         
-    func deleteUser(by fullName: String) {
+    func deleteUserBy(_ fullName: String) {
         let fetchRequest = User.fetchRequest()
         let users = try? viewContext.fetch(fetchRequest)
         guard let user = users?.first(where: { $0.fullName == fullName }) else {

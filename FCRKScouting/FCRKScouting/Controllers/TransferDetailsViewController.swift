@@ -9,7 +9,7 @@ import UIKit
 
 final class TransferDetailsViewController: UIViewController {
 
-    private let titleLabel = PrimaryLabel(
+    private let titleLabel = CustomLabel(
         font: Constants.Fonts.header,
         numberOfLines: 2,
         text: Constants.Text.transferDetails)

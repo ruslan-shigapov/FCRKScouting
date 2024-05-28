@@ -11,10 +11,10 @@ final class EditorViewController: UIViewController {
     
     // MARK: Private Properties 
     private var viewModel: EditorViewModelProtocol
-    private var delegate: PlayerAddingViewControllerDelegate
+    private var delegate: EditorViewControllerDelegate
     
     // MARK: Views
-    private let titleLabel = PrimaryLabel(
+    private let titleLabel = CustomLabel(
         font: Constants.Fonts.header,
         text: Constants.Text.ScreenTitles.addPlayer)
     
@@ -96,7 +96,7 @@ final class EditorViewController: UIViewController {
         return button
     }()
     
-    private let birthDateLabel = PrimaryLabel(
+    private let birthDateLabel = CustomLabel(
         font: Constants.Fonts.normal,
         numberOfLines: 2,
         text: Constants.Text.birthDate)
@@ -118,7 +118,7 @@ final class EditorViewController: UIViewController {
         return view
     }()
     
-    private let positionLabel = PrimaryLabel(
+    private let positionLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.position)
     
@@ -131,7 +131,7 @@ final class EditorViewController: UIViewController {
         return pickerView
     }()
     
-    private let footLabel = PrimaryLabel(
+    private let footLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.foot)
     
@@ -222,7 +222,7 @@ final class EditorViewController: UIViewController {
     // MARK: Initialize
     init(
         viewModel: EditorViewModelProtocol,
-        delegate: PlayerAddingViewControllerDelegate
+        delegate: EditorViewControllerDelegate
     ) {
         self.viewModel = viewModel
         self.delegate = delegate
@@ -246,8 +246,8 @@ final class EditorViewController: UIViewController {
         datePickerBackgroundView.setCustomShadow()
         positionPickerView.setCustomShadow()
         footSegmentedControl.setCustomShadow()
-        pageSliderView.configure(
-            with: [
+        pageSliderView.configureWith(
+            pages: [
                 generalInfoTextViewWithTitle,
                 techniqueTextViewWithTitle,
                 tacticsTextViewWithTitle,

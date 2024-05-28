@@ -11,11 +11,11 @@ final class FormViewController: UIViewController {
     
     // MARK: Private Properties
     private var viewModel: FormViewModelProtocol
+    private var delegate: FormViewControllerDelegate?
     
     // MARK: Views
-    private let titleLabel = PrimaryLabel(
-        font: Constants.Fonts.title,
-        numberOfLines: 2,
+    private let titleLabel = CustomLabel(
+        font: Constants.Fonts.header,
         text: Constants.Text.ScreenTitles.form)
     
     private let fullNameTextFieldView = RoundedTextFieldView(
@@ -39,12 +39,12 @@ final class FormViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var nextButton: UIButton = {
+    private lazy var saveButton: UIButton = {
         let button = PrimaryButton(
-            title: Constants.Text.ButtonTitles.next)
+            title: Constants.Text.ButtonTitles.save)
         button.addTarget(
             self,
-            action: #selector(nextButtonTapped),
+            action: #selector(saveButtonTapped),
             for: .touchUpInside)
         return button
     }()
@@ -56,8 +56,12 @@ final class FormViewController: UIViewController {
     }
 
     // MARK: Initialize
-    init(viewModel: FormViewModelProtocol) {
+    init(
+        viewModel: FormViewModelProtocol,
+        delegate: FormViewControllerDelegate?
+    ) {
         self.viewModel = viewModel
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -69,11 +73,17 @@ final class FormViewController: UIViewController {
     // MARK: Private Methods
     private func setupUI() {
         titleLabel.textAlignment = .center
-        view.setCustomGradientLayer()
-        view.addSubviews(titleLabel, textFieldStackView, nextButton)
+        configureTextFields()
+        view.backgroundColor = .accent
+        view.addSubviews(titleLabel, textFieldStackView, saveButton)
         view.prepareForAutoLayout()
         setConstraints()
         setupAlerts()
+    }
+    
+    private func configureTextFields() {
+        fullNameTextFieldView.set(text: viewModel.fullName)
+        postTextFieldView.set(text: viewModel.post)
     }
  
     private func setupAlerts() {
@@ -91,15 +101,19 @@ final class FormViewController: UIViewController {
         }
     }
     
-    @objc private func nextButtonTapped() {
+    @objc private func saveButtonTapped() {
         viewModel.validateInput(
             text: [fullNameTextFieldView.getInputText()]
         ) {
-            viewModel.enterBy(
+            viewModel.saveUserBy(
                 fullName: $0[0],
                 post: postTextFieldView.getInputText()
             ) {
-                showMainTabBarController()
+                $0 
+                ? dismiss(animated: true) { [weak self] in
+                    self?.delegate?.userWasUpdated?()
+                } 
+                : showMainTabBarController()
             }
         }
     }
@@ -143,21 +157,21 @@ extension FormViewController {
                 equalTo: titleLabel.bottomAnchor,
                 constant: 48),
             textFieldStackView.widthAnchor.constraint(
-                equalTo: nextButton.widthAnchor),
+                equalTo: saveButton.widthAnchor),
             textFieldStackView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
             
-            nextButton.topAnchor.constraint(
+            saveButton.topAnchor.constraint(
                 equalTo: textFieldStackView.bottomAnchor,
                 constant: 48
             ),
-            nextButton.leadingAnchor.constraint(
+            saveButton.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 48),
-            nextButton.trailingAnchor.constraint(
+            saveButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -48),
-            nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 }

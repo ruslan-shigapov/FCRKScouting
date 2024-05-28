@@ -73,7 +73,7 @@ final class PageSliderView: UIView {
     }
     
     // MARK: Public Methods
-    func configure(with pages: [UIView]) {
+    func configureWith(pages: [UIView]) {
         generateScrollView(with: pages)
         customPageControl.numberOfPages = pages.count
     }

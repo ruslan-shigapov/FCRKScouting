@@ -1,18 +1,16 @@
 //
-//  PrimaryLabel.swift
+//  DefaultLabel.swift
 //  FCRKScouting
 //
-//  Created by Ruslan Shigapov on 19.04.2024.
+//  Created by Ruslan Shigapov on 28.05.2024.
 //
 
 import UIKit
 
-final class PrimaryLabel: UILabel {
-
-    init(font: UIFont?, numberOfLines: Int = 1, text: String? = nil) {
+final class DefaultLabel: UILabel {
+    
+    init(text: String? = nil) {
         super.init(frame: .zero)
-        self.font = font
-        self.numberOfLines = numberOfLines
         self.text = text
         setupUI()
     }
@@ -23,6 +21,7 @@ final class PrimaryLabel: UILabel {
     }
     
     private func setupUI() {
-        textColor = .white
+        textColor = .lightGray
+        font = Constants.Fonts.text
     }
 }

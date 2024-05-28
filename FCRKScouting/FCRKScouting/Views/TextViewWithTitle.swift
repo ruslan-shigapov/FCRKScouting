@@ -13,7 +13,7 @@ final class TextViewWithTitle: UIView {
     private let title: String
     
     // MARK: Views
-    private lazy var titleLabel = PrimaryLabel(
+    private lazy var titleLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: title)
 

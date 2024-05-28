@@ -9,40 +9,20 @@ import UIKit
 
 final class UserInfoView: UIView {
     
-    // MARK: Private Properties
-    private let post: String
-    private let access: String
-    
     // MARK: Views
-    private let postLabel = PrimaryLabel(
+    private let postLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.post)
-    
-    private let accessLabel = PrimaryLabel(
+    private let accessLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.access)
     
-    private lazy var postValueLabel: UILabel = {
-        let label = UILabel()
-        label.text = post
-        label.font = Constants.Fonts.text
-        label.textColor = .lightGray
-        return label
-    }()
-    
-    private lazy var accessValueLabel: UILabel = {
-        let label = UILabel()
-        label.text = access
-        label.font = Constants.Fonts.text
-        label.textColor = .lightGray
-        return label
-    }()
+    private let postValueLabel = DefaultLabel()
+    private let accessValueLabel = DefaultLabel()
 
     // MARK: Initialize
-    init(post: String, access: String) {
-        self.post = post
-        self.access = access
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupUI()
     }
     
@@ -56,6 +36,12 @@ final class UserInfoView: UIView {
         addSubviews(postLabel, accessLabel, postValueLabel, accessValueLabel)
         prepareForAutoLayout()
         setConstraints()
+    }
+    
+    // MARK: Public Methods
+    func configureWith(post: String, access: String) {
+        postValueLabel.text = post
+        accessValueLabel.text = access
     }
 }
 

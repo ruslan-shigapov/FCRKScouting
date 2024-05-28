@@ -15,7 +15,7 @@ final class LoginViewController: UIViewController {
     // MARK: Views
     private let logoImageView = UIImageView(image: Constants.Images.logo)
     
-    private let appNameLabel = PrimaryLabel(
+    private let appNameLabel = CustomLabel(
         font: Constants.Fonts.title,
         text: Constants.Text.appName)
 
@@ -80,7 +80,10 @@ final class LoginViewController: UIViewController {
         viewModel.logInBy(
             accessKey: accessKeyTextFieldView.getInputText()
         ) {
-            let formVC = ScreenFactory.getFormController(withAccessValue: $0)
+            let formVC = ScreenFactory.getFormControllerWith(
+                accessValue: $0,
+                delegate: nil)
+            formVC.modalPresentationStyle = .fullScreen
             present(formVC, animated: false)
         }
     }
