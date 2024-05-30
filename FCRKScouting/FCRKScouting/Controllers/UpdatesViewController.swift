@@ -12,6 +12,10 @@ final class UpdatesViewController: UIViewController {
     // MARK: Private Properties
     private var viewModel: UpdatesViewModelProtocol
     
+    private let collectionViewDelegate = UpdatesCollectionDelegate()
+    private lazy var collectionViewDataSource = UpdatesCollectionDataSource(
+        viewModel)
+    
     // MARK: Views
     private lazy var addPlayerButton: UIButton = {
         let button = CustomNavigationBarButton(
@@ -53,8 +57,8 @@ final class UpdatesViewController: UIViewController {
     
     private lazy var playersCollectionView: UICollectionView = {
         let collectionView = CustomCollectionView()
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        collectionView.delegate = collectionViewDelegate
+        collectionView.dataSource = collectionViewDataSource
         let elementKind = UICollectionView.elementKindSectionHeader
         collectionView.register(
             DateHeaderView.self,
@@ -136,82 +140,10 @@ final class UpdatesViewController: UIViewController {
     }
 }
 
-// MARK: - Collection View Data Source
-extension UpdatesViewController: UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        viewModel.getNumberOfSections()
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        viewModel.getNumberOfItemsIn(section)
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: String(describing: PlayerCell.self),
-            for: indexPath) as? PlayerCell
-        cell?.viewModel = viewModel.getPlayerCellViewModel(at: indexPath)
-        return cell ?? UICollectionViewCell()
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        viewForSupplementaryElementOfKind kind: String, 
-        at indexPath: IndexPath
-    ) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind,
-            withReuseIdentifier: String(describing: DateHeaderView.self),
-            for: indexPath) as? DateHeaderView
-        let sectionDate = viewModel.sortedDates[indexPath.section]
-        headerView?.configureWith(date: viewModel.formatDate(sectionDate))
-        return headerView ?? UICollectionReusableView()
-    }
-}
-
-// MARK: - Collection View Delegate Flow Layout
-extension UpdatesViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        referenceSizeForHeaderInSection section: Int
-    ) -> CGSize {
-        CGSize(width: collectionView.bounds.width, height: 30)
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        CGSize(width: collectionView.bounds.width - 32, height: 90)
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        insetForSectionAt section: Int
-    ) -> UIEdgeInsets {
-        if section == (collectionView.numberOfSections - 1) {
-            return UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
-        } else {
-            return UIEdgeInsets.zero
-        }
-    }
-}
-
 // MARK: - Layout
-extension UpdatesViewController {
+private extension UpdatesViewController {
     
-    private func setConstraints() {
+    func setConstraints() {
         NSLayoutConstraint.activate([
             segmentedControlBackgroundView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor),

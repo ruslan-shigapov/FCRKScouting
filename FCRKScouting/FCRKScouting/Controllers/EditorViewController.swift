@@ -13,6 +13,11 @@ final class EditorViewController: UIViewController {
     private var viewModel: EditorViewModelProtocol
     private var delegate: EditorViewControllerDelegate
     
+    private let textFieldDelegate = CommonTextFieldDelegate()
+    private lazy var pickerViewDelegate = EditorPickerViewDelegate(viewModel)
+    private lazy var pickerViewDataSource = EditorPickerViewDataSource(
+        viewModel)
+    
     // MARK: Views
     private let titleLabel = CustomLabel(
         font: Constants.Fonts.header,
@@ -71,7 +76,7 @@ final class EditorViewController: UIViewController {
         stackView.spacing = 24
         for (index, view) in stackView.subviews.enumerated() {
             if let textFieldView = view as? RoundedTextFieldView {
-                textFieldView.set(delegate: self)
+                textFieldView.set(delegate: textFieldDelegate)
                 textFieldView.set(tag: index)
             }
         }
@@ -126,8 +131,8 @@ final class EditorViewController: UIViewController {
         let pickerView = UIPickerView()
         pickerView.backgroundColor = .white
         pickerView.setCustomCornerRadius()
-        pickerView.dataSource = self
-        pickerView.delegate = self
+        pickerView.delegate = pickerViewDelegate
+        pickerView.dataSource = pickerViewDataSource
         return pickerView
     }()
     
@@ -260,6 +265,7 @@ final class EditorViewController: UIViewController {
     private func setupUI() {
         dividerView.backgroundColor = .lightGray
         view.backgroundColor = Constants.Colors.deepGreen
+        view.setupKeyboardDismissTap()
         view.addSubviews(
             titleLabel,
             closeButton,
@@ -269,7 +275,6 @@ final class EditorViewController: UIViewController {
         view.prepareForAutoLayout()
         setConstraints()
         setupAlerts()
-        addTapGesture()
     }
     
     private func setupAlerts() {
@@ -291,13 +296,6 @@ final class EditorViewController: UIViewController {
                 andMessage: Constants.Text.Alerts.notSelectedPosition.message)
             self?.present(alertController, animated: true)
         }
-    }
-    
-    private func addTapGesture() {
-        let tapGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(dismissKeyboard))
-        verticalScrollView.addGestureRecognizer(tapGesture)
     }
     
     @objc private func closeButtonTapped() {
@@ -322,7 +320,7 @@ final class EditorViewController: UIViewController {
             textFieldStackView.insertArrangedSubview(
                 patronymicTextFieldView,
                 at: 1)
-            patronymicTextFieldView.set(delegate: self)
+            patronymicTextFieldView.set(delegate: textFieldDelegate)
         } else {
             textFieldStackView.removeArrangedSubview(patronymicTextFieldView)
             patronymicTextFieldView.removeFromSuperview()
@@ -335,7 +333,7 @@ final class EditorViewController: UIViewController {
         sender.isSelected.toggle()
         if sender.isSelected {
             textFieldStackView.addArrangedSubview(nationalTeamTextFieldView)
-            nationalTeamTextFieldView.set(delegate: self)
+            nationalTeamTextFieldView.set(delegate: textFieldDelegate)
         } else {
             textFieldStackView.removeArrangedSubview(nationalTeamTextFieldView)
             nationalTeamTextFieldView.removeFromSuperview()
@@ -385,62 +383,12 @@ final class EditorViewController: UIViewController {
             }
         }
     }
-    
-    @objc private func dismissKeyboard() {
-        view.endEditing(true)
-    }
-}
-
-// MARK: - Text Field Delegate
-extension EditorViewController: UITextFieldDelegate {
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        view.endEditing(true)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.focusNextResponder()
-        return true
-    }
-}
-
-// MARK: - Picker View Data Source
-extension EditorViewController: UIPickerViewDataSource {
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        viewModel.getNumberOfComponentsInPicker()
-    }
-    
-    func pickerView(
-        _ pickerView: UIPickerView,
-        numberOfRowsInComponent component: Int
-    ) -> Int {
-        viewModel.getNumberOfRowsInPicker()
-    }
-}
-
-// MARK: - Picker View Delegate
-extension EditorViewController: UIPickerViewDelegate {
-    
-    func pickerView(
-        _ pickerView: UIPickerView,
-        viewForRow row: Int,
-        forComponent component: Int,
-        reusing view: UIView?
-    ) -> UIView {
-        let rowLabel = UILabel()
-        rowLabel.text = viewModel.getTitleFor(pickerRow: row)
-        rowLabel.font = Constants.Fonts.text
-        rowLabel.textAlignment = .center
-        return rowLabel
-    }
 }
 
 // MARK: - Layout
-extension EditorViewController {
+private extension EditorViewController {
     
-    private func setConstraints() {
+    func setConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,

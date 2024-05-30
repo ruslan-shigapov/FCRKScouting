@@ -83,7 +83,7 @@ enum Constants {
             static let no = "Нет"
             static let uploadPhoto = "Загрузить фото"
             static let career = "Движение по фут. вертикали"
-            static let athleticDetails = "Антропомерия/атлет. данные"
+            static let athleticDetails = "Антропометрия/атлет. данные"
             static let continueAdding = "Продолжить добавление"
             static let continueEditing = "Продолжить редактирование"
             static let cancel = "Отменить"

@@ -13,6 +13,8 @@ final class FormViewController: UIViewController {
     private var viewModel: FormViewModelProtocol
     private var delegate: FormViewControllerDelegate?
     
+    private let textFieldDelegate = CommonTextFieldDelegate()
+    
     // MARK: Views
     private let titleLabel = CustomLabel(
         font: Constants.Fonts.header,
@@ -32,7 +34,7 @@ final class FormViewController: UIViewController {
         stackView.spacing = 24
         for (index, view) in stackView.subviews.enumerated() {
             if let textFieldView = view as? RoundedTextFieldView {
-                textFieldView.set(delegate: self)
+                textFieldView.set(delegate: textFieldDelegate)
                 textFieldView.set(tag: index)
             }
         }
@@ -75,6 +77,7 @@ final class FormViewController: UIViewController {
         titleLabel.textAlignment = .center
         configureTextFields()
         view.backgroundColor = .accent
+        view.setupKeyboardDismissTap()
         view.addSubviews(titleLabel, textFieldStackView, saveButton)
         view.prepareForAutoLayout()
         setConstraints()
@@ -124,24 +127,10 @@ final class FormViewController: UIViewController {
     }
 }
 
-// MARK: - Text Field Delegate
-extension FormViewController: UITextFieldDelegate {
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        view.endEditing(true)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.focusNextResponder()
-        return true
-    }
-}
-
 // MARK: - Layout
-extension FormViewController {
+private extension FormViewController {
     
-    private func setConstraints() {
+    func setConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,

@@ -8,13 +8,16 @@
 import UIKit
 
 final class NormativeStackView: UIStackView {
-
-    private let label: UILabel
-    private let textField: UITextField
     
-    init(label: UILabel, textField: UITextField) {
-        self.label = label
-        self.textField = textField
+    private let title: String
+    private let textFieldView: UIView
+
+    private lazy var titleLabel = DefaultLabel(text: title)
+    private let spacerView = UIView()
+    
+    init(title: String, textFieldView: UIView) {
+        self.title = title
+        self.textFieldView = textFieldView
         super.init(frame: .zero)
         setupUI()
     }
@@ -25,7 +28,8 @@ final class NormativeStackView: UIStackView {
     }
     
     private func setupUI() {
-        addArrangedSubview(label)
-        addArrangedSubview(textField)
+        addArrangedSubview(titleLabel)
+        addArrangedSubview(spacerView)
+        addArrangedSubview(textFieldView)
     }
 }

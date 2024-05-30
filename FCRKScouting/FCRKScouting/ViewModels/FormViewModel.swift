@@ -28,7 +28,7 @@ final class FormViewModel: FormViewModelProtocol {
     var wereRequiredTextFieldsEmpty: (() -> Void)?
     var wasFullNameIncorrect: (() -> Void)?
     
-    required init(accessValue: Bool) {
+    init(accessValue: Bool) {
         self.accessValue = accessValue
     }
     

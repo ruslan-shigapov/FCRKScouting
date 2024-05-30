@@ -12,6 +12,8 @@ final class LoginViewController: UIViewController {
     // MARK: Private Properties
     private var viewModel: LoginViewModelProtocol
     
+    private let textFieldDelegate = LoginTextFieldDelegate()
+    
     // MARK: Views
     private let logoImageView = UIImageView(image: Constants.Images.logo)
     
@@ -49,13 +51,14 @@ final class LoginViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        accessKeyTextFieldView.set(delegate: self)
+        accessKeyTextFieldView.set(delegate: textFieldDelegate)
         setupUI()
     }
     
     // MARK: Private Methods
     private func setupUI() {
         view.backgroundColor = .accent
+        view.setupKeyboardDismissTap()
         view.addSubviews(
             logoImageView,
             appNameLabel,
@@ -89,19 +92,10 @@ final class LoginViewController: UIViewController {
     }
 }
 
-// MARK: - Text Field Delegate
-extension LoginViewController: UITextFieldDelegate {
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        view.endEditing(true)
-    }
-}
-
 // MARK: - Layout
-extension LoginViewController {
+private extension LoginViewController {
     
-    private func setConstraints() {
+    func setConstraints() {
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,

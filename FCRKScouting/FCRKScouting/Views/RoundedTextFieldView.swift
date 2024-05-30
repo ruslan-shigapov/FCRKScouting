@@ -10,7 +10,6 @@ import UIKit
 enum TextFieldType {
     case name
     case key
-    // TODO: add one more type for numbers?
 }
 
 final class RoundedTextFieldView: UIView {
@@ -108,8 +107,8 @@ final class RoundedTextFieldView: UIView {
     }
     
     // MARK: Public Methods
-    func set(delegate: UIViewController) {
-        customTextField.delegate = delegate as? UITextFieldDelegate
+    func set(delegate: UITextFieldDelegate) {
+        customTextField.delegate = delegate
     }
     
     func set(tag: Int) {

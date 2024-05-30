@@ -8,6 +8,10 @@
 import UIKit
 
 extension UIView {
+    
+    @objc private func dismissKeyboard() {
+        endEditing(true)
+    }
         
     func setCustomCornerRadius() {
         layer.cornerRadius = 12
@@ -32,6 +36,13 @@ extension UIView {
         subviews.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+    }
+    
+    func setupKeyboardDismissTap() {
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard))
+        addGestureRecognizer(tapGesture)
     }
     
     func setCustomGradientLayer() {

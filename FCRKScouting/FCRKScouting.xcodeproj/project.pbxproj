@@ -16,10 +16,18 @@
 		E414C35B2C00A5340068077E /* UITextField+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414C35A2C00A5340068077E /* UITextField+extension.swift */; };
 		E414C35D2C00C2230068077E /* AthleticDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414C35C2C00C2230068077E /* AthleticDetailsViewController.swift */; };
 		E414C35F2C00C3D00068077E /* TransferDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414C35E2C00C3D00068077E /* TransferDetailsViewController.swift */; };
+		E41C7C1A2C071ABF002755E5 /* DecimalTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41C7C192C071ABF002755E5 /* DecimalTextFieldView.swift */; };
 		E41FEF202C05FAFC0083F9DB /* DefaultLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41FEF1F2C05FAFC0083F9DB /* DefaultLabel.swift */; };
 		E41FEF222C05FC450083F9DB /* NormativeStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41FEF212C05FC450083F9DB /* NormativeStackView.swift */; };
 		E44855AC2BC3D01300E5FCD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */; };
 		E44855B82BC3D01400E5FCD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E44855B72BC3D01400E5FCD8 /* Assets.xcassets */; };
+		E46194B32C08761600AC4FFC /* CommonTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194B22C08761600AC4FFC /* CommonTextFieldDelegate.swift */; };
+		E46194B52C08858900AC4FFC /* LoginTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194B42C08858900AC4FFC /* LoginTextFieldDelegate.swift */; };
+		E46194B72C08864700AC4FFC /* UpdatesCollectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194B62C08864700AC4FFC /* UpdatesCollectionDelegate.swift */; };
+		E46194B92C08866E00AC4FFC /* UpdatesCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194B82C08866E00AC4FFC /* UpdatesCollectionDataSource.swift */; };
+		E46194BB2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194BA2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift */; };
+		E46194BD2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194BC2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift */; };
+		E46194BF2C08908F00AC4FFC /* AthleticDetailsTFDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194BE2C08908F00AC4FFC /* AthleticDetailsTFDelegate.swift */; };
 		E46AC8AF2BF773C600A3C801 /* CustomNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46AC8AE2BF773C600A3C801 /* CustomNavigationButton.swift */; };
 		E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */; };
 		E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471B2082BFB4543003C0DCD /* FormViewController.swift */; };
@@ -70,12 +78,20 @@
 		E414C35A2C00A5340068077E /* UITextField+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+extension.swift"; sourceTree = "<group>"; };
 		E414C35C2C00C2230068077E /* AthleticDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleticDetailsViewController.swift; sourceTree = "<group>"; };
 		E414C35E2C00C3D00068077E /* TransferDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewController.swift; sourceTree = "<group>"; };
+		E41C7C192C071ABF002755E5 /* DecimalTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalTextFieldView.swift; sourceTree = "<group>"; };
 		E41FEF1F2C05FAFC0083F9DB /* DefaultLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLabel.swift; sourceTree = "<group>"; };
 		E41FEF212C05FC450083F9DB /* NormativeStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormativeStackView.swift; sourceTree = "<group>"; };
 		E44855A82BC3D01300E5FCD8 /* FCRKScouting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FCRKScouting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E44855B72BC3D01400E5FCD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E44855BC2BC3D01400E5FCD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E46194B22C08761600AC4FFC /* CommonTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTextFieldDelegate.swift; sourceTree = "<group>"; };
+		E46194B42C08858900AC4FFC /* LoginTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextFieldDelegate.swift; sourceTree = "<group>"; };
+		E46194B62C08864700AC4FFC /* UpdatesCollectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesCollectionDelegate.swift; sourceTree = "<group>"; };
+		E46194B82C08866E00AC4FFC /* UpdatesCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesCollectionDataSource.swift; sourceTree = "<group>"; };
+		E46194BA2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPickerViewDelegate.swift; sourceTree = "<group>"; };
+		E46194BC2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPickerViewDataSource.swift; sourceTree = "<group>"; };
+		E46194BE2C08908F00AC4FFC /* AthleticDetailsTFDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleticDetailsTFDelegate.swift; sourceTree = "<group>"; };
 		E46AC8AE2BF773C600A3C801 /* CustomNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationButton.swift; sourceTree = "<group>"; };
 		E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
 		E471B2082BFB4543003C0DCD /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +194,27 @@
 			path = FCRKScouting;
 			sourceTree = "<group>";
 		};
+		E46194B12C0875CD00AC4FFC /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				E46194B22C08761600AC4FFC /* CommonTextFieldDelegate.swift */,
+				E46194B42C08858900AC4FFC /* LoginTextFieldDelegate.swift */,
+				E46194B62C08864700AC4FFC /* UpdatesCollectionDelegate.swift */,
+				E46194BA2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift */,
+				E46194BE2C08908F00AC4FFC /* AthleticDetailsTFDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		E46194C02C08918700AC4FFC /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				E46194B82C08866E00AC4FFC /* UpdatesCollectionDataSource.swift */,
+				E46194BC2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift */,
+			);
+			path = DataSources;
+			sourceTree = "<group>";
+		};
 		E48159E02BCE5FEB0090FC42 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +309,8 @@
 		E4BB48632BC3D53700F91513 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E46194B12C0875CD00AC4FFC /* Delegates */,
+				E46194C02C08918700AC4FFC /* DataSources */,
 				E4BB48612BC3D53700F91513 /* LoginViewController.swift */,
 				E471B2082BFB4543003C0DCD /* FormViewController.swift */,
 				E4BB48712BC3D53E00F91513 /* MainTabBarController.swift */,
@@ -297,6 +336,7 @@
 				E4F4CE4B2BC95122009F9A8D /* DateHeaderView.swift */,
 				E4BB487E2BC3D54600F91513 /* PhotoImageView.swift */,
 				E4C0DE162BC6A3C400BCD235 /* TextViewWithTitle.swift */,
+				E41C7C192C071ABF002755E5 /* DecimalTextFieldView.swift */,
 				E41FEF212C05FC450083F9DB /* NormativeStackView.swift */,
 				E40C7FEB2BFF2F5D0043DC3E /* PageSliderView.swift */,
 				E4BFCA9A2BF94C1200C4FDD2 /* TipStackView.swift */,
@@ -403,9 +443,13 @@
 				E486D13D2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift in Sources */,
 				E404BEA92BE9087C0078961C /* PlayerCellViewModel.swift in Sources */,
 				E414C3592C0091390068077E /* ShowDetailsButton.swift in Sources */,
+				E46194B72C08864700AC4FFC /* UpdatesCollectionDelegate.swift in Sources */,
 				E414C35F2C00C3D00068077E /* TransferDetailsViewController.swift in Sources */,
+				E46194B52C08858900AC4FFC /* LoginTextFieldDelegate.swift in Sources */,
 				E4BB48762BC3D53E00F91513 /* SearchViewController.swift in Sources */,
+				E46194BB2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift in Sources */,
 				E412BCFF2BC7D48600A9BCF6 /* UIView+extension.swift in Sources */,
+				E46194BD2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift in Sources */,
 				E414C35D2C00C2230068077E /* AthleticDetailsViewController.swift in Sources */,
 				E4BB48732BC3D53E00F91513 /* ProfileViewController.swift in Sources */,
 				E4F4CE462BC92E0B009F9A8D /* CustomCollectionView.swift in Sources */,
@@ -416,6 +460,7 @@
 				E40C7FEC2BFF2F5D0043DC3E /* PageSliderView.swift in Sources */,
 				E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */,
 				E4C0DE172BC6A3C400BCD235 /* TextViewWithTitle.swift in Sources */,
+				E46194BF2C08908F00AC4FFC /* AthleticDetailsTFDelegate.swift in Sources */,
 				E41FEF202C05FAFC0083F9DB /* DefaultLabel.swift in Sources */,
 				E4BB48862BC3D54600F91513 /* PhotoImageView.swift in Sources */,
 				E4BB48602BC3D51200F91513 /* ScreenFactory.swift in Sources */,
@@ -429,9 +474,12 @@
 				E4BB48872BC3D54600F91513 /* PrimaryButton.swift in Sources */,
 				E4BB484E2BC3D26A00F91513 /* Constants.swift in Sources */,
 				E412BCFD2BC7D2BE00A9BCF6 /* TextFieldValidationProtocol.swift in Sources */,
+				E46194B92C08866E00AC4FFC /* UpdatesCollectionDataSource.swift in Sources */,
 				E4BFCA9B2BF94C1200C4FDD2 /* TipStackView.swift in Sources */,
 				E414C35B2C00A5340068077E /* UITextField+extension.swift in Sources */,
 				E404BEA42BE904500078961C /* UserViewModelProtocol.swift in Sources */,
+				E41C7C1A2C071ABF002755E5 /* DecimalTextFieldView.swift in Sources */,
+				E46194B32C08761600AC4FFC /* CommonTextFieldDelegate.swift in Sources */,
 				E4BB48792BC3D53E00F91513 /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

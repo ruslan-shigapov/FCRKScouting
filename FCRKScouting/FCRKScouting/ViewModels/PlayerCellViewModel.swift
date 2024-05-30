@@ -35,7 +35,7 @@ final class PlayerCellViewModel: PlayerCellViewModelProtocol {
         format(position: player.position) ?? ""
     }
     
-    required init(player: Player) {
+    init(player: Player) {
         self.player = player
     }
     
