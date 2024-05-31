@@ -8,11 +8,10 @@
 import UIKit
 
 enum TextFieldType {
-    case name
-    case key
+    case name, key
 }
 
-final class RoundedTextFieldView: UIView {
+final class RoundedTextFieldView: UIView, UITextFieldDelegate {
     
     // MARK: Private Properties
     private let _placeholder: String
@@ -26,6 +25,7 @@ final class RoundedTextFieldView: UIView {
         textField.autocorrectionType = .no
         textField.spellCheckingType = .no
         textField.autocapitalizationType = .words
+        textField.delegate = self
         if textFieldType == .key {
             textField.keyboardType = .numberPad
             textField.isSecureTextEntry = true
@@ -107,8 +107,9 @@ final class RoundedTextFieldView: UIView {
     }
     
     // MARK: Public Methods
-    func set(delegate: UITextFieldDelegate) {
-        customTextField.delegate = delegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.focusNextResponder()
+        return true
     }
     
     func set(tag: Int) {

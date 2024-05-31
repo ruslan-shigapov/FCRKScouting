@@ -51,7 +51,6 @@ final class LoginViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        accessKeyTextFieldView.set(delegate: textFieldDelegate)
         setupUI()
     }
     
@@ -72,10 +71,11 @@ final class LoginViewController: UIViewController {
     
     private func setupAlerts() {
         viewModel.wasAccessKeyWrong = { [weak self] in
+            guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.wrongAccessKey.title,
                 andMessage: Constants.Text.Alerts.wrongAccessKey.message)
-            self?.present(alertController, animated: true)
+            self.present(alertController, animated: true)
         }
     }
     

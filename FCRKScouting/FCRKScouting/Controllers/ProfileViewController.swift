@@ -115,7 +115,6 @@ final class ProfileViewController: UIViewController {
     
     private func handleUserChanges() {
         viewModel.userWasUpdated = { [weak self] in
-            // TODO: do with "self" the same everywhere 
             guard let self else { return }
             fullNameLabel.text = viewModel.fullName
             userInfoView.configureWith(
@@ -141,7 +140,8 @@ final class ProfileViewController: UIViewController {
     
     @objc private func logOutButtonTapped() {
         let exitAlert = AlertFactory.getExitAlert { [weak self] in
-            self?.viewModel.logOut()
+            guard let self else { return }
+            self.viewModel.logOut()
         }
         present(exitAlert, animated: true)
     }

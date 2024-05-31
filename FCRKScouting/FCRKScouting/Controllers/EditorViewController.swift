@@ -13,7 +13,6 @@ final class EditorViewController: UIViewController {
     private var viewModel: EditorViewModelProtocol
     private var delegate: EditorViewControllerDelegate
     
-    private let textFieldDelegate = CommonTextFieldDelegate()
     private lazy var pickerViewDelegate = EditorPickerViewDelegate(viewModel)
     private lazy var pickerViewDataSource = EditorPickerViewDataSource(
         viewModel)
@@ -76,7 +75,6 @@ final class EditorViewController: UIViewController {
         stackView.spacing = 24
         for (index, view) in stackView.subviews.enumerated() {
             if let textFieldView = view as? RoundedTextFieldView {
-                textFieldView.set(delegate: textFieldDelegate)
                 textFieldView.set(tag: index)
             }
         }
@@ -279,22 +277,25 @@ final class EditorViewController: UIViewController {
     
     private func setupAlerts() {
         viewModel.wereRequiredTextFieldsEmpty = { [weak self] in
+            guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.emptyTextFields.title,
                 andMessage: Constants.Text.Alerts.emptyTextFields.message)
-            self?.present(alertController, animated: true)
+            self.present(alertController, animated: true)
         }
         viewModel.wasFullNameIncorrect = { [weak self] in
+            guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.incorrectFullName.title,
                 andMessage: Constants.Text.Alerts.incorrectFullName.message)
-            self?.present(alertController, animated: true)
+            self.present(alertController, animated: true)
         }
         viewModel.wasPositionNotSelected = { [weak self] in
+            guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.notSelectedPosition.title,
                 andMessage: Constants.Text.Alerts.notSelectedPosition.message)
-            self?.present(alertController, animated: true)
+            self.present(alertController, animated: true)
         }
     }
     
@@ -303,7 +304,8 @@ final class EditorViewController: UIViewController {
             withTitle: Constants.Text.ActionSheets.cancelAdding,
             andButtonTitle: Constants.Text.ButtonTitles.continueAdding
         ) { [weak self] in
-            self?.dismiss(animated: true)
+            guard let self else { return }
+            self.dismiss(animated: true)
         }
         present(cancelAlert, animated: true)
     }
@@ -320,7 +322,6 @@ final class EditorViewController: UIViewController {
             textFieldStackView.insertArrangedSubview(
                 patronymicTextFieldView,
                 at: 1)
-            patronymicTextFieldView.set(delegate: textFieldDelegate)
         } else {
             textFieldStackView.removeArrangedSubview(patronymicTextFieldView)
             patronymicTextFieldView.removeFromSuperview()
@@ -333,7 +334,6 @@ final class EditorViewController: UIViewController {
         sender.isSelected.toggle()
         if sender.isSelected {
             textFieldStackView.addArrangedSubview(nationalTeamTextFieldView)
-            nationalTeamTextFieldView.set(delegate: textFieldDelegate)
         } else {
             textFieldStackView.removeArrangedSubview(nationalTeamTextFieldView)
             nationalTeamTextFieldView.removeFromSuperview()
@@ -377,8 +377,9 @@ final class EditorViewController: UIViewController {
                 qualities: qualitiesTextViewWithTitle.getInputText(),
                 mental: mentalTextViewWithTitle.getInputText()
             ) { [weak self] in
-                self?.dismiss(animated: true) { [weak self] in
-                    self?.delegate.playerWasAdded?()
+                guard let self else { return }
+                self.dismiss(animated: true) {
+                    self.delegate.playerWasAdded?()
                 }
             }
         }

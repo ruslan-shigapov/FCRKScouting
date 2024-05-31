@@ -9,9 +9,6 @@ import UIKit
 
 final class AthleticDetailsViewController: UIViewController {
     
-    // MARK: Private Properties
-    private let textFieldDelegate = AthleticDetailsTFDelegate()
-    
     // MARK: Views
     private let titleLabel = CustomLabel(
         font: Constants.Fonts.header,
@@ -28,29 +25,32 @@ final class AthleticDetailsViewController: UIViewController {
         font: Constants.Fonts.normal,
         text: "Нормативы:")
     
-    private let heightTextFieldView = DecimalTextFieldView(unitTitle: "м")
-    private let weightTextFieldView = DecimalTextFieldView(unitTitle: "кг")
+    private let heightTextFieldView = DecimalTextFieldView(
+        textFieldType: .meters,
+        unitTitle: "м")
+    private let weightTextFieldView = DecimalTextFieldView(
+        textFieldType: .weight,
+        unitTitle: "кг")
     
     private lazy var runningTextFieldStackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [
-                DecimalTextFieldView(unitTitle: ""),
-                DecimalTextFieldView(unitTitle: ""),
-                DecimalTextFieldView(unitTitle: "сек"),
+                DecimalTextFieldView(textFieldType: .time, unitTitle: ""),
+                DecimalTextFieldView(textFieldType: .time,unitTitle: ""),
+                DecimalTextFieldView(textFieldType: .time, unitTitle: "сек")
             ])
-        stackView.subviews.forEach {
-            if let textFieldView = $0 as? DecimalTextFieldView {
-                textFieldView.set(delegate: textFieldDelegate)
-            }
-        }
         return stackView
     }()
     
-    private let longJumpTextFieldView = DecimalTextFieldView(unitTitle: "м")
-    private let highJumpTextFieldView = DecimalTextFieldView(unitTitle: "м")
+    private let longJumpTextFieldView = DecimalTextFieldView(
+        textFieldType: .meters,
+        unitTitle: "м")
+    private let highJumpTextFieldView = DecimalTextFieldView(
+        textFieldType: .meters,
+        unitTitle: "м")
     
     private lazy var runningStackView = NormativeStackView(
-        title: "Бег на 5/15/30 м",
+        title: "Бег на 5/15/30м",
         textFieldView: runningTextFieldStackView)
     private lazy var longJumpStackView = NormativeStackView(
         title: "Прыжок с места",
@@ -68,7 +68,6 @@ final class AthleticDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setDelegates()
     }
     
     // MARK: Private Methods
@@ -91,13 +90,6 @@ final class AthleticDetailsViewController: UIViewController {
             saveButton)
         view.prepareForAutoLayout()
         setConstraints()
-    }
-    
-    private func setDelegates() {
-        heightTextFieldView.set(delegate: textFieldDelegate)
-        weightTextFieldView.set(delegate: textFieldDelegate)
-        longJumpTextFieldView.set(delegate: textFieldDelegate)
-        highJumpTextFieldView.set(delegate: textFieldDelegate)
     }
 }
 
@@ -182,7 +174,7 @@ private extension AthleticDetailsViewController {
             
             saveButton.topAnchor.constraint(
                 equalTo: descriptionLabel.bottomAnchor,
-                constant: 32),
+                constant: 24),
             saveButton.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 16),

@@ -61,7 +61,7 @@ final class SearchViewController: UIViewController {
             UIBarButtonItem(customView: featuresButton)
         ]
         
-        // TODO: добавить green статус фильтрам
+        // TODO: добавить green статус фильтрам или возможно менять кнопки тоже
     }
     
     @objc private func changeFiltersButtonTapped() {

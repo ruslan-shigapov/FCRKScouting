@@ -21,13 +21,11 @@
 		E41FEF222C05FC450083F9DB /* NormativeStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41FEF212C05FC450083F9DB /* NormativeStackView.swift */; };
 		E44855AC2BC3D01300E5FCD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */; };
 		E44855B82BC3D01400E5FCD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E44855B72BC3D01400E5FCD8 /* Assets.xcassets */; };
-		E46194B32C08761600AC4FFC /* CommonTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194B22C08761600AC4FFC /* CommonTextFieldDelegate.swift */; };
 		E46194B52C08858900AC4FFC /* LoginTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194B42C08858900AC4FFC /* LoginTextFieldDelegate.swift */; };
 		E46194B72C08864700AC4FFC /* UpdatesCollectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194B62C08864700AC4FFC /* UpdatesCollectionDelegate.swift */; };
 		E46194B92C08866E00AC4FFC /* UpdatesCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194B82C08866E00AC4FFC /* UpdatesCollectionDataSource.swift */; };
 		E46194BB2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194BA2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift */; };
 		E46194BD2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194BC2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift */; };
-		E46194BF2C08908F00AC4FFC /* AthleticDetailsTFDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194BE2C08908F00AC4FFC /* AthleticDetailsTFDelegate.swift */; };
 		E46AC8AF2BF773C600A3C801 /* CustomNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46AC8AE2BF773C600A3C801 /* CustomNavigationButton.swift */; };
 		E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */; };
 		E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471B2082BFB4543003C0DCD /* FormViewController.swift */; };
@@ -85,13 +83,11 @@
 		E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E44855B72BC3D01400E5FCD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E44855BC2BC3D01400E5FCD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E46194B22C08761600AC4FFC /* CommonTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTextFieldDelegate.swift; sourceTree = "<group>"; };
 		E46194B42C08858900AC4FFC /* LoginTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextFieldDelegate.swift; sourceTree = "<group>"; };
 		E46194B62C08864700AC4FFC /* UpdatesCollectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesCollectionDelegate.swift; sourceTree = "<group>"; };
 		E46194B82C08866E00AC4FFC /* UpdatesCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesCollectionDataSource.swift; sourceTree = "<group>"; };
 		E46194BA2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPickerViewDelegate.swift; sourceTree = "<group>"; };
 		E46194BC2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPickerViewDataSource.swift; sourceTree = "<group>"; };
-		E46194BE2C08908F00AC4FFC /* AthleticDetailsTFDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleticDetailsTFDelegate.swift; sourceTree = "<group>"; };
 		E46AC8AE2BF773C600A3C801 /* CustomNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationButton.swift; sourceTree = "<group>"; };
 		E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
 		E471B2082BFB4543003C0DCD /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
@@ -197,11 +193,9 @@
 		E46194B12C0875CD00AC4FFC /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				E46194B22C08761600AC4FFC /* CommonTextFieldDelegate.swift */,
 				E46194B42C08858900AC4FFC /* LoginTextFieldDelegate.swift */,
 				E46194B62C08864700AC4FFC /* UpdatesCollectionDelegate.swift */,
 				E46194BA2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift */,
-				E46194BE2C08908F00AC4FFC /* AthleticDetailsTFDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -460,7 +454,6 @@
 				E40C7FEC2BFF2F5D0043DC3E /* PageSliderView.swift in Sources */,
 				E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */,
 				E4C0DE172BC6A3C400BCD235 /* TextViewWithTitle.swift in Sources */,
-				E46194BF2C08908F00AC4FFC /* AthleticDetailsTFDelegate.swift in Sources */,
 				E41FEF202C05FAFC0083F9DB /* DefaultLabel.swift in Sources */,
 				E4BB48862BC3D54600F91513 /* PhotoImageView.swift in Sources */,
 				E4BB48602BC3D51200F91513 /* ScreenFactory.swift in Sources */,
@@ -479,7 +472,6 @@
 				E414C35B2C00A5340068077E /* UITextField+extension.swift in Sources */,
 				E404BEA42BE904500078961C /* UserViewModelProtocol.swift in Sources */,
 				E41C7C1A2C071ABF002755E5 /* DecimalTextFieldView.swift in Sources */,
-				E46194B32C08761600AC4FFC /* CommonTextFieldDelegate.swift in Sources */,
 				E4BB48792BC3D53E00F91513 /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -109,8 +109,9 @@ final class UpdatesViewController: UIViewController {
     
     private func handlePlayerAddition() {
         viewModel.playerWasAdded = { [weak self] in
-            self?.viewModel.refreshPlayersList {
-                self?.updateCollectionView()
+            guard let self else { return }
+            self.viewModel.refreshPlayersList {
+                self.updateCollectionView()
             }
         }
     }

@@ -12,9 +12,7 @@ final class FormViewController: UIViewController {
     // MARK: Private Properties
     private var viewModel: FormViewModelProtocol
     private var delegate: FormViewControllerDelegate?
-    
-    private let textFieldDelegate = CommonTextFieldDelegate()
-    
+        
     // MARK: Views
     private let titleLabel = CustomLabel(
         font: Constants.Fonts.header,
@@ -34,7 +32,6 @@ final class FormViewController: UIViewController {
         stackView.spacing = 24
         for (index, view) in stackView.subviews.enumerated() {
             if let textFieldView = view as? RoundedTextFieldView {
-                textFieldView.set(delegate: textFieldDelegate)
                 textFieldView.set(tag: index)
             }
         }
@@ -91,16 +88,18 @@ final class FormViewController: UIViewController {
  
     private func setupAlerts() {
         viewModel.wereRequiredTextFieldsEmpty = { [weak self] in
+            guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.emptyTextFields.title,
                 andMessage: Constants.Text.Alerts.emptyTextFields.message)
-            self?.present(alertController, animated: true)
+            self.present(alertController, animated: true)
         }
         viewModel.wasFullNameIncorrect = { [weak self] in
+            guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.incorrectFullName.title,
                 andMessage: Constants.Text.Alerts.incorrectFullName.message)
-            self?.present(alertController, animated: true)
+            self.present(alertController, animated: true)
         }
     }
     
@@ -114,7 +113,8 @@ final class FormViewController: UIViewController {
             ) {
                 $0 
                 ? dismiss(animated: true) { [weak self] in
-                    self?.delegate?.userWasUpdated?()
+                    guard let self else { return }
+                    self.delegate?.userWasUpdated?()
                 } 
                 : showMainTabBarController()
             }
