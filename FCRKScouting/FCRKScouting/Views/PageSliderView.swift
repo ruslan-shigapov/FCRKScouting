@@ -18,7 +18,7 @@ final class PageSliderView: UIView {
         return scrollView
     }()
     
-    private let customPageControl: UIPageControl = {
+    private let enabledPageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.isEnabled = false
@@ -30,7 +30,7 @@ final class PageSliderView: UIView {
     private lazy var pageControlBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
-        view.addSubview(customPageControl)
+        view.addSubview(enabledPageControl)
         view.layer.cornerRadius = 5
         return view
     }()
@@ -75,7 +75,7 @@ final class PageSliderView: UIView {
     // MARK: Public Methods
     func configureWith(pages: [UIView]) {
         generateScrollView(with: pages)
-        customPageControl.numberOfPages = pages.count
+        enabledPageControl.numberOfPages = pages.count
     }
 }
 
@@ -85,7 +85,7 @@ extension PageSliderView: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentPage = round(
             scrollView.contentOffset.x / scrollView.frame.size.width)
-        customPageControl.currentPage = Int(currentPage)
+        enabledPageControl.currentPage = Int(currentPage)
     }
 }
 
@@ -115,16 +115,16 @@ private extension PageSliderView {
             patchView.bottomAnchor.constraint(
                 equalTo: pageControlBackgroundView.bottomAnchor),
             
-            customPageControl.topAnchor.constraint(
+            enabledPageControl.topAnchor.constraint(
                 equalTo: pageControlBackgroundView.topAnchor,
                 constant: -4),
-            customPageControl.leadingAnchor.constraint(
+            enabledPageControl.leadingAnchor.constraint(
                 equalTo: pageControlBackgroundView.leadingAnchor,
                 constant: -25),
-            customPageControl.bottomAnchor.constraint(
+            enabledPageControl.bottomAnchor.constraint(
                 equalTo: pageControlBackgroundView.bottomAnchor,
                 constant: 4),
-            customPageControl.trailingAnchor.constraint(
+            enabledPageControl.trailingAnchor.constraint(
                 equalTo: pageControlBackgroundView.trailingAnchor,
                 constant: 25)
         ])

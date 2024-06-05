@@ -16,11 +16,12 @@ final class PrimaryButton: UIButton {
                 delay: 0,
                 usingSpringWithDamping: 1,
                 initialSpringVelocity: 1,
-                options: [.beginFromCurrentState, .allowUserInteraction]) {
-                    self.transform = self.isHighlighted
-                    ? .init(scaleX: 0.94, y: 0.94)
-                    : .identity
-                }
+                options: [.beginFromCurrentState, .allowUserInteraction]
+            ) {
+                self.transform = self.isHighlighted
+                ? .init(scaleX: 0.94, y: 0.94)
+                : .identity
+            }
         }
     }
     

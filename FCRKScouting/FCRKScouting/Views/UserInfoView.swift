@@ -10,15 +10,15 @@ import UIKit
 final class UserInfoView: UIView {
     
     // MARK: Views
-    private let postLabel = CustomLabel(
+    private let postLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.post)
-    private let accessLabel = CustomLabel(
+    private let accessLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.access)
     
-    private let postValueLabel = DefaultLabel()
-    private let accessValueLabel = DefaultLabel()
+    private let postValueLabel = DefaultGrayLabel()
+    private let accessValueLabel = DefaultGrayLabel()
 
     // MARK: Initialize
     override init(frame: CGRect) {

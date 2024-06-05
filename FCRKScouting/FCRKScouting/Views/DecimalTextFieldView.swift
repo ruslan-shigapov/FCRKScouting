@@ -43,7 +43,7 @@ final class DecimalTextFieldView: UIView {
         return textField
     }()
     
-    private lazy var unitLabel = DefaultLabel(text: unitTitle)
+    private lazy var unitLabel = DefaultGrayLabel(text: unitTitle)
     
     // MARK: Initialize
     init(textFieldType: DecimalTextFieldType, unitTitle: String) {
@@ -75,13 +75,11 @@ final class DecimalTextFieldView: UIView {
     
     // MARK: Public Methods
     func set(text: String?) {
-        guard let text else { return }
         roundedTextField.text = text
     }
     
-    func getInputText() -> String {
-        guard let text = roundedTextField.text else { return "" }
-        return text
+    func getInputText() -> String? {
+        roundedTextField.text
     }
 }
 

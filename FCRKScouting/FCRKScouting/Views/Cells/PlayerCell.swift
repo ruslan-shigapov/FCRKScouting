@@ -12,11 +12,11 @@ final class PlayerCell: UICollectionViewCell {
     // MARK: Views
     private let photoImageView = PhotoImageView()
     
-    private let fullNameLabel = CustomLabel(
+    private let fullNameLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
         numberOfLines: 2)
-    private let ageLabel = CustomLabel(font: Constants.Fonts.normal)
-    private let positionLabel = CustomLabel(font: Constants.Fonts.normal)
+    private let ageLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
+    private let positionLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
     
     private lazy var infoStackView: UIStackView = {
         let stackView = UIStackView(

@@ -7,7 +7,12 @@
 
 import Foundation
 
-protocol EditorViewModelProtocol: TextFieldValidationProtocol {
+protocol AthleticDetailsViewControllerDelegate {
+    var athleticDetails: [String?] { get set }
+}
+
+protocol EditorViewModelProtocol: TextFieldValidationProtocol,     
+                                  AthleticDetailsViewControllerDelegate {
     var wasPositionNotSelected: (() -> Void)? { get set }
     func savePlayer(
         byFullName fullName: String,
@@ -30,7 +35,9 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol {
 }
 
 final class EditorViewModel: EditorViewModelProtocol {
-
+    
+    var athleticDetails: [String?] = []
+    
     var wereRequiredTextFieldsEmpty: (() -> Void)?
     var wasFullNameIncorrect: (() -> Void)?
     var wasPositionNotSelected: (() -> Void)?

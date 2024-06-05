@@ -1,5 +1,5 @@
 //
-//  RoundedTextFieldView.swift
+//  PrimaryTextFieldView.swift
 //  RubinScoutingApp
 //
 //  Created by Ruslan Shigapov on 05.03.2024.
@@ -11,7 +11,7 @@ enum TextFieldType {
     case name, key
 }
 
-final class RoundedTextFieldView: UIView, UITextFieldDelegate {
+final class PrimaryTextFieldView: UIView, UITextFieldDelegate {
     
     // MARK: Private Properties
     private let _placeholder: String
@@ -117,7 +117,6 @@ final class RoundedTextFieldView: UIView, UITextFieldDelegate {
     }
     
     func set(text: String?) {
-        guard let text else { return }
         customTextField.text = text
     }
     
@@ -128,7 +127,7 @@ final class RoundedTextFieldView: UIView, UITextFieldDelegate {
 }
 
 // MARK: - Layout
-private extension RoundedTextFieldView {
+private extension PrimaryTextFieldView {
     
     func setConstraints() {
         NSLayoutConstraint.activate([

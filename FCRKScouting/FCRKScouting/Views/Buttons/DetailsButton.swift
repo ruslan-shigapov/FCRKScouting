@@ -1,5 +1,5 @@
 //
-//  ShowDetailsButton.swift
+//  DetailsButton.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 24.05.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ShowDetailsButton: UIButton {
+final class DetailsButton: UIButton {
 
     init(title: String) {
         super.init(frame: .zero)

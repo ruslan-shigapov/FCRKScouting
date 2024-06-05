@@ -18,7 +18,7 @@ final class EditorViewController: UIViewController {
         viewModel)
     
     // MARK: Views
-    private let titleLabel = CustomLabel(
+    private let titleLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
         text: Constants.Text.ScreenTitles.addPlayer)
     
@@ -48,19 +48,19 @@ final class EditorViewController: UIViewController {
         return button
     }()
     
-    private let fullNameTextFieldView = RoundedTextFieldView(
+    private let fullNameTextFieldView = PrimaryTextFieldView(
         placeholder: Constants.Text.Placeholders.fullName,
         type: .name)
-    private let patronymicTextFieldView = RoundedTextFieldView(
+    private let patronymicTextFieldView = PrimaryTextFieldView(
         placeholder: Constants.Text.Placeholders.patronymic,
         type: .name)
-    private let citizenshipTextFieldView = RoundedTextFieldView(
+    private let citizenshipTextFieldView = PrimaryTextFieldView(
         placeholder: Constants.Text.Placeholders.citizenship,
         type: .name)
-    private let clubTextFieldView = RoundedTextFieldView(
+    private let clubTextFieldView = PrimaryTextFieldView(
         placeholder: Constants.Text.Placeholders.club,
         type: .name)
-    private let nationalTeamTextFieldView = RoundedTextFieldView(
+    private let nationalTeamTextFieldView = PrimaryTextFieldView(
         placeholder: Constants.Text.Placeholders.nationalTeam,
         type: .name)
     
@@ -74,7 +74,7 @@ final class EditorViewController: UIViewController {
         stackView.axis = .vertical
         stackView.spacing = 24
         for (index, view) in stackView.subviews.enumerated() {
-            if let textFieldView = view as? RoundedTextFieldView {
+            if let textFieldView = view as? PrimaryTextFieldView {
                 textFieldView.set(tag: index)
             }
         }
@@ -99,7 +99,7 @@ final class EditorViewController: UIViewController {
         return button
     }()
     
-    private let birthDateLabel = CustomLabel(
+    private let birthDateLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
         numberOfLines: 2,
         text: Constants.Text.birthDate)
@@ -121,7 +121,7 @@ final class EditorViewController: UIViewController {
         return view
     }()
     
-    private let positionLabel = CustomLabel(
+    private let positionLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.position)
     
@@ -134,7 +134,7 @@ final class EditorViewController: UIViewController {
         return pickerView
     }()
     
-    private let footLabel = CustomLabel(
+    private let footLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.foot)
     
@@ -142,7 +142,7 @@ final class EditorViewController: UIViewController {
         items: Constants.Text.SegmentedControlItems.footSegments)
     
     private lazy var showAthleticDetailsButton: UIButton = {
-        let button = ShowDetailsButton(
+        let button = DetailsButton(
             title: Constants.Text.ButtonTitles.athleticDetails)
         button.addTarget(
             self,
@@ -152,7 +152,7 @@ final class EditorViewController: UIViewController {
     }()
     
     private lazy var showCareerDetailsButton: UIButton = {
-        let button = ShowDetailsButton(
+        let button = DetailsButton(
             title: Constants.Text.ButtonTitles.career)
         button.addTarget(
             self,
@@ -162,7 +162,7 @@ final class EditorViewController: UIViewController {
     }()
     
     private lazy var showTransferDetailsButton: UIButton = {
-        let button = ShowDetailsButton(title: Constants.Text.transferDetails)
+        let button = DetailsButton(title: Constants.Text.transferDetails)
         button.addTarget(
             self,
             action: #selector(showTransferDetailsButtonTapped),
@@ -341,7 +341,8 @@ final class EditorViewController: UIViewController {
     }
     
     @objc private func showAthleticDetailsButtonTapped() {
-        let athleticDetailsVC = ScreenFactory.getAthleticDetailsViewController()
+        let athleticDetailsVC = ScreenFactory.getAthleticDetailsVCWith(
+            delegate: viewModel as AthleticDetailsViewControllerDelegate)
         present(athleticDetailsVC, animated: true)
     }
     

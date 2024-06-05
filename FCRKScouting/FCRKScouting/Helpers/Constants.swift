@@ -49,6 +49,12 @@ enum Constants {
         static let birthDate = "Дата рождения:"
         static let foot = "Рабочая нога:"
         static let position = "Позиция:"
+        static let height = "Рост:"
+        static let weight = "Вес:"
+        static let normative = "Нормативы:"
+        static let running = "Бег на 5/15/30м"
+        static let longJump = "Прыжок с места"
+        static let highJump = "Прыжок в высоту"
         static let transferDetails = "Трансферные детали"
         static let viewingPlan = "План просмотра"
         static let allReports = "Все отчёты"
@@ -65,6 +71,12 @@ enum Constants {
             static let textView = """
             Поля в этом слайдере необязательные, любые данные можно добавить или изменить позже
             """
+            static let forGoalkeepers = "(для вратарей)"
+        }
+        enum Units {
+            static let meter = "м"
+            static let kilo = "кг"
+            static let second = "сек"
         }
         enum Placeholders {
             static let fullName = "Имя Фамилия"
@@ -83,7 +95,7 @@ enum Constants {
             static let no = "Нет"
             static let uploadPhoto = "Загрузить фото"
             static let career = "Движение по фут. вертикали"
-            static let athleticDetails = "Антропометрия/атлет. данные"
+            static let athleticDetails = "Антропометрия/атл. данные"
             static let continueAdding = "Продолжить добавление"
             static let continueEditing = "Продолжить редактирование"
             static let cancel = "Отменить"
@@ -96,7 +108,9 @@ enum Constants {
             static let profile = "Профиль"
             static let addPlayer = "Добавить игрока"
             static let editPlayer = "Редактировать игрока"
-            
+            static let athleticDetails = """
+            Антропометрия и \n Атлетические данные
+            """
         }
         enum Tips {
             static let title = "Справка:"
@@ -121,7 +135,7 @@ enum Constants {
             )
             static let notSelectedPosition = (
                 title: "Внимание",
-                message: "Пожалуйства, выберите позицию игрока"
+                message: "Пожалуйста, выберите позицию игрока"
             )
             static let exit = (
                 title: "Выход",

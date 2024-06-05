@@ -15,7 +15,7 @@ final class ProfileViewController: UIViewController {
     // MARK: Views
     private let logoImageView = UIImageView(image: Constants.Images.logo)
 
-    private lazy var fullNameLabel = CustomLabel(
+    private lazy var fullNameLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
         numberOfLines: 2,
         text: viewModel.fullName)
@@ -30,7 +30,7 @@ final class ProfileViewController: UIViewController {
     }()
     
     private lazy var viewingPlanNavigationButton: UIButton = {
-        let button = CustomNavigationButton(title: Constants.Text.viewingPlan)
+        let button = NavigationButton(title: Constants.Text.viewingPlan)
         button.addTarget(
             self,
             action: #selector(viewingPlanNavigationButtonTapped),
@@ -39,7 +39,7 @@ final class ProfileViewController: UIViewController {
     }()
     
     private lazy var allReportsNavigationButton: UIButton = {
-        let button = CustomNavigationButton(title: Constants.Text.allReports)
+        let button = NavigationButton(title: Constants.Text.allReports)
         button.addTarget(
             self,
             action: #selector(allReportsNavigationButtonTapped),

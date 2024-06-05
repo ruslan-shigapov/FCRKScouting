@@ -1,5 +1,5 @@
 //
-//  CustomNavigationButton.swift
+//  NavigationButton.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 17.05.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CustomNavigationButton: UIButton {
+final class NavigationButton: UIButton {
         
     private let arrowImageView: UIImageView = {
         let imageView = UIImageView()

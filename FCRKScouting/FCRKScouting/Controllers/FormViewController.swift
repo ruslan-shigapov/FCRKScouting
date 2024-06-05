@@ -14,14 +14,14 @@ final class FormViewController: UIViewController {
     private var delegate: FormViewControllerDelegate?
         
     // MARK: Views
-    private let titleLabel = CustomLabel(
+    private let titleLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
         text: Constants.Text.ScreenTitles.form)
     
-    private let fullNameTextFieldView = RoundedTextFieldView(
+    private let fullNameTextFieldView = PrimaryTextFieldView(
         placeholder: Constants.Text.Placeholders.fullName,
         type: .name)
-    private let postTextFieldView = RoundedTextFieldView(
+    private let postTextFieldView = PrimaryTextFieldView(
         placeholder: Constants.Text.Placeholders.post,
         type: .name)
     
@@ -31,7 +31,7 @@ final class FormViewController: UIViewController {
         stackView.axis = .vertical
         stackView.spacing = 24
         for (index, view) in stackView.subviews.enumerated() {
-            if let textFieldView = view as? RoundedTextFieldView {
+            if let textFieldView = view as? PrimaryTextFieldView {
                 textFieldView.set(tag: index)
             }
         }

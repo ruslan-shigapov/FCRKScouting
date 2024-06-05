@@ -9,60 +9,96 @@ import UIKit
 
 final class AthleticDetailsViewController: UIViewController {
     
+    // MARK: Private Properties
+    private var delegate: AthleticDetailsViewControllerDelegate?
+    
     // MARK: Views
-    private let titleLabel = CustomLabel(
+    private let titleLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
         numberOfLines: 2,
-        text: "Антропометрия и \n Атлетические данные")
+        text: Constants.Text.ScreenTitles.athleticDetails)
     
-    private let heightLabel = CustomLabel(
+    private let heightLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
-        text: "Рост:")
-    private let weightLabel = CustomLabel(
+        text: Constants.Text.height)
+    private let weightLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
-        text: "Вес:")
-    private let normativeLabel = CustomLabel(
+        text: Constants.Text.weight)
+    private let normativeLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
-        text: "Нормативы:")
+        text: Constants.Text.normative)
     
     private let heightTextFieldView = DecimalTextFieldView(
         textFieldType: .meters,
-        unitTitle: "м")
+        unitTitle: Constants.Text.Units.meter)
     private let weightTextFieldView = DecimalTextFieldView(
         textFieldType: .weight,
-        unitTitle: "кг")
+        unitTitle: Constants.Text.Units.kilo)
     
     private lazy var runningTextFieldStackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [
                 DecimalTextFieldView(textFieldType: .time, unitTitle: ""),
                 DecimalTextFieldView(textFieldType: .time,unitTitle: ""),
-                DecimalTextFieldView(textFieldType: .time, unitTitle: "сек")
+                DecimalTextFieldView(
+                    textFieldType: .time,
+                    unitTitle: Constants.Text.Units.second)
             ])
         return stackView
     }()
     
     private let longJumpTextFieldView = DecimalTextFieldView(
         textFieldType: .meters,
-        unitTitle: "м")
+        unitTitle: Constants.Text.Units.meter)
     private let highJumpTextFieldView = DecimalTextFieldView(
         textFieldType: .meters,
-        unitTitle: "м")
+        unitTitle: Constants.Text.Units.meter)
     
-    private lazy var runningStackView = NormativeStackView(
-        title: "Бег на 5/15/30м",
-        textFieldView: runningTextFieldStackView)
-    private lazy var longJumpStackView = NormativeStackView(
-        title: "Прыжок с места",
-        textFieldView: longJumpTextFieldView)
-    private lazy var highJumpStackView = NormativeStackView(
-        title: "Прыжок в высоту",
-        textFieldView: highJumpTextFieldView)
+    private lazy var runningNormativeStackView: UIStackView = {
+        let label = DefaultGrayLabel(text: Constants.Text.running)
+        let spacerView = UIView()
+        let stackView = UIStackView(
+            arrangedSubviews: [label, spacerView, runningTextFieldStackView])
+        return stackView
+    }()
+    private lazy var longJumpNormativeStackView: UIStackView = {
+        let label = DefaultGrayLabel(text: Constants.Text.longJump)
+        let spacerView = UIView()
+        let stackView = UIStackView(
+            arrangedSubviews: [label, spacerView, longJumpTextFieldView])
+        return stackView
+    }()
+    private lazy var highJumpNormativeStackView: UIStackView = {
+        let label = DefaultGrayLabel(text: Constants.Text.highJump)
+        let spacerView = UIView()
+        let stackView = UIStackView(
+            arrangedSubviews: [label, spacerView, highJumpTextFieldView])
+        return stackView
+    }()
     
-    private let descriptionLabel = DescriptionLabel(text: "(для вратарей)")
+    private let descriptionLabel = DescriptionLabel(
+        text: Constants.Text.Descriptions.forGoalkeepers)
     
-    private let saveButton = PrimaryButton(
-        title: Constants.Text.ButtonTitles.save)
+    private lazy var saveButton: UIButton = {
+        let button = PrimaryButton(
+            title: Constants.Text.ButtonTitles.save)
+        button.addTarget(
+            self,
+            action: #selector(saveButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    
+    // MARK: Initialize
+    init(delegate: AthleticDetailsViewControllerDelegate?) {
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -74,6 +110,7 @@ final class AthleticDetailsViewController: UIViewController {
     private func setupUI() {
         titleLabel.textAlignment = .center
         titleLabel.textColor = .systemGreen
+        configureTextFields()
         view.backgroundColor = .accent
         view.setupKeyboardDismissTap()
         view.addSubviews(
@@ -83,13 +120,45 @@ final class AthleticDetailsViewController: UIViewController {
             weightLabel,
             weightTextFieldView,
             normativeLabel,
-            runningStackView,
-            longJumpStackView,
-            highJumpStackView,
+            runningNormativeStackView,
+            longJumpNormativeStackView,
+            highJumpNormativeStackView,
             descriptionLabel,
             saveButton)
         view.prepareForAutoLayout()
         setConstraints()
+    }
+    
+    private func configureTextFields() {
+        guard let athleticDetails = delegate?.athleticDetails,
+                                    athleticDetails.count == 7 else { return }
+        heightTextFieldView.set(text: athleticDetails[0])
+        weightTextFieldView.set(text: athleticDetails[1])
+        let runningDetails = Array(athleticDetails[2...4])
+        for (index, view) in runningTextFieldStackView.subviews.enumerated() {
+            if let textFieldView = view as? DecimalTextFieldView {
+                textFieldView.set(text: runningDetails[index])
+            }
+        }
+        longJumpTextFieldView.set(text: athleticDetails[5])
+        highJumpTextFieldView.set(text: athleticDetails[6])
+    }
+    
+    @objc private func saveButtonTapped() {
+        view.endEditing(true)
+        let runningDetails = runningTextFieldStackView.subviews.map {
+            ($0 as? DecimalTextFieldView)?.getInputText()
+        }
+        delegate?.athleticDetails = [
+            heightTextFieldView.getInputText(),
+            weightTextFieldView.getInputText()
+        ] + runningDetails + [
+            longJumpTextFieldView.getInputText(),
+            highJumpTextFieldView.getInputText()
+        ]
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.55) { [weak self] in
+            self?.dismiss(animated: true)
+        }
     }
 }
 
@@ -135,38 +204,38 @@ private extension AthleticDetailsViewController {
                 equalTo: view.leadingAnchor,
                 constant: 16),
             
-            runningStackView.topAnchor.constraint(
+            runningNormativeStackView.topAnchor.constraint(
                 equalTo: normativeLabel.bottomAnchor,
                 constant: 6),
-            runningStackView.leadingAnchor.constraint(
+            runningNormativeStackView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 16),
-            runningStackView.trailingAnchor.constraint(
+            runningNormativeStackView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -16),
             
-            longJumpStackView.topAnchor.constraint(
-                equalTo: runningStackView.bottomAnchor,
+            longJumpNormativeStackView.topAnchor.constraint(
+                equalTo: runningNormativeStackView.bottomAnchor,
                 constant: 16),
-            longJumpStackView.leadingAnchor.constraint(
+            longJumpNormativeStackView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 16),
-            longJumpStackView.trailingAnchor.constraint(
+            longJumpNormativeStackView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -90),
             
-            highJumpStackView.topAnchor.constraint(
-                equalTo: longJumpStackView.bottomAnchor,
+            highJumpNormativeStackView.topAnchor.constraint(
+                equalTo: longJumpNormativeStackView.bottomAnchor,
                 constant: 16),
-            highJumpStackView.leadingAnchor.constraint(
+            highJumpNormativeStackView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 16),
-            highJumpStackView.trailingAnchor.constraint(
+            highJumpNormativeStackView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -90),
             
             descriptionLabel.topAnchor.constraint(
-                equalTo: highJumpStackView.bottomAnchor,
+                equalTo: highJumpNormativeStackView.bottomAnchor,
                 constant: -5),
             descriptionLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,

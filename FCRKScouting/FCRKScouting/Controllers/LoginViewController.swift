@@ -17,11 +17,11 @@ final class LoginViewController: UIViewController {
     // MARK: Views
     private let logoImageView = UIImageView(image: Constants.Images.logo)
     
-    private let appNameLabel = CustomLabel(
+    private let appNameLabel = CustomWhiteLabel(
         font: Constants.Fonts.title,
         text: Constants.Text.appName)
 
-    private let accessKeyTextFieldView = RoundedTextFieldView(
+    private let accessKeyTextFieldView = PrimaryTextFieldView(
         placeholder: Constants.Text.Placeholders.accessKey,
         type: .key)
     
