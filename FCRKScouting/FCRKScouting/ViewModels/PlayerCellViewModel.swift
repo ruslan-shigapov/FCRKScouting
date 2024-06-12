@@ -32,7 +32,8 @@ final class PlayerCellViewModel: PlayerCellViewModelProtocol {
     }
     
     var position: String {
-        format(position: player.position) ?? ""
+        guard let position = player.position else { return "" }
+        return position.formatToShortPosition()
     }
     
     init(player: Player) {
@@ -43,13 +44,5 @@ final class PlayerCellViewModel: PlayerCellViewModelProtocol {
         guard let date else { return nil }
         let year = Calendar.current.component(.year, from: date)
         return String(year)
-    }
-    
-    private func format(position: String?) -> String? {
-        guard let position else { return nil }
-        guard let value = Constants.Text.Positions(rawValue: position) else {
-            return nil
-        }
-        return value.abbreviate()
     }
 }

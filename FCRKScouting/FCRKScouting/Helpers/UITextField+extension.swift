@@ -18,5 +18,11 @@ extension UITextField {
         }
     }
     
-    
+    func moveCursorToEnd() {
+        DispatchQueue.main.async {
+            self.selectedTextRange = self.textRange(
+                from: self.endOfDocument,
+                to: self.endOfDocument)
+        }
+    }
 }

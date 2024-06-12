@@ -11,7 +11,6 @@ final class NavigationButton: UIButton {
         
     private let arrowImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = Constants.Images.ButtonImages.arrow
         imageView.tintColor = .systemGreen
         return imageView
@@ -33,6 +32,7 @@ final class NavigationButton: UIButton {
         titleLabel?.font = Constants.Fonts.normal
         setCustomCornerRadius()
         addSubview(arrowImageView)
+        prepareForAutoLayout()
         setConstraints()
     }
     

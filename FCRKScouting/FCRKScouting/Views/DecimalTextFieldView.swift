@@ -118,14 +118,7 @@ extension DecimalTextFieldView: UITextFieldDelegate {
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        if let endPosition = textField.position(
-            from: textField.endOfDocument,
-            offset: 0
-        ) {
-            textField.selectedTextRange = textField.textRange(
-                from: endPosition,
-                to: endPosition)
-        }
+        textField.moveCursorToEnd()
     }
 }
 

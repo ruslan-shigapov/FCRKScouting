@@ -26,7 +26,6 @@ final class UpdatesViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
-    
     private lazy var refreshButton: UIButton = {
         let button = CustomNavigationBarButton(
             image: Constants.Images.ButtonImages.refresh)
@@ -40,7 +39,6 @@ final class UpdatesViewController: UIViewController {
     private lazy var intervalSegmentedControl: UISegmentedControl = {
         let segmentedControl = CustomSegmentedControl(
             items: Constants.Text.SegmentedControlItems.periodSegments)
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.addTarget(
             self,
             action: #selector(intervalSegmentedControlValueChanged),
@@ -52,6 +50,7 @@ final class UpdatesViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = .accent
         view.addSubview(intervalSegmentedControl)
+        view.prepareForAutoLayout()
         return view
     }()
     

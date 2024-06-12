@@ -89,7 +89,6 @@ final class EditorViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
-    
     private lazy var toggleNationalTeamFieldDisplayButton: UIButton = {
         let button = ToggleTextFieldDisplayButton()
         button.addTarget(
@@ -104,22 +103,7 @@ final class EditorViewController: UIViewController {
         numberOfLines: 2,
         text: Constants.Text.birthDate)
     
-    private let birthDatePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.datePickerMode = .date
-        datePicker.preferredDatePickerStyle = .compact
-        datePicker.maximumDate = Date()
-        return datePicker
-    }()
-    
-    private lazy var datePickerBackgroundView: UIView = {
-        let view = UIView()
-        view.addSubview(birthDatePicker)
-        view.backgroundColor = .white
-        view.setCustomCornerRadius()
-        return view
-    }()
+    private let birthDatePickerView = DatePickerView(type: .birth)
     
     private let positionLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
@@ -150,7 +134,6 @@ final class EditorViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
-    
     private lazy var showCareerDetailsButton: UIButton = {
         let button = DetailsButton(
             title: Constants.Text.ButtonTitles.career)
@@ -160,7 +143,6 @@ final class EditorViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
-    
     private lazy var showTransferDetailsButton: UIButton = {
         let button = DetailsButton(title: Constants.Text.transferDetails)
         button.addTarget(
@@ -183,7 +165,7 @@ final class EditorViewController: UIViewController {
     
     private let pageSliderView = PageSliderView()
     
-    private let textViewDescription = DescriptionLabel(
+    private let pageSliderViewDescription = DescriptionLabel(
         text: Constants.Text.Descriptions.textView)
     
     private lazy var verticalScrollView: UIScrollView = {
@@ -195,7 +177,7 @@ final class EditorViewController: UIViewController {
             textFieldStackView,
             togglePatronymicFieldDisplayButton,
             toggleNationalTeamFieldDisplayButton,
-            datePickerBackgroundView,
+            birthDatePickerView,
             birthDateLabel,
             positionLabel,
             positionPickerView,
@@ -205,7 +187,7 @@ final class EditorViewController: UIViewController {
             showAthleticDetailsButton,
             showTransferDetailsButton,
             pageSliderView,
-            textViewDescription)
+            pageSliderViewDescription)
         scrollView.prepareForAutoLayout()
         return scrollView
     }()
@@ -246,7 +228,6 @@ final class EditorViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         uploadPhotoButton.setCustomShadow()
-        datePickerBackgroundView.setCustomShadow()
         positionPickerView.setCustomShadow()
         footSegmentedControl.setCustomShadow()
         pageSliderView.configureWith(
@@ -369,7 +350,7 @@ final class EditorViewController: UIViewController {
                 citizenship: $0[1],
                 club: $0[2],
                 nationalTeam: nationalTeamTextFieldView.getInputText(),
-                birthDate: birthDatePicker.date,
+                birthDate: birthDatePickerView.getDate(),
                 position: positionPickerView.selectedRow(inComponent: 0),
                 foot: footSegmentedControl.selectedSegmentIndex,
                 generalInfo: generalInfoTextViewWithTitle.getInputText(),
@@ -455,31 +436,22 @@ private extension EditorViewController {
                 equalTo: view.trailingAnchor,
                 constant: -16),
             
-            datePickerBackgroundView.topAnchor.constraint(
+            birthDatePickerView.topAnchor.constraint(
                 equalTo: textFieldStackView.bottomAnchor,
                 constant: 24),
-            datePickerBackgroundView.trailingAnchor.constraint(
+            birthDatePickerView.trailingAnchor.constraint(
                 equalTo: textFieldStackView.trailingAnchor),
-            datePickerBackgroundView.heightAnchor.constraint(
-                equalToConstant: 35),
-            datePickerBackgroundView.widthAnchor.constraint(
-                equalTo: birthDatePicker.widthAnchor),
             
             birthDateLabel.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 16),
             birthDateLabel.centerYAnchor.constraint(
-                equalTo: datePickerBackgroundView.centerYAnchor,
-                constant: 1),
+                equalTo: birthDatePickerView.centerYAnchor,
+                constant: 2),
             birthDateLabel.widthAnchor.constraint(equalToConstant: 120),
             
-            birthDatePicker.centerXAnchor.constraint(
-                equalTo: datePickerBackgroundView.centerXAnchor),
-            birthDatePicker.centerYAnchor.constraint(
-                equalTo: datePickerBackgroundView.centerYAnchor),
-            
             positionLabel.topAnchor.constraint(
-                equalTo: birthDatePicker.bottomAnchor,
+                equalTo: birthDatePickerView.bottomAnchor,
                 constant: 24),
             positionLabel.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
@@ -549,13 +521,13 @@ private extension EditorViewController {
                 constant: 20),
             pageSliderView.heightAnchor.constraint(equalToConstant: 140),
             
-            textViewDescription.topAnchor.constraint(
+            pageSliderViewDescription.topAnchor.constraint(
                 equalTo: pageSliderView.bottomAnchor,
                 constant: -12),
-            textViewDescription.leadingAnchor.constraint(
+            pageSliderViewDescription.leadingAnchor.constraint(
                 equalTo: pageSliderView.leadingAnchor,
                 constant: 5),
-            textViewDescription.trailingAnchor.constraint(
+            pageSliderViewDescription.trailingAnchor.constraint(
                 equalTo: pageSliderView.trailingAnchor,
                 constant: -5),
             

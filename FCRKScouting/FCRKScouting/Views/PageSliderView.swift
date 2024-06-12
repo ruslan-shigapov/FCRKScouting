@@ -20,7 +20,6 @@ final class PageSliderView: UIView {
     
     private let enabledPageControl: UIPageControl = {
         let pageControl = UIPageControl()
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.isEnabled = false
         pageControl.currentPageIndicatorTintColor = .white
         pageControl.pageIndicatorTintColor = .label.withAlphaComponent(0.6)
@@ -31,6 +30,7 @@ final class PageSliderView: UIView {
         let view = UIView()
         view.backgroundColor = .lightGray
         view.addSubview(enabledPageControl)
+        view.prepareForAutoLayout()
         view.layer.cornerRadius = 5
         return view
     }()

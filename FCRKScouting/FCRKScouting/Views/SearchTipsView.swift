@@ -55,8 +55,12 @@ final class SearchTipsView: UIView {
         prepareForAutoLayout()
         setConstraints()
     }
+}
+
+// MARK: - Layout
+private extension SearchTipsView {
     
-    private func setConstraints() {
+    func setConstraints() {
         NSLayoutConstraint.activate([
             containerStackView.topAnchor.constraint(equalTo: topAnchor),
             containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),

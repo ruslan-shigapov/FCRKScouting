@@ -11,9 +11,7 @@ final class LoginViewController: UIViewController {
     
     // MARK: Private Properties
     private var viewModel: LoginViewModelProtocol
-    
-    private let textFieldDelegate = LoginTextFieldDelegate()
-    
+        
     // MARK: Views
     private let logoImageView = UIImageView(image: Constants.Images.logo)
     

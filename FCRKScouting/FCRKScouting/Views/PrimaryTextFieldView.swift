@@ -8,10 +8,10 @@
 import UIKit
 
 enum TextFieldType {
-    case name, key
+    case name, key, phone
 }
 
-final class PrimaryTextFieldView: UIView, UITextFieldDelegate {
+final class PrimaryTextFieldView: UIView {
     
     // MARK: Private Properties
     private let _placeholder: String
@@ -26,8 +26,10 @@ final class PrimaryTextFieldView: UIView, UITextFieldDelegate {
         textField.spellCheckingType = .no
         textField.autocapitalizationType = .words
         textField.delegate = self
-        if textFieldType == .key {
+        if textFieldType != .name {
             textField.keyboardType = .numberPad
+        }
+        if textFieldType == .key {
             textField.isSecureTextEntry = true
         }
         textField.addTarget(
@@ -51,7 +53,6 @@ final class PrimaryTextFieldView: UIView, UITextFieldDelegate {
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [floatingLabel, customTextField])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         return stackView
     }()
@@ -90,6 +91,7 @@ final class PrimaryTextFieldView: UIView, UITextFieldDelegate {
         backgroundColor = .white
         setCustomCornerRadius()
         addSubview(containerStackView)
+        prepareForAutoLayout()
         setConstraints()
     }
     
@@ -107,11 +109,6 @@ final class PrimaryTextFieldView: UIView, UITextFieldDelegate {
     }
     
     // MARK: Public Methods
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.focusNextResponder()
-        return true
-    }
-    
     func set(tag: Int) {
         customTextField.tag = tag
     }
@@ -126,10 +123,53 @@ final class PrimaryTextFieldView: UIView, UITextFieldDelegate {
     }
 }
 
-// MARK: - Layout
-private extension PrimaryTextFieldView {
+// MARK: - Text Field Delegate
+extension PrimaryTextFieldView: UITextFieldDelegate {
     
-    func setConstraints() {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.focusNextResponder()
+        return true
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textFieldType != .name {
+            textField.moveCursorToEnd()
+        }
+    }
+    
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        guard let text = textField.text else { return true }
+        if textFieldType == .key {
+            let length = text.count + string.count - range.length
+            if length > 6 { return false }
+        }
+        if textFieldType == .phone {
+            let newText = (text as NSString).replacingCharacters(
+                in: range,
+                with: string)
+            let digitsOnly = newText.filter { $0.isWholeNumber }
+            if digitsOnly.count > 11 {
+                return false
+            }
+            if newText == "+" {
+                textField.text = ""
+                return false
+            }
+            textField.text = digitsOnly.formatToPhoneNumber()
+            return false
+        }
+        return true
+    }
+}
+
+// MARK: - Layout
+extension PrimaryTextFieldView {
+    
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 48),
             
