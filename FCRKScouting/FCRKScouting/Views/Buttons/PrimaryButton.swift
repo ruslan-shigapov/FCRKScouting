@@ -42,9 +42,9 @@ final class PrimaryButton: UIButton {
     }
     
     private func setupUI() {
-        heightAnchor.constraint(equalToConstant: 48).isActive = true
         backgroundColor = .systemGreen.withAlphaComponent(0.8)
         titleLabel?.font = Constants.Fonts.normal
         setCustomCornerRadius()
+        heightAnchor.constraint(equalToConstant: 48).isActive = true
     }
 }

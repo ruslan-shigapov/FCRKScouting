@@ -1,5 +1,5 @@
 //
-//  DefaultGrayLabel.swift
+//  DefaultTextLabel.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 28.05.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DefaultGrayLabel: UILabel {
+final class DefaultTextLabel: UILabel {
     
     init(text: String? = nil) {
         super.init(frame: .zero)

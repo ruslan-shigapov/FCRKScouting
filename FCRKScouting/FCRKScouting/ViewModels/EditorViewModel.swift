@@ -11,8 +11,15 @@ protocol AthleticDetailsViewControllerDelegate {
     var athleticDetails: [String?] { get set }
 }
 
+protocol TransferDetailsViewControllerDelegate {
+    var prices: [String] { get set }
+    var contractDate: Date? { get set } // TODO: сделать этот пункт вариативным, добавить кнопочку?
+    var agentInfo: [String] { get set } // TODO: определиться с разворачиванием?
+}
+
 protocol EditorViewModelProtocol: TextFieldValidationProtocol,     
-                                  AthleticDetailsViewControllerDelegate {
+                                  AthleticDetailsViewControllerDelegate,
+                                  TransferDetailsViewControllerDelegate {
     var wasPositionNotSelected: (() -> Void)? { get set }
     func savePlayer(
         byFullName fullName: String,
@@ -35,8 +42,14 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol,
 }
 
 final class EditorViewModel: EditorViewModelProtocol {
-    
+
     var athleticDetails: [String?] = []
+    
+    var prices: [String] = []
+    
+    var contractDate: Date?
+    
+    var agentInfo: [String] = []
     
     var wereRequiredTextFieldsEmpty: (() -> Void)?
     var wasFullNameIncorrect: (() -> Void)?

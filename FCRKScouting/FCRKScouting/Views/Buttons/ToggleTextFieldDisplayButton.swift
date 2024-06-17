@@ -25,13 +25,7 @@ final class ToggleTextFieldDisplayButton: UIButton {
         tintColor = .white
         contentHorizontalAlignment = .fill
         contentVerticalAlignment = .fill
-        setConstraints()
-    }
- 
-    private func setConstraints() {
-        NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 25),
-            widthAnchor.constraint(equalToConstant: 30)
-        ])
+        heightAnchor.constraint(equalToConstant: 25).isActive = true
+        widthAnchor.constraint(equalToConstant: 30).isActive = true
     }
 }

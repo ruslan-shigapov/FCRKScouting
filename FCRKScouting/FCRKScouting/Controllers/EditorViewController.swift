@@ -125,6 +125,22 @@ final class EditorViewController: UIViewController {
     private let footSegmentedControl = CustomSegmentedControl(
         items: Constants.Text.SegmentedControlItems.footSegments)
     
+    private let generalInfoTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.TextViewTitles.generalInfo)
+    private let techniqueTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.TextViewTitles.technique)
+    private let tacticsTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.TextViewTitles.tactics)
+    private let qualitiesTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.TextViewTitles.qualities)
+    private let mentalTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.TextViewTitles.mental)
+    
+    private let pageSliderView = PageSliderView()
+    
+    private let pageSliderViewDescription = DescriptionLabel(
+        text: Constants.Text.Descriptions.textView)
+    
     private lazy var showAthleticDetailsButton: UIButton = {
         let button = DetailsButton(
             title: Constants.Text.ButtonTitles.athleticDetails)
@@ -152,22 +168,6 @@ final class EditorViewController: UIViewController {
         return button
     }()
     
-    private let generalInfoTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.generalInfo)
-    private let techniqueTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.technique)
-    private let tacticsTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.tactics)
-    private let qualitiesTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.qualities)
-    private let mentalTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.mental)
-    
-    private let pageSliderView = PageSliderView()
-    
-    private let pageSliderViewDescription = DescriptionLabel(
-        text: Constants.Text.Descriptions.textView)
-    
     private lazy var verticalScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -183,11 +183,11 @@ final class EditorViewController: UIViewController {
             positionPickerView,
             footLabel,
             footSegmentedControl,
+            pageSliderView,
+            pageSliderViewDescription,
             showCareerDetailsButton,
             showAthleticDetailsButton,
-            showTransferDetailsButton,
-            pageSliderView,
-            pageSliderViewDescription)
+            showTransferDetailsButton)
         scrollView.prepareForAutoLayout()
         return scrollView
     }()
@@ -292,7 +292,7 @@ final class EditorViewController: UIViewController {
     }
     
     @objc private func uploadPhotoButtonTapped() {
-        
+        // TODO: добавить логику загрузки фото
     }
     
     @objc private func togglePatronymicFieldDisplayButtonTapped(
@@ -332,7 +332,8 @@ final class EditorViewController: UIViewController {
     }
     
     @objc private func showTransferDetailsButtonTapped() {
-        let transferDetails = ScreenFactory.getTransferDetailsViewController()
+        let transferDetails = ScreenFactory.getTransferDetailsVCWith(
+            delegate: viewModel as TransferDetailsViewControllerDelegate)
         present(transferDetails, animated: true)
     }
     
@@ -369,9 +370,9 @@ final class EditorViewController: UIViewController {
 }
 
 // MARK: - Layout
-private extension EditorViewController {
+extension EditorViewController {
     
-    func setConstraints() {
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
@@ -480,8 +481,29 @@ private extension EditorViewController {
                 equalTo: footLabel.centerYAnchor,
                 constant: -2),
             
-            showAthleticDetailsButton.topAnchor.constraint(
+            pageSliderView.topAnchor.constraint(
                 equalTo: footSegmentedControl.bottomAnchor,
+                constant: 32),
+            pageSliderView.leadingAnchor.constraint(
+                equalTo: verticalScrollView.leadingAnchor,
+                constant: 16),
+            pageSliderView.widthAnchor.constraint(
+                equalTo: textFieldStackView.widthAnchor,
+                constant: 20),
+            pageSliderView.heightAnchor.constraint(equalToConstant: 140),
+            
+            pageSliderViewDescription.topAnchor.constraint(
+                equalTo: pageSliderView.bottomAnchor,
+                constant: -12),
+            pageSliderViewDescription.leadingAnchor.constraint(
+                equalTo: pageSliderView.leadingAnchor,
+                constant: 5),
+            pageSliderViewDescription.trailingAnchor.constraint(
+                equalTo: pageSliderView.trailingAnchor,
+                constant: -5),
+            
+            showAthleticDetailsButton.topAnchor.constraint(
+                equalTo: pageSliderViewDescription.bottomAnchor,
                 constant: 24),
             showAthleticDetailsButton.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
@@ -504,32 +526,11 @@ private extension EditorViewController {
             showTransferDetailsButton.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 16),
-            showTransferDetailsButton.trailingAnchor.constraint(
-                equalTo: textFieldStackView.trailingAnchor),
-            
-            pageSliderView.topAnchor.constraint(
-                equalTo: showTransferDetailsButton.bottomAnchor,
-                constant: 32),
-            pageSliderView.leadingAnchor.constraint(
-                equalTo: verticalScrollView.leadingAnchor,
-                constant: 16),
-            pageSliderView.bottomAnchor.constraint(
+            showTransferDetailsButton.bottomAnchor.constraint(
                 equalTo: verticalScrollView.bottomAnchor,
                 constant: -24),
-            pageSliderView.widthAnchor.constraint(
-                equalTo: textFieldStackView.widthAnchor,
-                constant: 20),
-            pageSliderView.heightAnchor.constraint(equalToConstant: 140),
-            
-            pageSliderViewDescription.topAnchor.constraint(
-                equalTo: pageSliderView.bottomAnchor,
-                constant: -12),
-            pageSliderViewDescription.leadingAnchor.constraint(
-                equalTo: pageSliderView.leadingAnchor,
-                constant: 5),
-            pageSliderViewDescription.trailingAnchor.constraint(
-                equalTo: pageSliderView.trailingAnchor,
-                constant: -5),
+            showTransferDetailsButton.trailingAnchor.constraint(
+                equalTo: textFieldStackView.trailingAnchor),
             
             dividerView.topAnchor.constraint(
                 equalTo: verticalScrollView.bottomAnchor),

@@ -27,15 +27,7 @@ final class DateHeaderView: UICollectionReusableView {
         setConstraints()
     }
     
-    func configureWith(date: String) {
-        dateLabel.text = date
-    }
-}
-
-// MARK: - Layout
-private extension DateHeaderView {
-    
-    func setConstraints() {
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             dateLabel.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
@@ -44,5 +36,9 @@ private extension DateHeaderView {
                 equalTo: centerYAnchor,
                 constant: 1)
         ])
+    }
+    
+    func configureWith(date: String) {
+        dateLabel.text = date
     }
 }

@@ -55,21 +55,21 @@ final class AthleticDetailsViewController: UIViewController {
         unitTitle: Constants.Text.Units.meter)
     
     private lazy var runningNormativeStackView: UIStackView = {
-        let label = DefaultGrayLabel(text: Constants.Text.running)
+        let label = DefaultTextLabel(text: Constants.Text.running)
         let spacerView = UIView()
         let stackView = UIStackView(
             arrangedSubviews: [label, spacerView, runningTextFieldStackView])
         return stackView
     }()
     private lazy var longJumpNormativeStackView: UIStackView = {
-        let label = DefaultGrayLabel(text: Constants.Text.longJump)
+        let label = DefaultTextLabel(text: Constants.Text.longJump)
         let spacerView = UIView()
         let stackView = UIStackView(
             arrangedSubviews: [label, spacerView, longJumpTextFieldView])
         return stackView
     }()
     private lazy var highJumpNormativeStackView: UIStackView = {
-        let label = DefaultGrayLabel(text: Constants.Text.highJump)
+        let label = DefaultTextLabel(text: Constants.Text.highJump)
         let spacerView = UIView()
         let stackView = UIStackView(
             arrangedSubviews: [label, spacerView, highJumpTextFieldView])
@@ -156,7 +156,7 @@ final class AthleticDetailsViewController: UIViewController {
             longJumpTextFieldView.getInputText(),
             highJumpTextFieldView.getInputText()
         ]
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.55) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
             self?.dismiss(animated: true)
         }
     }

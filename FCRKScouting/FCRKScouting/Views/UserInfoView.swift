@@ -17,8 +17,8 @@ final class UserInfoView: UIView {
         font: Constants.Fonts.normal,
         text: Constants.Text.access)
     
-    private let postValueLabel = DefaultGrayLabel()
-    private let accessValueLabel = DefaultGrayLabel()
+    private let postValueLabel = DefaultTextLabel()
+    private let accessValueLabel = DefaultTextLabel()
 
     // MARK: Initialize
     override init(frame: CGRect) {

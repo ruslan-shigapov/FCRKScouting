@@ -20,6 +20,8 @@ final class TextViewWithTitle: UIView {
     private lazy var roundedTextView: UITextView = {
         let textView = UITextView()
         textView.font = Constants.Fonts.text
+        textView.spellCheckingType = .no
+        textView.autocorrectionType = .no
         textView.textContainerInset = UIEdgeInsets(
             top: 10,
             left: 5,
@@ -55,6 +57,10 @@ final class TextViewWithTitle: UIView {
     }
     
     // MARK: Public Methods
+    func set(delegate: UITextViewDelegate) {
+        roundedTextView.delegate = delegate
+    }
+    
     func getInputText() -> String {
         guard let text = roundedTextView.text else { return "" }
         return text
@@ -78,7 +84,7 @@ private extension TextViewWithTitle {
                 constant: -20),
             roundedTextView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -20),
+                constant: -20)
         ])
     }
 }

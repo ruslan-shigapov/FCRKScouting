@@ -18,7 +18,8 @@
 		E414C35D2C00C2230068077E /* AthleticDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414C35C2C00C2230068077E /* AthleticDetailsViewController.swift */; };
 		E414C35F2C00C3D00068077E /* TransferDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414C35E2C00C3D00068077E /* TransferDetailsViewController.swift */; };
 		E41C7C1A2C071ABF002755E5 /* DecimalTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41C7C192C071ABF002755E5 /* DecimalTextFieldView.swift */; };
-		E41FEF202C05FAFC0083F9DB /* DefaultGrayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41FEF1F2C05FAFC0083F9DB /* DefaultGrayLabel.swift */; };
+		E41FEF202C05FAFC0083F9DB /* DefaultTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41FEF1F2C05FAFC0083F9DB /* DefaultTextLabel.swift */; };
+		E426774A2C20564100A4333F /* CareerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42677492C20564100A4333F /* CareerDetailsViewController.swift */; };
 		E44855AC2BC3D01300E5FCD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */; };
 		E44855B82BC3D01400E5FCD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E44855B72BC3D01400E5FCD8 /* Assets.xcassets */; };
 		E46194B72C08864700AC4FFC /* UpdatesCollectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194B62C08864700AC4FFC /* UpdatesCollectionDelegate.swift */; };
@@ -79,7 +80,8 @@
 		E414C35C2C00C2230068077E /* AthleticDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleticDetailsViewController.swift; sourceTree = "<group>"; };
 		E414C35E2C00C3D00068077E /* TransferDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewController.swift; sourceTree = "<group>"; };
 		E41C7C192C071ABF002755E5 /* DecimalTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalTextFieldView.swift; sourceTree = "<group>"; };
-		E41FEF1F2C05FAFC0083F9DB /* DefaultGrayLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGrayLabel.swift; sourceTree = "<group>"; };
+		E41FEF1F2C05FAFC0083F9DB /* DefaultTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextLabel.swift; sourceTree = "<group>"; };
+		E42677492C20564100A4333F /* CareerDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerDetailsViewController.swift; sourceTree = "<group>"; };
 		E44855A82BC3D01300E5FCD8 /* FCRKScouting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FCRKScouting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E44855B72BC3D01400E5FCD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -229,7 +231,7 @@
 			children = (
 				E4D101482BD27742006D2DCF /* CustomWhiteLabel.swift */,
 				E4D1014A2BD2B276006D2DCF /* DescriptionLabel.swift */,
-				E41FEF1F2C05FAFC0083F9DB /* DefaultGrayLabel.swift */,
+				E41FEF1F2C05FAFC0083F9DB /* DefaultTextLabel.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -313,6 +315,7 @@
 				E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */,
 				E4BB486D2BC3D53E00F91513 /* EditorViewController.swift */,
 				E414C35C2C00C2230068077E /* AthleticDetailsViewController.swift */,
+				E42677492C20564100A4333F /* CareerDetailsViewController.swift */,
 				E414C35E2C00C3D00068077E /* TransferDetailsViewController.swift */,
 				E4BB486B2BC3D53E00F91513 /* SearchViewController.swift */,
 				E4BB48692BC3D53E00F91513 /* FiltersViewController.swift */,
@@ -436,6 +439,7 @@
 				E4BB48742BC3D53E00F91513 /* ProfileViewModel.swift in Sources */,
 				E4D92C3B2C11C30200401E1F /* PriceTextFieldView.swift in Sources */,
 				E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */,
+				E426774A2C20564100A4333F /* CareerDetailsViewController.swift in Sources */,
 				E4D101492BD27742006D2DCF /* CustomWhiteLabel.swift in Sources */,
 				E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */,
 				E486D13D2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift in Sources */,
@@ -456,7 +460,7 @@
 				E40C7FEC2BFF2F5D0043DC3E /* PageSliderView.swift in Sources */,
 				E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */,
 				E4C0DE172BC6A3C400BCD235 /* TextViewWithTitle.swift in Sources */,
-				E41FEF202C05FAFC0083F9DB /* DefaultGrayLabel.swift in Sources */,
+				E41FEF202C05FAFC0083F9DB /* DefaultTextLabel.swift in Sources */,
 				E4D1D6A32C130D3E00810C3B /* DatePickerView.swift in Sources */,
 				E4BB48862BC3D54600F91513 /* PhotoImageView.swift in Sources */,
 				E4BB48602BC3D51200F91513 /* ScreenFactory.swift in Sources */,

@@ -43,7 +43,7 @@ final class DecimalTextFieldView: UIView {
         return textField
     }()
     
-    private lazy var unitLabel = DefaultGrayLabel(text: unitTitle)
+    private lazy var unitLabel = DefaultTextLabel(text: unitTitle)
     
     // MARK: Initialize
     init(textFieldType: DecimalTextFieldType, unitTitle: String) {

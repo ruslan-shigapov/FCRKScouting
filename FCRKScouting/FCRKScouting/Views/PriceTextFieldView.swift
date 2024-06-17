@@ -23,8 +23,7 @@ final class PriceTextFieldView: UIView {
         return textField
     }()
     
-    private let currencySegmentedControl = CustomSegmentedControl(
-        items: ["\u{20BD}", "$"])
+    private let currencyLabel = DefaultTextLabel(text: "\u{20BD}")
     
     // MARK: Initialize
     override init(frame: CGRect) {
@@ -42,15 +41,24 @@ final class PriceTextFieldView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         roundedTextField.setCustomShadow()
-        currencySegmentedControl.setCustomShadow()
     }
     
     // MARK: Private Methods 
     private func setupUI() {
         roundedTextField.placeholder = "0"
-        addSubviews(roundedTextField, currencySegmentedControl)
+        addSubviews(roundedTextField, currencyLabel)
         setConstraints()
         prepareForAutoLayout()
+    }
+    
+    // MARK: Public Methods
+    func set(text: String?) {
+        roundedTextField.text = text
+    }
+    
+    func getInputText() -> String {
+        guard let text = roundedTextField.text else { return "" }
+        return text
     }
 }
 
@@ -91,16 +99,14 @@ extension PriceTextFieldView {
             roundedTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
             roundedTextField.bottomAnchor.constraint(equalTo: bottomAnchor),
             roundedTextField.heightAnchor.constraint(equalToConstant: 30),
-            roundedTextField.widthAnchor.constraint(equalToConstant: 120),
+            roundedTextField.widthAnchor.constraint(equalToConstant: 125),
             
-            currencySegmentedControl.leadingAnchor.constraint(
+            currencyLabel.leadingAnchor.constraint(
                 equalTo: roundedTextField.trailingAnchor,
-                constant: 10),
-            currencySegmentedControl.trailingAnchor.constraint(
-                equalTo: trailingAnchor),
-            currencySegmentedControl.centerYAnchor.constraint(
-                equalTo: roundedTextField.centerYAnchor,
-                constant: -1)
+                constant: 6),
+            currencyLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            currencyLabel.centerYAnchor.constraint(
+                equalTo: roundedTextField.centerYAnchor)
         ])
     }
 }

@@ -13,8 +13,10 @@ enum DatePickerType {
 
 final class DatePickerView: UIView {
     
+    // MARK: Private Properties
     private let type: DatePickerType
     
+    // MARK: Views
     private lazy var customDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
@@ -26,6 +28,7 @@ final class DatePickerView: UIView {
         return datePicker
     }()
 
+    // MARK: Initialize
     init(type: DatePickerType) {
         self.type = type
         super.init(frame: .zero)
@@ -37,17 +40,24 @@ final class DatePickerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
         setCustomShadow()
     }
     
+    // MARK: Private Methods
     private func setupUI() {
         backgroundColor = .white
         addSubview(customDatePicker)
         prepareForAutoLayout()
         setConstraints()
         setCustomCornerRadius()
+    }
+    
+    // MARK: Public Methods
+    func set(date: Date) {
+        customDatePicker.date = date
     }
     
     func getDate() -> Date {

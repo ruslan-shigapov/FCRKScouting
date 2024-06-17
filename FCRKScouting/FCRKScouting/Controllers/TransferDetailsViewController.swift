@@ -8,7 +8,11 @@
 import UIKit
 
 final class TransferDetailsViewController: UIViewController {
+    
+    // MARK: Private Properties
+    private var delegate: TransferDetailsViewControllerDelegate?
         
+    // MARK: Views
     private let titleLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
         text: Constants.Text.transferDetails)
@@ -16,15 +20,15 @@ final class TransferDetailsViewController: UIViewController {
     private let costLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
         numberOfLines: 2,
-        text: "Стоимость перехода:")
+        text: Constants.Text.cost)
     private let salaryLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
         numberOfLines: 2,
-        text: "Зарплата игрока:")
+        text: Constants.Text.salary)
     private let contractLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
         numberOfLines: 2,
-        text: "Окончание контракта:")
+        text: Constants.Text.contract)
     
     private let costTextFieldView = PriceTextFieldView()
     private let salaryTextFieldView = PriceTextFieldView()
@@ -32,10 +36,10 @@ final class TransferDetailsViewController: UIViewController {
     private let contractDatePickerView = DatePickerView(type: .contract)
     
     private let agentNameTextFieldView = PrimaryTextFieldView(
-        placeholder: "Агент (необязательно)",
+        placeholder: Constants.Text.Placeholders.agentName,
         type: .name)
     private let contactsTextFieldView = PrimaryTextFieldView(
-        placeholder: "Контакты (необязательно)",
+        placeholder: Constants.Text.Placeholders.contacts,
         type: .phone)
     
     private lazy var textFieldStackView: UIStackView = {
@@ -51,11 +55,34 @@ final class TransferDetailsViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var saveButton: UIButton = {
+        let button = PrimaryButton(
+            title: Constants.Text.ButtonTitles.save)
+        button.addTarget(
+            self,
+            action: #selector(saveButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    
+    // MARK: Initialize
+    init(delegate: TransferDetailsViewControllerDelegate?) {
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
+    // MARK: Private Methods
     private func setupUI() {
         titleLabel.textAlignment = .center
         titleLabel.textColor = .systemGreen
@@ -70,16 +97,37 @@ final class TransferDetailsViewController: UIViewController {
             salaryTextFieldView,
             contractLabel,
             contractDatePickerView,
-            textFieldStackView)
+            textFieldStackView,
+            saveButton)
         view.prepareForAutoLayout()
         setConstraints()
     }
     
     private func configureTextFields() {
-        // TODO: возможно везде придется вместо делегатов исп вью модели, потому что из других мест будет затруднительно так обращаться, чтобы заполнять текст поля
+        if let prices = delegate?.prices, prices.count == 2 {
+            costTextFieldView.set(text: prices[0])
+            salaryTextFieldView.set(text: prices[1])
+        }
+        contractDatePickerView.set(date: delegate?.contractDate ?? Date())
+        if let agentInfo = delegate?.agentInfo, agentInfo.count == 2 {
+            agentNameTextFieldView.set(text: agentInfo[0])
+            contactsTextFieldView.set(text: agentInfo[1])
+        }
+    }
+    
+    @objc private func saveButtonTapped() {
+        delegate?.prices = [
+            costTextFieldView.getInputText(),
+            salaryTextFieldView.getInputText()]
+        delegate?.contractDate = contractDatePickerView.getDate()
+        delegate?.agentInfo = [
+            agentNameTextFieldView.getInputText(),
+            contactsTextFieldView.getInputText()]
+        dismiss(animated: true)
     }
 }
     
+// MARK: - Layout
 private extension TransferDetailsViewController {
     
     func setConstraints() {
@@ -146,7 +194,15 @@ private extension TransferDetailsViewController {
                 constant: 48),
             textFieldStackView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -48)
+                constant: -48),
+            
+            saveButton.topAnchor.constraint(
+                equalTo: textFieldStackView.bottomAnchor,
+                constant: 24),
+            saveButton.widthAnchor.constraint(
+                equalTo: textFieldStackView.widthAnchor),
+            saveButton.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor)
         ])
     }
 }

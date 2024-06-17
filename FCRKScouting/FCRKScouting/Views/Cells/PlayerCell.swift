@@ -72,8 +72,7 @@ private extension PlayerCell {
             photoImageView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
                 constant: 12),
-            photoImageView.centerYAnchor.constraint(
-                equalTo: centerYAnchor),
+            photoImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             photoImageView.heightAnchor.constraint(equalToConstant: 70),
             photoImageView.widthAnchor.constraint(equalToConstant: 70),
             

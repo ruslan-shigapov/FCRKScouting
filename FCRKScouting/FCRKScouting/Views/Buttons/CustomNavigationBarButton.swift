@@ -24,13 +24,7 @@ final class CustomNavigationBarButton: UIButton {
         tintColor = .white
         contentHorizontalAlignment = .fill
         contentVerticalAlignment = .fill
-        setConstraints()
-    }
-    
-    private func setConstraints() {
-        NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 35),
-            widthAnchor.constraint(equalToConstant: 35)
-        ])
+        heightAnchor.constraint(equalToConstant: 35).isActive = true
+        widthAnchor.constraint(equalToConstant: 35).isActive = true
     }
 }
