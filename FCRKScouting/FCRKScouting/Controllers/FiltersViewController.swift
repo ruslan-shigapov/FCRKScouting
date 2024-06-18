@@ -11,11 +11,12 @@ final class FiltersViewController: UIViewController {
     
     private let titleLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
-        text: "Применить фильтры")
+        text: Constants.Text.ScreenTitles.filters)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
+        titleLabel.textAlignment = .center
+        view.backgroundColor = .accent
         view.addSubview(titleLabel)
         view.prepareForAutoLayout()
         setConstraints()
@@ -23,12 +24,10 @@ final class FiltersViewController: UIViewController {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 16),
             titleLabel.topAnchor.constraint(
-                equalTo: view.topAnchor, 
+                equalTo: view.topAnchor,
                 constant: 24),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
 }

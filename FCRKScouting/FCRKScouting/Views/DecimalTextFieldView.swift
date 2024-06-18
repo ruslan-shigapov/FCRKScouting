@@ -12,14 +12,21 @@ enum DecimalTextFieldType {
     
     var maxLength: Int {
         switch self {
-        case .meters: 4
-        case .time, .weight: 5
+        case .meters, .time: 4
+        case .weight: 5
         }
     }
     var placeholder: String {
         switch self {
-        case .meters: "0.00"
-        case .time, .weight: "00.00"
+        case .meters, .time: "0.00"
+        case .weight: "00.00"
+        }
+    }
+    var unit: String {
+        switch self {
+        case .meters: "м"
+        case .time: "сек"
+        case .weight: "кг"
         }
     }
 }
@@ -28,7 +35,6 @@ final class DecimalTextFieldView: UIView {
     
     // MARK: Private Properties 
     private let textFieldType: DecimalTextFieldType
-    private let unitTitle: String
 
     // MARK: Views
     private let roundedTextField: UITextField = {
@@ -39,15 +45,14 @@ final class DecimalTextFieldView: UIView {
         textField.leftView = UIView(
             frame: CGRectMake(0, 0, 5, textField.frame.height))
         textField.leftViewMode = .always
-        textField.setCustomCornerRadius()
+        textField.setCommonCornerRadius()
         return textField
     }()
     
-    private lazy var unitLabel = DefaultTextLabel(text: unitTitle)
+    private lazy var unitLabel = DefaultTextLabel(text: textFieldType.unit)
     
     // MARK: Initialize
-    init(textFieldType: DecimalTextFieldType, unitTitle: String) {
-        self.unitTitle = unitTitle
+    init(textFieldType: DecimalTextFieldType) {
         self.textFieldType = textFieldType
         super.init(frame: .zero)
         roundedTextField.delegate = self
@@ -62,7 +67,7 @@ final class DecimalTextFieldView: UIView {
     // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
-        roundedTextField.setCustomShadow()
+        roundedTextField.setCommonShadow()
     }
         
     // MARK: Private Methods

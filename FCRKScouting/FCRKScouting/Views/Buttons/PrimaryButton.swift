@@ -38,13 +38,13 @@ final class PrimaryButton: UIButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setCustomShadow()
+        setCommonShadow()
     }
     
     private func setupUI() {
         backgroundColor = .systemGreen.withAlphaComponent(0.8)
         titleLabel?.font = Constants.Fonts.normal
-        setCustomCornerRadius()
+        setCommonCornerRadius()
         heightAnchor.constraint(equalToConstant: 48).isActive = true
     }
 }

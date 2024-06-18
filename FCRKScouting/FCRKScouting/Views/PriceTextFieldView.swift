@@ -19,7 +19,7 @@ final class PriceTextFieldView: UIView {
         textField.rightView = UIView(
             frame: CGRectMake(0, 0, 5, textField.frame.height))
         textField.rightViewMode = .always
-        textField.setCustomCornerRadius()
+        textField.setCommonCornerRadius()
         return textField
     }()
     
@@ -40,7 +40,7 @@ final class PriceTextFieldView: UIView {
     // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
-        roundedTextField.setCustomShadow()
+        roundedTextField.setCommonShadow()
     }
     
     // MARK: Private Methods 
@@ -98,8 +98,8 @@ extension PriceTextFieldView {
             roundedTextField.topAnchor.constraint(equalTo: topAnchor),
             roundedTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
             roundedTextField.bottomAnchor.constraint(equalTo: bottomAnchor),
-            roundedTextField.heightAnchor.constraint(equalToConstant: 30),
-            roundedTextField.widthAnchor.constraint(equalToConstant: 125),
+            roundedTextField.heightAnchor.constraint(equalToConstant: 35),
+            roundedTextField.widthAnchor.constraint(equalToConstant: 120),
             
             currencyLabel.leadingAnchor.constraint(
                 equalTo: roundedTextField.trailingAnchor,

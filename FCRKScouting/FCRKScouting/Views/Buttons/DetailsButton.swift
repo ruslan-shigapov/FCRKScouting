@@ -22,12 +22,12 @@ final class DetailsButton: UIButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setCustomShadow()
+        setCommonShadow()
     }
     
     private func setupUI() {
         backgroundColor = .accent
         titleLabel?.font = Constants.Fonts.normal
-        setCustomCornerRadius()
+        setCommonCornerRadius()
     }
 }

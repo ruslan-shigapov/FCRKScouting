@@ -90,7 +90,7 @@ final class UpdatesViewController: UIViewController {
     // MARK: Private Methods 
     private func setupUI() {
         addNavigationBarButtons()
-        view.setCustomGradientLayer()
+        view.setupCommonGradientLayer()
         view.addSubviews(segmentedControlBackgroundView, playersCollectionView)
         view.prepareForAutoLayout()
         setConstraints()

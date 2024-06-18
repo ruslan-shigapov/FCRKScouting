@@ -55,7 +55,7 @@ final class LoginViewController: UIViewController {
     // MARK: Private Methods
     private func setupUI() {
         view.backgroundColor = .accent
-        view.setupKeyboardDismissTap()
+        view.setKeyboardDismissTap()
         view.addSubviews(
             logoImageView,
             appNameLabel,
@@ -80,12 +80,12 @@ final class LoginViewController: UIViewController {
     @objc private func loginButtonTapped() {
         viewModel.logInBy(
             accessKey: accessKeyTextFieldView.getInputText()
-        ) {
+        ) { isEditable in
             let formVC = ScreenFactory.getFormControllerWith(
-                accessValue: $0,
+                accessValue: isEditable,
                 delegate: nil)
             formVC.modalPresentationStyle = .fullScreen
-            present(formVC, animated: false)
+            present(formVC, animated: true)
         }
     }
 }
@@ -109,7 +109,7 @@ private extension LoginViewController {
             
             accessKeyTextFieldView.topAnchor.constraint(
                 equalTo: appNameLabel.bottomAnchor,
-                constant: 32),
+                constant: 24),
             accessKeyTextFieldView.widthAnchor.constraint(
                 equalTo: loginButton.widthAnchor),
             accessKeyTextFieldView.centerXAnchor.constraint(

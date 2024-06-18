@@ -8,7 +8,7 @@
 import UIKit
 
 final class NavigationButton: UIButton {
-        
+            
     private let arrowImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.Images.ButtonImages.arrow
@@ -30,7 +30,7 @@ final class NavigationButton: UIButton {
     private func setupUI() {
         backgroundColor = .accent
         titleLabel?.font = Constants.Fonts.normal
-        setCustomCornerRadius()
+        setCommonCornerRadius()
         addSubview(arrowImageView)
         prepareForAutoLayout()
         setConstraints()

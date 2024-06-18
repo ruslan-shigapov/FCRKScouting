@@ -38,7 +38,7 @@ final class SearchViewController: UIViewController {
         sc.searchBar.placeholder = "Начните вводить"
         navigationItem.searchController = sc
         
-        view.setCustomGradientLayer()
+        view.setupCommonGradientLayer()
         view.addSubview(searchTipsView)
         view.prepareForAutoLayout()
         setConstraints()

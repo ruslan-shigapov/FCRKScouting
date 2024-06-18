@@ -27,7 +27,7 @@ final class PlayerCell: UICollectionViewCell {
         stackView.spacing = -10
         stackView.layer.borderWidth = 2
         stackView.layer.borderColor = UIColor.accent.cgColor
-        stackView.setCustomCornerRadius()
+        stackView.setCommonCornerRadius()
         return stackView
     }()
     
@@ -57,7 +57,7 @@ final class PlayerCell: UICollectionViewCell {
     // MARK: Private Methods
     private func setupUI() {
         backgroundColor = Constants.Colors.deepGreen
-        setCustomCornerRadius()
+        setCommonCornerRadius()
         addSubviews(photoImageView, fullNameLabel, infoStackView)
         prepareForAutoLayout()
         setConstraints()

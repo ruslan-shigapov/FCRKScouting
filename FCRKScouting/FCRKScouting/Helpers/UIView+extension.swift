@@ -12,20 +12,12 @@ extension UIView {
     @objc private func dismissKeyboard() {
         endEditing(true)
     }
-        
-    func setCustomCornerRadius() {
-        layer.cornerRadius = 12
-    }
     
-    func setCustomShadow() {
-        clipsToBounds = false
-        layer.shadowColor = UIColor.label.cgColor
-        layer.shadowRadius = 7
-        layer.shadowOpacity = 0.4
-        layer.shadowOffset = CGSize(width: 8, height: 8)
-        layer.shadowPath = UIBezierPath(
-            roundedRect: bounds,
-            cornerRadius: layer.cornerRadius).cgPath
+    func setKeyboardDismissTap() {
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard))
+        addGestureRecognizer(tapGesture)
     }
     
     func addSubviews(_ subviews: UIView...) {
@@ -38,14 +30,22 @@ extension UIView {
         }
     }
     
-    func setupKeyboardDismissTap() {
-        let tapGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(dismissKeyboard))
-        addGestureRecognizer(tapGesture)
+    func setCommonCornerRadius() {
+        layer.cornerRadius = 12
     }
     
-    func setCustomGradientLayer() {
+    func setCommonShadow() {
+        clipsToBounds = false
+        layer.shadowColor = UIColor.label.cgColor
+        layer.shadowRadius = 7
+        layer.shadowOpacity = 0.4
+        layer.shadowOffset = CGSize(width: 8, height: 8)
+        layer.shadowPath = UIBezierPath(
+            roundedRect: bounds,
+            cornerRadius: layer.cornerRadius).cgPath
+    }
+    
+    func setupCommonGradientLayer() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [
             UIColor.accent.withAlphaComponent(0.7).cgColor,

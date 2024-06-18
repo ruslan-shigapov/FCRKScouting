@@ -35,7 +35,7 @@ final class FormViewModel: FormViewModelProtocol {
     func saveUserBy(
         fullName: String,
         post: String,
-        completion: (_ isEditing: Bool) -> Void
+        completion: (_ isEditingMode: Bool) -> Void
     ) {
         if let _ = self.fullName {
             UserManager.shared.updateUser(fullName: fullName, post: post) {

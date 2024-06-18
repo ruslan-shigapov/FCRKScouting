@@ -8,7 +8,7 @@
 import UIKit
 
 enum DatePickerType {
-    case birth, contract
+    case birth, contract, standard
 }
 
 final class DatePickerView: UIView {
@@ -24,6 +24,7 @@ final class DatePickerView: UIView {
         switch type {
         case .birth: datePicker.maximumDate = Date()
         case .contract: datePicker.minimumDate = Date()
+        case .standard: break
         }
         return datePicker
     }()
@@ -43,7 +44,7 @@ final class DatePickerView: UIView {
     // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
-        setCustomShadow()
+        setCommonShadow()
     }
     
     // MARK: Private Methods
@@ -52,7 +53,7 @@ final class DatePickerView: UIView {
         addSubview(customDatePicker)
         prepareForAutoLayout()
         setConstraints()
-        setCustomCornerRadius()
+        setCommonCornerRadius()
     }
     
     // MARK: Public Methods

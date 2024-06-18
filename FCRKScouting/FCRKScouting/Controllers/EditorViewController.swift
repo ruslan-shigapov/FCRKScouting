@@ -7,7 +7,9 @@
 
 import UIKit
 
-final class EditorViewController: UIViewController {
+final class EditorViewController: UIViewController,
+                                  UIImagePickerControllerDelegate,
+                                  UINavigationControllerDelegate {
     
     // MARK: Private Properties 
     private var viewModel: EditorViewModelProtocol
@@ -38,9 +40,8 @@ final class EditorViewController: UIViewController {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
         button.tintColor = .label
-        button.titleLabel?.font = Constants.Fonts.description
         button.setTitle(Constants.Text.ButtonTitles.uploadPhoto, for: .normal)
-        button.setCustomCornerRadius()
+        button.setCommonCornerRadius()
         button.addTarget(
             self,
             action: #selector(uploadPhotoButtonTapped),
@@ -112,7 +113,7 @@ final class EditorViewController: UIViewController {
     private lazy var positionPickerView: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.backgroundColor = .white
-        pickerView.setCustomCornerRadius()
+        pickerView.setCommonCornerRadius()
         pickerView.delegate = pickerViewDelegate
         pickerView.dataSource = pickerViewDataSource
         return pickerView
@@ -124,6 +125,18 @@ final class EditorViewController: UIViewController {
     
     private let footSegmentedControl = CustomSegmentedControl(
         items: Constants.Text.SegmentedControlItems.footSegments)
+    
+    private let heightLabel = CustomWhiteLabel(
+        font: Constants.Fonts.normal,
+        text: Constants.Text.height)
+    private let weightLabel = CustomWhiteLabel(
+        font: Constants.Fonts.normal,
+        text: Constants.Text.weight)
+    
+    private let heightTextFieldView = DecimalTextFieldView(
+        textFieldType: .meters)
+    private let weightTextFieldView = DecimalTextFieldView(
+        textFieldType: .weight)
     
     private let generalInfoTextViewWithTitle = TextViewWithTitle(
         Constants.Text.TextViewTitles.generalInfo)
@@ -139,11 +152,11 @@ final class EditorViewController: UIViewController {
     private let pageSliderView = PageSliderView()
     
     private let pageSliderViewDescription = DescriptionLabel(
-        text: Constants.Text.Descriptions.textView)
+        text: Constants.Text.Descriptions.pageSlider)
     
     private lazy var showAthleticDetailsButton: UIButton = {
         let button = DetailsButton(
-            title: Constants.Text.ButtonTitles.athleticDetails)
+            title: Constants.Text.testingDetails)
         button.addTarget(
             self,
             action: #selector(showAthleticDetailsButtonTapped),
@@ -183,6 +196,10 @@ final class EditorViewController: UIViewController {
             positionPickerView,
             footLabel,
             footSegmentedControl,
+            heightLabel,
+            weightLabel,
+            heightTextFieldView,
+            weightTextFieldView,
             pageSliderView,
             pageSliderViewDescription,
             showCareerDetailsButton,
@@ -195,8 +212,7 @@ final class EditorViewController: UIViewController {
     private let dividerView = UIView()
     
     private lazy var saveButton: UIButton = {
-        let button = PrimaryButton(
-            title: Constants.Text.ButtonTitles.save)
+        let button = PrimaryButton(title: Constants.Text.ButtonTitles.save)
         button.addTarget(
             self,
             action: #selector(saveButtonTapped),
@@ -227,9 +243,9 @@ final class EditorViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        uploadPhotoButton.setCustomShadow()
-        positionPickerView.setCustomShadow()
-        footSegmentedControl.setCustomShadow()
+        uploadPhotoButton.setCommonShadow()
+        positionPickerView.setCommonShadow()
+        footSegmentedControl.setCommonShadow()
         pageSliderView.configureWith(
             pages: [
                 generalInfoTextViewWithTitle,
@@ -244,7 +260,7 @@ final class EditorViewController: UIViewController {
     private func setupUI() {
         dividerView.backgroundColor = .lightGray
         view.backgroundColor = Constants.Colors.deepGreen
-        view.setupKeyboardDismissTap()
+        view.setKeyboardDismissTap()
         view.addSubviews(
             titleLabel,
             closeButton,
@@ -292,7 +308,11 @@ final class EditorViewController: UIViewController {
     }
     
     @objc private func uploadPhotoButtonTapped() {
-        // TODO: добавить логику загрузки фото
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true)
+        // TODO: добавить логику добавления и моменты по доступу
     }
     
     @objc private func togglePatronymicFieldDisplayButtonTapped(
@@ -328,7 +348,8 @@ final class EditorViewController: UIViewController {
     }
     
     @objc private func showCareerDetailsButtonTapped() {
-        
+        let careerDetails = ScreenFactory.getCareerDetailsVC()
+        present(careerDetails, animated: true)
     }
     
     @objc private func showTransferDetailsButtonTapped() {
@@ -411,11 +432,12 @@ extension EditorViewController {
             uploadPhotoButton.centerYAnchor.constraint(
                 equalTo: photoImageView.centerYAnchor),
             uploadPhotoButton.widthAnchor.constraint(equalToConstant: 150),
-            uploadPhotoButton.heightAnchor.constraint(equalToConstant: 32),
+            uploadPhotoButton.heightAnchor.constraint(
+                equalTo: birthDatePickerView.heightAnchor),
             
             textFieldStackView.topAnchor.constraint(
                 equalTo: photoImageView.bottomAnchor,
-                constant: 12),
+                constant: 16),
             textFieldStackView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 16),
@@ -481,8 +503,35 @@ extension EditorViewController {
                 equalTo: footLabel.centerYAnchor,
                 constant: -2),
             
-            pageSliderView.topAnchor.constraint(
+            heightLabel.leadingAnchor.constraint(
+                equalTo: verticalScrollView.leadingAnchor,
+                constant: 16),
+            heightLabel.centerYAnchor.constraint(
+                equalTo: heightTextFieldView.centerYAnchor,
+                constant: 1),
+            
+            heightTextFieldView.topAnchor.constraint(
                 equalTo: footSegmentedControl.bottomAnchor,
+                constant: 24),
+            heightTextFieldView.leadingAnchor.constraint(
+                equalTo: heightLabel.trailingAnchor,
+                constant: 10),
+            
+            weightLabel.trailingAnchor.constraint(
+                equalTo: weightTextFieldView.leadingAnchor,
+                constant: -10),
+            weightLabel.centerYAnchor.constraint(
+                equalTo: weightTextFieldView.centerYAnchor,
+                constant: 1),
+            
+            weightTextFieldView.topAnchor.constraint(
+                equalTo: footSegmentedControl.bottomAnchor,
+                constant: 24),
+            weightTextFieldView.trailingAnchor.constraint(
+                equalTo: footSegmentedControl.trailingAnchor),
+            
+            pageSliderView.topAnchor.constraint(
+                equalTo: heightTextFieldView.bottomAnchor,
                 constant: 32),
             pageSliderView.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
@@ -494,7 +543,7 @@ extension EditorViewController {
             
             pageSliderViewDescription.topAnchor.constraint(
                 equalTo: pageSliderView.bottomAnchor,
-                constant: -12),
+                constant: -16),
             pageSliderViewDescription.leadingAnchor.constraint(
                 equalTo: pageSliderView.leadingAnchor,
                 constant: 5),
@@ -502,17 +551,8 @@ extension EditorViewController {
                 equalTo: pageSliderView.trailingAnchor,
                 constant: -5),
             
-            showAthleticDetailsButton.topAnchor.constraint(
-                equalTo: pageSliderViewDescription.bottomAnchor,
-                constant: 24),
-            showAthleticDetailsButton.leadingAnchor.constraint(
-                equalTo: verticalScrollView.leadingAnchor,
-                constant: 16),
-            showAthleticDetailsButton.trailingAnchor.constraint(
-                equalTo: textFieldStackView.trailingAnchor),
-            
             showCareerDetailsButton.topAnchor.constraint(
-                equalTo: showAthleticDetailsButton.bottomAnchor,
+                equalTo: pageSliderViewDescription.bottomAnchor,
                 constant: 16),
             showCareerDetailsButton.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
@@ -526,10 +566,19 @@ extension EditorViewController {
             showTransferDetailsButton.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 16),
-            showTransferDetailsButton.bottomAnchor.constraint(
+            showTransferDetailsButton.trailingAnchor.constraint(
+                equalTo: textFieldStackView.trailingAnchor),
+            
+            showAthleticDetailsButton.topAnchor.constraint(
+                equalTo: showTransferDetailsButton.bottomAnchor,
+                constant: 16),
+            showAthleticDetailsButton.leadingAnchor.constraint(
+                equalTo: verticalScrollView.leadingAnchor,
+                constant: 16),
+            showAthleticDetailsButton.bottomAnchor.constraint(
                 equalTo: verticalScrollView.bottomAnchor,
                 constant: -24),
-            showTransferDetailsButton.trailingAnchor.constraint(
+            showAthleticDetailsButton.trailingAnchor.constraint(
                 equalTo: textFieldStackView.trailingAnchor),
             
             dividerView.topAnchor.constraint(

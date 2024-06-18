@@ -16,7 +16,13 @@ enum Constants {
     enum Images {
         static let logo = UIImage(named: "Logo")
         static let photoPlaceholder = UIImage(systemName: "person.circle")
-        
+        // MARK: Tab Bar Icons
+        enum TabBarIcons {
+            static let updates = UIImage(systemName: "newspaper")
+            static let search = UIImage(systemName: "binoculars.fill")
+            static let profile = UIImage(systemName: "soccerball")
+        }
+        // MARK: Button Images
         enum ButtonImages {
             static let refresh = UIImage(systemName: "arrow.clockwise.circle")
             static let addPlayer = UIImage(systemName: "plus.circle")
@@ -28,11 +34,6 @@ enum Constants {
             static let filters = UIImage(systemName: "magnifyingglass.circle")
             static let edit = UIImage(systemName: "pencil.circle")
             static let arrow = UIImage(systemName: "chevron.right")
-        }
-        enum TabBarIcons {
-            static let updates = UIImage(systemName: "newspaper")
-            static let search = UIImage(systemName: "binoculars.fill")
-            static let profile = UIImage(systemName: "soccerball")
         }
     }
     // MARK: Fonts
@@ -49,11 +50,14 @@ enum Constants {
         static let birthDate = "Дата рождения:"
         static let position = "Позиция:"
         static let foot = "Рабочая нога:"
-        static let transferDetails = "Трансферные детали"
         static let height = "Рост:"
         static let weight = "Вес:"
+        static let transferDetails = "Трансферные детали"
+        static let testingDetails = "Тестирование"
         static let normative = "Нормативы:"
-        static let running = "Бег на 5/15/30м"
+        static let date = "Дата:"
+        static let runningFor15M = "Бег на 15м"
+        static let runningFor30M = "Бег на 30м"
         static let longJump = "Прыжок с места"
         static let highJump = "Прыжок в высоту"
         static let cost = "Стоимость перехода:"
@@ -66,25 +70,20 @@ enum Constants {
         static let access = "Доступ:"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
-        
+        // MARK: Descriptions
         enum Descriptions {
             static let access = """
             Вход возможен только для сотрудников системы ФК \"Рубин\" Казань
             """
-            static let textView = """
+            static let pageSlider = """
             Поля в этом слайдере необязательные, любые данные можно добавить или изменить позже
             """
             static let forGoalkeepers = "(для вратарей)"
         }
-        enum Units {
-            static let meter = "м"
-            static let kilo = "кг"
-            static let second = "сек"
-        }
         enum Placeholders {
+            static let accessKey = "Ключ доступа"
             static let fullName = "Имя Фамилия"
             static let post = "Должность (необязательно)"
-            static let accessKey = "Ключ доступа"
             static let patronymic = "Отчество (необязательно)"
             static let citizenship = "Гражданство"
             static let club = "Клуб"
@@ -100,7 +99,6 @@ enum Constants {
             static let no = "Нет"
             static let uploadPhoto = "Загрузить фото"
             static let career = "Движение по фут. вертикали"
-            static let athleticDetails = "Антропометрия/атл. данные"
             static let continueAdding = "Продолжить добавление"
             static let continueEditing = "Продолжить редактирование"
             static let cancel = "Отменить"
@@ -113,9 +111,8 @@ enum Constants {
             static let profile = "Профиль"
             static let addPlayer = "Добавить игрока"
             static let editPlayer = "Редактировать игрока"
-            static let athleticDetails = """
-            Антропометрия и \n Атлетические данные
-            """
+            static let career = "Движение по футбольной вертикали"
+            static let filters = "Расширенные фильтры"
         }
         enum Tips {
             static let title = "Справка:"

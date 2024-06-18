@@ -23,7 +23,7 @@ final class ProfileViewController: UIViewController {
     private lazy var topBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .accent
-        view.setCustomCornerRadius()
+        view.setCommonCornerRadius()
         view.addSubviews(logoImageView, fullNameLabel)
         view.prepareForAutoLayout()
         return view
@@ -37,7 +37,6 @@ final class ProfileViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
-    
     private lazy var allReportsNavigationButton: UIButton = {
         let button = NavigationButton(title: Constants.Text.allReports)
         button.addTarget(
@@ -61,7 +60,7 @@ final class ProfileViewController: UIViewController {
     private lazy var bottomBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .accent
-        view.setCustomCornerRadius()
+        view.setCommonCornerRadius()
         view.addSubviews(userInfoView, logoutButton)
         view.prepareForAutoLayout()
         return view
@@ -92,7 +91,7 @@ final class ProfileViewController: UIViewController {
         userInfoView.configureWith(
             post: viewModel.post,
             access: viewModel.access)
-        view.setCustomGradientLayer()
+        view.setupCommonGradientLayer()
         view.addSubviews(
             topBackgroundView,
             viewingPlanNavigationButton,
@@ -130,13 +129,9 @@ final class ProfileViewController: UIViewController {
         present(formVC, animated: true)
     }
     
-    @objc private func viewingPlanNavigationButtonTapped() {
-        
-    }
+    @objc private func viewingPlanNavigationButtonTapped() {}
     
-    @objc private func allReportsNavigationButtonTapped() {
-        
-    }
+    @objc private func allReportsNavigationButtonTapped() {}
     
     @objc private func logOutButtonTapped() {
         let exitAlert = AlertFactory.getExitAlert { [weak self] in
@@ -193,7 +188,7 @@ private extension ProfileViewController {
                 equalTo: view.trailingAnchor,
                 constant: -8),
             viewingPlanNavigationButton.heightAnchor.constraint(
-                equalToConstant: 74),
+                equalToConstant: 72),
             
             allReportsNavigationButton.topAnchor.constraint(
                 equalTo: viewingPlanNavigationButton.bottomAnchor,
@@ -205,7 +200,7 @@ private extension ProfileViewController {
                 equalTo: view.trailingAnchor,
                 constant: -8),
             allReportsNavigationButton.heightAnchor.constraint(
-                equalToConstant: 74),
+                equalToConstant: 72),
             
             bottomBackgroundView.topAnchor.constraint(
                 equalTo: allReportsNavigationButton.bottomAnchor,

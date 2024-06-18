@@ -10,11 +10,12 @@ import UIKit
 extension UITextField {
     
     func focusNextResponder() {
-        if let nextTF = self.superview?.superview?.superview?.viewWithTag(
-            self.tag + 1) as? UITextField {
+        if let nextTF = superview?.superview?.superview?.viewWithTag(
+            tag + 1
+        ) as? UITextField {
             nextTF.becomeFirstResponder()
         } else {
-            self.resignFirstResponder()
+            resignFirstResponder()
         }
     }
     

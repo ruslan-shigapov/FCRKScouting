@@ -74,7 +74,7 @@ final class PrimaryTextFieldView: UIView {
     // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
-        setCustomShadow()
+        setCommonShadow()
         if let text = customTextField.text, !text.isEmpty {
             addFloatingLabel()
         }
@@ -89,7 +89,7 @@ final class PrimaryTextFieldView: UIView {
     
     private func setupUI() {
         backgroundColor = .white
-        setCustomCornerRadius()
+        setCommonCornerRadius()
         addSubview(containerStackView)
         prepareForAutoLayout()
         setConstraints()

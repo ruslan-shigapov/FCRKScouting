@@ -74,7 +74,7 @@ final class FormViewController: UIViewController {
         titleLabel.textAlignment = .center
         configureTextFields()
         view.backgroundColor = .accent
-        view.setupKeyboardDismissTap()
+        view.setKeyboardDismissTap()
         view.addSubviews(titleLabel, textFieldStackView, saveButton)
         view.prepareForAutoLayout()
         setConstraints()
@@ -110,8 +110,8 @@ final class FormViewController: UIViewController {
             viewModel.saveUserBy(
                 fullName: $0[0],
                 post: postTextFieldView.getInputText()
-            ) {
-                $0 
+            ) { isEditingMode in
+                isEditingMode
                 ? dismiss(animated: true) { [weak self] in
                     guard let self else { return }
                     self.delegate?.userWasUpdated?()
@@ -135,12 +135,7 @@ private extension FormViewController {
             titleLabel.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
                 constant: 24),
-            titleLabel.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 24),
-            titleLabel.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: -24),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             textFieldStackView.topAnchor.constraint(
                 equalTo: titleLabel.bottomAnchor,

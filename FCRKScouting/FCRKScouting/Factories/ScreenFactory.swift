@@ -72,6 +72,10 @@ struct ScreenFactory {
         AthleticDetailsViewController(delegate: delegate)
     }
     
+    static func getCareerDetailsVC() -> UIViewController {
+        CareerDetailsViewController()
+    }
+    
     static func getTransferDetailsVCWith(
         delegate: TransferDetailsViewControllerDelegate
     ) -> UIViewController {

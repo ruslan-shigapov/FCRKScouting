@@ -88,7 +88,7 @@ final class TransferDetailsViewController: UIViewController {
         titleLabel.textColor = .systemGreen
         configureTextFields()
         view.backgroundColor = .accent
-        view.setupKeyboardDismissTap()
+        view.setKeyboardDismissTap()
         view.addSubviews(
             titleLabel,
             costLabel,
@@ -135,8 +135,7 @@ private extension TransferDetailsViewController {
             titleLabel.topAnchor.constraint(
                 equalTo: view.topAnchor,
                 constant: 24),
-            titleLabel.centerXAnchor.constraint(
-                equalTo: view.centerXAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             costLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
@@ -165,7 +164,7 @@ private extension TransferDetailsViewController {
             
             salaryTextFieldView.topAnchor.constraint(
                 equalTo: costTextFieldView.bottomAnchor,
-                constant: 24),
+                constant: 16),
             salaryTextFieldView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -16),
@@ -181,14 +180,14 @@ private extension TransferDetailsViewController {
             
             contractDatePickerView.topAnchor.constraint(
                 equalTo: salaryTextFieldView.bottomAnchor,
-                constant: 24),
+                constant: 16),
             contractDatePickerView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -16),
             
             textFieldStackView.topAnchor.constraint(
                 equalTo: contractDatePickerView.bottomAnchor,
-                constant: 24),
+                constant: 16),
             textFieldStackView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 48),
