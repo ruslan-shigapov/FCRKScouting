@@ -94,11 +94,18 @@ extension StorageManager {
         birthDate: Date,
         position: String,
         foot: String,
+        height: String?,
+        weight: String?,
         generalInfo: String?,
         technique: String?,
         tactics: String?,
         qualities: String?,
         mental: String?,
+        cost: String?,
+        salary: String?,
+        contractDate: Date?,
+        agentName: String?,
+        agentContacts: String?,
         lastEditor: String,
         updatedDate: Date
     ) {
@@ -111,11 +118,18 @@ extension StorageManager {
         player.birthDate = birthDate
         player.position = position
         player.foot = foot
+        player.height = height
+        player.weight = weight
         player.generalInfo = generalInfo
         player.technique = technique
         player.tactics = tactics
         player.qualities = qualities
         player.mental = mental
+        player.cost = cost
+        player.salary = salary
+        player.contractDate = contractDate
+        player.agentName = agentName
+        player.agentContacts = agentContacts
         player.lastEditor = lastEditor
         player.updatedDate = updatedDate
         saveContext()

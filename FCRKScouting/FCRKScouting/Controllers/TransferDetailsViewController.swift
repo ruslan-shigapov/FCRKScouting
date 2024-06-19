@@ -97,7 +97,7 @@ final class TransferDetailsViewController: UIViewController {
     private func setupUI() {
         titleLabel.textAlignment = .center
         titleLabel.textColor = .systemGreen
-        configureTextFields()
+        configureViews()
         view.backgroundColor = .accent
         view.setKeyboardDismissTap()
         view.addSubviews(
@@ -115,12 +115,16 @@ final class TransferDetailsViewController: UIViewController {
         setConstraints()
     }
     
-    private func configureTextFields() {
+    private func configureViews() {
         if let prices = delegate?.prices, prices.count == 2 {
             costTextFieldView.set(text: prices[0])
             salaryTextFieldView.set(text: prices[1])
         }
-        contractDatePickerView.set(date: delegate?.contractDate ?? Date())
+        if let contractDate = delegate?.contractDate {
+            contractDateSwitcher.isOn.toggle()
+            contractDatePickerView.toggleEnabled()
+            contractDatePickerView.set(date: contractDate)
+        }
         if let agentInfo = delegate?.agentInfo, agentInfo.count == 2 {
             agentNameTextFieldView.set(text: agentInfo[0])
             contactsTextFieldView.set(text: agentInfo[1])
@@ -134,12 +138,18 @@ final class TransferDetailsViewController: UIViewController {
     @objc private func saveButtonTapped() {
         delegate?.prices = [
             costTextFieldView.getInputText(),
-            salaryTextFieldView.getInputText()]
-        delegate?.contractDate = contractDatePickerView.getDate()
+            salaryTextFieldView.getInputText()
+        ]
+        delegate?.contractDate = contractDateSwitcher.isOn
+        ? contractDatePickerView.getDate()
+        : nil
         delegate?.agentInfo = [
             agentNameTextFieldView.getInputText(),
-            contactsTextFieldView.getInputText()]
-        dismiss(animated: true)
+            contactsTextFieldView.getInputText()
+        ]
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
+            self?.dismiss(animated: true)
+        }
     }
 }
     

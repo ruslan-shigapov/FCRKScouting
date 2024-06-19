@@ -27,6 +27,7 @@
 		E46194BB2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194BA2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift */; };
 		E46194BD2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194BC2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift */; };
 		E46272262C22EDF200794705 /* ScoreTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46272252C22EDF200794705 /* ScoreTextFieldView.swift */; };
+		E46272282C23285400794705 /* TestingDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46272272C23285400794705 /* TestingDetailsViewModel.swift */; };
 		E46AC8AF2BF773C600A3C801 /* NavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46AC8AE2BF773C600A3C801 /* NavigationButton.swift */; };
 		E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */; };
 		E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471B2082BFB4543003C0DCD /* FormViewController.swift */; };
@@ -92,6 +93,7 @@
 		E46194BA2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPickerViewDelegate.swift; sourceTree = "<group>"; };
 		E46194BC2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPickerViewDataSource.swift; sourceTree = "<group>"; };
 		E46272252C22EDF200794705 /* ScoreTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTextFieldView.swift; sourceTree = "<group>"; };
+		E46272272C23285400794705 /* TestingDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingDetailsViewModel.swift; sourceTree = "<group>"; };
 		E46AC8AE2BF773C600A3C801 /* NavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButton.swift; sourceTree = "<group>"; };
 		E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
 		E471B2082BFB4543003C0DCD /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */,
 				E404BEA82BE9087C0078961C /* PlayerCellViewModel.swift */,
 				E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */,
+				E46272272C23285400794705 /* TestingDetailsViewModel.swift */,
 				E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */,
 				E4BB48672BC3D53E00F91513 /* ProfileViewModel.swift */,
 			);
@@ -428,6 +431,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E46272282C23285400794705 /* TestingDetailsViewModel.swift in Sources */,
 				E4BB48642BC3D53700F91513 /* LoginViewController.swift in Sources */,
 				E4F4CE4C2BC95122009F9A8D /* DateHeaderView.swift in Sources */,
 				E4BB48772BC3D53E00F91513 /* EditorViewController.swift in Sources */,

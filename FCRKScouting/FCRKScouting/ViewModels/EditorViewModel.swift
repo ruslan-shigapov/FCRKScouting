@@ -7,18 +7,13 @@
 
 import Foundation
 
-protocol TestingDetailsViewControllerDelegate {
-    var athleticDetails: [String?] { get set }
-}
-
 protocol TransferDetailsViewControllerDelegate {
-    var prices: [String] { get set }
-    var contractDate: Date? { get set } // TODO: сделать этот пункт вариативным, добавить кнопочку?
-    var agentInfo: [String] { get set } // TODO: определиться с разворачиванием?
+    var prices: [String?] { get set }
+    var contractDate: Date? { get set }
+    var agentInfo: [String?] { get set }
 }
 
 protocol EditorViewModelProtocol: TextFieldValidationProtocol,     
-                                  TestingDetailsViewControllerDelegate,
                                   TransferDetailsViewControllerDelegate {
     var wasPositionNotSelected: (() -> Void)? { get set }
     func savePlayer(
@@ -30,6 +25,8 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol,
         birthDate: Date,
         position: Int,
         foot: Int,
+        height: String?,
+        weight: String?,
         generalInfo: String?,
         technique: String?,
         tactics: String?,
@@ -42,15 +39,13 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol,
 }
 
 final class EditorViewModel: EditorViewModelProtocol {
-
-    var athleticDetails: [String?] = []
-    
-    var prices: [String] = []
+        
+    var prices: [String?] = []
     
     var contractDate: Date?
     
-    var agentInfo: [String] = []
-    
+    var agentInfo: [String?] = []
+            
     var wereRequiredTextFieldsEmpty: (() -> Void)?
     var wasFullNameIncorrect: (() -> Void)?
     var wasPositionNotSelected: (() -> Void)?
@@ -64,6 +59,8 @@ final class EditorViewModel: EditorViewModelProtocol {
         birthDate: Date,
         position: Int,
         foot: Int,
+        height: String?,
+        weight: String?,
         generalInfo: String?,
         technique: String?,
         tactics: String?,
@@ -76,6 +73,7 @@ final class EditorViewModel: EditorViewModelProtocol {
             return
         } else {
             let currentUserFullName = UserManager.shared.user?.fullName
+            
             StorageManager.shared.savePlayer(
                 withFullName: fullName,
                 patronymic: patronymic,
@@ -85,12 +83,19 @@ final class EditorViewModel: EditorViewModelProtocol {
                 birthDate: birthDate,
                 position: Constants.Text.Positions.allCases[position].rawValue,
                 foot: Constants.Text.SegmentedControlItems.footSegments[foot],
+                height: height,
+                weight: weight,
                 generalInfo: generalInfo,
                 technique: technique,
                 tactics: tactics,
                 qualities: qualities,
                 mental: mental,
-                lastEditor: currentUserFullName ?? "", 
+                cost: prices.count == 2 ? prices[0] : nil,
+                salary: prices.count == 2 ? prices[1] : nil,
+                contractDate: contractDate,
+                agentName: agentInfo.count == 2 ? agentInfo[0] : nil,
+                agentContacts: agentInfo.count == 2 ? agentInfo[1] : nil,
+                lastEditor: currentUserFullName ?? "",
                 updatedDate: Date())
             completion()
         }

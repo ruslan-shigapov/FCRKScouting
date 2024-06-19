@@ -83,8 +83,9 @@ final class DecimalTextFieldView: UIView {
         roundedTextField.text = text
     }
     
-    func getInputText() -> String? {
-        roundedTextField.text
+    func getInputText() -> String {
+        guard let text = roundedTextField.text else { return "" }
+        return text
     }
 }
 

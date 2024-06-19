@@ -10,7 +10,7 @@ import UIKit
 final class TestingDetailsViewController: UIViewController {
     
     // MARK: Private Properties
-    private var delegate: TestingDetailsViewControllerDelegate?
+//    private var delegate: TestingDetailsViewControllerDelegate?
     
     // MARK: Views
     private let titleLabel = CustomWhiteLabel(
@@ -64,10 +64,10 @@ final class TestingDetailsViewController: UIViewController {
     }()
     
     // MARK: Initialize
-    init(delegate: TestingDetailsViewControllerDelegate?) {
-        self.delegate = delegate
-        super.init(nibName: nil, bundle: nil)
-    }
+//    init(delegate: TestingDetailsViewControllerDelegate?) {
+//        self.delegate = delegate
+//        super.init(nibName: nil, bundle: nil)
+//    }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
@@ -112,35 +112,38 @@ final class TestingDetailsViewController: UIViewController {
     }
     
     private func configureTextFields() {
-//        guard let athleticDetails = delegate?.athleticDetails,
-//                                    athleticDetails.count == 7 else { return }
-//        heightTextFieldView.set(text: athleticDetails[0])
-//        weightTextFieldView.set(text: athleticDetails[1])
-//        let runningDetails = Array(athleticDetails[2...4])
+//        guard let testingDetails = delegate?.testingDetails,
+//                                    testingDetails.count == 7 else { return }
+//        heightTextFieldView.set(text: testingDetails[0])
+//        weightTextFieldView.set(text: testingDetails[1])
+//        let runningDetails = Array(testingDetails[2...4])
 //        for (index, view) in runningTextFieldStackView.subviews.enumerated() {
 //            if let textFieldView = view as? DecimalTextFieldView {
 //                textFieldView.set(text: runningDetails[index])
 //            }
 //        }
-//        longJumpTextFieldView.set(text: athleticDetails[5])
-//        highJumpTextFieldView.set(text: athleticDetails[6])
+//        longJumpTextFieldView.set(text: testingDetails[5])
+//        highJumpTextFieldView.set(text: testingDetails[6])
     }
     
     @objc private func saveButtonTapped() {
-//        view.endEditing(true)
+        view.endEditing(true)
+        
+//        delegate?.testingDetails = 
+//        
 //        let runningDetails = runningTextFieldStackView.subviews.map {
 //            ($0 as? DecimalTextFieldView)?.getInputText()
 //        }
-//        delegate?.athleticDetails = [
+//        delegate?.testingDetails = [
 //            heightTextFieldView.getInputText(),
 //            weightTextFieldView.getInputText()
 //        ] + runningDetails + [
 //            longJumpTextFieldView.getInputText(),
 //            highJumpTextFieldView.getInputText()
 //        ]
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
-//            self?.dismiss(animated: true)
-//        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
+            self?.dismiss(animated: true)
+        }
     }
 }
 

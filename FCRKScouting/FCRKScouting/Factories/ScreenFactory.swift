@@ -66,12 +66,6 @@ struct ScreenFactory {
         return viewController
     }
     
-    static func getTestingDetailsVCWith(
-        delegate: TestingDetailsViewControllerDelegate
-    ) -> UIViewController {
-        TestingDetailsViewController(delegate: delegate)
-    }
-    
     static func getCareerDetailsVC() -> UIViewController {
         CareerDetailsViewController()
     }

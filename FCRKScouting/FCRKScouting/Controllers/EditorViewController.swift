@@ -154,15 +154,6 @@ final class EditorViewController: UIViewController,
     private let pageSliderViewDescription = DescriptionLabel(
         text: Constants.Text.Descriptions.pageSlider)
     
-    private lazy var showAthleticDetailsButton: UIButton = {
-        let button = DetailsButton(
-            title: Constants.Text.testingDetails)
-        button.addTarget(
-            self,
-            action: #selector(showAthleticDetailsButtonTapped),
-            for: .touchUpInside)
-        return button
-    }()
     private lazy var showCareerDetailsButton: UIButton = {
         let button = DetailsButton(
             title: Constants.Text.ButtonTitles.career)
@@ -203,7 +194,6 @@ final class EditorViewController: UIViewController,
             pageSliderView,
             pageSliderViewDescription,
             showCareerDetailsButton,
-            showAthleticDetailsButton,
             showTransferDetailsButton)
         scrollView.prepareForAutoLayout()
         return scrollView
@@ -341,12 +331,6 @@ final class EditorViewController: UIViewController,
         }
     }
     
-    @objc private func showAthleticDetailsButtonTapped() {
-        let athleticDetailsVC = ScreenFactory.getTestingDetailsVCWith(
-            delegate: viewModel as TestingDetailsViewControllerDelegate)
-        present(athleticDetailsVC, animated: true)
-    }
-    
     @objc private func showCareerDetailsButtonTapped() {
         let careerDetails = ScreenFactory.getCareerDetailsVC()
         present(careerDetails, animated: true)
@@ -375,6 +359,8 @@ final class EditorViewController: UIViewController,
                 birthDate: birthDatePickerView.getDate(),
                 position: positionPickerView.selectedRow(inComponent: 0),
                 foot: footSegmentedControl.selectedSegmentIndex,
+                height: heightTextFieldView.getInputText(),
+                weight: weightTextFieldView.getInputText(),
                 generalInfo: generalInfoTextViewWithTitle.getInputText(),
                 technique: techniqueTextViewWithTitle.getInputText(),
                 tactics: tacticsTextViewWithTitle.getInputText(),
@@ -553,7 +539,7 @@ extension EditorViewController {
             
             showCareerDetailsButton.topAnchor.constraint(
                 equalTo: pageSliderViewDescription.bottomAnchor,
-                constant: 16),
+                constant: 24),
             showCareerDetailsButton.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 16),
@@ -566,19 +552,10 @@ extension EditorViewController {
             showTransferDetailsButton.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,
                 constant: 16),
-            showTransferDetailsButton.trailingAnchor.constraint(
-                equalTo: textFieldStackView.trailingAnchor),
-            
-            showAthleticDetailsButton.topAnchor.constraint(
-                equalTo: showTransferDetailsButton.bottomAnchor,
-                constant: 16),
-            showAthleticDetailsButton.leadingAnchor.constraint(
-                equalTo: verticalScrollView.leadingAnchor,
-                constant: 16),
-            showAthleticDetailsButton.bottomAnchor.constraint(
+            showTransferDetailsButton.bottomAnchor.constraint(
                 equalTo: verticalScrollView.bottomAnchor,
                 constant: -24),
-            showAthleticDetailsButton.trailingAnchor.constraint(
+            showTransferDetailsButton.trailingAnchor.constraint(
                 equalTo: textFieldStackView.trailingAnchor),
             
             dividerView.topAnchor.constraint(
