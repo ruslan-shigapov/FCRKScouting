@@ -1,5 +1,5 @@
 //
-//  AthleticDetailsViewController.swift
+//  TestingDetailsViewController.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 24.05.2024.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-final class AthleticDetailsViewController: UIViewController {
+final class TestingDetailsViewController: UIViewController {
     
     // MARK: Private Properties
-    private var delegate: AthleticDetailsViewControllerDelegate?
+    private var delegate: TestingDetailsViewControllerDelegate?
     
     // MARK: Views
     private let titleLabel = CustomWhiteLabel(
@@ -26,6 +26,13 @@ final class AthleticDetailsViewController: UIViewController {
     
     private let testingDatePickerView = DatePickerView(type: .standard)
     
+    private let runningFor15MLabel = DefaultTextLabel(
+        text: Constants.Text.runningFor15M)
+    private let runningFor30MLabel = DefaultTextLabel(
+        text: Constants.Text.runningFor30M)
+    private let longJumpLabel = DefaultTextLabel(text: Constants.Text.longJump)
+    private let highJumpLabel = DefaultTextLabel(text: Constants.Text.highJump)
+    
     private let runningFor15MTextFieldView = DecimalTextFieldView(
         textFieldType: .time)
     private let runningFor30MTextFieldView = DecimalTextFieldView(
@@ -35,37 +42,16 @@ final class AthleticDetailsViewController: UIViewController {
     private let highJumpTextFieldView = DecimalTextFieldView(
         textFieldType: .meters)
     
-    private lazy var runningFor15MNormativeStackView: UIStackView = {
-        let label = DefaultTextLabel(text: Constants.Text.runningFor15M)
-        let spacerView = UIView()
-        let stackView = UIStackView(
-            arrangedSubviews: [label, runningFor15MTextFieldView])
-        stackView.distribution = .fillProportionally
-        return stackView
-    }()
-    private lazy var runningFor30MNormativeStackView: UIStackView = {
-        let label = DefaultTextLabel(text: Constants.Text.runningFor30M)
-        let stackView = UIStackView(
-            arrangedSubviews: [label, runningFor30MTextFieldView])
-        return stackView
-    }()
-    private lazy var longJumpNormativeStackView: UIStackView = {
-        let label = DefaultTextLabel(text: Constants.Text.longJump)
-        let stackView = UIStackView(
-            arrangedSubviews: [label, longJumpTextFieldView])
-        return stackView
-    }()
-    private lazy var highJumpNormativeStackView: UIStackView = {
-        let label = DefaultTextLabel(text: Constants.Text.highJump)
-        let stackView = UIStackView(
-            arrangedSubviews: [label, highJumpTextFieldView])
-        return stackView
-    }()
+    private let runningFor15MScoreView = ScoreTextFieldView()
+    private let runningFor30MScoreView = ScoreTextFieldView()
+    private let longJumpScoreView = ScoreTextFieldView()
+    private let highJumpScoreView = ScoreTextFieldView()
     
     private let descriptionLabel = DescriptionLabel(
         text: Constants.Text.Descriptions.forGoalkeepers)
     
-    private let summaryTextViewWithTitle = TextViewWithTitle("Выводы:")
+    private let summaryTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.summary)
     
     private lazy var saveButton: UIButton = {
         let button = PrimaryButton(
@@ -78,7 +64,7 @@ final class AthleticDetailsViewController: UIViewController {
     }()
     
     // MARK: Initialize
-    init(delegate: AthleticDetailsViewControllerDelegate?) {
+    init(delegate: TestingDetailsViewControllerDelegate?) {
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
@@ -106,10 +92,18 @@ final class AthleticDetailsViewController: UIViewController {
             normativeLabel,
             dateLabel,
             testingDatePickerView,
-            runningFor15MNormativeStackView,
-            runningFor30MNormativeStackView,
-            longJumpNormativeStackView,
-            highJumpNormativeStackView,
+            runningFor15MLabel,
+            runningFor30MLabel,
+            longJumpLabel,
+            highJumpLabel,
+            runningFor15MTextFieldView,
+            runningFor30MTextFieldView,
+            longJumpTextFieldView,
+            highJumpTextFieldView,
+            runningFor15MScoreView,
+            runningFor30MScoreView,
+            longJumpScoreView,
+            highJumpScoreView,
             descriptionLabel,
             summaryTextViewWithTitle,
             saveButton)
@@ -151,7 +145,7 @@ final class AthleticDetailsViewController: UIViewController {
 }
 
 // MARK: - Layout
-private extension AthleticDetailsViewController {
+private extension TestingDetailsViewController {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
@@ -178,48 +172,84 @@ private extension AthleticDetailsViewController {
                 equalTo: view.leadingAnchor,
                 constant: 16),
             normativeLabel.bottomAnchor.constraint(
-                equalTo: runningFor15MNormativeStackView.topAnchor,
+                equalTo: runningFor15MTextFieldView.topAnchor,
                 constant: -2),
             
-            runningFor15MNormativeStackView.topAnchor.constraint(
+            runningFor15MLabel.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 16),
+            runningFor15MLabel.centerYAnchor.constraint(
+                equalTo: runningFor15MTextFieldView.centerYAnchor),
+            
+            runningFor15MTextFieldView.topAnchor.constraint(
                 equalTo: testingDatePickerView.bottomAnchor,
                 constant: 16),
-            runningFor15MNormativeStackView.leadingAnchor.constraint(
+            runningFor15MTextFieldView.leadingAnchor.constraint(
+                equalTo: highJumpTextFieldView.leadingAnchor),
+            
+            runningFor30MLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 16),
-            runningFor15MNormativeStackView.trailingAnchor.constraint(
+            runningFor30MLabel.centerYAnchor.constraint(
+                equalTo: runningFor30MTextFieldView.centerYAnchor),
+            
+            runningFor30MTextFieldView.topAnchor.constraint(
+                equalTo: runningFor15MTextFieldView.bottomAnchor,
+                constant: 8),
+            runningFor30MTextFieldView.leadingAnchor.constraint(
+                equalTo: highJumpTextFieldView.leadingAnchor),
+            
+            longJumpLabel.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 16),
+            longJumpLabel.centerYAnchor.constraint(
+                equalTo: longJumpTextFieldView.centerYAnchor),
+            
+            longJumpTextFieldView.topAnchor.constraint(
+                equalTo: runningFor30MTextFieldView.bottomAnchor,
+                constant: 8),
+            longJumpTextFieldView.leadingAnchor.constraint(
+                equalTo: highJumpTextFieldView.leadingAnchor),
+            
+            highJumpLabel.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 16),
+            highJumpLabel.centerYAnchor.constraint(
+                equalTo: highJumpTextFieldView.centerYAnchor),
+            
+            highJumpTextFieldView.topAnchor.constraint(
+                equalTo: longJumpTextFieldView.bottomAnchor,
+                constant: 8),
+            highJumpTextFieldView.leadingAnchor.constraint(
+                equalTo: highJumpLabel.trailingAnchor,
+                constant: 12),
+            
+            runningFor15MScoreView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -16),
+            runningFor15MScoreView.centerYAnchor.constraint(
+                equalTo: runningFor15MTextFieldView.centerYAnchor),
             
-            runningFor30MNormativeStackView.topAnchor.constraint(
-                equalTo: runningFor15MNormativeStackView.bottomAnchor,
-                constant: 8),
-            runningFor30MNormativeStackView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 16),
-            runningFor30MTextFieldView.leadingAnchor.constraint(
-                equalTo: runningFor15MTextFieldView.leadingAnchor),
+            runningFor30MScoreView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -16),
+            runningFor30MScoreView.centerYAnchor.constraint(
+                equalTo: runningFor30MTextFieldView.centerYAnchor),
             
-            longJumpNormativeStackView.topAnchor.constraint(
-                equalTo: runningFor30MNormativeStackView.bottomAnchor,
-                constant: 8),
-            longJumpNormativeStackView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 16),
-            longJumpTextFieldView.leadingAnchor.constraint(
-                equalTo: runningFor30MTextFieldView.leadingAnchor),
+            longJumpScoreView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -16),
+            longJumpScoreView.centerYAnchor.constraint(
+                equalTo: longJumpTextFieldView.centerYAnchor),
             
-            highJumpNormativeStackView.topAnchor.constraint(
-                equalTo: longJumpNormativeStackView.bottomAnchor,
-                constant: 8),
-            highJumpNormativeStackView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 16),
-            highJumpTextFieldView.leadingAnchor.constraint(
-                equalTo: runningFor30MTextFieldView.leadingAnchor),
+            highJumpScoreView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -16),
+            highJumpScoreView.centerYAnchor.constraint(
+                equalTo: highJumpTextFieldView.centerYAnchor),
             
             descriptionLabel.topAnchor.constraint(
-                equalTo: highJumpNormativeStackView.bottomAnchor,
+                equalTo: highJumpLabel.bottomAnchor,
                 constant: -5),
             descriptionLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
@@ -235,7 +265,7 @@ private extension AthleticDetailsViewController {
                 equalTo: view.trailingAnchor,
                 constant: 4),
             summaryTextViewWithTitle.heightAnchor.constraint(
-                equalToConstant: 120),
+                equalToConstant: 140),
             
             saveButton.topAnchor.constraint(
                 equalTo: summaryTextViewWithTitle.bottomAnchor),

@@ -33,6 +33,17 @@ final class TransferDetailsViewController: UIViewController {
     private let costTextFieldView = PriceTextFieldView()
     private let salaryTextFieldView = PriceTextFieldView()
     
+    private lazy var contractDateSwitcher: UISwitch = {
+        let switcher = UISwitch()
+        switcher.backgroundColor = .lightGray
+        switcher.layer.cornerRadius = 16
+        switcher.addTarget(
+            self,
+            action: #selector(contractDateSwitcherChanged),
+            for: .valueChanged)
+        return switcher
+    }()
+    
     private let contractDatePickerView = DatePickerView(type: .contract)
     
     private let agentNameTextFieldView = PrimaryTextFieldView(
@@ -96,6 +107,7 @@ final class TransferDetailsViewController: UIViewController {
             salaryLabel,
             salaryTextFieldView,
             contractLabel,
+            contractDateSwitcher,
             contractDatePickerView,
             textFieldStackView,
             saveButton)
@@ -113,6 +125,10 @@ final class TransferDetailsViewController: UIViewController {
             agentNameTextFieldView.set(text: agentInfo[0])
             contactsTextFieldView.set(text: agentInfo[1])
         }
+    }
+    
+    @objc private func contractDateSwitcherChanged() {
+        contractDatePickerView.toggleEnabled()
     }
     
     @objc private func saveButtonTapped() {
@@ -156,8 +172,7 @@ private extension TransferDetailsViewController {
             salaryLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 16),
-            salaryLabel.widthAnchor.constraint(
-                equalToConstant: 120),
+            salaryLabel.widthAnchor.constraint( equalTo: costLabel.widthAnchor),
             salaryLabel.centerYAnchor.constraint(
                 equalTo: salaryTextFieldView.centerYAnchor,
                 constant: 2),
@@ -173,10 +188,16 @@ private extension TransferDetailsViewController {
                 equalTo: view.leadingAnchor,
                 constant: 16),
             contractLabel.widthAnchor.constraint(
-                equalToConstant: 120),
+                equalTo: costLabel.widthAnchor),
             contractLabel.centerYAnchor.constraint(
                 equalTo: contractDatePickerView.centerYAnchor,
                 constant: 2),
+            
+            contractDateSwitcher.trailingAnchor.constraint(
+                equalTo: contractDatePickerView.leadingAnchor,
+                constant: -10),
+            contractDateSwitcher.centerYAnchor.constraint(
+                equalTo: contractDatePickerView.centerYAnchor),
             
             contractDatePickerView.topAnchor.constraint(
                 equalTo: salaryTextFieldView.bottomAnchor,

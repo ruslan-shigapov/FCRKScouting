@@ -29,5 +29,6 @@ final class DetailsButton: UIButton {
         backgroundColor = .accent
         titleLabel?.font = Constants.Fonts.normal
         setCommonCornerRadius()
+        heightAnchor.constraint(equalToConstant: 32).isActive = true
     }
 }

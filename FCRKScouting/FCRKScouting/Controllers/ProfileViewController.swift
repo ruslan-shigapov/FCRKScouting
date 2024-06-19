@@ -200,7 +200,7 @@ private extension ProfileViewController {
                 equalTo: view.trailingAnchor,
                 constant: -8),
             allReportsNavigationButton.heightAnchor.constraint(
-                equalToConstant: 72),
+                equalTo: viewingPlanNavigationButton.heightAnchor),
             
             bottomBackgroundView.topAnchor.constraint(
                 equalTo: allReportsNavigationButton.bottomAnchor,

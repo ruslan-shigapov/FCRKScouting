@@ -342,8 +342,8 @@ final class EditorViewController: UIViewController,
     }
     
     @objc private func showAthleticDetailsButtonTapped() {
-        let athleticDetailsVC = ScreenFactory.getAthleticDetailsVCWith(
-            delegate: viewModel as AthleticDetailsViewControllerDelegate)
+        let athleticDetailsVC = ScreenFactory.getTestingDetailsVCWith(
+            delegate: viewModel as TestingDetailsViewControllerDelegate)
         present(athleticDetailsVC, animated: true)
     }
     

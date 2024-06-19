@@ -23,7 +23,9 @@ final class DatePickerView: UIView {
         datePicker.preferredDatePickerStyle = .compact
         switch type {
         case .birth: datePicker.maximumDate = Date()
-        case .contract: datePicker.minimumDate = Date()
+        case .contract: 
+            datePicker.minimumDate = Date()
+            datePicker.isEnabled = false
         case .standard: break
         }
         return datePicker
@@ -49,11 +51,15 @@ final class DatePickerView: UIView {
     
     // MARK: Private Methods
     private func setupUI() {
-        backgroundColor = .white
+        setBackgroundColor()
         addSubview(customDatePicker)
         prepareForAutoLayout()
         setConstraints()
         setCommonCornerRadius()
+    }
+    
+    private func setBackgroundColor() {
+        backgroundColor = customDatePicker.isEnabled ? .white : .lightGray
     }
     
     // MARK: Public Methods
@@ -63,6 +69,11 @@ final class DatePickerView: UIView {
     
     func getDate() -> Date {
         customDatePicker.date
+    }
+    
+    func toggleEnabled() {
+        customDatePicker.isEnabled.toggle()
+        setBackgroundColor()
     }
 }
 

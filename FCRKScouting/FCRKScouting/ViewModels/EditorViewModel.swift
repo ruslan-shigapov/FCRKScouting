@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol AthleticDetailsViewControllerDelegate {
+protocol TestingDetailsViewControllerDelegate {
     var athleticDetails: [String?] { get set }
 }
 
@@ -18,7 +18,7 @@ protocol TransferDetailsViewControllerDelegate {
 }
 
 protocol EditorViewModelProtocol: TextFieldValidationProtocol,     
-                                  AthleticDetailsViewControllerDelegate,
+                                  TestingDetailsViewControllerDelegate,
                                   TransferDetailsViewControllerDelegate {
     var wasPositionNotSelected: (() -> Void)? { get set }
     func savePlayer(

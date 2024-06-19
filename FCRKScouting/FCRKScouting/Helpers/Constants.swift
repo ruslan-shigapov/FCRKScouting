@@ -16,21 +16,21 @@ enum Constants {
     enum Images {
         static let logo = UIImage(named: "Logo")
         static let photoPlaceholder = UIImage(systemName: "person.circle")
-        // MARK: Tab Bar Icons
+
         enum TabBarIcons {
             static let updates = UIImage(systemName: "newspaper")
             static let search = UIImage(systemName: "binoculars.fill")
             static let profile = UIImage(systemName: "soccerball")
         }
-        // MARK: Button Images
+
         enum ButtonImages {
             static let refresh = UIImage(systemName: "arrow.clockwise.circle")
             static let addPlayer = UIImage(systemName: "plus.circle")
             static let close = UIImage(systemName: "xmark.circle")
             static let plus = UIImage(systemName: "plus.square")
             static let minus = UIImage(systemName: "minus.square")
-            static let related = UIImage(systemName: "personalhotspot.circle")
             static let features = UIImage(systemName: "star.circle")
+            static let related = UIImage(systemName: "personalhotspot.circle")
             static let filters = UIImage(systemName: "magnifyingglass.circle")
             static let edit = UIImage(systemName: "pencil.circle")
             static let arrow = UIImage(systemName: "chevron.right")
@@ -54,15 +54,17 @@ enum Constants {
         static let weight = "Вес:"
         static let transferDetails = "Трансферные детали"
         static let testingDetails = "Тестирование"
-        static let normative = "Нормативы:"
+        static let cost = "Стоимость перехода:"
+        static let salary = "Зарплата игрока:"
+        static let contract = "Окончание контракта:"
         static let date = "Дата:"
+        static let normative = "Нормативы:"
         static let runningFor15M = "Бег на 15м"
         static let runningFor30M = "Бег на 30м"
         static let longJump = "Прыжок с места"
         static let highJump = "Прыжок в высоту"
-        static let cost = "Стоимость перехода:"
-        static let salary = "Зарплата игрока:"
-        static let contract = "Окончание контракта:"
+        static let score = "оценка:"
+        static let summary = "Выводы:"
         static let viewingPlan = "План просмотра"
         static let allReports = "Все отчёты"
         static let post = "Должность:"
@@ -70,7 +72,7 @@ enum Constants {
         static let access = "Доступ:"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
-        // MARK: Descriptions
+
         enum Descriptions {
             static let access = """
             Вход возможен только для сотрудников системы ФК \"Рубин\" Казань
@@ -161,10 +163,10 @@ enum Constants {
             case goalkeeper = "Вратарь"
             case leftDefender = "Левый защитник"
             case rightDefender = "Правый защитник"
-            case centerDefender = "Центральный защитник"
+            case centralDefender = "Центральный защитник"
             case leftMidfielder = "Левый полузащитник"
             case rightMidfielder = "Правый полузащитник"
-            case centerMidfielder = "Центральный полузащитник"
+            case centralMidfielder = "Центральный полузащитник"
             case supportingMidfielder = "Опорный полузащитник"
             case attackingMidfielder = "Атакующий полузащитник"
             case forward = "Нападающий"
@@ -175,10 +177,10 @@ enum Constants {
                 case .goalkeeper: "\"ВР\""
                 case .leftDefender: "\"ЛЗ\""
                 case .rightDefender: "\"ПЗ\""
-                case .centerDefender: "\"ЦЗ\""
+                case .centralDefender: "\"ЦЗ\""
                 case .leftMidfielder: "\"ЛП\""
                 case .rightMidfielder: "\"ПП\""
-                case .centerMidfielder: "\"ЦП\""
+                case .centralMidfielder: "\"ЦП\""
                 case .supportingMidfielder: "\"ОП\""
                 case .attackingMidfielder: "\"АП\""
                 case .forward: "\"НП\""

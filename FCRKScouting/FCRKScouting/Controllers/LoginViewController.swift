@@ -127,7 +127,7 @@ private extension LoginViewController {
             
             loginButton.topAnchor.constraint(
                 equalTo: accessKeyTextFieldView.bottomAnchor,
-                constant: 70),
+                constant: 72),
             loginButton.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 48),

@@ -44,17 +44,15 @@ final class TextViewWithTitle: UIView {
     }
     
     // MARK: Lifecycle
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        roundedTextView.setCustomShadow()
-//        setConstraints()
-//    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setConstraints()
+    }
     
     // MARK: Private Methods
     private func setupUI() {
         addSubviews(titleLabel, roundedTextView)
         prepareForAutoLayout()
-        setConstraints()
     }
     
     // MARK: Public Methods
