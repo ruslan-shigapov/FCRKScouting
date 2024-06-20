@@ -155,8 +155,9 @@ final class EditorViewController: UIViewController,
         text: Constants.Text.Descriptions.pageSlider)
     
     private lazy var showCareerDetailsButton: UIButton = {
-        let button = DetailsButton(
-            title: Constants.Text.ButtonTitles.career)
+        let button = PrimaryButton(
+            title: Constants.Text.ButtonTitles.career,
+            color: .accent)
         button.addTarget(
             self,
             action: #selector(showCareerDetailsButtonTapped),
@@ -164,7 +165,9 @@ final class EditorViewController: UIViewController,
         return button
     }()
     private lazy var showTransferDetailsButton: UIButton = {
-        let button = DetailsButton(title: Constants.Text.transferDetails)
+        let button = PrimaryButton(
+            title: Constants.Text.transferDetails,
+            color: .accent)
         button.addTarget(
             self,
             action: #selector(showTransferDetailsButtonTapped),

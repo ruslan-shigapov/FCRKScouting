@@ -25,9 +25,10 @@ final class PrimaryButton: UIButton {
         }
     }
     
-    init(title: String) {
+    init(title: String, color: UIColor = .systemGreen.withAlphaComponent(0.8)) {
         super.init(frame: .zero)
         setTitle(title, for: .normal)
+        backgroundColor = color
         setupUI()
     }
     
@@ -42,7 +43,6 @@ final class PrimaryButton: UIButton {
     }
     
     private func setupUI() {
-        backgroundColor = .systemGreen.withAlphaComponent(0.8)
         titleLabel?.font = Constants.Fonts.normal
         setCommonCornerRadius()
         heightAnchor.constraint(equalToConstant: 48).isActive = true

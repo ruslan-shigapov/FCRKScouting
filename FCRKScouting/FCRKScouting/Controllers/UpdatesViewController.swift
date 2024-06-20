@@ -12,7 +12,8 @@ final class UpdatesViewController: UIViewController {
     // MARK: Private Properties
     private var viewModel: UpdatesViewModelProtocol
     
-    private let collectionViewDelegate = UpdatesCollectionDelegate()
+    private lazy var collectionViewDelegate = UpdatesCollectionDelegate(
+        navigationController)
     private lazy var collectionViewDataSource = UpdatesCollectionDataSource(
         viewModel)
     

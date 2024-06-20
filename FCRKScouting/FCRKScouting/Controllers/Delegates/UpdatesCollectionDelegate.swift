@@ -10,6 +10,12 @@ import UIKit
 final class UpdatesCollectionDelegate: NSObject,
                                        UICollectionViewDelegateFlowLayout {
     
+    private let navigationController: UINavigationController?
+    
+    init(_ navigationController: UINavigationController?) {
+        self.navigationController = navigationController
+    }
+    
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -36,5 +42,13 @@ final class UpdatesCollectionDelegate: NSObject,
         } else {
             return UIEdgeInsets.zero
         }
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        let playerVC = ScreenFactory.getPlayerViewController()
+        navigationController?.pushViewController(playerVC, animated: true)
     }
 }
