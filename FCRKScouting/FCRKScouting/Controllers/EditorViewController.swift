@@ -15,14 +15,15 @@ final class EditorViewController: UIViewController,
     private var viewModel: EditorViewModelProtocol
     private var delegate: EditorViewControllerDelegate
     
-    private lazy var pickerViewDelegate = EditorPickerViewDelegate(viewModel)
+    private lazy var pickerViewDelegate = EditorPickerViewDelegate(
+        viewModel: viewModel)
     private lazy var pickerViewDataSource = EditorPickerViewDataSource(
-        viewModel)
+        viewModel: viewModel)
     
     // MARK: Views
-    private let titleLabel = CustomWhiteLabel(
+    private lazy var titleLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
-        text: Constants.Text.ScreenTitles.addPlayer)
+        text: viewModel.title)
     
     private lazy var closeButton: UIButton = {
         let button = CustomNavigationBarButton(
@@ -104,6 +105,17 @@ final class EditorViewController: UIViewController,
         numberOfLines: 2,
         text: Constants.Text.birthDate)
     
+    private lazy var birthDateSwitcher: UISwitch = {
+        let switcher = UISwitch()
+        switcher.backgroundColor = .lightGray
+        switcher.layer.cornerRadius = 16
+        switcher.addTarget(
+            self,
+            action: #selector(birthDateSwitcherChanged),
+            for: .valueChanged)
+        return switcher
+    }()
+    
     private let birthDatePickerView = DatePickerView(type: .birth)
     
     private let positionLabel = CustomWhiteLabel(
@@ -184,8 +196,9 @@ final class EditorViewController: UIViewController,
             textFieldStackView,
             togglePatronymicFieldDisplayButton,
             toggleNationalTeamFieldDisplayButton,
-            birthDatePickerView,
             birthDateLabel,
+            birthDateSwitcher,
+            birthDatePickerView,
             positionLabel,
             positionPickerView,
             footLabel,
@@ -252,6 +265,7 @@ final class EditorViewController: UIViewController,
     // MARK: Private Methods
     private func setupUI() {
         dividerView.backgroundColor = .lightGray
+        configureUI()
         view.backgroundColor = Constants.Colors.deepGreen
         view.setKeyboardDismissTap()
         view.addSubviews(
@@ -265,39 +279,69 @@ final class EditorViewController: UIViewController,
         setupAlerts()
     }
     
+    private func configureUI() {
+        if let player = viewModel.getPlayer() {
+            fullNameTextFieldView.set(text: player.fullName)
+            patronymicTextFieldView.set(text: player.patronymic)
+            citizenshipTextFieldView.set(text: player.citizenship)
+            clubTextFieldView.set(text: player.club)
+            nationalTeamTextFieldView.set(text: player.nationalTeam)
+            if let birthDate = player.birthDate {
+                birthDateSwitcher.isOn.toggle()
+                birthDatePickerView.toggleEnabled()
+                birthDatePickerView.set(date: birthDate)
+            }
+            let pickerRow = viewModel.getPickerRowBy(title: player.position)
+            positionPickerView.selectRow(
+                pickerRow ?? 0,
+                inComponent: 0,
+                animated: true)
+            let segmentIndex = viewModel.getSegmentIndexBy(title: player.foot)
+            footSegmentedControl.selectedSegmentIndex = segmentIndex ?? 0
+            heightTextFieldView.set(text: player.height)
+            weightTextFieldView.set(text: player.weight)
+            generalInfoTextViewWithTitle.set(text: player.generalInfo)
+            techniqueTextViewWithTitle.set(text: player.technique)
+            tacticsTextViewWithTitle.set(text: player.tactics)
+            qualitiesTextViewWithTitle.set(text: player.qualities)
+            mentalTextViewWithTitle.set(text: player.mental)
+            viewModel.getTransferDetails()
+        }
+    }
+    
     private func setupAlerts() {
         viewModel.wereRequiredTextFieldsEmpty = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.emptyTextFields.title,
                 andMessage: Constants.Text.Alerts.emptyTextFields.message)
-            self.present(alertController, animated: true)
+            present(alertController, animated: true)
         }
         viewModel.wasFullNameIncorrect = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.incorrectFullName.title,
                 andMessage: Constants.Text.Alerts.incorrectFullName.message)
-            self.present(alertController, animated: true)
+            present(alertController, animated: true)
         }
         viewModel.wasPositionNotSelected = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.notSelectedPosition.title,
                 andMessage: Constants.Text.Alerts.notSelectedPosition.message)
-            self.present(alertController, animated: true)
+            present(alertController, animated: true)
         }
     }
     
     @objc private func closeButtonTapped() {
-        let cancelAlert = AlertFactory.getCancelActionSheet(
+        let alertController = AlertFactory.getCancelActionSheet(
             withTitle: Constants.Text.ActionSheets.cancelAdding,
             andButtonTitle: Constants.Text.ButtonTitles.continueAdding
         ) { [weak self] in
             guard let self else { return }
-            self.dismiss(animated: true)
+            dismiss(animated: true)
         }
-        present(cancelAlert, animated: true)
+        present(alertController, animated: true)
     }
     
     @objc private func uploadPhotoButtonTapped() {
@@ -334,6 +378,10 @@ final class EditorViewController: UIViewController,
         }
     }
     
+    @objc private func birthDateSwitcherChanged() {
+        birthDatePickerView.toggleEnabled()
+    }
+    
     @objc private func showCareerDetailsButtonTapped() {
         let careerDetails = ScreenFactory.getCareerDetailsVC()
         present(careerDetails, animated: true)
@@ -353,13 +401,16 @@ final class EditorViewController: UIViewController,
                 clubTextFieldView.getInputText()
             ]
         ) {
+            let birthDate = birthDateSwitcher.isOn
+            ? birthDatePickerView.getDate()
+            : nil
             viewModel.savePlayer(
                 byFullName: $0[0],
                 patronymic: patronymicTextFieldView.getInputText(),
                 citizenship: $0[1],
                 club: $0[2],
                 nationalTeam: nationalTeamTextFieldView.getInputText(),
-                birthDate: birthDatePickerView.getDate(),
+                birthDate: birthDate,
                 position: positionPickerView.selectedRow(inComponent: 0),
                 foot: footSegmentedControl.selectedSegmentIndex,
                 height: heightTextFieldView.getInputText(),
@@ -371,8 +422,8 @@ final class EditorViewController: UIViewController,
                 mental: mentalTextViewWithTitle.getInputText()
             ) { [weak self] in
                 guard let self else { return }
-                self.dismiss(animated: true) {
-                    self.delegate.playerWasAdded?()
+                dismiss(animated: true) {
+                    self.delegate.playersWereChanged?()
                 }
             }
         }
@@ -453,6 +504,12 @@ extension EditorViewController {
                 constant: 24),
             birthDatePickerView.trailingAnchor.constraint(
                 equalTo: textFieldStackView.trailingAnchor),
+            
+            birthDateSwitcher.leadingAnchor.constraint(
+                equalTo: birthDatePickerView.trailingAnchor,
+                constant: 5),
+            birthDateSwitcher.centerYAnchor.constraint(
+                equalTo: birthDatePickerView.centerYAnchor),
             
             birthDateLabel.leadingAnchor.constraint(
                 equalTo: verticalScrollView.leadingAnchor,

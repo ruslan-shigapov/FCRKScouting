@@ -8,23 +8,31 @@
 import Foundation
 
 protocol EditorViewControllerDelegate {
-    var playerWasAdded: (() -> Void)? { get set }
+    var playersWereChanged: (() -> Void)? { get set }
+}
+
+protocol PlayerViewControllerDelegate {
+    var playerWasDeleted: (() -> Void)? { get set }
 }
 
 protocol UpdatesViewModelProtocol: UserViewModelProtocol, 
-                                   EditorViewControllerDelegate {
+                                   EditorViewControllerDelegate,
+                                   PlayerViewControllerDelegate {
     var currentInterval: Int { get set }
     var sortedDates: [Date] { get }
     func getNumberOfSections() -> Int
     func getNumberOfItemsIn(_ section: Int) -> Int
+    func getPlayer(at indexPath: IndexPath) -> Player?
     func getPlayerCellViewModel(
-        at indexPath: IndexPath) -> PlayerCellViewModelProtocol?
+        for player: Player?) -> PlayerCellViewModelProtocol?
+    func getPlayerViewModel(
+        for player: Player?) -> PlayerViewModelProtocol?
     func formatDate(_ date: Date) -> String
     func refreshPlayersList(completion: () -> Void)
 }
 
 final class UpdatesViewModel: UpdatesViewModelProtocol {
-    
+        
     private var players: [Player] = []
     
     private var groupedPlayersByDate: [Date: [Player]] {
@@ -36,7 +44,8 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
     
     private var filteredPlayersByDate: [Date: [Player]] = [:]
     
-    var playerWasAdded: (() -> Void)?
+    var playersWereChanged: (() -> Void)?
+    var playerWasDeleted: (() -> Void)?
     
     var currentInterval: Int = 0 {
         didSet {
@@ -91,17 +100,28 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
         return filteredPlayersByDate[sectionDate]?.count ?? 0
     }
     
-    func getPlayerCellViewModel(
-        at indexPath: IndexPath
-    ) -> PlayerCellViewModelProtocol? {
+    func getPlayer(at indexPath: IndexPath) -> Player? {
         guard indexPath.section < sortedDates.count else { return nil }
         let sectionDate = sortedDates[indexPath.section]
         guard let playersInSection = filteredPlayersByDate[sectionDate] else {
             return nil
         }
         guard indexPath.item < playersInSection.count else { return nil }
-        let player = playersInSection[indexPath.item]
+        return playersInSection[indexPath.item]
+    }
+    
+    func getPlayerCellViewModel(
+        for player: Player?
+    ) -> PlayerCellViewModelProtocol? {
+        guard let player else { return nil }
         return PlayerCellViewModel(player: player)
+    }
+    
+    func getPlayerViewModel(
+        for player: Player?
+    ) -> PlayerViewModelProtocol? {
+        guard let player else { return nil }
+        return PlayerViewModel(player: player)
     }
     
     func formatDate(_ date: Date) -> String {

@@ -9,21 +9,41 @@ import UIKit
 
 final class PlayerViewController: UIViewController {
     
+    // MARK: Private Properties
+    private var viewModel: PlayerViewModelProtocol
+    private var delegate: PlayerViewControllerDelegate
+    
+    
     // MARK: Views
-    private lazy var backgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Constants.Colors.deepGreen
-        view.setCommonCornerRadius()
-        view.addSubviews(
-            showStatisticsDetailsButton,
-            showTestingDetailsButton)
-        view.prepareForAutoLayout()
-        return view
+    private lazy var editPlayerButton: UIButton = {
+        let button = CustomNavigationBarButton(
+            image: Constants.Images.ButtonImages.edit)
+        button.addTarget(
+            self,
+            action: #selector(editPlayerButtonTapped),
+            for: .touchUpInside)
+        return button
     }()
+    private lazy var deletePlayerButton: UIButton = {
+        let button = CustomNavigationBarButton(
+            image: Constants.Images.ButtonImages.delete)
+        button.addTarget(
+            self,
+            action: #selector(deletePlayerButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    
+    private let photoImageView = PhotoImageView()
+    
+    private lazy var fullNameLabel = CustomWhiteLabel(
+        font: Constants.Fonts.header,
+        numberOfLines: 2,
+        text: viewModel.fullName)
     
     private lazy var showStatisticsDetailsButton: UIButton = {
         let button = PrimaryButton(
-            title: "Статистика",
+            title: Constants.Text.statistics,
             color: .accent)
         button.addTarget(
             self,
@@ -41,7 +61,35 @@ final class PlayerViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
-
+    
+    private lazy var backgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Constants.Colors.deepGreen
+        view.setCommonCornerRadius()
+        view.addSubviews(
+            photoImageView,
+            fullNameLabel,
+            showStatisticsDetailsButton,
+            showTestingDetailsButton)
+        view.prepareForAutoLayout()
+        return view
+    }()
+    
+    // MARK: Initialize
+    init(
+        viewModel: PlayerViewModelProtocol,
+        delegate: PlayerViewControllerDelegate
+    ) {
+        self.viewModel = viewModel
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +108,7 @@ final class PlayerViewController: UIViewController {
     private func setupNavigationBar() {
         navigationController?.navigationBar.tintColor = .white
         let backButton = UIBarButtonItem(
-            title: "Назад",
+            title: Constants.Text.ButtonTitles.back,
             style: .plain,
             target: self,
             action: #selector(backButtonTapped))
@@ -68,6 +116,31 @@ final class PlayerViewController: UIViewController {
             [.font : Constants.Fonts.normal as Any],
             for: .normal)
         navigationItem.leftBarButtonItem = backButton
+        // TODO: depends on user mode
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(customView: editPlayerButton),
+            UIBarButtonItem(customView: deletePlayerButton)
+        ]
+    }
+    
+    @objc private func editPlayerButtonTapped() {
+        let playerEditingVC = ScreenFactory.getEditorViewControllerWith(
+            delegate: viewModel as EditorViewControllerDelegate, 
+            andPlayer: viewModel.getPlayer())
+        present(playerEditingVC, animated: true)
+    }
+    
+    @objc private func deletePlayerButtonTapped() {
+        let alertController = AlertFactory.getConfirmationAlert(
+            withTitle: Constants.Text.Alerts.delete.title,
+            andMessage: Constants.Text.Alerts.delete.message
+        ) { [weak self] in
+            guard let self else { return }
+            viewModel.deletePlayer()
+            navigationController?.popViewController(animated: true)
+            delegate.playerWasDeleted?() // TODO: change to just refresh
+        }
+        present(alertController, animated: true)
     }
     
     @objc private func backButtonTapped() {
@@ -102,6 +175,24 @@ private extension PlayerViewController {
             backgroundView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -16),
+            
+            photoImageView.topAnchor.constraint(
+                equalTo: backgroundView.topAnchor,
+                constant: 24),
+            photoImageView.leadingAnchor.constraint(
+                equalTo: backgroundView.leadingAnchor,
+                constant: 24),
+            photoImageView.heightAnchor.constraint(equalToConstant: 120),
+            photoImageView.widthAnchor.constraint(equalToConstant: 120),
+            
+            fullNameLabel.leadingAnchor.constraint(
+                equalTo: photoImageView.trailingAnchor,
+                constant: 24),
+            fullNameLabel.trailingAnchor.constraint(
+                equalTo: backgroundView.trailingAnchor,
+                constant: -24),
+            fullNameLabel.centerYAnchor.constraint(
+                equalTo: photoImageView.centerYAnchor),
             
             showStatisticsDetailsButton.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,

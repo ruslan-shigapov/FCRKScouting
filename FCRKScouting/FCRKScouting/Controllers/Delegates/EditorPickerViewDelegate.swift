@@ -11,7 +11,7 @@ final class EditorPickerViewDelegate: NSObject, UIPickerViewDelegate {
     
     private let viewModel: EditorViewModelProtocol
     
-    init(_ viewModel: EditorViewModelProtocol) {
+    init(viewModel: EditorViewModelProtocol) {
         self.viewModel = viewModel
     }
     

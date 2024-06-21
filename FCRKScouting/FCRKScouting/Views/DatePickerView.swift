@@ -21,12 +21,13 @@ final class DatePickerView: UIView {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
+        datePicker.isEnabled = false
         switch type {
-        case .birth: datePicker.maximumDate = Date()
-        case .contract: 
+        case .birth: 
+            datePicker.maximumDate = Date()
+        case .contract:
             datePicker.minimumDate = Date()
-            datePicker.isEnabled = false
-        case .standard: break
+        case .standard: datePicker.isEnabled = true
         }
         return datePicker
     }()

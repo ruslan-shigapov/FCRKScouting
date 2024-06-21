@@ -13,14 +13,15 @@ final class UpdatesViewController: UIViewController {
     private var viewModel: UpdatesViewModelProtocol
     
     private lazy var collectionViewDelegate = UpdatesCollectionDelegate(
-        navigationController)
+        navigationController: navigationController,
+        viewModel: viewModel)
     private lazy var collectionViewDataSource = UpdatesCollectionDataSource(
-        viewModel)
+        viewModel: viewModel)
     
     // MARK: Views
     private lazy var addPlayerButton: UIButton = {
         let button = CustomNavigationBarButton(
-            image: Constants.Images.ButtonImages.addPlayer)
+            image: Constants.Images.ButtonImages.add)
         button.addTarget(
             self,
             action: #selector(addPlayerButtonTapped),
@@ -85,7 +86,8 @@ final class UpdatesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        handlePlayerAddition()
+        handlePlayerAdding()
+        handlePlayerDeleting()
     }
     
     // MARK: Private Methods 
@@ -107,10 +109,19 @@ final class UpdatesViewController: UIViewController {
         }
     }
     
-    private func handlePlayerAddition() {
-        viewModel.playerWasAdded = { [weak self] in
+    private func handlePlayerAdding() {
+        viewModel.playersWereChanged = { [weak self] in
             guard let self else { return }
             self.viewModel.refreshPlayersList {
+                self.updateCollectionView()
+            }
+        }
+    }
+    
+    private func handlePlayerDeleting() {
+        viewModel.playerWasDeleted = { [weak self] in
+            guard let self else { return }
+            viewModel.refreshPlayersList {
                 self.updateCollectionView()
             }
         }
@@ -124,7 +135,8 @@ final class UpdatesViewController: UIViewController {
     
     @objc private func addPlayerButtonTapped() {
         let playerAddingVC = ScreenFactory.getEditorViewControllerWith(
-            delegate: viewModel as EditorViewControllerDelegate)
+            delegate: viewModel as EditorViewControllerDelegate, 
+            andPlayer: nil)
         present(playerAddingVC, animated: true)
     }
     

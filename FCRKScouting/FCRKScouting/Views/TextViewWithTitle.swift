@@ -60,6 +60,10 @@ final class TextViewWithTitle: UIView {
         roundedTextView.delegate = delegate
     }
     
+    func set(text: String?) {
+        roundedTextView.text = text
+    }
+    
     func getInputText() -> String {
         guard let text = roundedTextView.text else { return "" }
         return text

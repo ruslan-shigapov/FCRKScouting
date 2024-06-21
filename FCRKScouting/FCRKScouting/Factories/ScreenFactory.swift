@@ -56,9 +56,10 @@ struct ScreenFactory {
     }
     
     static func getEditorViewControllerWith(
-        delegate: EditorViewControllerDelegate
+        delegate: EditorViewControllerDelegate,
+        andPlayer player: Player?
     ) -> UIViewController {
-        let viewModel = EditorViewModel()
+        let viewModel = EditorViewModel(player: player)
         let viewController = EditorViewController(
             viewModel: viewModel,
             delegate: delegate)
@@ -76,8 +77,12 @@ struct ScreenFactory {
         TransferDetailsViewController(delegate: delegate)
     }
     
-    static func getPlayerViewController() -> UIViewController {
-        PlayerViewController()
+    static func getPlayerViewControllerFor(
+        player: Player,
+        withDelegate delegate: PlayerViewControllerDelegate
+    ) -> UIViewController {
+        let viewModel = PlayerViewModel(player: player)
+        return PlayerViewController(viewModel: viewModel, delegate: delegate)
     }
     
     static func getStatisticsDetailsVC() -> UIViewController {

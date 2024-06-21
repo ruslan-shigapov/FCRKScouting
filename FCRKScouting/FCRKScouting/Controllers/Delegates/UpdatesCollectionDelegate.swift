@@ -11,9 +11,14 @@ final class UpdatesCollectionDelegate: NSObject,
                                        UICollectionViewDelegateFlowLayout {
     
     private let navigationController: UINavigationController?
+    private let viewModel: UpdatesViewModelProtocol
     
-    init(_ navigationController: UINavigationController?) {
+    init(
+        navigationController: UINavigationController?,
+        viewModel: UpdatesViewModelProtocol
+    ) {
         self.navigationController = navigationController
+        self.viewModel = viewModel
     }
     
     func collectionView(
@@ -48,7 +53,12 @@ final class UpdatesCollectionDelegate: NSObject,
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        let playerVC = ScreenFactory.getPlayerViewController()
+        guard let currentPlayer = viewModel.getPlayer(at: indexPath) else {
+            return
+        }
+        let playerVC = ScreenFactory.getPlayerViewControllerFor(
+            player: currentPlayer, 
+            withDelegate: viewModel as PlayerViewControllerDelegate)
         navigationController?.pushViewController(playerVC, animated: true)
     }
 }

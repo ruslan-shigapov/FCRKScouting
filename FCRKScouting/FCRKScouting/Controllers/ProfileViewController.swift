@@ -134,11 +134,14 @@ final class ProfileViewController: UIViewController {
     @objc private func allReportsNavigationButtonTapped() {}
     
     @objc private func logOutButtonTapped() {
-        let exitAlert = AlertFactory.getExitAlert { [weak self] in
+        let alertController = AlertFactory.getConfirmationAlert(
+            withTitle: Constants.Text.Alerts.exit.title,
+            andMessage: Constants.Text.Alerts.exit.message
+        ) { [weak self] in
             guard let self else { return }
-            self.viewModel.logOut()
+            viewModel.logOut()
         }
-        present(exitAlert, animated: true)
+        present(alertController, animated: true)
     }
 }
 

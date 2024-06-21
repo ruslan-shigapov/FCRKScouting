@@ -15,9 +15,9 @@ protocol PlayerCellViewModelProtocol {
 }
 
 final class PlayerCellViewModel: PlayerCellViewModelProtocol {
-
-    private let player: Player
     
+    private let player: Player
+        
     var photo: UIImage? {
         guard let photo = player.photo else { return nil }
         return UIImage(data: photo)
@@ -28,7 +28,7 @@ final class PlayerCellViewModel: PlayerCellViewModelProtocol {
     }
     
     var ageDescription: String {
-        getYear(from: player.birthDate) ?? ""
+        getYear(from: player.birthDate) ?? "???"
     }
     
     var position: String {

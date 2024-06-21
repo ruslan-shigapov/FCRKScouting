@@ -25,7 +25,8 @@ enum Constants {
 
         enum ButtonImages {
             static let refresh = UIImage(systemName: "arrow.clockwise.circle")
-            static let addPlayer = UIImage(systemName: "plus.circle")
+            static let add = UIImage(systemName: "plus.circle")
+            static let delete = UIImage(systemName: "minus.circle")
             static let close = UIImage(systemName: "xmark.circle")
             static let plus = UIImage(systemName: "plus.square")
             static let minus = UIImage(systemName: "minus.square")
@@ -53,6 +54,7 @@ enum Constants {
         static let height = "Рост:"
         static let weight = "Вес:"
         static let transferDetails = "Трансферные детали"
+        static let statistics = "Статистика"
         static let testingDetails = "Тестирование"
         static let cost = "Стоимость перехода:"
         static let salary = "Зарплата игрока:"
@@ -84,14 +86,14 @@ enum Constants {
         }
         enum Placeholders {
             static let accessKey = "Ключ доступа"
-            static let fullName = "Имя Фамилия"
-            static let post = "Должность (необязательно)"
-            static let patronymic = "Отчество (необязательно)"
-            static let citizenship = "Гражданство"
-            static let club = "Клуб"
-            static let nationalTeam = "Сборная (необязательно)"
-            static let agentName = "Агент (необязательно)"
-            static let contacts = "Контакты (необязательно)"
+            static let fullName = "Имя Фамилия*"
+            static let post = "Должность"
+            static let patronymic = "Отчество"
+            static let citizenship = "Гражданство*"
+            static let club = "Клуб*"
+            static let nationalTeam = "Сборная"
+            static let agentName = "Агент"
+            static let contacts = "Контакты"
         }
         enum ButtonTitles {
             static let enter = "Войти"
@@ -99,6 +101,7 @@ enum Constants {
             static let ok = "OK"
             static let yes = "Да"
             static let no = "Нет"
+            static let back = "Назад"
             static let uploadPhoto = "Загрузить фото"
             static let career = "Движение по фут. вертикали"
             static let continueAdding = "Продолжить добавление"
@@ -144,6 +147,10 @@ enum Constants {
             static let exit = (
                 title: "Выход",
                 message: "Покинуть аккаунт?"
+            )
+            static let delete = (
+                title: "Удалить этого игрока?",
+                message: ""
             )
         }
         enum ActionSheets {

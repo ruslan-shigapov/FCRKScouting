@@ -92,14 +92,14 @@ final class FormViewController: UIViewController {
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.emptyTextFields.title,
                 andMessage: Constants.Text.Alerts.emptyTextFields.message)
-            self.present(alertController, animated: true)
+            present(alertController, animated: true)
         }
         viewModel.wasFullNameIncorrect = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.incorrectFullName.title,
                 andMessage: Constants.Text.Alerts.incorrectFullName.message)
-            self.present(alertController, animated: true)
+            present(alertController, animated: true)
         }
     }
     

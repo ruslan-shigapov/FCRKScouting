@@ -16,13 +16,14 @@ protocol TransferDetailsViewControllerDelegate {
 protocol EditorViewModelProtocol: TextFieldValidationProtocol,     
                                   TransferDetailsViewControllerDelegate {
     var wasPositionNotSelected: (() -> Void)? { get set }
+    var title: String { get }
     func savePlayer(
         byFullName fullName: String,
         patronymic: String?,
         citizenship: String,
         club: String,
         nationalTeam: String?,
-        birthDate: Date,
+        birthDate: Date?,
         position: Int,
         foot: Int,
         height: String?,
@@ -36,10 +37,16 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol,
     func getNumberOfComponentsInPicker() -> Int
     func getNumberOfRowsInPicker() -> Int
     func getTitleFor(pickerRow: Int) -> String
+    func getPlayer() -> Player?
+    func getPickerRowBy(title: String?) -> Int?
+    func getSegmentIndexBy(title: String?) -> Int?
+    func getTransferDetails()
 }
 
 final class EditorViewModel: EditorViewModelProtocol {
         
+    private let player: Player?
+
     var prices: [String?] = []
     
     var contractDate: Date?
@@ -49,6 +56,17 @@ final class EditorViewModel: EditorViewModelProtocol {
     var wereRequiredTextFieldsEmpty: (() -> Void)?
     var wasFullNameIncorrect: (() -> Void)?
     var wasPositionNotSelected: (() -> Void)?
+    
+    var title: String {
+        guard player != nil else {
+            return Constants.Text.ScreenTitles.addPlayer
+        }
+        return Constants.Text.ScreenTitles.editPlayer
+    }
+    
+    init(player: Player?) {
+        self.player = player
+    }
         
     func savePlayer(
         byFullName fullName: String,
@@ -56,7 +74,7 @@ final class EditorViewModel: EditorViewModelProtocol {
         citizenship: String,
         club: String,
         nationalTeam: String?,
-        birthDate: Date,
+        birthDate: Date?,
         position: Int,
         foot: Int,
         height: String?,
@@ -73,7 +91,6 @@ final class EditorViewModel: EditorViewModelProtocol {
             return
         } else {
             let currentUserFullName = UserManager.shared.user?.fullName
-            
             StorageManager.shared.savePlayer(
                 withFullName: fullName,
                 patronymic: patronymic,
@@ -111,5 +128,32 @@ final class EditorViewModel: EditorViewModelProtocol {
     
     func getTitleFor(pickerRow: Int) -> String {
         Constants.Text.Positions.allCases[pickerRow].rawValue
+    }
+    
+    func getPlayer() -> Player? {
+        player
+    }
+    
+    func getPickerRowBy(title: String?) -> Int? {
+        let positions = Constants.Text.Positions.allCases
+        for (index, position) in positions.enumerated() {
+            if position.rawValue == title {
+                return index
+            }
+        }
+        return nil
+    }
+    
+    func getSegmentIndexBy(title: String?) -> Int? {
+        guard let title else { return nil }
+        let footSegments = Constants.Text.SegmentedControlItems.footSegments
+        return footSegments.firstIndex(of: title)
+    }
+    
+    func getTransferDetails() {
+        guard let player else { return }
+        prices = [ player.cost, player.salary ]
+        contractDate = player.contractDate
+        agentInfo = [ player.agentName, player.agentContacts ]
     }
 }

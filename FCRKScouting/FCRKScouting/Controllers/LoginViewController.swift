@@ -73,7 +73,7 @@ final class LoginViewController: UIViewController {
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.wrongAccessKey.title,
                 andMessage: Constants.Text.Alerts.wrongAccessKey.message)
-            self.present(alertController, animated: true)
+            present(alertController, animated: true)
         }
     }
     

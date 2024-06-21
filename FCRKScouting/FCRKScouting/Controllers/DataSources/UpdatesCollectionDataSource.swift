@@ -11,7 +11,7 @@ final class UpdatesCollectionDataSource: NSObject, UICollectionViewDataSource {
     
     private let viewModel: UpdatesViewModelProtocol
     
-    init(_ viewModel: UpdatesViewModelProtocol) {
+    init(viewModel: UpdatesViewModelProtocol) {
         self.viewModel = viewModel
     }
     
@@ -33,7 +33,8 @@ final class UpdatesCollectionDataSource: NSObject, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: String(describing: PlayerCell.self),
             for: indexPath) as? PlayerCell
-        cell?.viewModel = viewModel.getPlayerCellViewModel(at: indexPath)
+        let currentPlayer = viewModel.getPlayer(at: indexPath)
+        cell?.viewModel = viewModel.getPlayerCellViewModel(for: currentPlayer)
         return cell ?? UICollectionViewCell()
     }
     

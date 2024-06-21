@@ -91,7 +91,7 @@ extension StorageManager {
         citizenship: String,
         club: String,
         nationalTeam: String?,
-        birthDate: Date,
+        birthDate: Date?,
         position: String,
         foot: String,
         height: String?,
@@ -142,12 +142,24 @@ extension StorageManager {
         }
     }
     
-    // TODO: добавить изменение and delete only one player
+    // TODO: добавить изменение 
+    
+    func deletePlayerBy(_ fullName: String) {
+        fetchPlayers {
+            guard let requiredPlayer = $0.first(where: { player in
+                player.fullName == fullName
+            }) else {
+                return
+            }
+            viewContext.delete(requiredPlayer)
+            saveContext()
+        }
+    }
     
     func deletePlayers() {
-        let fetchRequest = Player.fetchRequest()
-        let players = try? viewContext.fetch(fetchRequest)
-        players?.forEach { viewContext.delete($0) }
-        saveContext()
+        fetchPlayers {
+            $0.forEach { viewContext.delete($0) }
+            saveContext()
+        }
     }
 }

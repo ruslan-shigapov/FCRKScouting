@@ -65,6 +65,7 @@
 		E4D92C3B2C11C30200401E1F /* PriceTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D92C3A2C11C30200401E1F /* PriceTextFieldView.swift */; };
 		E4F38F2D2C24167E0011830D /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38F2C2C24167E0011830D /* PlayerViewController.swift */; };
 		E4F38F2F2C242B310011830D /* StatisticsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38F2E2C242B310011830D /* StatisticsDetailsViewController.swift */; };
+		E4F38F312C2431E80011830D /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38F302C2431E80011830D /* PlayerViewModel.swift */; };
 		E4F4CE462BC92E0B009F9A8D /* VerticalCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */; };
 		E4F4CE482BC935BD009F9A8D /* PlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE472BC935BD009F9A8D /* PlayerCell.swift */; };
 		E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */; };
@@ -132,6 +133,7 @@
 		E4D92C3A2C11C30200401E1F /* PriceTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTextFieldView.swift; sourceTree = "<group>"; };
 		E4F38F2C2C24167E0011830D /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		E4F38F2E2C242B310011830D /* StatisticsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsDetailsViewController.swift; sourceTree = "<group>"; };
+		E4F38F302C2431E80011830D /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionView.swift; sourceTree = "<group>"; };
 		E4F4CE472BC935BD009F9A8D /* PlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCell.swift; sourceTree = "<group>"; };
 		E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesViewModel.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				E471B20A2BFB6062003C0DCD /* FormViewModel.swift */,
 				E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */,
 				E404BEA82BE9087C0078961C /* PlayerCellViewModel.swift */,
+				E4F38F302C2431E80011830D /* PlayerViewModel.swift */,
 				E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */,
 				E46272272C23285400794705 /* TestingDetailsViewModel.swift */,
 				E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */,
@@ -455,6 +458,7 @@
 				E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */,
 				E486D13D2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift in Sources */,
 				E404BEA92BE9087C0078961C /* PlayerCellViewModel.swift in Sources */,
+				E4F38F312C2431E80011830D /* PlayerViewModel.swift in Sources */,
 				E46194B72C08864700AC4FFC /* UpdatesCollectionDelegate.swift in Sources */,
 				E414C35F2C00C3D00068077E /* TransferDetailsViewController.swift in Sources */,
 				E4BB48762BC3D53E00F91513 /* SearchViewController.swift in Sources */,

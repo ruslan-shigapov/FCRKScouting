@@ -55,12 +55,14 @@ struct AlertFactory {
         return alertController
     }
     
-    static func getExitAlert(
+    static func getConfirmationAlert(
+        withTitle title: String,
+        andMessage message: String,
         completion: @escaping () -> Void
     ) -> UIAlertController {
         let alertController = UIAlertController(
-            title: Constants.Text.Alerts.exit.title,
-            message: Constants.Text.Alerts.exit.message,
+            title: title,
+            message: message,
             preferredStyle: .alert)
         let exitAction = UIAlertAction(
             title: Constants.Text.ButtonTitles.yes,
