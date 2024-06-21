@@ -18,7 +18,7 @@ final class ProfileViewController: UIViewController {
     private lazy var fullNameLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
         numberOfLines: 2,
-        text: viewModel.fullName)
+        text: viewModel.userFullName)
     
     private lazy var topBackgroundView: UIView = {
         let view = UIView()
@@ -89,7 +89,7 @@ final class ProfileViewController: UIViewController {
         setupNavigationBarButton()
         fullNameLabel.textAlignment = .center
         userInfoView.configureWith(
-            post: viewModel.post,
+            post: viewModel.userPost,
             access: viewModel.access)
         view.setupCommonGradientLayer()
         view.addSubviews(
@@ -115,9 +115,9 @@ final class ProfileViewController: UIViewController {
     private func handleUserChanges() {
         viewModel.userWasUpdated = { [weak self] in
             guard let self else { return }
-            fullNameLabel.text = viewModel.fullName
+            fullNameLabel.text = viewModel.userFullName
             userInfoView.configureWith(
-                post: viewModel.post,
+                post: viewModel.userPost,
                 access: viewModel.access)
         }
     }

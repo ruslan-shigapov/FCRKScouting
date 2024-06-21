@@ -85,7 +85,7 @@ extension StorageManager {
 // MARK: - Player CRUD
 extension StorageManager {
     
-    func savePlayer(
+    func createPlayer(
         withFullName fullName: String,
         patronymic: String?,
         citizenship: String,
@@ -107,7 +107,8 @@ extension StorageManager {
         agentName: String?,
         agentContacts: String?,
         lastEditor: String,
-        updatedDate: Date
+        updatedDate: Date,
+        creator: String
     ) {
         let player = Player(context: viewContext)
         player.fullName = fullName
@@ -132,20 +133,75 @@ extension StorageManager {
         player.agentContacts = agentContacts
         player.lastEditor = lastEditor
         player.updatedDate = updatedDate
+        player.creator = creator
         saveContext()
     }
     
-    func fetchPlayers(completion: ([Player]) -> Void) {
+    func readPlayers(completion: ([Player]) -> Void) {
         let fetchRequest = Player.fetchRequest()
         if let players = try? viewContext.fetch(fetchRequest) {
             completion(players)
         }
     }
     
-    // TODO: добавить изменение 
+    func updatePlayer(
+        withFullName fullName: String,
+        patronymic: String?,
+        citizenship: String,
+        club: String,
+        nationalTeam: String?,
+        birthDate: Date?,
+        position: String,
+        foot: String,
+        height: String?,
+        weight: String?,
+        generalInfo: String?,
+        technique: String?,
+        tactics: String?,
+        qualities: String?,
+        mental: String?,
+        cost: String?,
+        salary: String?,
+        contractDate: Date?,
+        agentName: String?,
+        agentContacts: String?,
+        lastEditor: String,
+        updatedDate: Date
+    ) {
+        readPlayers {
+            guard let requiredPlayer = $0.first(where: { player in
+                player.fullName == fullName
+            }) else {
+                return
+            }
+            requiredPlayer.fullName = fullName
+            requiredPlayer.patronymic = patronymic
+            requiredPlayer.citizenship = citizenship
+            requiredPlayer.club = club
+            requiredPlayer.nationalTeam = nationalTeam
+            requiredPlayer.birthDate = birthDate
+            requiredPlayer.position = position
+            requiredPlayer.foot = foot
+            requiredPlayer.height = height
+            requiredPlayer.weight = weight
+            requiredPlayer.generalInfo = generalInfo
+            requiredPlayer.technique = technique
+            requiredPlayer.tactics = tactics
+            requiredPlayer.qualities = qualities
+            requiredPlayer.mental = mental
+            requiredPlayer.cost = cost
+            requiredPlayer.salary = salary
+            requiredPlayer.contractDate = contractDate
+            requiredPlayer.agentName = agentName
+            requiredPlayer.agentContacts = agentContacts
+            requiredPlayer.lastEditor = lastEditor
+            requiredPlayer.updatedDate = updatedDate
+            saveContext()
+        }
+    }
     
     func deletePlayerBy(_ fullName: String) {
-        fetchPlayers {
+        readPlayers {
             guard let requiredPlayer = $0.first(where: { player in
                 player.fullName == fullName
             }) else {
@@ -157,7 +213,7 @@ extension StorageManager {
     }
     
     func deletePlayers() {
-        fetchPlayers {
+        readPlayers {
             $0.forEach { viewContext.delete($0) }
             saveContext()
         }

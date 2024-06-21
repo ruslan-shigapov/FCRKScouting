@@ -41,6 +41,43 @@ final class PlayerViewController: UIViewController {
         numberOfLines: 2,
         text: viewModel.fullName)
     
+    private lazy var positionLabel = DefaultTextLabel(
+        text: viewModel.position)
+    
+    private lazy var birthDateLabel = DefaultTextLabel(
+        text: viewModel.birthDate)
+    
+    private let citizenshipLabel = CustomWhiteLabel(
+        font: Constants.Fonts.normal,
+        text: "Гражданство:")
+    
+    private let clubAndNationalTeamLabel = CustomWhiteLabel(
+        font: Constants.Fonts.normal,
+        text: "Клуб/сборная:")
+    
+    private let footLabel = CustomWhiteLabel(
+        font: Constants.Fonts.normal,
+        text: "Рабочая нога:")
+    
+    private let generalInfoLabel = CustomWhiteLabel(
+        font: Constants.Fonts.normal,
+        text: Constants.Text.TextViewTitles.generalInfo)
+    
+    private lazy var citizenshipValueLabel = DefaultTextLabel(
+        text: viewModel.citizenship)
+    private lazy var clubAndNationalTeamValueLabel = DefaultTextLabel(
+        text: viewModel.clubAndNationalTeam)
+    private lazy var footValueLabel = DefaultTextLabel(
+        text: viewModel.foot)
+    
+    private lazy var generalInfoValueLabel = DefaultTextLabel(
+        text: viewModel.generalInfo)
+    
+    private lazy var creatorLabel = DefaultTextLabel(
+        text: viewModel.creator)
+    private lazy var lastEditorLabel = DefaultTextLabel(
+        text: viewModel.lastEditor)
+    
     private lazy var showStatisticsDetailsButton: UIButton = {
         let button = PrimaryButton(
             title: Constants.Text.statistics,
@@ -69,6 +106,18 @@ final class PlayerViewController: UIViewController {
         view.addSubviews(
             photoImageView,
             fullNameLabel,
+            positionLabel,
+            birthDateLabel,
+            citizenshipLabel,
+            clubAndNationalTeamLabel,
+            footLabel,
+            citizenshipValueLabel,
+            clubAndNationalTeamValueLabel,
+            footValueLabel,
+            generalInfoLabel,
+            generalInfoValueLabel,
+            creatorLabel,
+            lastEditorLabel,
             showStatisticsDetailsButton,
             showTestingDetailsButton)
         view.prepareForAutoLayout()
@@ -99,6 +148,27 @@ final class PlayerViewController: UIViewController {
     // MARK: Private Methods
     private func setupUI() {
         setupNavigationBar()
+        fullNameLabel.textColor = UIColor(red: 255/255, green: 215/255, blue: 0/255, alpha: 1.0)
+        photoImageView.image = UIImage(named: "image1")
+        photoImageView.clipsToBounds = true
+        photoImageView.layer.borderWidth = 1
+        photoImageView.layer.borderColor = UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1.0).cgColor
+        positionLabel.numberOfLines = 2
+        positionLabel.textColor = .white
+        backgroundView.layer.borderWidth = 1
+        backgroundView.layer.borderColor = UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1.0).cgColor
+        birthDateLabel.textColor = .white
+        citizenshipValueLabel.textColor = .white
+        clubAndNationalTeamValueLabel.textColor = .white
+        footValueLabel.textColor = .white
+        generalInfoValueLabel.numberOfLines = 0
+        generalInfoValueLabel.textColor = .white
+        lastEditorLabel.textAlignment = .center
+        creatorLabel.textAlignment = .center
+//        citizenshipLabel.textColor = .accent
+//        clubAndNationalTeamLabel.textColor = .accent
+//        footLabel.textColor = .accent
+//        generalInfoLabel.textColor = .accent
         view.backgroundColor = .accent
         view.addSubview(backgroundView)
         view.prepareForAutoLayout()
@@ -116,11 +186,12 @@ final class PlayerViewController: UIViewController {
             [.font : Constants.Fonts.normal as Any],
             for: .normal)
         navigationItem.leftBarButtonItem = backButton
-        // TODO: depends on user mode
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(customView: editPlayerButton),
-            UIBarButtonItem(customView: deletePlayerButton)
-        ]
+        if viewModel.isEditingAllowed {
+            navigationItem.rightBarButtonItems = [
+                UIBarButtonItem(customView: editPlayerButton),
+                UIBarButtonItem(customView: deletePlayerButton)
+            ]
+        }
     }
     
     @objc private func editPlayerButtonTapped() {
@@ -138,13 +209,14 @@ final class PlayerViewController: UIViewController {
             guard let self else { return }
             viewModel.deletePlayer()
             navigationController?.popViewController(animated: true)
-            delegate.playerWasDeleted?() // TODO: change to just refresh
+            delegate.backButtonWasTapped?()
         }
         present(alertController, animated: true)
     }
     
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+        delegate.backButtonWasTapped?()
     }
     
     @objc private func showStatisticsDetailsButtonTapped() {
@@ -191,8 +263,56 @@ private extension PlayerViewController {
             fullNameLabel.trailingAnchor.constraint(
                 equalTo: backgroundView.trailingAnchor,
                 constant: -24),
-            fullNameLabel.centerYAnchor.constraint(
-                equalTo: photoImageView.centerYAnchor),
+            fullNameLabel.topAnchor.constraint(
+                equalTo: photoImageView.topAnchor, constant: 8),
+            
+            positionLabel.leadingAnchor.constraint(
+                equalTo: fullNameLabel.leadingAnchor),
+            positionLabel.topAnchor.constraint(
+                equalTo: fullNameLabel.bottomAnchor,
+                constant: 2),
+            
+            birthDateLabel.leadingAnchor.constraint(
+                equalTo: fullNameLabel.leadingAnchor),
+            birthDateLabel.topAnchor.constraint(
+                equalTo: positionLabel.bottomAnchor, constant: 1),
+            
+            citizenshipLabel.topAnchor.constraint(equalTo: photoImageView.bottomAnchor, constant: 16),
+            citizenshipLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
+            
+            clubAndNationalTeamLabel.topAnchor.constraint(equalTo: citizenshipLabel.bottomAnchor, constant: 16),
+            clubAndNationalTeamLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
+            
+            footLabel.topAnchor.constraint(equalTo: clubAndNationalTeamLabel.bottomAnchor, constant: 16),
+            footLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
+            
+            citizenshipValueLabel.leadingAnchor.constraint(
+                equalTo: fullNameLabel.leadingAnchor),
+            citizenshipValueLabel.centerYAnchor.constraint(
+                equalTo: citizenshipLabel.centerYAnchor, constant: -1),
+            
+            clubAndNationalTeamValueLabel.leadingAnchor.constraint(
+                equalTo: fullNameLabel.leadingAnchor),
+            clubAndNationalTeamValueLabel.centerYAnchor.constraint(
+                equalTo: clubAndNationalTeamLabel.centerYAnchor, constant: -1),
+            
+            footValueLabel.leadingAnchor.constraint(
+                equalTo: fullNameLabel.leadingAnchor),
+            footValueLabel.centerYAnchor.constraint(
+                equalTo: footLabel.centerYAnchor, constant: -1),
+            
+            generalInfoLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
+            generalInfoLabel.topAnchor.constraint(equalTo: footLabel.bottomAnchor, constant: 32),
+            
+            generalInfoValueLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
+            generalInfoValueLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -24),
+            generalInfoValueLabel.topAnchor.constraint(equalTo: generalInfoLabel.bottomAnchor, constant: 4),
+            
+            lastEditorLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            lastEditorLabel.bottomAnchor.constraint(equalTo: showStatisticsDetailsButton.topAnchor, constant: -24),
+            
+            creatorLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            creatorLabel.bottomAnchor.constraint(equalTo: lastEditorLabel.topAnchor, constant: -6),
             
             showStatisticsDetailsButton.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,

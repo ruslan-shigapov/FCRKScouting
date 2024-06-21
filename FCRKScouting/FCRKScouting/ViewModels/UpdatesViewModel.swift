@@ -12,7 +12,7 @@ protocol EditorViewControllerDelegate {
 }
 
 protocol PlayerViewControllerDelegate {
-    var playerWasDeleted: (() -> Void)? { get set }
+    var backButtonWasTapped: (() -> Void)? { get set }
 }
 
 protocol UpdatesViewModelProtocol: UserViewModelProtocol, 
@@ -45,7 +45,7 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
     private var filteredPlayersByDate: [Date: [Player]] = [:]
     
     var playersWereChanged: (() -> Void)?
-    var playerWasDeleted: (() -> Void)?
+    var backButtonWasTapped: (() -> Void)?
     
     var currentInterval: Int = 0 {
         didSet {
@@ -63,7 +63,7 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
     }
     
     private func fetchPlayers() {
-        StorageManager.shared.fetchPlayers { players = $0 }
+        StorageManager.shared.readPlayers { players = $0 }
     }
     
     private func filterPlayersByDate() {

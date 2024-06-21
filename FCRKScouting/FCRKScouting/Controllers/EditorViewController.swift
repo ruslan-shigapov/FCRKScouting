@@ -404,28 +404,53 @@ final class EditorViewController: UIViewController,
             let birthDate = birthDateSwitcher.isOn
             ? birthDatePickerView.getDate()
             : nil
-            viewModel.savePlayer(
-                byFullName: $0[0],
-                patronymic: patronymicTextFieldView.getInputText(),
-                citizenship: $0[1],
-                club: $0[2],
-                nationalTeam: nationalTeamTextFieldView.getInputText(),
-                birthDate: birthDate,
-                position: positionPickerView.selectedRow(inComponent: 0),
-                foot: footSegmentedControl.selectedSegmentIndex,
-                height: heightTextFieldView.getInputText(),
-                weight: weightTextFieldView.getInputText(),
-                generalInfo: generalInfoTextViewWithTitle.getInputText(),
-                technique: techniqueTextViewWithTitle.getInputText(),
-                tactics: tacticsTextViewWithTitle.getInputText(),
-                qualities: qualitiesTextViewWithTitle.getInputText(),
-                mental: mentalTextViewWithTitle.getInputText()
-            ) { [weak self] in
-                guard let self else { return }
-                dismiss(animated: true) {
-                    self.delegate.playersWereChanged?()
+            if let _ = viewModel.getPlayer() {
+                viewModel.editPlayer(
+                    byFullName: $0[0],
+                    patronymic: patronymicTextFieldView.getInputText(),
+                    citizenship: $0[1],
+                    club: $0[2],
+                    nationalTeam: nationalTeamTextFieldView.getInputText(),
+                    birthDate: birthDate,
+                    position: positionPickerView.selectedRow(inComponent: 0),
+                    foot: footSegmentedControl.selectedSegmentIndex,
+                    height: heightTextFieldView.getInputText(),
+                    weight: weightTextFieldView.getInputText(),
+                    generalInfo: generalInfoTextViewWithTitle.getInputText(),
+                    technique: techniqueTextViewWithTitle.getInputText(),
+                    tactics: tacticsTextViewWithTitle.getInputText(),
+                    qualities: qualitiesTextViewWithTitle.getInputText(),
+                    mental: mentalTextViewWithTitle.getInputText()
+                ) {
+                    finishChanges()
+                }
+            } else {
+                viewModel.savePlayer(
+                    byFullName: $0[0],
+                    patronymic: patronymicTextFieldView.getInputText(),
+                    citizenship: $0[1],
+                    club: $0[2],
+                    nationalTeam: nationalTeamTextFieldView.getInputText(),
+                    birthDate: birthDate,
+                    position: positionPickerView.selectedRow(inComponent: 0),
+                    foot: footSegmentedControl.selectedSegmentIndex,
+                    height: heightTextFieldView.getInputText(),
+                    weight: weightTextFieldView.getInputText(),
+                    generalInfo: generalInfoTextViewWithTitle.getInputText(),
+                    technique: techniqueTextViewWithTitle.getInputText(),
+                    tactics: tacticsTextViewWithTitle.getInputText(),
+                    qualities: qualitiesTextViewWithTitle.getInputText(),
+                    mental: mentalTextViewWithTitle.getInputText()
+                ) {
+                    finishChanges()
                 }
             }
+        }
+    }
+    
+    private func finishChanges() {
+        dismiss(animated: true) { [weak self] in
+            self?.delegate.playersWereChanged?()
         }
     }
 }

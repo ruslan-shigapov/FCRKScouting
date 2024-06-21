@@ -57,6 +57,11 @@ final class PlayerCell: UICollectionViewCell {
     // MARK: Private Methods
     private func setupUI() {
         backgroundColor = Constants.Colors.deepGreen
+        layer.borderWidth = 1
+        layer.borderColor = UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1.0).cgColor
+//        photoImageView.layer.borderWidth = 1
+//        photoImageView.contentMode = .scaleToFill
+        photoImageView.layer.borderColor = UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1.0).cgColor
         setCommonCornerRadius()
         addSubviews(photoImageView, fullNameLabel, infoStackView)
         prepareForAutoLayout()

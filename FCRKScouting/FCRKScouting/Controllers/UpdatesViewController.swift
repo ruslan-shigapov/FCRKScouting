@@ -119,7 +119,7 @@ final class UpdatesViewController: UIViewController {
     }
     
     private func handlePlayerDeleting() {
-        viewModel.playerWasDeleted = { [weak self] in
+        viewModel.backButtonWasTapped = { [weak self] in
             guard let self else { return }
             viewModel.refreshPlayersList {
                 self.updateCollectionView()

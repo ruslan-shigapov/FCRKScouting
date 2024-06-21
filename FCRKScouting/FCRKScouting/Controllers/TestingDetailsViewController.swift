@@ -253,7 +253,7 @@ private extension TestingDetailsViewController {
             
             descriptionLabel.topAnchor.constraint(
                 equalTo: highJumpLabel.bottomAnchor,
-                constant: -5),
+                constant: -2),
             descriptionLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 16),

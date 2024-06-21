@@ -41,6 +41,24 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol,
     func getPickerRowBy(title: String?) -> Int?
     func getSegmentIndexBy(title: String?) -> Int?
     func getTransferDetails()
+    func editPlayer(
+        byFullName fullName: String,
+        patronymic: String?,
+        citizenship: String,
+        club: String,
+        nationalTeam: String?,
+        birthDate: Date?,
+        position: Int,
+        foot: Int,
+        height: String?,
+        weight: String?,
+        generalInfo: String?,
+        technique: String?,
+        tactics: String?,
+        qualities: String?,
+        mental: String?,
+        completion: () -> Void
+    )
 }
 
 final class EditorViewModel: EditorViewModelProtocol {
@@ -91,7 +109,7 @@ final class EditorViewModel: EditorViewModelProtocol {
             return
         } else {
             let currentUserFullName = UserManager.shared.user?.fullName
-            StorageManager.shared.savePlayer(
+            StorageManager.shared.createPlayer(
                 withFullName: fullName,
                 patronymic: patronymic,
                 citizenship: citizenship,
@@ -113,7 +131,8 @@ final class EditorViewModel: EditorViewModelProtocol {
                 agentName: agentInfo.count == 2 ? agentInfo[0] : nil,
                 agentContacts: agentInfo.count == 2 ? agentInfo[1] : nil,
                 lastEditor: currentUserFullName ?? "",
-                updatedDate: Date())
+                updatedDate: Date(),
+                creator: currentUserFullName ?? "")
             completion()
         }
     }
@@ -155,5 +174,55 @@ final class EditorViewModel: EditorViewModelProtocol {
         prices = [ player.cost, player.salary ]
         contractDate = player.contractDate
         agentInfo = [ player.agentName, player.agentContacts ]
+    }
+    
+    func editPlayer(
+        byFullName fullName: String,
+        patronymic: String?,
+        citizenship: String,
+        club: String,
+        nationalTeam: String?,
+        birthDate: Date?,
+        position: Int,
+        foot: Int,
+        height: String?,
+        weight: String?,
+        generalInfo: String?,
+        technique: String?,
+        tactics: String?,
+        qualities: String?,
+        mental: String?,
+        completion: () -> Void
+    ) {
+        if position == 0 {
+            wasPositionNotSelected?()
+            return
+        } else {
+            let currentUserFullName = UserManager.shared.user?.fullName
+            StorageManager.shared.updatePlayer(
+                withFullName: fullName,
+                patronymic: patronymic,
+                citizenship: citizenship,
+                club: club,
+                nationalTeam: nationalTeam,
+                birthDate: birthDate,
+                position: Constants.Text.Positions.allCases[position].rawValue,
+                foot: Constants.Text.SegmentedControlItems.footSegments[foot],
+                height: height,
+                weight: weight,
+                generalInfo: generalInfo,
+                technique: technique,
+                tactics: tactics,
+                qualities: qualities,
+                mental: mental,
+                cost: prices.count == 2 ? prices[0] : nil,
+                salary: prices.count == 2 ? prices[1] : nil,
+                contractDate: contractDate,
+                agentName: agentInfo.count == 2 ? agentInfo[0] : nil,
+                agentContacts: agentInfo.count == 2 ? agentInfo[1] : nil,
+                lastEditor: currentUserFullName ?? "",
+                updatedDate: Date())
+            completion()
+        }
     }
 }
