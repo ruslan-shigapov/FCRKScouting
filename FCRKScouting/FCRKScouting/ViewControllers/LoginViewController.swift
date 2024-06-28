@@ -77,6 +77,7 @@ final class LoginViewController: UIViewController {
         }
     }
     
+    // MARK: Selectors
     @objc private func loginButtonTapped() {
         viewModel.logInBy(
             accessKey: accessKeyTextFieldView.getInputText()

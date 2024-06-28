@@ -9,6 +9,7 @@ import UIKit
 
 protocol PlayerViewModelProtocol: UserViewModelProtocol,
                                   EditorViewControllerDelegate {
+    var photo: UIImage? { get }
     var fullName: String { get }
     var position: String { get }
     var birthDate: String { get }
@@ -28,6 +29,11 @@ final class PlayerViewModel: PlayerViewModelProtocol {
     
     var playersWereChanged: (() -> Void)?
     
+    var photo: UIImage? {
+        guard let photo = player.photo else { return nil }
+        return UIImage(data: photo)
+    }
+    
     var fullName: String {
         player.fullName?.replacingOccurrences(of: " ", with: "\n") ?? ""
     }
@@ -39,9 +45,10 @@ final class PlayerViewModel: PlayerViewModelProtocol {
     var birthDate: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
-        let formattedBirthDate = formatter.string(from: player.birthDate!)
-        let ageComponents = Calendar.current.dateComponents([.year], from: player.birthDate!, to: Date())
-        return "\(formattedBirthDate) (\(ageComponents.year ?? 0))"
+        guard let birthDate = player.birthDate else { return "" }
+        let formattedBirthDate = formatter.string(from: birthDate)
+        let ageComponents = Calendar.current.dateComponents([.year], from: birthDate, to: Date())
+        return "\(ageComponents.year ?? 0) (\(formattedBirthDate))"
     }
     
     var citizenship: String {
@@ -61,15 +68,24 @@ final class PlayerViewModel: PlayerViewModelProtocol {
     }
     
     var creator: String {
-        "Создал карточку: \(player.creator ?? "")"
+        guard let creator = player.creator else { return "" }
+        return "Создал карточку: \(abbreviateNameIn(fullName: creator))"
     }
     
     var lastEditor: String {
-        "Посл. изменения внёс: \(player.lastEditor ?? "")"
+        guard let lastEditor = player.lastEditor else { return "" }
+        return "Посл. редактировал: \(abbreviateNameIn(fullName: lastEditor))"
     }
     
     init(player: Player) {
         self.player = player
+    }
+    
+    private func abbreviateNameIn(fullName: String) -> String {
+        let components = fullName.components(separatedBy: " ")
+        guard let abbreviatedName = fullName.first,
+              let lastName = components.last else { return "" }
+        return String(abbreviatedName) + ". " + lastName
     }
     
     func getPlayer() -> Player {

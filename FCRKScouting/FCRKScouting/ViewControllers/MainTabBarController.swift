@@ -9,12 +9,14 @@ import UIKit
 
 final class MainTabBarController: UITabBarController {
     
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setViewControllers()
     }
     
+    // MARK: Private Methods 
     private func setupUI() {
         tabBar.backgroundColor = .accent
         tabBar.barTintColor = .accent

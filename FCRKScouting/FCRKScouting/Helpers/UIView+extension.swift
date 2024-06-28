@@ -56,4 +56,9 @@ extension UIView {
         gradientLayer.frame = bounds
         layer.insertSublayer(gradientLayer, at: 0)
     }
+    
+    func setCommonBorder() {
+        layer.borderWidth = 1
+        layer.borderColor = Constants.Colors.naturalGold?.cgColor
+    }
 }

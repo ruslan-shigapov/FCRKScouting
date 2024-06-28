@@ -11,6 +11,7 @@ enum Constants {
     // MARK: Colors
     enum Colors {
         static let deepGreen = UIColor(named: "DeepGreen")
+        static let naturalGold = UIColor(named: "NaturalGold")
     }
     // MARK: Images
     enum Images {
@@ -22,11 +23,10 @@ enum Constants {
             static let search = UIImage(systemName: "binoculars.fill")
             static let profile = UIImage(systemName: "soccerball")
         }
-
         enum ButtonImages {
             static let refresh = UIImage(systemName: "arrow.clockwise.circle")
             static let add = UIImage(systemName: "plus.circle")
-            static let delete = UIImage(systemName: "minus.circle")
+            static let delete = UIImage(systemName: "trash.circle")
             static let close = UIImage(systemName: "xmark.circle")
             static let plus = UIImage(systemName: "plus.square")
             static let minus = UIImage(systemName: "minus.square")
@@ -53,9 +53,13 @@ enum Constants {
         static let foot = "Рабочая нога:"
         static let height = "Рост:"
         static let weight = "Вес:"
+        
         static let transferDetails = "Трансферные детали"
-        static let statistics = "Статистика"
+        static let statisticsDetails = "Статистика"
         static let testingDetails = "Тестирование"
+        
+        static let citizenship = "Гражданство:"
+        static let clubAndNationalTeam = "Клуб/сборная:"
         static let cost = "Стоимость перехода:"
         static let salary = "Зарплата игрока:"
         static let contract = "Окончание контракта:"
@@ -117,13 +121,13 @@ enum Constants {
             static let addPlayer = "Добавить игрока"
             static let editPlayer = "Редактировать игрока"
             static let career = "Движение по футбольной вертикали"
-            static let filters = "Расширенные фильтры"
+            static let filters = "Дополнительные фильтры"
         }
         enum Tips {
             static let title = "Справка:"
-            static let related = "- Добавленное мной"
             static let features = "- Избранное"
-            static let filters = "- Расширенные фильтры"
+            static let related = "- Добавленное мной"
+            static let filters = "- Доп. фильтры"
         }
         enum Alerts {
             static let emptyTextFields = (

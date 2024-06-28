@@ -9,6 +9,10 @@ import UIKit
 
 final class SearchTipsView: UIView {
     
+    // MARK: Private Properties
+    private let isFullSet: Bool
+    
+    // MARK: Views
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = Constants.Fonts.text
@@ -32,16 +36,20 @@ final class SearchTipsView: UIView {
             arrangedSubviews: [
                 titleLabel,
                 featuresStackView,
-                relatedStackView,
                 filtersStackView
             ])
+        if isFullSet {
+            stackView.insertArrangedSubview(relatedStackView, at: 2)
+        }
         stackView.axis = .vertical
         stackView.spacing = 1
         return stackView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    // MARK: Initialize
+    init(isFullSet: Bool) {
+        self.isFullSet = isFullSet
+        super.init(frame: .zero)
         setupUI()
     }
     
@@ -50,13 +58,18 @@ final class SearchTipsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Private Methods
     private func setupUI() {
         addSubview(containerStackView)
         prepareForAutoLayout()
         setConstraints()
     }
+}
+
+// MARK: - Layout
+private extension SearchTipsView {
     
-    private func setConstraints() {
+    func setConstraints() {
         NSLayoutConstraint.activate([
             containerStackView.topAnchor.constraint(equalTo: topAnchor),
             containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),

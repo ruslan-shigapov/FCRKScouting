@@ -142,7 +142,8 @@ final class TestingDetailsViewController: UIViewController {
 //            highJumpTextFieldView.getInputText()
 //        ]
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
-            self?.dismiss(animated: true)
+            guard let self else { return }
+            dismiss(animated: true)
         }
     }
 }

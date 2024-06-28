@@ -21,7 +21,7 @@ final class DefaultTextLabel: UILabel {
     }
     
     private func setupUI() {
-        textColor = .lightGray
         font = Constants.Fonts.text
+        textColor = .white.withAlphaComponent(0.7)
     }
 }

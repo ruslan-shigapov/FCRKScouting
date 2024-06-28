@@ -21,8 +21,8 @@ final class DescriptionLabel: UILabel {
     }
     
     private func setupUI() {
-        textColor = .white
         font = Constants.Fonts.description
+        textColor = .white
         numberOfLines = 2
     }
 }

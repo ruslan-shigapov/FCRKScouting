@@ -19,16 +19,16 @@ final class TransferDetailsViewController: UIViewController {
     
     private let costLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
-        numberOfLines: 2,
-        text: Constants.Text.cost)
+        text: Constants.Text.cost,
+        numberOfLines: 2)
     private let salaryLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
-        numberOfLines: 2,
-        text: Constants.Text.salary)
+        text: Constants.Text.salary,
+        numberOfLines: 2)
     private let contractLabel = CustomWhiteLabel(
         font: Constants.Fonts.normal,
-        numberOfLines: 2,
-        text: Constants.Text.contract)
+        text: Constants.Text.contract,
+        numberOfLines: 2)
     
     private let costTextFieldView = PriceTextFieldView()
     private let salaryTextFieldView = PriceTextFieldView()
@@ -148,7 +148,8 @@ final class TransferDetailsViewController: UIViewController {
             contactsTextFieldView.getInputText()
         ]
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
-            self?.dismiss(animated: true)
+            guard let self else { return }
+            dismiss(animated: true)
         }
     }
 }

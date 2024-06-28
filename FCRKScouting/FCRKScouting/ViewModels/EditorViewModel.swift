@@ -5,7 +5,7 @@
 //  Created by Ruslan Shigapov on 09.04.2024.
 //
 
-import Foundation
+import UIKit
 
 protocol TransferDetailsViewControllerDelegate {
     var prices: [String?] { get set }
@@ -16,7 +16,9 @@ protocol TransferDetailsViewControllerDelegate {
 protocol EditorViewModelProtocol: TextFieldValidationProtocol,     
                                   TransferDetailsViewControllerDelegate {
     var wasPositionNotSelected: (() -> Void)? { get set }
+    var wasImageChanged: (() -> Void)? { get set }
     var title: String { get }
+    var selectedPhoto: UIImage? { get set }
     func savePlayer(
         byFullName fullName: String,
         patronymic: String?,
@@ -62,7 +64,7 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol,
 }
 
 final class EditorViewModel: EditorViewModelProtocol {
-        
+            
     private let player: Player?
 
     var prices: [String?] = []
@@ -74,6 +76,7 @@ final class EditorViewModel: EditorViewModelProtocol {
     var wereRequiredTextFieldsEmpty: (() -> Void)?
     var wasFullNameIncorrect: (() -> Void)?
     var wasPositionNotSelected: (() -> Void)?
+    var wasImageChanged: (() -> Void)?
     
     var title: String {
         guard player != nil else {
@@ -82,8 +85,22 @@ final class EditorViewModel: EditorViewModelProtocol {
         return Constants.Text.ScreenTitles.editPlayer
     }
     
+    var selectedPhoto: UIImage? {
+        didSet {
+            wasImageChanged?()
+        }
+    }
+    
     init(player: Player?) {
         self.player = player
+    }
+    
+    private func getPhotoData() -> Data? {
+        if let selectedPhoto {
+            return selectedPhoto.jpegData(compressionQuality: 1)
+        }
+        guard let currentData = player?.photo else { return nil }
+        return currentData
     }
         
     func savePlayer(
@@ -111,6 +128,7 @@ final class EditorViewModel: EditorViewModelProtocol {
             let currentUserFullName = UserManager.shared.user?.fullName
             StorageManager.shared.createPlayer(
                 withFullName: fullName,
+                photo: selectedPhoto?.jpegData(compressionQuality: 1),
                 patronymic: patronymic,
                 citizenship: citizenship,
                 club: club,
@@ -201,6 +219,7 @@ final class EditorViewModel: EditorViewModelProtocol {
             let currentUserFullName = UserManager.shared.user?.fullName
             StorageManager.shared.updatePlayer(
                 withFullName: fullName,
+                photo: getPhotoData(),
                 patronymic: patronymic,
                 citizenship: citizenship,
                 club: club,

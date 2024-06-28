@@ -17,8 +17,8 @@ final class ProfileViewController: UIViewController {
 
     private lazy var fullNameLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
-        numberOfLines: 2,
-        text: viewModel.userFullName)
+        text: viewModel.userFullName,
+        numberOfLines: 2)
     
     private lazy var topBackgroundView: UIView = {
         let view = UIView()

@@ -17,7 +17,7 @@ final class PriceTextFieldView: UIView {
         textField.font = Constants.Fonts.text
         textField.textAlignment = .right
         textField.rightView = UIView(
-            frame: CGRectMake(0, 0, 5, textField.frame.height))
+            frame: CGRectMake(0, 0, 10, textField.frame.height))
         textField.rightViewMode = .always
         textField.setCommonCornerRadius()
         return textField

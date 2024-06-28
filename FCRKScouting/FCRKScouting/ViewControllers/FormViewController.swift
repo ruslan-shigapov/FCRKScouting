@@ -14,9 +14,13 @@ final class FormViewController: UIViewController {
     private var delegate: FormViewControllerDelegate?
         
     // MARK: Views
-    private let titleLabel = CustomWhiteLabel(
-        font: Constants.Fonts.header,
-        text: Constants.Text.ScreenTitles.form)
+    private let titleLabel: UILabel = {
+        let label = CustomWhiteLabel(
+            font: Constants.Fonts.header,
+            text: Constants.Text.ScreenTitles.form)
+        label.textAlignment = .center
+        return label
+    }()
     
     private let fullNameTextFieldView = PrimaryTextFieldView(
         placeholder: Constants.Text.Placeholders.fullName,
@@ -71,19 +75,13 @@ final class FormViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
-        titleLabel.textAlignment = .center
-        configureTextFields()
         view.backgroundColor = .accent
         view.setKeyboardDismissTap()
         view.addSubviews(titleLabel, textFieldStackView, saveButton)
         view.prepareForAutoLayout()
         setConstraints()
         setupAlerts()
-    }
-    
-    private func configureTextFields() {
-        fullNameTextFieldView.set(text: viewModel.fullName)
-        postTextFieldView.set(text: viewModel.post)
+        configureUI()
     }
  
     private func setupAlerts() {
@@ -103,6 +101,17 @@ final class FormViewController: UIViewController {
         }
     }
     
+    private func configureUI() {
+        fullNameTextFieldView.set(text: viewModel.fullName)
+        postTextFieldView.set(text: viewModel.post)
+    }
+    
+    private func runMainTabBarController() {
+        let mainTabBarController = ScreenFactory.getMainTabBarController()
+        present(mainTabBarController, animated: false)
+    }
+    
+    // MARK: Selectors 
     @objc private func saveButtonTapped() {
         viewModel.validateInput(
             text: [fullNameTextFieldView.getInputText()]
@@ -116,14 +125,9 @@ final class FormViewController: UIViewController {
                     guard let self else { return }
                     self.delegate?.userWasUpdated?()
                 } 
-                : showMainTabBarController()
+                : runMainTabBarController()
             }
         }
-    }
-    
-    private func showMainTabBarController() {
-        let mainTabBarController = ScreenFactory.getMainTabBarController()
-        present(mainTabBarController, animated: false)
     }
 }
 

@@ -87,6 +87,7 @@ extension StorageManager {
     
     func createPlayer(
         withFullName fullName: String,
+        photo: Data?,
         patronymic: String?,
         citizenship: String,
         club: String,
@@ -112,6 +113,7 @@ extension StorageManager {
     ) {
         let player = Player(context: viewContext)
         player.fullName = fullName
+        player.photo = photo
         player.patronymic = patronymic
         player.citizenship = citizenship
         player.club = club
@@ -146,6 +148,7 @@ extension StorageManager {
     
     func updatePlayer(
         withFullName fullName: String,
+        photo: Data?,
         patronymic: String?,
         citizenship: String,
         club: String,
@@ -175,6 +178,7 @@ extension StorageManager {
                 return
             }
             requiredPlayer.fullName = fullName
+            requiredPlayer.photo = photo
             requiredPlayer.patronymic = patronymic
             requiredPlayer.citizenship = citizenship
             requiredPlayer.club = club

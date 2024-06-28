@@ -20,10 +20,11 @@ extension UITextField {
     }
     
     func moveCursorToEnd() {
-        DispatchQueue.main.async {
-            self.selectedTextRange = self.textRange(
-                from: self.endOfDocument,
-                to: self.endOfDocument)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            selectedTextRange = textRange(
+                from: endOfDocument,
+                to: endOfDocument)
         }
     }
 }

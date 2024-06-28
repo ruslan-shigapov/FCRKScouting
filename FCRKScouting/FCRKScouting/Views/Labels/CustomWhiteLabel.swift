@@ -9,11 +9,11 @@ import UIKit
 
 final class CustomWhiteLabel: UILabel {
 
-    init(font: UIFont?, numberOfLines: Int = 1, text: String? = nil) {
+    init(font: UIFont?, text: String? = nil, numberOfLines: Int = 1) {
         super.init(frame: .zero)
         self.font = font
-        self.numberOfLines = numberOfLines
         self.text = text
+        self.numberOfLines = numberOfLines
         setupUI()
     }
     

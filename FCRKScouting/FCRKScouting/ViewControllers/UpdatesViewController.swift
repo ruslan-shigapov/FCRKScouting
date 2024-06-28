@@ -18,16 +18,7 @@ final class UpdatesViewController: UIViewController {
     private lazy var collectionViewDataSource = UpdatesCollectionDataSource(
         viewModel: viewModel)
     
-    // MARK: Views
-    private lazy var addPlayerButton: UIButton = {
-        let button = CustomNavigationBarButton(
-            image: Constants.Images.ButtonImages.add)
-        button.addTarget(
-            self,
-            action: #selector(addPlayerButtonTapped),
-            for: .touchUpInside)
-        return button
-    }()
+    // MARK: Navigation Bar Buttons
     private lazy var refreshButton: UIButton = {
         let button = CustomNavigationBarButton(
             image: Constants.Images.ButtonImages.refresh)
@@ -37,7 +28,17 @@ final class UpdatesViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
+    private lazy var addPlayerButton: UIButton = {
+        let button = CustomNavigationBarButton(
+            image: Constants.Images.ButtonImages.add)
+        button.addTarget(
+            self,
+            action: #selector(addPlayerButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
     
+    // MARK: Segmented Control
     private lazy var intervalSegmentedControl: UISegmentedControl = {
         let segmentedControl = CustomSegmentedControl(
             items: Constants.Text.SegmentedControlItems.periodSegments)
@@ -56,6 +57,7 @@ final class UpdatesViewController: UIViewController {
         return view
     }()
     
+    // MARK: Collection View
     private lazy var playersCollectionView: UICollectionView = {
         let collectionView = VerticalCollectionView()
         collectionView.delegate = collectionViewDelegate
@@ -87,7 +89,7 @@ final class UpdatesViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         handlePlayerAdding()
-        handlePlayerDeleting()
+        handleReturnBack()
     }
     
     // MARK: Private Methods 
@@ -97,6 +99,20 @@ final class UpdatesViewController: UIViewController {
         view.addSubviews(segmentedControlBackgroundView, playersCollectionView)
         view.prepareForAutoLayout()
         setConstraints()
+    }
+    
+    private func handlePlayerAdding() {
+        viewModel.playersWereChanged = { [weak self] in
+            guard let self else { return }
+            refreshButtonTapped()
+        }
+    }
+    
+    private func handleReturnBack() {
+        viewModel.backButtonWasTapped = { [weak self] in
+            guard let self else { return }
+            refreshButtonTapped()
+        }
     }
     
     private func addNavigationBarButtons() {
@@ -109,27 +125,15 @@ final class UpdatesViewController: UIViewController {
         }
     }
     
-    private func handlePlayerAdding() {
-        viewModel.playersWereChanged = { [weak self] in
-            guard let self else { return }
-            self.viewModel.refreshPlayersList {
-                self.updateCollectionView()
-            }
-        }
+    private func updateCollectionView() {
+        playersCollectionView.setContentOffset(.zero, animated: true)
+        playersCollectionView.reloadData()
     }
     
-    private func handlePlayerDeleting() {
-        viewModel.backButtonWasTapped = { [weak self] in
-            guard let self else { return }
-            viewModel.refreshPlayersList {
-                self.updateCollectionView()
-            }
-        }
-    }
-    
+    // MARK: Selectors
     @objc private func refreshButtonTapped() {
         viewModel.refreshPlayersList {
-            updateCollectionView()
+            self.updateCollectionView()
         }
     }
     
@@ -145,11 +149,6 @@ final class UpdatesViewController: UIViewController {
     ) {
         viewModel.currentInterval = sender.selectedSegmentIndex
         updateCollectionView()
-    }
-    
-    private func updateCollectionView() {
-        playersCollectionView.setContentOffset(.zero, animated: true)
-        playersCollectionView.reloadData()
     }
 }
 

@@ -12,11 +12,14 @@ final class PlayerCell: UICollectionViewCell {
     // MARK: Views
     private let photoImageView = PhotoImageView()
     
-    private let fullNameLabel = CustomWhiteLabel(
+    private lazy var fullNameLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
         numberOfLines: 2)
-    private let ageLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
-    private let positionLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
+    
+    private lazy var ageLabel = CustomWhiteLabel(
+        font: Constants.Fonts.normal)
+    private lazy var positionLabel = CustomWhiteLabel(
+        font: Constants.Fonts.normal)
     
     private lazy var infoStackView: UIStackView = {
         let stackView = UIStackView(
@@ -36,6 +39,8 @@ final class PlayerCell: UICollectionViewCell {
         didSet {
             if let photo = viewModel?.photo {
                 photoImageView.image = photo
+            } else {
+                photoImageView.image = Constants.Images.photoPlaceholder
             }
             fullNameLabel.text = viewModel?.fullName
             ageLabel.text = viewModel?.ageDescription
@@ -57,11 +62,7 @@ final class PlayerCell: UICollectionViewCell {
     // MARK: Private Methods
     private func setupUI() {
         backgroundColor = Constants.Colors.deepGreen
-        layer.borderWidth = 1
-        layer.borderColor = UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1.0).cgColor
-//        photoImageView.layer.borderWidth = 1
-//        photoImageView.contentMode = .scaleToFill
-        photoImageView.layer.borderColor = UIColor(red: 218/255, green: 165/255, blue: 32/255, alpha: 1.0).cgColor
+        setCommonBorder()
         setCommonCornerRadius()
         addSubviews(photoImageView, fullNameLabel, infoStackView)
         prepareForAutoLayout()

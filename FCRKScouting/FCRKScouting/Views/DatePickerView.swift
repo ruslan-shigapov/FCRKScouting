@@ -23,10 +23,8 @@ final class DatePickerView: UIView {
         datePicker.preferredDatePickerStyle = .compact
         datePicker.isEnabled = false
         switch type {
-        case .birth: 
-            datePicker.maximumDate = Date()
-        case .contract:
-            datePicker.minimumDate = Date()
+        case .birth: datePicker.maximumDate = Date()
+        case .contract: datePicker.minimumDate = Date()
         case .standard: datePicker.isEnabled = true
         }
         return datePicker

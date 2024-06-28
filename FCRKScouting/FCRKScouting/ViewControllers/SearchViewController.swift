@@ -11,7 +11,8 @@ final class SearchViewController: UIViewController {
     
     private var viewModel: SearchViewModelProtocol
     
-    private let searchTipsView = SearchTipsView()
+    private lazy var searchTipsView = SearchTipsView(
+        isFullSet: viewModel.isEditingAllowed)
     
     // MARK: Initialize
     init(viewModel: SearchViewModelProtocol) {
@@ -49,7 +50,7 @@ final class SearchViewController: UIViewController {
             image: Constants.Images.ButtonImages.filters)
         filtersButton.addTarget(
             self,
-            action: #selector(changeFiltersButtonTapped),
+            action: #selector(advancedFiltersButtonTapped),
             for: .touchUpInside)
         let relatedButton = CustomNavigationBarButton(
             image: Constants.Images.ButtonImages.related)
@@ -57,14 +58,17 @@ final class SearchViewController: UIViewController {
             image: Constants.Images.ButtonImages.features)
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(customView: filtersButton),
-            UIBarButtonItem(customView: relatedButton),
             UIBarButtonItem(customView: featuresButton)
         ]
-        
-        // TODO: добавить green статус фильтрам или возможно менять кнопки тоже
+        if viewModel.isEditingAllowed {
+            navigationItem.rightBarButtonItems?.insert(
+                UIBarButtonItem(customView: relatedButton),
+                at: 1)
+        }
+        // TODO: менять статусы на зеленый цвет
     }
     
-    @objc private func changeFiltersButtonTapped() {
+    @objc private func advancedFiltersButtonTapped() {
         let filtersVC = ScreenFactory.getFiltersViewController()
         present(filtersVC, animated: true)
     }

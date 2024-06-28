@@ -11,8 +11,8 @@ final class CareerDetailsViewController: UIViewController {
     
     private let titleLabel = CustomWhiteLabel(
         font: Constants.Fonts.header,
-        numberOfLines: 2,
-        text: Constants.Text.ScreenTitles.career)
+        text: Constants.Text.ScreenTitles.career,
+        numberOfLines: 2)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +20,8 @@ final class CareerDetailsViewController: UIViewController {
     }
     
     private func setupUI() {
-        titleLabel.textAlignment = .center
         titleLabel.textColor = .systemGreen
+        titleLabel.textAlignment = .center
         view.backgroundColor = .accent
         view.addSubview(titleLabel)
         view.prepareForAutoLayout()

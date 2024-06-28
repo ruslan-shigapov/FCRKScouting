@@ -9,6 +9,16 @@ import UIKit
 
 final class PhotoImageView: UIImageView {
     
+    override var image: UIImage? {
+        didSet {
+            if image == Constants.Images.photoPlaceholder {
+                layer.borderWidth = 0
+            } else {
+                setCommonBorder()
+            }
+        }
+    }
+    
     init() {
         super.init(frame: .zero)
         setupUI()
@@ -26,5 +36,6 @@ final class PhotoImageView: UIImageView {
  
     private func setupUI() {
         image = Constants.Images.photoPlaceholder
+        clipsToBounds = true
     }
 }

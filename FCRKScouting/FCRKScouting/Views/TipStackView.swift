@@ -17,18 +17,12 @@ final class TipStackView: UIStackView {
         imageView.image = image
         imageView.tintColor = .lightGray
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 28).isActive = true
         return imageView
     }()
     
-    private lazy var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.font = Constants.Fonts.text
-        label.text = text
-        label.textColor = .lightGray
-        return label
-    }()
+    private lazy var descriptionLabel = DefaultTextLabel(text: text)
 
     init(image: UIImage?, text: String) {
         self.image = image
