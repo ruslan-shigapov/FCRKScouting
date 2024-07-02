@@ -11,20 +11,25 @@ protocol PlayerViewModelProtocol: UserViewModelProtocol,
                                   EditorViewControllerDelegate {
     var photo: UIImage? { get }
     var fullName: String { get }
+    var patronymic: String { get }
     var position: String { get }
-    var birthDate: String { get }
+    var age: String { get }
     var citizenship: String { get }
     var clubAndNationalTeam: String { get }
     var foot: String { get }
+    var height: String { get }
+    var weight: String { get }
     var generalInfo: String { get }
     var creator: String { get }
     var lastEditor: String { get }
     func getPlayer() -> Player
     func deletePlayer()
 }
+        
+//final class PlayerViewModel: PlayerViewModelProtocol {
 
 final class PlayerViewModel: PlayerViewModelProtocol {
-        
+    
     private let player: Player
     
     var playersWereChanged: (() -> Void)?
@@ -38,11 +43,15 @@ final class PlayerViewModel: PlayerViewModelProtocol {
         player.fullName?.replacingOccurrences(of: " ", with: "\n") ?? ""
     }
     
+    var patronymic: String {
+        player.patronymic ?? ""
+    }
+    
     var position: String {
         player.position?.replacingOccurrences(of: " ", with: "\n") ?? ""
     }
     
-    var birthDate: String {
+    var age: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         guard let birthDate = player.birthDate else { return "" }
@@ -65,6 +74,16 @@ final class PlayerViewModel: PlayerViewModelProtocol {
     
     var foot: String {
         player.foot ?? ""
+    }
+    
+    var height: String {
+        guard let height = player.height, !height.isEmpty else { return "" }
+        return height + " м"
+    }
+    
+    var weight: String {
+        guard let weight = player.weight, !weight.isEmpty else { return "" }
+        return weight + " кг"
     }
     
     var creator: String {

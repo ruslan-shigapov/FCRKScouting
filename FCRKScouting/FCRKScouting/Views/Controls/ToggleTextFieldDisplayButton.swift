@@ -20,9 +20,9 @@ final class ToggleTextFieldDisplayButton: UIButton {
     }
 
     private func setupUI() {
+        tintColor = .white
         setImage(Constants.Images.ButtonImages.plus, for: .normal)
         setImage(Constants.Images.ButtonImages.minus, for: .selected)
-        tintColor = .white
         contentHorizontalAlignment = .fill
         contentVerticalAlignment = .fill
         heightAnchor.constraint(equalToConstant: 25).isActive = true

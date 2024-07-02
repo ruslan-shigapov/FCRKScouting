@@ -9,6 +9,15 @@ import UIKit
 
 extension UITextField {
     
+    func setupAttributesOfPlaceholder(_ placeholder: String) {
+        attributedPlaceholder = NSAttributedString(
+            string: placeholder,
+            attributes: [
+                .font: Constants.Fonts.text,
+                .foregroundColor: UIColor.lightGray
+            ])
+    }
+    
     func focusNextResponder() {
         if let nextTF = superview?.superview?.superview?.viewWithTag(
             tag + 1

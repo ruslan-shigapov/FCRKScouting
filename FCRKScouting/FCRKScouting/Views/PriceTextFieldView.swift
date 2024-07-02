@@ -10,9 +10,10 @@ import UIKit
 final class PriceTextFieldView: UIView {
     
     // MARK: Views
-    private let roundedTextField: UITextField = {
+    private let textField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .white
+        textField.textColor = .black
         textField.keyboardType = .numberPad
         textField.font = Constants.Fonts.text
         textField.textAlignment = .right
@@ -28,7 +29,7 @@ final class PriceTextFieldView: UIView {
     // MARK: Initialize
     override init(frame: CGRect) {
         super.init(frame: frame)
-        roundedTextField.delegate = self
+        textField.delegate = self
         setupUI()
     }
     
@@ -40,24 +41,27 @@ final class PriceTextFieldView: UIView {
     // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
-        roundedTextField.setCommonShadow()
+        textField.setCommonShadow()
     }
     
     // MARK: Private Methods 
     private func setupUI() {
-        roundedTextField.placeholder = "0"
-        addSubviews(roundedTextField, currencyLabel)
+        textField.placeholder = "0"
+        if let placeholder = textField.placeholder {
+            textField.setupAttributesOfPlaceholder(placeholder)
+        }
+        addSubviews(textField, currencyLabel)
         setConstraints()
         prepareForAutoLayout()
     }
     
     // MARK: Public Methods
-    func set(text: String?) {
-        roundedTextField.text = text
+    func setText(_ text: String?) {
+        textField.text = text
     }
     
     func getInputText() -> String {
-        guard let text = roundedTextField.text else { return "" }
+        guard let text = textField.text else { return "" }
         return text
     }
 }
@@ -95,18 +99,18 @@ extension PriceTextFieldView {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            roundedTextField.topAnchor.constraint(equalTo: topAnchor),
-            roundedTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
-            roundedTextField.bottomAnchor.constraint(equalTo: bottomAnchor),
-            roundedTextField.heightAnchor.constraint(equalToConstant: 35),
-            roundedTextField.widthAnchor.constraint(equalToConstant: 120),
+            textField.topAnchor.constraint(equalTo: topAnchor),
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor),
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor),
+            textField.heightAnchor.constraint(equalToConstant: 35),
+            textField.widthAnchor.constraint(equalToConstant: 120),
             
             currencyLabel.leadingAnchor.constraint(
-                equalTo: roundedTextField.trailingAnchor,
+                equalTo: textField.trailingAnchor,
                 constant: 6),
             currencyLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             currencyLabel.centerYAnchor.constraint(
-                equalTo: roundedTextField.centerYAnchor)
+                equalTo: textField.centerYAnchor)
         ])
     }
 }

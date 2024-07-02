@@ -37,13 +37,14 @@ final class DecimalTextFieldView: UIView {
     private let textFieldType: DecimalTextFieldType
 
     // MARK: Views
-    private let roundedTextField: UITextField = {
+    private let textField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .white
+        textField.textColor = .black
         textField.keyboardType = .numberPad
         textField.font = Constants.Fonts.text
         textField.leftView = UIView(
-            frame: CGRectMake(0, 0, 5, textField.frame.height))
+            frame: CGRectMake(0, 0, 6, textField.frame.height))
         textField.leftViewMode = .always
         textField.setCommonCornerRadius()
         return textField
@@ -55,7 +56,7 @@ final class DecimalTextFieldView: UIView {
     init(textFieldType: DecimalTextFieldType) {
         self.textFieldType = textFieldType
         super.init(frame: .zero)
-        roundedTextField.delegate = self
+        textField.delegate = self
         setupUI()
     }
     
@@ -67,24 +68,27 @@ final class DecimalTextFieldView: UIView {
     // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
-        roundedTextField.setCommonShadow()
+        textField.setCommonShadow()
     }
         
     // MARK: Private Methods
     private func setupUI() {
-        roundedTextField.placeholder = textFieldType.placeholder
-        addSubviews(roundedTextField, unitLabel)
+        textField.placeholder = textFieldType.placeholder
+        if let placeholder = textField.placeholder {
+            textField.setupAttributesOfPlaceholder(placeholder)
+        }
+        addSubviews(textField, unitLabel)
         setConstraints()
         prepareForAutoLayout()
     }
     
     // MARK: Public Methods
-    func set(text: String?) {
-        roundedTextField.text = text
+    func setText(_ text: String?) {
+        textField.text = text
     }
     
     func getInputText() -> String {
-        guard let text = roundedTextField.text else { return "" }
+        guard let text = textField.text else { return "" }
         return text
     }
 }
@@ -133,18 +137,18 @@ extension DecimalTextFieldView {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            roundedTextField.topAnchor.constraint(equalTo: topAnchor),
-            roundedTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
-            roundedTextField.bottomAnchor.constraint(equalTo: bottomAnchor),
-            roundedTextField.heightAnchor.constraint(equalToConstant: 30),
-            roundedTextField.widthAnchor.constraint(equalToConstant: 55),
+            textField.topAnchor.constraint(equalTo: topAnchor),
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor),
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor),
+            textField.heightAnchor.constraint(equalToConstant: 30),
+            textField.widthAnchor.constraint(equalToConstant: 55),
             
             unitLabel.leadingAnchor.constraint(
-                equalTo: roundedTextField.trailingAnchor,
+                equalTo: textField.trailingAnchor,
                 constant: 6),
             unitLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             unitLabel.centerYAnchor.constraint(
-                equalTo: roundedTextField.centerYAnchor,
+                equalTo: textField.centerYAnchor,
                 constant: -1)
         ])
     }

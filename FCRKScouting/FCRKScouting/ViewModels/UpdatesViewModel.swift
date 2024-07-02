@@ -15,7 +15,7 @@ protocol PlayerViewControllerDelegate {
     var backButtonWasTapped: (() -> Void)? { get set }
 }
 
-protocol UpdatesViewModelProtocol: UserViewModelProtocol, 
+protocol UpdatesViewModelProtocol: UserViewModelProtocol,
                                    EditorViewControllerDelegate,
                                    PlayerViewControllerDelegate {
     var currentInterval: Int { get set }

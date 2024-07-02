@@ -26,7 +26,9 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     }
     
     func logOut() {
-        UserManager.shared.deleteUser()
-        ScreenFactory.setRootViewController()
+        UserManager.shared.clearCurrentUser { [weak self] in
+            guard let _ = self else { return }
+            ScreenFactory.setRootViewController()
+        }
     }
 }

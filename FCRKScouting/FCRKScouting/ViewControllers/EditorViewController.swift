@@ -22,28 +22,29 @@ final class EditorViewController: UIViewController {
         viewModel: viewModel)
     
     // MARK: Labels
-    private lazy var titleLabel = CustomWhiteLabel(
+    private lazy var titleLabel = CustomLabel(
         font: Constants.Fonts.header,
         text: viewModel.title)
     
-    private let birthDateLabel = CustomWhiteLabel(
+    private let birthDateLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.birthDate,
         numberOfLines: 2)
-    private let positionLabel = CustomWhiteLabel(
+    private let positionLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.position)
-    private let footLabel = CustomWhiteLabel(
+    private let footLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.foot)
-    private let heightLabel = CustomWhiteLabel(
+    private let heightLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.height)
-    private let weightLabel = CustomWhiteLabel(
+    private let weightLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.weight)
     
-    private let pageSliderViewDescription = DescriptionLabel(
+    private let pageSliderViewDescription = CustomLabel(
+        font: Constants.Fonts.description,
         text: Constants.Text.Descriptions.pageSlider)
     
     // MARK: Views
@@ -76,7 +77,7 @@ final class EditorViewController: UIViewController {
         stackView.spacing = 24
         for (index, view) in stackView.subviews.enumerated() {
             if let textFieldView = view as? PrimaryTextFieldView {
-                textFieldView.set(tag: index)
+                textFieldView.setTag(index)
             }
         }
         return stackView
@@ -129,12 +130,12 @@ final class EditorViewController: UIViewController {
         return switcher
     }()
     
-    private let footSegmentedControl = CustomSegmentedControl(
+    private let footSegmentedControl = GraySegmentedControl(
         items: Constants.Text.SegmentedControlItems.footSegments)
     
     // MARK: Buttons
     private lazy var closeButton: UIButton = {
-        let button = CustomNavigationBarButton(
+        let button = NavigationBarButton(
             image: Constants.Images.ButtonImages.close)
         button.addTarget(
             self,
@@ -144,7 +145,14 @@ final class EditorViewController: UIViewController {
     }()
         
     private lazy var uploadPhotoButton: UIButton = {
-        let button = UploadPhotoButton(type: .system)
+        let button = UIButton(type: .system)
+        button.backgroundColor = .lightGray
+        button.setTitle(Constants.Text.ButtonTitles.uploadPhoto, for: .normal)
+        button.titleLabel?.font = Constants.Fonts.text
+        let isDarkStyle = traitCollection.userInterfaceStyle == .dark
+        button.tintColor = isDarkStyle ? .white : .black
+        button.setCommonCornerRadius()
+        button.setupHighlightAnimation()
         button.addTarget(
             self,
             action: #selector(uploadPhotoButtonTapped),
@@ -255,8 +263,8 @@ final class EditorViewController: UIViewController {
         uploadPhotoButton.setCommonShadow()
         positionPickerView.setCommonShadow()
         footSegmentedControl.setCommonShadow()
-        pageSliderView.configureWith(
-            pages: [
+        pageSliderView.configure(
+            withPages: [
                 generalInfoTextViewWithTitle,
                 techniqueTextViewWithTitle,
                 tacticsTextViewWithTitle,
@@ -321,15 +329,15 @@ final class EditorViewController: UIViewController {
             if let photo = player.photo {
                 photoImageView.image = UIImage(data: photo)
             }
-            fullNameTextFieldView.set(text: player.fullName)
-            patronymicTextFieldView.set(text: player.patronymic)
-            citizenshipTextFieldView.set(text: player.citizenship)
-            clubTextFieldView.set(text: player.club)
-            nationalTeamTextFieldView.set(text: player.nationalTeam)
+            fullNameTextFieldView.setText(player.fullName)
+            patronymicTextFieldView.setText(player.patronymic)
+            citizenshipTextFieldView.setText(player.citizenship)
+            clubTextFieldView.setText(player.club)
+            nationalTeamTextFieldView.setText(player.nationalTeam)
             if let birthDate = player.birthDate {
                 birthDateSwitcher.isOn.toggle()
-                birthDatePickerView.toggleEnabled()
-                birthDatePickerView.set(date: birthDate)
+                birthDatePickerView.toggleDatePickerEnabled()
+                birthDatePickerView.setDate(birthDate)
             }
             let pickerRow = viewModel.getPickerRowBy(title: player.position)
             positionPickerView.selectRow(
@@ -338,13 +346,13 @@ final class EditorViewController: UIViewController {
                 animated: true)
             let segmentIndex = viewModel.getSegmentIndexBy(title: player.foot)
             footSegmentedControl.selectedSegmentIndex = segmentIndex ?? 0
-            heightTextFieldView.set(text: player.height)
-            weightTextFieldView.set(text: player.weight)
-            generalInfoTextViewWithTitle.set(text: player.generalInfo)
-            techniqueTextViewWithTitle.set(text: player.technique)
-            tacticsTextViewWithTitle.set(text: player.tactics)
-            qualitiesTextViewWithTitle.set(text: player.qualities)
-            mentalTextViewWithTitle.set(text: player.mental)
+            heightTextFieldView.setText(player.height)
+            weightTextFieldView.setText(player.weight)
+            generalInfoTextViewWithTitle.setText(player.generalInfo)
+            techniqueTextViewWithTitle.setText(player.technique)
+            tacticsTextViewWithTitle.setText(player.tactics)
+            qualitiesTextViewWithTitle.setText(player.qualities)
+            mentalTextViewWithTitle.setText(player.mental)
             viewModel.getTransferDetails()
         }
     }
@@ -408,7 +416,7 @@ final class EditorViewController: UIViewController {
     }
     
     @objc private func birthDateSwitcherChanged() {
-        birthDatePickerView.toggleEnabled()
+        birthDatePickerView.toggleDatePickerEnabled()
     }
     
     @objc private func showCareerDetailsButtonTapped() {
@@ -521,6 +529,7 @@ private extension EditorViewController {
                 equalTo: photoImageView.centerYAnchor),
             uploadPhotoButton.heightAnchor.constraint(
                 equalTo: birthDatePickerView.heightAnchor),
+            uploadPhotoButton.widthAnchor.constraint(equalToConstant: 150),
             
             textFieldStackView.topAnchor.constraint(
                 equalTo: photoImageView.bottomAnchor,

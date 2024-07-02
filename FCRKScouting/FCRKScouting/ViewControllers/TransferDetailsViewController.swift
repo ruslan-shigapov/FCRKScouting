@@ -13,19 +13,19 @@ final class TransferDetailsViewController: UIViewController {
     private var delegate: TransferDetailsViewControllerDelegate?
         
     // MARK: Views
-    private let titleLabel = CustomWhiteLabel(
+    private let titleLabel = CustomLabel(
         font: Constants.Fonts.header,
         text: Constants.Text.transferDetails)
     
-    private let costLabel = CustomWhiteLabel(
+    private let costLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.cost,
         numberOfLines: 2)
-    private let salaryLabel = CustomWhiteLabel(
+    private let salaryLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.salary,
         numberOfLines: 2)
-    private let contractLabel = CustomWhiteLabel(
+    private let contractLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.contract,
         numberOfLines: 2)
@@ -60,7 +60,7 @@ final class TransferDetailsViewController: UIViewController {
         stackView.spacing = 16
         for (index, view) in stackView.subviews.enumerated() {
             if let textFieldView = view as? PrimaryTextFieldView {
-                textFieldView.set(tag: index)
+                textFieldView.setTag(index)
             }
         }
         return stackView
@@ -117,22 +117,22 @@ final class TransferDetailsViewController: UIViewController {
     
     private func configureViews() {
         if let prices = delegate?.prices, prices.count == 2 {
-            costTextFieldView.set(text: prices[0])
-            salaryTextFieldView.set(text: prices[1])
+            costTextFieldView.setText(prices[0])
+            salaryTextFieldView.setText(prices[1])
         }
         if let contractDate = delegate?.contractDate {
             contractDateSwitcher.isOn.toggle()
-            contractDatePickerView.toggleEnabled()
-            contractDatePickerView.set(date: contractDate)
+            contractDatePickerView.toggleDatePickerEnabled()
+            contractDatePickerView.setDate(contractDate)
         }
         if let agentInfo = delegate?.agentInfo, agentInfo.count == 2 {
-            agentNameTextFieldView.set(text: agentInfo[0])
-            contactsTextFieldView.set(text: agentInfo[1])
+            agentNameTextFieldView.setText(agentInfo[0])
+            contactsTextFieldView.setText(agentInfo[1])
         }
     }
     
     @objc private func contractDateSwitcherChanged() {
-        contractDatePickerView.toggleEnabled()
+        contractDatePickerView.toggleDatePickerEnabled()
     }
     
     @objc private func saveButtonTapped() {

@@ -8,14 +8,14 @@
 import UIKit
 
 final class FormViewController: UIViewController {
-    
+
     // MARK: Private Properties
     private var viewModel: FormViewModelProtocol
     private var delegate: FormViewControllerDelegate?
         
     // MARK: Views
     private let titleLabel: UILabel = {
-        let label = CustomWhiteLabel(
+        let label = CustomLabel(
             font: Constants.Fonts.header,
             text: Constants.Text.ScreenTitles.form)
         label.textAlignment = .center
@@ -25,22 +25,6 @@ final class FormViewController: UIViewController {
     private let fullNameTextFieldView = PrimaryTextFieldView(
         placeholder: Constants.Text.Placeholders.fullName,
         type: .name)
-    private let postTextFieldView = PrimaryTextFieldView(
-        placeholder: Constants.Text.Placeholders.post,
-        type: .name)
-    
-    private lazy var textFieldStackView: UIStackView = {
-        let stackView = UIStackView(
-            arrangedSubviews: [fullNameTextFieldView, postTextFieldView])
-        stackView.axis = .vertical
-        stackView.spacing = 24
-        for (index, view) in stackView.subviews.enumerated() {
-            if let textFieldView = view as? PrimaryTextFieldView {
-                textFieldView.set(tag: index)
-            }
-        }
-        return stackView
-    }()
     
     private lazy var saveButton: UIButton = {
         let button = PrimaryButton(
@@ -77,7 +61,7 @@ final class FormViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .accent
         view.setKeyboardDismissTap()
-        view.addSubviews(titleLabel, textFieldStackView, saveButton)
+        view.addSubviews(titleLabel, fullNameTextFieldView, saveButton)
         view.prepareForAutoLayout()
         setConstraints()
         setupAlerts()
@@ -102,32 +86,30 @@ final class FormViewController: UIViewController {
     }
     
     private func configureUI() {
-        fullNameTextFieldView.set(text: viewModel.fullName)
-        postTextFieldView.set(text: viewModel.post)
+        fullNameTextFieldView.setText(viewModel.userFullName)
     }
     
-    private func runMainTabBarController() {
-        let mainTabBarController = ScreenFactory.getMainTabBarController()
-        present(mainTabBarController, animated: false)
-    }
-    
-    // MARK: Selectors 
     @objc private func saveButtonTapped() {
         viewModel.validateInput(
             text: [fullNameTextFieldView.getInputText()]
-        ) {
-            viewModel.saveUserBy(
-                fullName: $0[0],
-                post: postTextFieldView.getInputText()
-            ) { isEditingMode in
-                isEditingMode
-                ? dismiss(animated: true) { [weak self] in
-                    guard let self else { return }
-                    self.delegate?.userWasUpdated?()
-                } 
-                : runMainTabBarController()
-            }
+        ) { _ in 
+            showMainTabBarController()
+//            viewModel.saveUserBy(
+//                fullName: $0[0],
+//                post: postTextFieldView.getInputText()
+//            ) { isEditingMode in
+//                isEditingMode
+//                ? dismiss(animated: true) { [weak self] in
+//                    guard let self else { return }
+//                    self.delegate?.userWasUpdated?()
+//                }
+//            }
         }
+    }
+    
+    private func showMainTabBarController() {
+        let mainTabBarController = ScreenFactory.getMainTabBarController()
+        present(mainTabBarController, animated: true)
     }
 }
 
@@ -141,16 +123,16 @@ private extension FormViewController {
                 constant: 24),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            textFieldStackView.topAnchor.constraint(
+            fullNameTextFieldView.topAnchor.constraint(
                 equalTo: titleLabel.bottomAnchor,
                 constant: 48),
-            textFieldStackView.widthAnchor.constraint(
+            fullNameTextFieldView.widthAnchor.constraint(
                 equalTo: saveButton.widthAnchor),
-            textFieldStackView.centerXAnchor.constraint(
+            fullNameTextFieldView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
             
             saveButton.topAnchor.constraint(
-                equalTo: textFieldStackView.bottomAnchor,
+                equalTo: fullNameTextFieldView.bottomAnchor,
                 constant: 48
             ),
             saveButton.leadingAnchor.constraint(

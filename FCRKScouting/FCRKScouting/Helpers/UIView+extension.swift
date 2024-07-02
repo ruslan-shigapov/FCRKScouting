@@ -9,19 +9,8 @@ import UIKit
 
 extension UIView {
     
-    @objc private func dismissKeyboard() {
-        endEditing(true)
-    }
-    
-    func setKeyboardDismissTap() {
-        let tapGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(dismissKeyboard))
-        addGestureRecognizer(tapGesture)
-    }
-    
-    func addSubviews(_ subviews: UIView...) {
-        subviews.forEach { addSubview($0) }
+    func setCommonCornerRadius() {
+        layer.cornerRadius = 12
     }
     
     func prepareForAutoLayout() {
@@ -30,19 +19,31 @@ extension UIView {
         }
     }
     
-    func setCommonCornerRadius() {
-        layer.cornerRadius = 12
-    }
-    
     func setCommonShadow() {
         clipsToBounds = false
-        layer.shadowColor = UIColor.label.cgColor
+        layer.shadowColor = UIColor.black.cgColor
         layer.shadowRadius = 7
         layer.shadowOpacity = 0.4
         layer.shadowOffset = CGSize(width: 8, height: 8)
         layer.shadowPath = UIBezierPath(
             roundedRect: bounds,
             cornerRadius: layer.cornerRadius).cgPath
+    }
+    
+    @objc private func dismissKeyboard() {
+        endEditing(true)
+    }
+    
+    func setKeyboardDismissTap() {
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false // TODO: check in other places
+        addGestureRecognizer(tapGesture)
+    }
+    
+    func addSubviews(_ subviews: UIView...) {
+        subviews.forEach { addSubview($0) }
     }
     
     func setupCommonGradientLayer() {

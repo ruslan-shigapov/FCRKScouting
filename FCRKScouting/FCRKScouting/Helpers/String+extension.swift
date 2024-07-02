@@ -7,6 +7,10 @@
 
 extension String {
     
+    func containsOnlyCyrillicChars() -> Bool {
+        range(of: "^[А-Яа-яЁё\\s]+$", options: .regularExpression) != nil
+    }
+    
     func formatToShortPosition() -> String {
         guard let position = Constants.Text.Positions(rawValue: self) else {
             return ""

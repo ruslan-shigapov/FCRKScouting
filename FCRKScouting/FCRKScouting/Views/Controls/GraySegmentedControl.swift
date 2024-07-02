@@ -1,5 +1,5 @@
 //
-//  CustomSegmentedControl.swift
+//  GraySegmentedControl.swift
 //  RubinScoutingApp
 //
 //  Created by Ruslan Shigapov on 29.03.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CustomSegmentedControl: UISegmentedControl {
+final class GraySegmentedControl: UISegmentedControl {
     
     override init(items: [Any]?) {
         super.init(items: items)
@@ -21,9 +21,13 @@ final class CustomSegmentedControl: UISegmentedControl {
     
     private func setupUI() {
         backgroundColor = .lightGray
+        selectedSegmentTintColor = .white
         selectedSegmentIndex = 0
         setTitleTextAttributes(
-            [.font: Constants.Fonts.description],
+            [
+                .font: Constants.Fonts.description,
+                .foregroundColor: UIColor.black
+            ],
             for: .normal)
     }
 }

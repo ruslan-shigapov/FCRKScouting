@@ -41,44 +41,55 @@ final class StorageManager {
 // MARK: - User CRUD
 extension StorageManager {
     
-    func saveUserWith(
+    func saveUser(
+        with appleID: String,
         fullName: String,
-        post: String,
         isEditingAllowed: Bool,
-        completion: () -> Void
+        completion: @escaping () -> Void
     ) {
         let user = User(context: viewContext)
+        user.appleID = appleID
         user.fullName = fullName
-        user.post = post
         user.isEditingAllowed = isEditingAllowed
         saveContext()
         completion()
     }
     
-    func fetchUser(completion: (User?) -> Void) {
-        let fetchRequest = User.fetchRequest()
-        let user = try? viewContext.fetch(fetchRequest).first
-        // TODO: find the user by its name ???
-        completion(user)
-    }
-    
-    func updateUser(fullName: String, post: String, completion: () -> Void) {
-        fetchUser {
-            $0?.fullName = fullName
-            $0?.post = post
-        }
-        saveContext()
-        completion()
-    }
-        
-    func deleteUserBy(_ fullName: String) {
+    func findUser(_ appleID: String, completion: @escaping (User?) -> Void) {
         let fetchRequest = User.fetchRequest()
         let users = try? viewContext.fetch(fetchRequest)
-        guard let user = users?.first(where: { $0.fullName == fullName }) else {
+        if let user = users?.first(where: { $0.appleID == appleID }) {
+            completion(user)
             return
         }
-        viewContext.delete(user)
-        saveContext()
+        completion(nil)
+    }
+    
+    // TODO: does it need to send a new name in the closure?
+    func updateUser(_ fullName: String, completion: @escaping () -> Void) {
+        guard let user = UserManager.shared.getCurrentUser(),
+              let appleID = user.appleID else { return }
+        findUser(appleID) { [weak self] in
+            guard let self else { return }
+            if let foundUser = $0 {
+                foundUser.fullName = fullName
+                saveContext()
+                completion()
+            }
+        }
+    }
+        
+    func deleteUser(completion: @escaping () -> Void) {
+        guard let user = UserManager.shared.getCurrentUser(),
+              let appleID = user.appleID else { return }
+        findUser(appleID) { [weak self] in
+            guard let self else { return }
+            if let foundUser = $0 {
+                viewContext.delete(foundUser)
+                saveContext()
+                completion()
+            }
+        }
     }
 }
 

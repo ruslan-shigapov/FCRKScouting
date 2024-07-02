@@ -10,7 +10,7 @@ import UIKit
 final class PageSliderView: UIView {
 
     // MARK: Views
-    private lazy var horizontalScrollView: UIScrollView = {
+    private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.isPagingEnabled = true
@@ -18,18 +18,18 @@ final class PageSliderView: UIView {
         return scrollView
     }()
     
-    private let disabledPageControl: UIPageControl = {
+    private let pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.isEnabled = false
         pageControl.currentPageIndicatorTintColor = .white
-        pageControl.pageIndicatorTintColor = .label.withAlphaComponent(0.6)
+        pageControl.pageIndicatorTintColor = .black.withAlphaComponent(0.7)
         return pageControl
     }()
     
     private lazy var pageControlBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
-        view.addSubview(disabledPageControl)
+        view.addSubview(pageControl)
         view.prepareForAutoLayout()
         view.layer.cornerRadius = 5
         return view
@@ -51,13 +51,13 @@ final class PageSliderView: UIView {
     // MARK: Private Methods
     private func setupUI() {
         patchView.backgroundColor = Constants.Colors.deepGreen
-        addSubviews(horizontalScrollView, pageControlBackgroundView, patchView)
+        addSubviews(scrollView, pageControlBackgroundView, patchView)
         prepareForAutoLayout()
         setConstraints()
     }
     
-    private func generateScrollView(with pages: [UIView]) {
-        horizontalScrollView.contentSize = CGSize(
+    private func generateScrollView(withPages pages: [UIView]) {
+        scrollView.contentSize = CGSize(
             width: frame.width * CGFloat(pages.count),
             height: frame.height
         )
@@ -68,14 +68,14 @@ final class PageSliderView: UIView {
                 width: frame.width,
                 height: frame.height
             )
-            horizontalScrollView.addSubview(page)
+            scrollView.addSubview(page)
         }
     }
     
     // MARK: Public Methods    
-    func configureWith(pages: [UIView]) {
-        generateScrollView(with: pages)
-        disabledPageControl.numberOfPages = pages.count
+    func configure(withPages pages: [UIView]) {
+        generateScrollView(withPages: pages)
+        pageControl.numberOfPages = pages.count
     }
 }
 
@@ -85,7 +85,7 @@ extension PageSliderView: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentPage = round(
             scrollView.contentOffset.x / scrollView.frame.size.width)
-        disabledPageControl.currentPage = Int(currentPage)
+        pageControl.currentPage = Int(currentPage)
     }
 }
 
@@ -94,11 +94,11 @@ private extension PageSliderView {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
-            horizontalScrollView.topAnchor.constraint(equalTo: topAnchor),
-            horizontalScrollView.leadingAnchor.constraint(
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.leadingAnchor.constraint(
                 equalTo: leadingAnchor),
-            horizontalScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            horizontalScrollView.trailingAnchor.constraint(
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            scrollView.trailingAnchor.constraint(
                 equalTo: trailingAnchor),
             
             pageControlBackgroundView.topAnchor.constraint(
@@ -115,16 +115,16 @@ private extension PageSliderView {
             patchView.bottomAnchor.constraint(
                 equalTo: pageControlBackgroundView.bottomAnchor),
             
-            disabledPageControl.topAnchor.constraint(
+            pageControl.topAnchor.constraint(
                 equalTo: pageControlBackgroundView.topAnchor,
                 constant: -4),
-            disabledPageControl.leadingAnchor.constraint(
+            pageControl.leadingAnchor.constraint(
                 equalTo: pageControlBackgroundView.leadingAnchor,
                 constant: -25),
-            disabledPageControl.bottomAnchor.constraint(
+            pageControl.bottomAnchor.constraint(
                 equalTo: pageControlBackgroundView.bottomAnchor,
                 constant: 4),
-            disabledPageControl.trailingAnchor.constraint(
+            pageControl.trailingAnchor.constraint(
                 equalTo: pageControlBackgroundView.trailingAnchor,
                 constant: 25)
         ])

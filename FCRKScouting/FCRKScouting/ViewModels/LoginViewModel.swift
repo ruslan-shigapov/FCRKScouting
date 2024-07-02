@@ -7,24 +7,28 @@
 
 protocol LoginViewModelProtocol {
     var wasAccessKeyWrong: (() -> Void)? { get set }
-    func logInBy(accessKey: String, completion: (Bool) -> Void)
+    func logIn(
+        byAccessKey accessKey: String?,
+        completion: @escaping (Bool) -> Void
+    )
 }
 
 final class LoginViewModel: LoginViewModelProtocol {
     
-    private let accessLevels = [
-        "200458": false, // readOnly
-        "220888": true   // editable
-    ]
-    
     var wasAccessKeyWrong: (() -> Void)?
     
-    func logInBy(accessKey: String, completion: (Bool) -> Void) {
-        if accessKey.isEmpty { return }
-        guard let isEditable = accessLevels[accessKey] else {
-            wasAccessKeyWrong?()
-            return
+    func logIn(
+        byAccessKey accessKey: String?,
+        completion: @escaping (Bool) -> Void
+    ) {
+        UserManager.shared.validateAccessKey(accessKey) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let isEditingAllowed):
+                completion(isEditingAllowed)
+            case .failure(_):
+                wasAccessKeyWrong?()
+            }
         }
-        completion(isEditable)
     }
 }

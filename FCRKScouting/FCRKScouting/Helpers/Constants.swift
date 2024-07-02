@@ -42,12 +42,12 @@ enum Constants {
         static let title = UIFont(name: "Ostrovsky", size: 34)
         static let header = UIFont(name: "Ostrovsky", size: 21)
         static let normal = UIFont(name: "Ostrovsky", size: 16)
-        static let text = UIFont.systemFont(ofSize: 17, weight: .light)
+        static let text = UIFont.systemFont(ofSize: 16, weight: .light)
         static let description = UIFont.systemFont(ofSize: 13, weight: .thin)
     }
     // MARK: Text
     enum Text {
-        static let appName = "FCRK SCOUTING"
+        static let appName = "FCRK Scouting"
         static let birthDate = "Дата рождения:"
         static let position = "Позиция:"
         static let foot = "Рабочая нога:"
@@ -58,6 +58,7 @@ enum Constants {
         static let statisticsDetails = "Статистика"
         static let testingDetails = "Тестирование"
         
+        static let age = "Возраст:"
         static let citizenship = "Гражданство:"
         static let clubAndNationalTeam = "Клуб/сборная:"
         static let cost = "Стоимость перехода:"
@@ -89,7 +90,7 @@ enum Constants {
             static let forGoalkeepers = "(для вратарей)"
         }
         enum Placeholders {
-            static let accessKey = "Ключ доступа"
+            static let accessKey = "Ключ доступа*"
             static let fullName = "Имя Фамилия*"
             static let post = "Должность"
             static let patronymic = "Отчество"
@@ -100,7 +101,6 @@ enum Constants {
             static let contacts = "Контакты"
         }
         enum ButtonTitles {
-            static let enter = "Войти"
             static let exit = "Выйти"
             static let ok = "OK"
             static let yes = "Да"
@@ -130,6 +130,15 @@ enum Constants {
             static let filters = "- Доп. фильтры"
         }
         enum Alerts {
+            static let wrongAccessKey = (
+                title: "Не удалось войти",
+                message: "Введите действительный ключ доступа"
+            )
+            static let authError = (
+                title: "Ошибка авторизации",
+                message: "Пожалуйста, попробуйте еще раз"
+            )
+
             static let emptyTextFields = (
                 title: "Внимание",
                 message: "Пожалуйста, заполните обязательные поля для ввода"
@@ -137,20 +146,16 @@ enum Constants {
             static let incorrectFullName = (
                 title: "Внимание",
                 message: """
-                Пожалуйста, введите ваше имя и фамилию, и ничего лишнего
+                Пожалуйста, введите имя и фамилию, и ничего лишнего
                 """
-            )
-            static let wrongAccessKey = (
-                title: "Не удалось войти",
-                message: "Ключ доступа неверный"
             )
             static let notSelectedPosition = (
                 title: "Внимание",
                 message: "Пожалуйста, выберите позицию игрока"
             )
             static let exit = (
-                title: "Выход",
-                message: "Покинуть аккаунт?"
+                title: "Покинуть профиль?",
+                message: ""
             )
             static let delete = (
                 title: "Удалить этого игрока?",

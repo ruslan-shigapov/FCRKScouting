@@ -15,7 +15,7 @@ final class ProfileViewController: UIViewController {
     // MARK: Views
     private let logoImageView = UIImageView(image: Constants.Images.logo)
 
-    private lazy var fullNameLabel = CustomWhiteLabel(
+    private lazy var fullNameLabel = CustomLabel(
         font: Constants.Fonts.header,
         text: viewModel.userFullName,
         numberOfLines: 2)
@@ -46,7 +46,11 @@ final class ProfileViewController: UIViewController {
         return button
     }()
     
-    private let userInfoView = UserInfoView()
+    private let accessLabel = CustomLabel(
+        font: Constants.Fonts.normal,
+        text: Constants.Text.access)
+    
+    private lazy var accessValueLabel = DefaultTextLabel(text: viewModel.access)
     
     private lazy var logoutButton: UIButton = {
         let button = PrimaryButton(title: Constants.Text.ButtonTitles.exit)
@@ -61,7 +65,7 @@ final class ProfileViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = .accent
         view.setCommonCornerRadius()
-        view.addSubviews(userInfoView, logoutButton)
+        view.addSubviews(accessLabel, accessValueLabel, logoutButton)
         view.prepareForAutoLayout()
         return view
     }()
@@ -88,9 +92,6 @@ final class ProfileViewController: UIViewController {
     private func setupUI() {
         setupNavigationBarButton()
         fullNameLabel.textAlignment = .center
-        userInfoView.configureWith(
-            post: viewModel.userPost,
-            access: viewModel.access)
         view.setupCommonGradientLayer()
         view.addSubviews(
             topBackgroundView,
@@ -102,7 +103,7 @@ final class ProfileViewController: UIViewController {
     }
     
     private func setupNavigationBarButton() {
-        let editButton = CustomNavigationBarButton(
+        let editButton = NavigationBarButton(
             image: Constants.Images.ButtonImages.edit)
         editButton.addTarget(
             self,
@@ -116,16 +117,12 @@ final class ProfileViewController: UIViewController {
         viewModel.userWasUpdated = { [weak self] in
             guard let self else { return }
             fullNameLabel.text = viewModel.userFullName
-            userInfoView.configureWith(
-                post: viewModel.userPost,
-                access: viewModel.access)
         }
     }
 
     @objc private func editButtonTapped() {
-        let formVC = ScreenFactory.getFormControllerWith(
-            accessValue: viewModel.isEditingAllowed,
-            delegate: viewModel as FormViewControllerDelegate)
+        let formVC = ScreenFactory.getFormController(
+            withDelegate: viewModel as FormViewControllerDelegate)
         present(formVC, animated: true)
     }
     
@@ -215,18 +212,22 @@ private extension ProfileViewController {
                 equalTo: view.trailingAnchor,
                 constant: -8),
             
-            userInfoView.topAnchor.constraint(
+            accessLabel.topAnchor.constraint(
                 equalTo: bottomBackgroundView.topAnchor,
                 constant: 24),
-            userInfoView.leadingAnchor.constraint(
+            accessLabel.leadingAnchor.constraint(
                 equalTo: bottomBackgroundView.leadingAnchor,
                 constant: 24),
-            userInfoView.trailingAnchor.constraint(
-                equalTo: bottomBackgroundView.trailingAnchor,
-                constant: -24),
+            
+            accessValueLabel.topAnchor.constraint(
+                equalTo: accessLabel.bottomAnchor,
+                constant: 2),
+            accessValueLabel.leadingAnchor.constraint(
+                equalTo: bottomBackgroundView.leadingAnchor,
+                constant: 24),
             
             logoutButton.topAnchor.constraint(
-                equalTo: userInfoView.bottomAnchor,
+                equalTo: accessValueLabel.bottomAnchor,
                 constant: 24),
             logoutButton.leadingAnchor.constraint(
                 equalTo: bottomBackgroundView.leadingAnchor,

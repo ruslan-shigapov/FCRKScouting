@@ -13,13 +13,15 @@ final class TextViewWithTitle: UIView {
     private let title: String
     
     // MARK: Views
-    private lazy var titleLabel = CustomWhiteLabel(
+    private lazy var titleLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: title)
 
-    private lazy var roundedTextView: UITextView = {
+    private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.font = Constants.Fonts.text
+        textView.backgroundColor = .white
+        textView.textColor = .black
         textView.spellCheckingType = .no
         textView.autocorrectionType = .no
         textView.textContainerInset = UIEdgeInsets(
@@ -51,21 +53,21 @@ final class TextViewWithTitle: UIView {
     
     // MARK: Private Methods
     private func setupUI() {
-        addSubviews(titleLabel, roundedTextView)
+        addSubviews(titleLabel, textView)
         prepareForAutoLayout()
     }
     
     // MARK: Public Methods
-    func set(delegate: UITextViewDelegate) {
-        roundedTextView.delegate = delegate
+    func setDelegate(_ delegate: UITextViewDelegate) {
+        textView.delegate = delegate
     }
     
-    func set(text: String?) {
-        roundedTextView.text = text
+    func setText(_ text: String?) {
+        textView.text = text
     }
     
     func getInputText() -> String {
-        guard let text = roundedTextView.text else { return "" }
+        guard let text = textView.text else { return "" }
         return text
     }
 }
@@ -78,14 +80,14 @@ private extension TextViewWithTitle {
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             
-            roundedTextView.topAnchor.constraint(
+            textView.topAnchor.constraint(
                 equalTo: titleLabel.bottomAnchor,
                 constant: 8),
-            roundedTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            roundedTextView.bottomAnchor.constraint(
+            textView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            textView.bottomAnchor.constraint(
                 equalTo: bottomAnchor,
                 constant: -20),
-            roundedTextView.trailingAnchor.constraint(
+            textView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
                 constant: -20)
         ])

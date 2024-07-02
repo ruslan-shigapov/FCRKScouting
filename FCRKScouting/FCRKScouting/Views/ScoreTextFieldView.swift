@@ -12,9 +12,10 @@ final class ScoreTextFieldView: UIView {
     // MARK: Views
     private lazy var titleLabel = DefaultTextLabel(text: Constants.Text.score)
 
-    private let roundedTextField: UITextField = {
+    private let textField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .white
+        textField.textColor = .black
         textField.keyboardType = .numberPad
         textField.font = Constants.Fonts.text
         textField.rightView = UIView(
@@ -28,7 +29,7 @@ final class ScoreTextFieldView: UIView {
     // MARK: Initialize
     override init(frame: CGRect) {
         super.init(frame: frame)
-        roundedTextField.delegate = self
+        textField.delegate = self
         setupUI()
     }
     
@@ -40,24 +41,27 @@ final class ScoreTextFieldView: UIView {
     // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
-        roundedTextField.setCommonShadow()
+        textField.setCommonShadow()
     }
         
     // MARK: Private Methods
     private func setupUI() {
-        roundedTextField.placeholder = "0"
-        addSubviews(titleLabel, roundedTextField)
+        textField.placeholder = "0"
+        if let placeholder = textField.placeholder {
+            textField.setupAttributesOfPlaceholder(placeholder)
+        }
+        addSubviews(titleLabel, textField)
         setConstraints()
         prepareForAutoLayout()
     }
     
     // MARK: Public Methods
-    func set(text: String?) {
-        roundedTextField.text = text
+    func setText(_ text: String?) {
+        textField.text = text
     }
     
     func getInputText() -> String? {
-        roundedTextField.text
+        textField.text
     }
 }
 
@@ -82,17 +86,17 @@ extension ScoreTextFieldView {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             titleLabel.centerYAnchor.constraint(
-                equalTo: roundedTextField.centerYAnchor,
+                equalTo: textField.centerYAnchor,
                 constant: -1),
             
-            roundedTextField.topAnchor.constraint(equalTo: topAnchor),
-            roundedTextField.leadingAnchor.constraint(
+            textField.topAnchor.constraint(equalTo: topAnchor),
+            textField.leadingAnchor.constraint(
                 equalTo: titleLabel.trailingAnchor, 
                 constant: 6),
-            roundedTextField.bottomAnchor.constraint(equalTo: bottomAnchor),
-            roundedTextField.trailingAnchor.constraint(equalTo: trailingAnchor),
-            roundedTextField.heightAnchor.constraint(equalToConstant: 30),
-            roundedTextField.widthAnchor.constraint(equalToConstant: 30)
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor),
+            textField.trailingAnchor.constraint(equalTo: trailingAnchor),
+            textField.heightAnchor.constraint(equalToConstant: 30),
+            textField.widthAnchor.constraint(equalToConstant: 30)
         ])
     }
 }

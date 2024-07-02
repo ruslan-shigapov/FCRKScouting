@@ -5,17 +5,18 @@
 //  Created by Ruslan Shigapov on 04.03.2024.
 //
 
-import UIKit
+import AuthenticationServices
 
 final class LoginViewController: UIViewController {
     
     // MARK: Private Properties
     private var viewModel: LoginViewModelProtocol
+    private var authManager: AuthManager?
         
     // MARK: Views
     private let logoImageView = UIImageView(image: Constants.Images.logo)
     
-    private let appNameLabel = CustomWhiteLabel(
+    private let appNameLabel = CustomLabel(
         font: Constants.Fonts.title,
         text: Constants.Text.appName)
 
@@ -23,14 +24,17 @@ final class LoginViewController: UIViewController {
         placeholder: Constants.Text.Placeholders.accessKey,
         type: .key)
     
-    private let accessDescriptionLabel = DescriptionLabel(
-        text: Constants.Text.Descriptions.access)
+    private let accessDescriptionLabel = CustomLabel(
+        font: Constants.Fonts.description,
+        text: Constants.Text.Descriptions.access,
+        numberOfLines: 2)
     
-    private lazy var loginButton: UIButton = {
-        let button = PrimaryButton(title: Constants.Text.ButtonTitles.enter)
+    private lazy var appleSignInButton: ASAuthorizationAppleIDButton = {
+        let button = ASAuthorizationAppleIDButton(type: .signIn, style: .white)
+        button.cornerRadius = 12
         button.addTarget(
             self,
-            action: #selector(loginButtonTapped),
+            action: #selector(appleSignInButtonTapped),
             for: .touchUpInside)
         return button
     }()
@@ -50,6 +54,12 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        handleWrongAccessKey()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        appleSignInButton.setCommonShadow()
     }
     
     // MARK: Private Methods
@@ -61,13 +71,12 @@ final class LoginViewController: UIViewController {
             appNameLabel,
             accessKeyTextFieldView,
             accessDescriptionLabel,
-            loginButton)
+            appleSignInButton)
         view.prepareForAutoLayout()
         setConstraints()
-        setupAlerts()
     }
     
-    private func setupAlerts() {
+    private func handleWrongAccessKey() {
         viewModel.wasAccessKeyWrong = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
@@ -77,17 +86,41 @@ final class LoginViewController: UIViewController {
         }
     }
     
-    // MARK: Selectors
-    @objc private func loginButtonTapped() {
-        viewModel.logInBy(
-            accessKey: accessKeyTextFieldView.getInputText()
-        ) { isEditable in
-            let formVC = ScreenFactory.getFormControllerWith(
-                accessValue: isEditable,
-                delegate: nil)
-            formVC.modalPresentationStyle = .fullScreen
-            present(formVC, animated: true)
+    @objc private func appleSignInButtonTapped() {
+        viewModel.logIn(
+            byAccessKey: accessKeyTextFieldView.getInputText()
+        ) { [weak self] isEditingAllowed in
+            guard let self else { return }
+            authManager = AuthManager(isEditingAllowed: isEditingAllowed)
+            authManager?.singInWithApple { result in
+                switch result {
+                case .success(let isNewUser):
+                    isNewUser
+                    ? self.showFormViewController()
+                    : self.showMainTabBarController()
+                case .failure(_):
+                    let alertController = AlertFactory.getWarningAlert(
+                        withTitle: Constants.Text.Alerts.authError.title,
+                        andMessage: Constants.Text.Alerts.authError.message)
+                    self.present(alertController, animated: true)
+                }
+            }
         }
+    }
+    
+    private func showFormViewController() {
+        let formVC = ScreenFactory.getFormController(withDelegate: nil)
+        formVC.modalPresentationStyle = .fullScreen
+        present(formVC, animated: true)
+    }
+    
+    private func showMainTabBarController() {
+        let mainTabBarController = ScreenFactory.getMainTabBarController()
+        present(mainTabBarController, animated: true)
+    }
+    
+    deinit {
+        print("loginVC has been allocated")
     }
 }
 
@@ -112,7 +145,7 @@ private extension LoginViewController {
                 equalTo: appNameLabel.bottomAnchor,
                 constant: 24),
             accessKeyTextFieldView.widthAnchor.constraint(
-                equalTo: loginButton.widthAnchor),
+                equalTo: appleSignInButton.widthAnchor),
             accessKeyTextFieldView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
             
@@ -126,16 +159,18 @@ private extension LoginViewController {
                 equalTo: accessKeyTextFieldView.trailingAnchor,
                 constant: -5),
             
-            loginButton.topAnchor.constraint(
+            appleSignInButton.topAnchor.constraint(
                 equalTo: accessKeyTextFieldView.bottomAnchor,
                 constant: 72),
-            loginButton.leadingAnchor.constraint(
+            appleSignInButton.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 48),
-            loginButton.trailingAnchor.constraint(
+            appleSignInButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -48),
-            loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            appleSignInButton.heightAnchor.constraint(equalToConstant: 48),
+            appleSignInButton.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor)
         ])
     }
 }

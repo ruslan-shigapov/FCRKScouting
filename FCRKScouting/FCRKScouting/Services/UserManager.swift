@@ -5,50 +5,80 @@
 //  Created by Ruslan Shigapov on 12.03.2024.
 //
 
+import Foundation
+
+enum AccessError: Error {
+    case wrongKey
+}
+
 final class UserManager {
     
     static let shared = UserManager()
     
-    var user: User?
+    private let accessLevels = [
+        "200458": false, // readOnly
+        "220888": true   // editingAllowed
+    ]
     
+    private var currentUser: User? {
+        didSet {
+            UserDefaults.standard.set(currentUser?.appleID, forKey: "appleID")
+        }
+    }
+
     private init() {
-        getUser()
+        loadCurrentUser()
     }
     
-    private func getUser() {
-        StorageManager.shared.fetchUser { user = $0 }
+    private func loadCurrentUser() {
+        if let appleID = UserDefaults.standard.string(forKey: "appleID") {
+            StorageManager.shared.findUser(appleID) { [weak self] in
+                guard let self else { return }
+                currentUser = $0
+            }
+        }
     }
     
-    func createUserWith(
-        fullName: String,
-        post: String,
-        accessValue: Bool,
-        completion: () -> Void
+    func getCurrentUser() -> User? {
+        currentUser
+    }
+    
+    func validateAccessKey(
+        _ accessKey: String?,
+        completion: @escaping (Result<Bool, Error>) -> Void
     ) {
-        StorageManager.shared.saveUserWith(
+        guard let accessKey, !accessKey.isEmpty,
+              let isEditingAllowed = accessLevels[accessKey] else {
+            completion(.failure(AccessError.wrongKey))
+            return
+        }
+        completion(.success(isEditingAllowed))
+    }
+    
+    func setCurrentUser(_ user: User) {
+        currentUser = user
+    }
+    
+    func createUser(
+        _ appleID: String,
+        fullName: String,
+        isEditingAllowed: Bool
+    ) {
+        StorageManager.shared.saveUser(
+            with: appleID,
             fullName: fullName,
-            post: post,
-            isEditingAllowed: accessValue
-        ) {
-            getUser()
-            completion()
+            isEditingAllowed: isEditingAllowed
+        ) { [weak self] in
+            guard let self else { return }
+            StorageManager.shared.findUser(appleID) {
+                self.currentUser = $0
+            }
         }
     }
     
-    func updateUser(
-        fullName: String,
-        post: String,
-        completion: () -> Void
-    ) {
-        StorageManager.shared.updateUser(fullName: fullName, post: post) {
-            getUser()
-            completion()
-        }
-    }
-    
-    func deleteUser() {
-        guard let fullName = user?.fullName else { return }
-        StorageManager.shared.deleteUserBy(fullName)
-        getUser()
+    func clearCurrentUser(completion: @escaping () -> Void) {
+        currentUser = nil
+        UserDefaults.standard.removeObject(forKey: "appleID")
+        completion()
     }
 }

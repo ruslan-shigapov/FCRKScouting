@@ -9,6 +9,13 @@ import UIKit
 
 enum DatePickerType {
     case birth, contract, standard
+    
+    var placeholder: String {
+        switch self {
+        case .birth, .standard: "Не указана"
+        case .contract: "Не указано"
+        }
+    }
 }
 
 final class DatePickerView: UIView {
@@ -17,10 +24,11 @@ final class DatePickerView: UIView {
     private let type: DatePickerType
     
     // MARK: Views
-    private lazy var customDatePicker: UIDatePicker = {
+    private lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
+        datePicker.tintColor = .systemGreen
         datePicker.isEnabled = false
         switch type {
         case .birth: datePicker.maximumDate = Date()
@@ -28,6 +36,15 @@ final class DatePickerView: UIView {
         case .standard: datePicker.isEnabled = true
         }
         return datePicker
+    }()
+    
+    private lazy var placeholderLabel: UILabel = {
+        let label = CustomLabel(
+            font: Constants.Fonts.text,
+            text: type.placeholder)
+        let isDarkStyle = traitCollection.userInterfaceStyle == .dark
+        label.textColor = isDarkStyle ? .white : .black
+        return label
     }()
 
     // MARK: Initialize
@@ -50,29 +67,35 @@ final class DatePickerView: UIView {
     
     // MARK: Private Methods
     private func setupUI() {
-        setBackgroundColor()
-        addSubview(customDatePicker)
+        backgroundColor = .lightGray
+        placeholderLabel.isHidden = datePicker.isEnabled
+        datePicker.isHidden = !placeholderLabel.isHidden
+        addSubviews(datePicker, placeholderLabel)
         prepareForAutoLayout()
         setConstraints()
         setCommonCornerRadius()
     }
     
-    private func setBackgroundColor() {
-        backgroundColor = customDatePicker.isEnabled ? .white : .lightGray
+    private func toggleSubviewInFront() {
+        datePicker.isHidden.toggle()
+        placeholderLabel.isHidden.toggle()
+        datePicker.isEnabled
+        ? bringSubviewToFront(placeholderLabel)
+        : bringSubviewToFront(datePicker)
     }
     
     // MARK: Public Methods
-    func set(date: Date) {
-        customDatePicker.date = date
+    func setDate(_ date: Date) {
+        datePicker.date = date
     }
     
     func getDate() -> Date {
-        customDatePicker.date
+        datePicker.date
     }
     
-    func toggleEnabled() {
-        customDatePicker.isEnabled.toggle()
-        setBackgroundColor()
+    func toggleDatePickerEnabled() {
+        datePicker.isEnabled.toggle()
+        toggleSubviewInFront()
     }
 }
 
@@ -82,7 +105,10 @@ private extension DatePickerView {
     func setConstraints() {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 35),
-            widthAnchor.constraint(equalTo: customDatePicker.widthAnchor)
+            widthAnchor.constraint(equalTo: datePicker.widthAnchor),
+            
+            placeholderLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            placeholderLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 }

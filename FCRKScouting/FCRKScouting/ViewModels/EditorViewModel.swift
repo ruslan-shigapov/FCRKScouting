@@ -125,7 +125,7 @@ final class EditorViewModel: EditorViewModelProtocol {
             wasPositionNotSelected?()
             return
         } else {
-            let currentUserFullName = UserManager.shared.user?.fullName
+            let currentUserFullName = UserManager.shared.getCurrentUser()?.fullName
             StorageManager.shared.createPlayer(
                 withFullName: fullName,
                 photo: selectedPhoto?.jpegData(compressionQuality: 1),
@@ -216,7 +216,7 @@ final class EditorViewModel: EditorViewModelProtocol {
             wasPositionNotSelected?()
             return
         } else {
-            let currentUserFullName = UserManager.shared.user?.fullName
+            let currentUserFullName = UserManager.shared.getCurrentUser()?.fullName
             StorageManager.shared.updatePlayer(
                 withFullName: fullName,
                 photo: getPhotoData(),

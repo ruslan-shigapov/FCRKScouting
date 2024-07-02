@@ -13,14 +13,14 @@ final class TestingDetailsViewController: UIViewController {
 //    private var delegate: TestingDetailsViewControllerDelegate?
     
     // MARK: Views
-    private let titleLabel = CustomWhiteLabel(
+    private let titleLabel = CustomLabel(
         font: Constants.Fonts.header,
         text: Constants.Text.testingDetails)
     
-    private let normativeLabel = CustomWhiteLabel(
+    private let normativeLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.normative)
-    private let dateLabel = CustomWhiteLabel(
+    private let dateLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.date)
     
@@ -47,7 +47,8 @@ final class TestingDetailsViewController: UIViewController {
     private let longJumpScoreView = ScoreTextFieldView()
     private let highJumpScoreView = ScoreTextFieldView()
     
-    private let descriptionLabel = DescriptionLabel(
+    private let descriptionLabel = CustomLabel(
+        font: Constants.Fonts.description,
         text: Constants.Text.Descriptions.forGoalkeepers)
     
     private let summaryTextViewWithTitle = TextViewWithTitle(

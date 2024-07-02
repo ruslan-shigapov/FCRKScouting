@@ -37,6 +37,8 @@ final class SearchViewController: UIViewController {
         sc.searchBar.searchTextField.backgroundColor = .white
         sc.searchBar.tintColor = .lightGray
         sc.searchBar.placeholder = "Начните вводить"
+        sc.searchBar.autocorrectionType = .no
+        sc.searchBar.spellCheckingType = .no
         navigationItem.searchController = sc
         
         view.setupCommonGradientLayer()
@@ -46,15 +48,15 @@ final class SearchViewController: UIViewController {
     }
     
     private func setupNavigationBarButton() {
-        let filtersButton = CustomNavigationBarButton(
+        let filtersButton = NavigationBarButton(
             image: Constants.Images.ButtonImages.filters)
         filtersButton.addTarget(
             self,
             action: #selector(advancedFiltersButtonTapped),
             for: .touchUpInside)
-        let relatedButton = CustomNavigationBarButton(
+        let relatedButton = NavigationBarButton(
             image: Constants.Images.ButtonImages.related)
-        let featuresButton = CustomNavigationBarButton(
+        let featuresButton = NavigationBarButton(
             image: Constants.Images.ButtonImages.features)
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(customView: filtersButton),

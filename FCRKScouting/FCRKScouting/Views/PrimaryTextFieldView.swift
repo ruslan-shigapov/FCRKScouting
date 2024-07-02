@@ -8,7 +8,7 @@
 import UIKit
 
 enum TextFieldType {
-    case name, key, phone
+    case key, name, phone
 }
 
 final class PrimaryTextFieldView: UIView {
@@ -18,9 +18,10 @@ final class PrimaryTextFieldView: UIView {
     private let textFieldType: TextFieldType
     
     // MARK: Views
-    private lazy var customTextField: UITextField = {
+    private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.font = Constants.Fonts.text
+        textField.textColor = .black
         textField.clearButtonMode = .whileEditing
         textField.autocorrectionType = .no
         textField.spellCheckingType = .no
@@ -45,14 +46,14 @@ final class PrimaryTextFieldView: UIView {
     
     private let floatingLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .accent
+        label.textColor = .systemGray
         label.font = Constants.Fonts.description
         return label
     }()
     
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView(
-            arrangedSubviews: [floatingLabel, customTextField])
+            arrangedSubviews: [floatingLabel, textField])
         stackView.axis = .vertical
         return stackView
     }()
@@ -62,7 +63,7 @@ final class PrimaryTextFieldView: UIView {
         self._placeholder = placeholder
         self.textFieldType = type
         super.init(frame: .zero)
-        setupTextField(placeholder: placeholder)
+        textField.setupAttributesOfPlaceholder(placeholder)
         setupUI()
     }
     
@@ -74,17 +75,24 @@ final class PrimaryTextFieldView: UIView {
     // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
+        setupTextFieldClearButton()
         setCommonShadow()
-        if let text = customTextField.text, !text.isEmpty {
+        if let text = textField.text, !text.isEmpty {
             addFloatingLabel()
         }
     }
     
     // MARK: Private Methods
-    private func setupTextField(placeholder: String) {
-        customTextField.attributedPlaceholder = NSAttributedString(
-            string: placeholder,
-            attributes: [.font: Constants.Fonts.text])
+    private func setupTextFieldClearButton() {
+        textField.subviews.forEach {
+            if let button = $0 as? UIButton {
+                let buttonImage = button.image(for: .normal)
+                button.setImage(
+                    buttonImage?.withRenderingMode(.alwaysTemplate),
+                    for: .normal)
+                button.tintColor = .lightGray
+            }
+        }
     }
     
     private func setupUI() {
@@ -98,27 +106,27 @@ final class PrimaryTextFieldView: UIView {
     @objc private func addFloatingLabel() {
         floatingLabel.text = _placeholder
         floatingLabel.isHidden = false
-        customTextField.placeholder = ""
+        textField.placeholder = ""
     }
     
     @objc private func removeFloatingLabel() {
-        if customTextField.text == "" {
+        if textField.text == "" {
             floatingLabel.isHidden = true
-            customTextField.placeholder = _placeholder
+            textField.placeholder = _placeholder
         }
     }
     
     // MARK: Public Methods
-    func set(tag: Int) {
-        customTextField.tag = tag
+    func setTag(_ tag: Int) {
+        textField.tag = tag
     }
     
-    func set(text: String?) {
-        customTextField.text = text
+    func setText(_ text: String?) {
+        textField.text = text
     }
     
     func getInputText() -> String {
-        guard let text = customTextField.text else { return "" }
+        guard let text = textField.text else { return "" }
         return text
     }
 }

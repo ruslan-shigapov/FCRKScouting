@@ -9,7 +9,7 @@ import UIKit
 
 final class DateHeaderView: UICollectionReusableView {
         
-    private let dateLabel = CustomWhiteLabel(font: Constants.Fonts.normal)
+    private let dateLabel = CustomLabel(font: Constants.Fonts.normal)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,7 +38,7 @@ final class DateHeaderView: UICollectionReusableView {
         ])
     }
     
-    func configureWith(date: String) {
+    func configure(withDate date: String) {
         dateLabel.text = date
     }
 }

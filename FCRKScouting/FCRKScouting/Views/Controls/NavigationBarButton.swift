@@ -1,5 +1,5 @@
 //
-//  CustomNavigationBarButton.swift
+//  NavigationBarButton.swift
 //  RubinScoutingApp
 //
 //  Created by Ruslan Shigapov on 28.03.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CustomNavigationBarButton: UIButton {
+final class NavigationBarButton: UIButton {
     
     init(image: UIImage?) {
         super.init(frame: .zero)

@@ -48,7 +48,7 @@ final class UpdatesCollectionDataSource: NSObject, UICollectionViewDataSource {
             withReuseIdentifier: String(describing: DateHeaderView.self),
             for: indexPath) as? DateHeaderView
         let sectionDate = viewModel.sortedDates[indexPath.section]
-        headerView?.configureWith(date: viewModel.formatDate(sectionDate))
+        headerView?.configure(withDate: viewModel.formatDate(sectionDate))
         return headerView ?? UICollectionReusableView()
     }
 }

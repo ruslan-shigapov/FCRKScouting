@@ -12,18 +12,17 @@ final class PlayerCell: UICollectionViewCell {
     // MARK: Views
     private let photoImageView = PhotoImageView()
     
-    private lazy var fullNameLabel = CustomWhiteLabel(
+    private let fullNameLabel = CustomLabel(
         font: Constants.Fonts.header,
         numberOfLines: 2)
-    
-    private lazy var ageLabel = CustomWhiteLabel(
+    private let birthYear = CustomLabel(
         font: Constants.Fonts.normal)
-    private lazy var positionLabel = CustomWhiteLabel(
+    private let positionLabel = CustomLabel(
         font: Constants.Fonts.normal)
     
     private lazy var infoStackView: UIStackView = {
         let stackView = UIStackView(
-            arrangedSubviews: [ageLabel, positionLabel])
+            arrangedSubviews: [birthYear, positionLabel])
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .fillEqually
@@ -43,7 +42,7 @@ final class PlayerCell: UICollectionViewCell {
                 photoImageView.image = Constants.Images.photoPlaceholder
             }
             fullNameLabel.text = viewModel?.fullName
-            ageLabel.text = viewModel?.ageDescription
+            birthYear.text = viewModel?.ageDescription
             positionLabel.text = viewModel?.position
         }
     }

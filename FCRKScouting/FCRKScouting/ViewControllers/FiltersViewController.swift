@@ -9,7 +9,7 @@ import UIKit
 
 final class FiltersViewController: UIViewController {
     
-    private let titleLabel = CustomWhiteLabel(
+    private let titleLabel = CustomLabel(
         font: Constants.Fonts.header,
         text: Constants.Text.ScreenTitles.filters)
 

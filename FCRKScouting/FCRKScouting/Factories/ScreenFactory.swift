@@ -11,7 +11,7 @@ struct ScreenFactory {
         
     static func setRootViewController() {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        if UserManager.shared.user == nil {
+        if UserManager.shared.getCurrentUser() == nil {
             appDelegate?.window?.rootViewController = getLoginViewController()
         } else {
             appDelegate?.window?.rootViewController = MainTabBarController()
@@ -23,11 +23,10 @@ struct ScreenFactory {
         return LoginViewController(viewModel: viewModel)
     }
     
-    static func getFormControllerWith(
-        accessValue: Bool,
-        delegate: FormViewControllerDelegate?
+    static func getFormController(
+        withDelegate delegate: FormViewControllerDelegate?
     ) -> UIViewController {
-        let viewModel = FormViewModel(accessValue: accessValue)
+        let viewModel = FormViewModel()
         let viewController = FormViewController(
             viewModel: viewModel,
             delegate: delegate)
@@ -83,10 +82,6 @@ struct ScreenFactory {
     ) -> UIViewController {
         let viewModel = PlayerViewModel(player: player)
         return PlayerViewController(viewModel: viewModel, delegate: delegate)
-    }
-    
-    static func getStatisticsDetailsVC() -> UIViewController {
-        StatisticsDetailsViewController()
     }
     
     static func getTestingDetailsVC() -> UIViewController {

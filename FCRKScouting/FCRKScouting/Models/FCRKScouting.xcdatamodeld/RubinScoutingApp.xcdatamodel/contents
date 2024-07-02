@@ -41,8 +41,8 @@
         <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="tests" inverseEntity="Player"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
+        <attribute name="appleID" optional="YES" attributeType="String"/>
         <attribute name="fullName" optional="YES" attributeType="String"/>
         <attribute name="isEditingAllowed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="post" optional="YES" attributeType="String"/>
     </entity>
 </model>
