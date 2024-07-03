@@ -65,13 +65,30 @@ final class UserManager {
         isEditingAllowed: Bool
     ) {
         StorageManager.shared.saveUser(
-            with: appleID,
+            byAppleID: appleID,
             fullName: fullName,
             isEditingAllowed: isEditingAllowed
-        ) { [weak self] in
+        ) { [weak self] createdUser in
             guard let self else { return }
-            StorageManager.shared.findUser(appleID) {
-                self.currentUser = $0
+            if let createdUser {
+                currentUser = createdUser
+            }
+        }
+    }
+    
+    func updateCurrentUserFullName(
+        _ fullName: String,
+        completion: @escaping () -> Void
+    ) {
+        guard let appleID = currentUser?.appleID else { return }
+        StorageManager.shared.renameUser(
+            appleID,
+            toFullName: fullName
+        ) { [weak self] updatedUser in
+            guard let self else { return }
+            if let updatedUser {
+                currentUser = updatedUser
+                completion()
             }
         }
     }

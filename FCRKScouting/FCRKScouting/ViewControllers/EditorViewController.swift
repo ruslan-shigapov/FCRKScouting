@@ -21,34 +21,36 @@ final class EditorViewController: UIViewController {
     private lazy var pickerViewDataSource = EditorPickerViewDataSource(
         viewModel: viewModel)
     
-    // MARK: Labels
+    // MARK: Views
     private lazy var titleLabel = CustomLabel(
         font: Constants.Fonts.header,
         text: viewModel.title)
     
-    private let birthDateLabel = CustomLabel(
-        font: Constants.Fonts.normal,
-        text: Constants.Text.birthDate,
-        numberOfLines: 2)
-    private let positionLabel = CustomLabel(
-        font: Constants.Fonts.normal,
-        text: Constants.Text.position)
-    private let footLabel = CustomLabel(
-        font: Constants.Fonts.normal,
-        text: Constants.Text.foot)
-    private let heightLabel = CustomLabel(
-        font: Constants.Fonts.normal,
-        text: Constants.Text.height)
-    private let weightLabel = CustomLabel(
-        font: Constants.Fonts.normal,
-        text: Constants.Text.weight)
+    private lazy var closeButton: UIButton = {
+        let button = NavigationBarButton(
+            image: Constants.Images.ButtonImages.close)
+        button.addTarget(
+            self,
+            action: #selector(closeButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
     
-    private let pageSliderViewDescription = CustomLabel(
-        font: Constants.Fonts.description,
-        text: Constants.Text.Descriptions.pageSlider)
-    
-    // MARK: Views
     private let photoImageView = PhotoImageView()
+    
+    private lazy var uploadPhotoButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = .lightGray
+        button.titleLabel?.font = Constants.Fonts.text
+        button.tintColor = view.isDarkInterfaceStyle ? .white : .black
+        button.setCommonCornerRadius()
+        button.setupHighlightAnimation()
+        button.addTarget(
+            self,
+            action: #selector(uploadPhotoButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
     
     private let fullNameTextFieldView = PrimaryTextFieldView(
         placeholder: Constants.Text.Placeholders.fullName,
@@ -83,83 +85,6 @@ final class EditorViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var positionPickerView: UIPickerView = {
-        let pickerView = UIPickerView()
-        pickerView.backgroundColor = .white
-        pickerView.setCommonCornerRadius()
-        pickerView.delegate = pickerViewDelegate
-        pickerView.dataSource = pickerViewDataSource
-        return pickerView
-    }()
-    
-    private let heightTextFieldView = DecimalTextFieldView(
-        textFieldType: .meters)
-    private let weightTextFieldView = DecimalTextFieldView(
-        textFieldType: .weight)
-    
-    private let generalInfoTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.generalInfo)
-    private let techniqueTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.technique)
-    private let tacticsTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.tactics)
-    private let qualitiesTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.qualities)
-    private let mentalTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.mental)
-    
-    private let pageSliderView = PageSliderView()
-    
-    private let dividerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
-    }()
-    
-    // MARK: Controls
-    private let birthDatePickerView = DatePickerView(type: .birth)
-    
-    private lazy var birthDateSwitcher: UISwitch = {
-        let switcher = UISwitch()
-        switcher.backgroundColor = .lightGray
-        switcher.layer.cornerRadius = 16
-        switcher.addTarget(
-            self,
-            action: #selector(birthDateSwitcherChanged),
-            for: .valueChanged)
-        return switcher
-    }()
-    
-    private let footSegmentedControl = GraySegmentedControl(
-        items: Constants.Text.SegmentedControlItems.footSegments)
-    
-    // MARK: Buttons
-    private lazy var closeButton: UIButton = {
-        let button = NavigationBarButton(
-            image: Constants.Images.ButtonImages.close)
-        button.addTarget(
-            self,
-            action: #selector(closeButtonTapped),
-            for: .touchUpInside)
-        return button
-    }()
-        
-    private lazy var uploadPhotoButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = .lightGray
-        button.setTitle(Constants.Text.ButtonTitles.uploadPhoto, for: .normal)
-        button.titleLabel?.font = Constants.Fonts.text
-        let isDarkStyle = traitCollection.userInterfaceStyle == .dark
-        button.tintColor = isDarkStyle ? .white : .black
-        button.setCommonCornerRadius()
-        button.setupHighlightAnimation()
-        button.addTarget(
-            self,
-            action: #selector(uploadPhotoButtonTapped),
-            for: .touchUpInside)
-        return button
-    }()
-    
     private lazy var togglePatronymicFieldDisplayButton: UIButton = {
         let button = ToggleTextFieldDisplayButton()
         button.addTarget(
@@ -176,6 +101,76 @@ final class EditorViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
+    
+    private let birthDateLabel = CustomLabel(
+        font: Constants.Fonts.normal,
+        text: Constants.Text.birthDate,
+        numberOfLines: 2)
+    
+    private let birthDatePickerView = DatePickerView(type: .birth)
+    
+    private lazy var birthDateSwitcher: UISwitch = {
+        let switcher = UISwitch()
+        switcher.backgroundColor = .lightGray
+        switcher.layer.cornerRadius = 16
+        switcher.addTarget(
+            self,
+            action: #selector(birthDateSwitcherChanged),
+            for: .valueChanged)
+        return switcher
+    }()
+    
+    private let positionLabel = CustomLabel(
+        font: Constants.Fonts.normal,
+        text: Constants.Text.position)
+    
+    private lazy var positionPickerView: UIPickerView = {
+        let pickerView = UIPickerView()
+        pickerView.backgroundColor = .white
+        pickerView.setCommonCornerRadius()
+        pickerView.delegate = pickerViewDelegate
+        pickerView.dataSource = pickerViewDataSource
+        return pickerView
+    }()
+    
+    private let footLabel = CustomLabel(
+        font: Constants.Fonts.normal,
+        text: Constants.Text.foot)
+    
+    private let footSegmentedControl = GraySegmentedControl(
+        items: Constants.Text.SegmentedControlItems.footSegments)
+    
+    private let heightLabel = CustomLabel(
+        font: Constants.Fonts.normal,
+        text: Constants.Text.height)
+    
+    private let heightTextFieldView = DecimalTextFieldView(
+        textFieldType: .meters)
+    
+    private let weightLabel = CustomLabel(
+        font: Constants.Fonts.normal,
+        text: Constants.Text.weight)
+    
+    private let weightTextFieldView = DecimalTextFieldView(
+        textFieldType: .weight)
+    
+    private let pageSliderView = PageSliderView()
+    
+    private let generalInfoTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.TextViewTitles.generalInfo)
+    private let techniqueTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.TextViewTitles.technique)
+    private let tacticsTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.TextViewTitles.tactics)
+    private let qualitiesTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.TextViewTitles.qualities)
+    private let mentalTextViewWithTitle = TextViewWithTitle(
+        Constants.Text.TextViewTitles.mental)
+    
+    private let pageSliderViewDescription = CustomLabel(
+        font: Constants.Fonts.description,
+        text: Constants.Text.Descriptions.pageSlider,
+        numberOfLines: 2)
     
     private lazy var showCareerDetailsButton: UIButton = {
         let button = PrimaryButton(
@@ -198,6 +193,12 @@ final class EditorViewController: UIViewController {
         return button
     }()
     
+    private let dividerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
     private lazy var saveButton: UIButton = {
         let button = PrimaryButton(title: Constants.Text.ButtonTitles.save)
         button.addTarget(
@@ -207,8 +208,7 @@ final class EditorViewController: UIViewController {
         return button
     }()
     
-    // MARK: Scroll View
-    private lazy var verticalScrollView: UIScrollView = {
+    private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.addSubviews(
@@ -218,15 +218,15 @@ final class EditorViewController: UIViewController {
             togglePatronymicFieldDisplayButton,
             toggleNationalTeamFieldDisplayButton,
             birthDateLabel,
-            birthDateSwitcher,
             birthDatePickerView,
+            birthDateSwitcher,
             positionLabel,
             positionPickerView,
             footLabel,
             footSegmentedControl,
             heightLabel,
-            weightLabel,
             heightTextFieldView,
+            weightLabel,
             weightTextFieldView,
             pageSliderView,
             pageSliderViewDescription,
@@ -255,11 +255,13 @@ final class EditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        configureUI()
         handlePhotoSelecting()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        updateUploadButtonTitle()
         uploadPhotoButton.setCommonShadow()
         positionPickerView.setCommonShadow()
         footSegmentedControl.setCommonShadow()
@@ -280,48 +282,12 @@ final class EditorViewController: UIViewController {
         view.addSubviews(
             titleLabel,
             closeButton,
-            verticalScrollView,
+            scrollView,
             dividerView,
             saveButton)
         view.prepareForAutoLayout()
         setConstraints()
         setupAlerts()
-        configureUI()
-    }
-    
-    private func handlePhotoSelecting() {
-        viewModel.wasImageChanged = { [weak self] in
-            guard let self else { return }
-            if let photo = viewModel.selectedPhoto {
-                photoImageView.image = photo
-            } else {
-                photoImageView.image = Constants.Images.photoPlaceholder
-            }
-        }
-    }
-    
-    private func setupAlerts() {
-        viewModel.wereRequiredTextFieldsEmpty = { [weak self] in
-            guard let self else { return }
-            let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.emptyTextFields.title,
-                andMessage: Constants.Text.Alerts.emptyTextFields.message)
-            present(alertController, animated: true)
-        }
-        viewModel.wasFullNameIncorrect = { [weak self] in
-            guard let self else { return }
-            let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.incorrectFullName.title,
-                andMessage: Constants.Text.Alerts.incorrectFullName.message)
-            present(alertController, animated: true)
-        }
-        viewModel.wasPositionNotSelected = { [weak self] in
-            guard let self else { return }
-            let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.notSelectedPosition.title,
-                andMessage: Constants.Text.Alerts.notSelectedPosition.message)
-            present(alertController, animated: true)
-        }
     }
     
     private func configureUI() {
@@ -357,6 +323,60 @@ final class EditorViewController: UIViewController {
         }
     }
     
+    private func handlePhotoSelecting() {
+        viewModel.wasImageChanged = { [weak self] in
+            guard let self else { return }
+            if let photo = viewModel.selectedPhoto {
+                photoImageView.image = photo
+            } else {
+                setPlaceholderForImageView()
+            }
+        }
+    }
+    
+    private func updateUploadButtonTitle() {
+        let photoPlaceholder = Constants.Images.photoPlaceholder
+        let buttonTitle = photoImageView.image != photoPlaceholder
+        ? Constants.Text.ButtonTitles.editPhoto
+        : Constants.Text.ButtonTitles.uploadPhoto
+        uploadPhotoButton.setTitle(buttonTitle, for: .normal)
+    }
+    
+    private func setPlaceholderForImageView() {
+        photoImageView.image = Constants.Images.photoPlaceholder
+    }
+    
+    private func setupAlerts() {
+        viewModel.wereRequiredTextFieldsEmpty = { [weak self] in
+            guard let self else { return }
+            let alertController = AlertFactory.getWarningAlert(
+                withTitle: Constants.Text.Alerts.emptyTextFields.title,
+                andMessage: Constants.Text.Alerts.emptyTextFields.message)
+            present(alertController, animated: true)
+        }
+        viewModel.wasFullNameIncorrect = { [weak self] in
+            guard let self else { return }
+            let alertController = AlertFactory.getWarningAlert(
+                withTitle: Constants.Text.Alerts.incorrectFullName.title,
+                andMessage: Constants.Text.Alerts.incorrectFullName.message)
+            present(alertController, animated: true)
+        }
+        viewModel.wasFullNameContainInvalidChars = { [weak self] in
+            guard let self else { return }
+            let alertController = AlertFactory.getWarningAlert(
+                withTitle: Constants.Text.Alerts.invalidChars.title,
+                andMessage: Constants.Text.Alerts.invalidChars.message)
+            present(alertController, animated: true)
+        }
+        viewModel.wasPositionNotSelected = { [weak self] in
+            guard let self else { return }
+            let alertController = AlertFactory.getWarningAlert(
+                withTitle: Constants.Text.Alerts.notSelectedPosition.title,
+                andMessage: Constants.Text.Alerts.notSelectedPosition.message)
+            present(alertController, animated: true)
+        }
+    }
+    
     private func finishChanges() {
         dismiss(animated: true) { [weak self] in
             guard let self else { return }
@@ -364,7 +384,6 @@ final class EditorViewController: UIViewController {
         }
     }
     
-    // MARK: Selectors 
     @objc private func closeButtonTapped() {
         let alertTitle = viewModel.getPlayer() == nil
         ? Constants.Text.ActionSheets.cancelAdding
@@ -383,10 +402,20 @@ final class EditorViewController: UIViewController {
     }
     
     @objc private func uploadPhotoButtonTapped() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = imagePickerDelegate
-        present(imagePicker, animated: true)
+        let photoPlaceholder = Constants.Images.photoPlaceholder
+        let isPhotoUploaded = photoImageView.image != photoPlaceholder
+        let alertController = AlertFactory.getUploadPhotoActionSheet(
+            isPhotoUploaded: isPhotoUploaded) { [weak self] in
+                guard let self else { return }
+                let imagePicker = UIImagePickerController()
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.delegate = imagePickerDelegate
+                present(imagePicker, animated: true)
+            } deleteCompletion: { [weak self] in
+                guard let self else { return }
+                setPlaceholderForImageView()
+            }
+        present(alertController, animated: true)
     }
     
     @objc private func togglePatronymicFieldDisplayButtonTapped(
@@ -431,8 +460,8 @@ final class EditorViewController: UIViewController {
     }
     
     @objc private func saveButtonTapped() {
-        viewModel.validateInput(
-            text: [
+        viewModel.validateInputText(
+            [
                 fullNameTextFieldView.getInputText(),
                 citizenshipTextFieldView.getInputText(),
                 clubTextFieldView.getInputText()
@@ -505,18 +534,18 @@ private extension EditorViewController {
                 equalTo: view.trailingAnchor,
                 constant: -16),
             
-            verticalScrollView.topAnchor.constraint(
+            scrollView.topAnchor.constraint(
                 equalTo: closeButton.bottomAnchor,
                 constant: 12),
-            verticalScrollView.leadingAnchor.constraint(
+            scrollView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor),
-            verticalScrollView.trailingAnchor.constraint(
+            scrollView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor),
             
             photoImageView.topAnchor.constraint(
-                equalTo: verticalScrollView.topAnchor),
+                equalTo: scrollView.topAnchor),
             photoImageView.leadingAnchor.constraint(
-                equalTo: verticalScrollView.leadingAnchor,
+                equalTo: scrollView.leadingAnchor,
                 constant: 24),
             photoImageView.trailingAnchor.constraint(
                 equalTo: uploadPhotoButton.leadingAnchor,
@@ -535,7 +564,7 @@ private extension EditorViewController {
                 equalTo: photoImageView.bottomAnchor,
                 constant: 16),
             textFieldStackView.leadingAnchor.constraint(
-                equalTo: verticalScrollView.leadingAnchor,
+                equalTo: scrollView.leadingAnchor,
                 constant: 16),
             textFieldStackView.trailingAnchor.constraint(
                 equalTo: togglePatronymicFieldDisplayButton.leadingAnchor,
@@ -568,7 +597,7 @@ private extension EditorViewController {
                 equalTo: birthDatePickerView.centerYAnchor),
             
             birthDateLabel.leadingAnchor.constraint(
-                equalTo: verticalScrollView.leadingAnchor,
+                equalTo: scrollView.leadingAnchor,
                 constant: 16),
             birthDateLabel.centerYAnchor.constraint(
                 equalTo: birthDatePickerView.centerYAnchor,
@@ -579,21 +608,21 @@ private extension EditorViewController {
                 equalTo: birthDatePickerView.bottomAnchor,
                 constant: 24),
             positionLabel.leadingAnchor.constraint(
-                equalTo: verticalScrollView.leadingAnchor,
+                equalTo: scrollView.leadingAnchor,
                 constant: 16),
             
             positionPickerView.topAnchor.constraint(
                 equalTo: positionLabel.bottomAnchor,
                 constant: 8),
             positionPickerView.leadingAnchor.constraint(
-                equalTo: verticalScrollView.leadingAnchor,
+                equalTo: scrollView.leadingAnchor,
                 constant: 16),
             positionPickerView.heightAnchor.constraint(equalToConstant: 96),
             positionPickerView.widthAnchor.constraint(
                 equalTo: textFieldStackView.widthAnchor),
             
             footLabel.leadingAnchor.constraint(
-                equalTo: verticalScrollView.leadingAnchor,
+                equalTo: scrollView.leadingAnchor,
                 constant: 16),
             
             footSegmentedControl.topAnchor.constraint(
@@ -606,7 +635,7 @@ private extension EditorViewController {
                 constant: -2),
             
             heightLabel.leadingAnchor.constraint(
-                equalTo: verticalScrollView.leadingAnchor,
+                equalTo: scrollView.leadingAnchor,
                 constant: 16),
             heightLabel.centerYAnchor.constraint(
                 equalTo: heightTextFieldView.centerYAnchor,
@@ -636,7 +665,7 @@ private extension EditorViewController {
                 equalTo: heightTextFieldView.bottomAnchor,
                 constant: 32),
             pageSliderView.leadingAnchor.constraint(
-                equalTo: verticalScrollView.leadingAnchor,
+                equalTo: scrollView.leadingAnchor,
                 constant: 16),
             pageSliderView.widthAnchor.constraint(
                 equalTo: textFieldStackView.widthAnchor,
@@ -657,7 +686,7 @@ private extension EditorViewController {
                 equalTo: pageSliderViewDescription.bottomAnchor,
                 constant: 24),
             showCareerDetailsButton.leadingAnchor.constraint(
-                equalTo: verticalScrollView.leadingAnchor,
+                equalTo: scrollView.leadingAnchor,
                 constant: 16),
             showCareerDetailsButton.trailingAnchor.constraint(
                 equalTo: textFieldStackView.trailingAnchor),
@@ -666,16 +695,16 @@ private extension EditorViewController {
                 equalTo: showCareerDetailsButton.bottomAnchor,
                 constant: 16),
             showTransferDetailsButton.leadingAnchor.constraint(
-                equalTo: verticalScrollView.leadingAnchor,
+                equalTo: scrollView.leadingAnchor,
                 constant: 16),
             showTransferDetailsButton.bottomAnchor.constraint(
-                equalTo: verticalScrollView.bottomAnchor,
+                equalTo: scrollView.bottomAnchor,
                 constant: -24),
             showTransferDetailsButton.trailingAnchor.constraint(
                 equalTo: textFieldStackView.trailingAnchor),
             
             dividerView.topAnchor.constraint(
-                equalTo: verticalScrollView.bottomAnchor),
+                equalTo: scrollView.bottomAnchor),
             dividerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             dividerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             dividerView.heightAnchor.constraint(equalToConstant: 2),

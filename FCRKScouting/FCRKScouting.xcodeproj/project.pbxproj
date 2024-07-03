@@ -64,6 +64,7 @@
 		E4D101492BD27742006D2DCF /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D101482BD27742006D2DCF /* CustomLabel.swift */; };
 		E4D1D6A32C130D3E00810C3B /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D1D6A22C130D3E00810C3B /* DatePickerView.swift */; };
 		E4D92C3B2C11C30200401E1F /* PriceTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D92C3A2C11C30200401E1F /* PriceTextFieldView.swift */; };
+		E4E029532C359332004F51C9 /* UIAlertAction+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E029522C359332004F51C9 /* UIAlertAction+extension.swift */; };
 		E4F38F2D2C24167E0011830D /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38F2C2C24167E0011830D /* PlayerViewController.swift */; };
 		E4F38F312C2431E80011830D /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38F302C2431E80011830D /* PlayerViewModel.swift */; };
 		E4F4CE462BC92E0B009F9A8D /* PlayerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE452BC92E0B009F9A8D /* PlayerCollectionView.swift */; };
@@ -133,6 +134,7 @@
 		E4D101482BD27742006D2DCF /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		E4D1D6A22C130D3E00810C3B /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		E4D92C3A2C11C30200401E1F /* PriceTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTextFieldView.swift; sourceTree = "<group>"; };
+		E4E029522C359332004F51C9 /* UIAlertAction+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+extension.swift"; sourceTree = "<group>"; };
 		E4F38F2C2C24167E0011830D /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		E4F38F302C2431E80011830D /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		E4F4CE452BC92E0B009F9A8D /* PlayerCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionView.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				E412BCFE2BC7D48600A9BCF6 /* UIView+extension.swift */,
 				E499938F2C3454F300D2C7C2 /* UIButton+extension.swift */,
 				E414C35A2C00A5340068077E /* UITextField+extension.swift */,
+				E4E029522C359332004F51C9 /* UIAlertAction+extension.swift */,
 				E4100F262C19B63900DC743D /* String+extension.swift */,
 			);
 			path = Helpers;
@@ -440,6 +443,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E46272282C23285400794705 /* TestingDetailsViewModel.swift in Sources */,
+				E4E029532C359332004F51C9 /* UIAlertAction+extension.swift in Sources */,
 				E481C1C02C2EDD12008D6460 /* AuthManager.swift in Sources */,
 				E4BB48642BC3D53700F91513 /* LoginViewController.swift in Sources */,
 				E4F4CE4C2BC95122009F9A8D /* DateHeaderView.swift in Sources */,

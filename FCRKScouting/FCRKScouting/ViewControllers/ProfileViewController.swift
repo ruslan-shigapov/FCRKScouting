@@ -13,12 +13,26 @@ final class ProfileViewController: UIViewController {
     private var viewModel: ProfileViewModelProtocol
         
     // MARK: Views
+    private lazy var editButton: UIButton = {
+        let button = NavigationBarButton(
+            image: Constants.Images.ButtonImages.edit)
+        button.addTarget(
+            self,
+            action: #selector(editButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    
     private let logoImageView = UIImageView(image: Constants.Images.logo)
 
-    private lazy var fullNameLabel = CustomLabel(
-        font: Constants.Fonts.header,
-        text: viewModel.userFullName,
-        numberOfLines: 2)
+    private lazy var fullNameLabel: UILabel = {
+        let label = CustomLabel(
+            font: Constants.Fonts.header,
+            text: viewModel.profileFullName,
+            numberOfLines: 2)
+        label.textAlignment = .center
+        return label
+    }()
     
     private lazy var topBackgroundView: UIView = {
         let view = UIView()
@@ -90,8 +104,7 @@ final class ProfileViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
-        setupNavigationBarButton()
-        fullNameLabel.textAlignment = .center
+        addNavigationBarButtons()
         view.setupCommonGradientLayer()
         view.addSubviews(
             topBackgroundView,
@@ -102,22 +115,16 @@ final class ProfileViewController: UIViewController {
         setConstraints()
     }
     
-    private func setupNavigationBarButton() {
-        let editButton = NavigationBarButton(
-            image: Constants.Images.ButtonImages.edit)
-        editButton.addTarget(
-            self,
-            action: #selector(editButtonTapped),
-            for: .touchUpInside)
-        let barButtonItem = UIBarButtonItem(customView: editButton)
-        navigationItem.rightBarButtonItem = barButtonItem
-    }
-    
     private func handleUserChanges() {
         viewModel.userWasUpdated = { [weak self] in
             guard let self else { return }
-            fullNameLabel.text = viewModel.userFullName
+            fullNameLabel.text = viewModel.profileFullName
         }
+    }
+    
+    private func addNavigationBarButtons() {
+        let barButtonItem = UIBarButtonItem(customView: editButton)
+        navigationItem.rightBarButtonItem = barButtonItem
     }
 
     @objc private func editButtonTapped() {
@@ -221,7 +228,7 @@ private extension ProfileViewController {
             
             accessValueLabel.topAnchor.constraint(
                 equalTo: accessLabel.bottomAnchor,
-                constant: 2),
+                constant: 4),
             accessValueLabel.leadingAnchor.constraint(
                 equalTo: bottomBackgroundView.leadingAnchor,
                 constant: 24),

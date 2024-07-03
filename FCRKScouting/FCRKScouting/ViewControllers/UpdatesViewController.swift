@@ -18,7 +18,7 @@ final class UpdatesViewController: UIViewController {
     private lazy var collectionViewDataSource = UpdatesCollectionDataSource(
         viewModel: viewModel)
     
-    // MARK: Navigation Bar Buttons
+    // MARK: Views
     private lazy var refreshButton: UIButton = {
         let button = NavigationBarButton(
             image: Constants.Images.ButtonImages.refresh)
@@ -38,7 +38,6 @@ final class UpdatesViewController: UIViewController {
         return button
     }()
     
-    // MARK: Segmented Control
     private lazy var intervalSegmentedControl: UISegmentedControl = {
         let segmentedControl = GraySegmentedControl(
             items: Constants.Text.SegmentedControlItems.periodSegments)
@@ -57,8 +56,7 @@ final class UpdatesViewController: UIViewController {
         return view
     }()
     
-    // MARK: Collection View
-    private lazy var playersCollectionView: UICollectionView = {
+    private lazy var playerCollectionView: UICollectionView = {
         let collectionView = PlayerCollectionView()
         collectionView.delegate = collectionViewDelegate
         collectionView.dataSource = collectionViewDataSource
@@ -71,6 +69,13 @@ final class UpdatesViewController: UIViewController {
             PlayerCell.self,
             forCellWithReuseIdentifier: String(describing: PlayerCell.self))
         return collectionView
+    }()
+    
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView(style: .large)
+        indicatorView.hidesWhenStopped = true
+        indicatorView.color = .black
+        return indicatorView
     }()
     
     // MARK: Initialize
@@ -96,7 +101,10 @@ final class UpdatesViewController: UIViewController {
     private func setupUI() {
         addNavigationBarButtons()
         view.setupCommonGradientLayer()
-        view.addSubviews(segmentedControlBackgroundView, playersCollectionView)
+        view.addSubviews(
+            segmentedControlBackgroundView,
+            playerCollectionView,
+            activityIndicator)
         view.prepareForAutoLayout()
         setConstraints()
     }
@@ -126,14 +134,18 @@ final class UpdatesViewController: UIViewController {
     }
     
     private func updateCollectionView() {
-        playersCollectionView.setContentOffset(.zero, animated: true)
-        playersCollectionView.reloadData()
+        playerCollectionView.setContentOffset(.zero, animated: true)
+        playerCollectionView.reloadData()
     }
     
-    // MARK: Selectors
     @objc private func refreshButtonTapped() {
-        viewModel.refreshPlayersList {
-            self.updateCollectionView()
+        activityIndicator.startAnimating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self else { return }
+            viewModel.refreshPlayersList {
+                self.updateCollectionView()
+                self.activityIndicator.stopAnimating()
+            }
         }
     }
     
@@ -177,14 +189,19 @@ private extension UpdatesViewController {
                 equalTo: segmentedControlBackgroundView.trailingAnchor,
                 constant: -16),
             
-            playersCollectionView.topAnchor.constraint(
+            playerCollectionView.topAnchor.constraint(
                 equalTo: segmentedControlBackgroundView.bottomAnchor),
-            playersCollectionView.leadingAnchor.constraint(
+            playerCollectionView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor),
-            playersCollectionView.bottomAnchor.constraint(
+            playerCollectionView.bottomAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            playersCollectionView.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor)
+            playerCollectionView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor),
+            
+            activityIndicator.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(
+                equalTo: view.centerYAnchor)
         ])
     }
 }

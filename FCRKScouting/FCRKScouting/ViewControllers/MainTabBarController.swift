@@ -25,23 +25,23 @@ final class MainTabBarController: UITabBarController {
     
     private func setViewControllers() {
         viewControllers = [
-            generateNavigationFlowFor(
-                viewController: ScreenFactory.getUpdatesViewController(),
+            generateNavigationFlow(
+                forViewController: ScreenFactory.getUpdatesViewController(),
                 withTitle: Constants.Text.ScreenTitles.updates,
                 andTabBarIcon: Constants.Images.TabBarIcons.updates),
-            generateNavigationFlowFor(
-                viewController: ScreenFactory.getSearchViewController(),
+            generateNavigationFlow(
+                forViewController: ScreenFactory.getSearchViewController(),
                 withTitle: Constants.Text.ScreenTitles.search,
                 andTabBarIcon: Constants.Images.TabBarIcons.search),
-            generateNavigationFlowFor(
-                viewController: ScreenFactory.getProfileViewController(),
+            generateNavigationFlow(
+                forViewController: ScreenFactory.getProfileViewController(),
                 withTitle: Constants.Text.ScreenTitles.profile,
                 andTabBarIcon: Constants.Images.TabBarIcons.profile)
         ]
     }
     
-    private func generateNavigationFlowFor(
-        viewController: UIViewController,
+    private func generateNavigationFlow(
+        forViewController viewController: UIViewController,
         withTitle title: String,
         andTabBarIcon icon: UIImage?
     ) -> UINavigationController {
@@ -50,18 +50,18 @@ final class MainTabBarController: UITabBarController {
         viewController.tabBarItem.image = icon
         let navigationController = UINavigationController(
             rootViewController: viewController)
-        setupNavigationBarFor(navigationController)
+        setupNavigationBar(forNavigationController: navigationController)
         return navigationController
     }
     
-    private func setupNavigationBarFor(
-        _ navigationController: UINavigationController
+    private func setupNavigationBar(
+        forNavigationController navigationController: UINavigationController
     ) {
         let navigationBar = navigationController.navigationBar
-        navigationBar.scrollEdgeAppearance = setupNavigationBarAppearance()
+        navigationBar.scrollEdgeAppearance = getNavigationBarAppearance()
     }
     
-    private func setupNavigationBarAppearance() -> UINavigationBarAppearance {
+    private func getNavigationBarAppearance() -> UINavigationBarAppearance {
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.backgroundColor = .accent
         navigationBarAppearance.shadowColor = .clear

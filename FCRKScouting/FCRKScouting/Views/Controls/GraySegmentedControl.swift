@@ -25,7 +25,7 @@ final class GraySegmentedControl: UISegmentedControl {
         selectedSegmentIndex = 0
         setTitleTextAttributes(
             [
-                .font: Constants.Fonts.description,
+                .font: Constants.Fonts.secondary,
                 .foregroundColor: UIColor.black
             ],
             for: .normal)

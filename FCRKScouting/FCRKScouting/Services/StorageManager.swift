@@ -42,17 +42,17 @@ final class StorageManager {
 extension StorageManager {
     
     func saveUser(
-        with appleID: String,
+        byAppleID appleID: String,
         fullName: String,
         isEditingAllowed: Bool,
-        completion: @escaping () -> Void
+        completion: @escaping (User?) -> Void
     ) {
         let user = User(context: viewContext)
         user.appleID = appleID
         user.fullName = fullName
         user.isEditingAllowed = isEditingAllowed
         saveContext()
-        completion()
+        completion(user)
     }
     
     func findUser(_ appleID: String, completion: @escaping (User?) -> Void) {
@@ -65,23 +65,22 @@ extension StorageManager {
         completion(nil)
     }
     
-    // TODO: does it need to send a new name in the closure?
-    func updateUser(_ fullName: String, completion: @escaping () -> Void) {
-        guard let user = UserManager.shared.getCurrentUser(),
-              let appleID = user.appleID else { return }
+    func renameUser(
+        _ appleID: String,
+        toFullName fullName: String,
+        completion: @escaping (User?) -> Void
+    ) {
         findUser(appleID) { [weak self] in
             guard let self else { return }
             if let foundUser = $0 {
                 foundUser.fullName = fullName
                 saveContext()
-                completion()
+                completion(foundUser)
             }
         }
     }
         
-    func deleteUser(completion: @escaping () -> Void) {
-        guard let user = UserManager.shared.getCurrentUser(),
-              let appleID = user.appleID else { return }
+    func deleteUser(_ appleID: String, completion: @escaping () -> Void) {
         findUser(appleID) { [weak self] in
             guard let self else { return }
             if let foundUser = $0 {

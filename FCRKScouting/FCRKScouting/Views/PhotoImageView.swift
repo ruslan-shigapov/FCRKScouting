@@ -36,6 +36,7 @@ final class PhotoImageView: UIImageView {
  
     private func setupUI() {
         image = Constants.Images.photoPlaceholder
+        contentMode = .scaleAspectFill
         clipsToBounds = true
     }
 }

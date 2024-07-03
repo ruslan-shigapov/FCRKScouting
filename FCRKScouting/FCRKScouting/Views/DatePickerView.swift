@@ -42,8 +42,7 @@ final class DatePickerView: UIView {
         let label = CustomLabel(
             font: Constants.Fonts.text,
             text: type.placeholder)
-        let isDarkStyle = traitCollection.userInterfaceStyle == .dark
-        label.textColor = isDarkStyle ? .white : .black
+        label.textColor = isDarkInterfaceStyle ? .white : .black
         return label
     }()
 

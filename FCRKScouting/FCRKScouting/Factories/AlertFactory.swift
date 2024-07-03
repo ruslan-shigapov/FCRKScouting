@@ -20,7 +20,40 @@ struct AlertFactory {
         let alertAction = UIAlertAction(
             title: Constants.Text.ButtonTitles.ok,
             style: .cancel)
+        alertAction.holdLinkColor()
         alertController.addAction(alertAction)
+        return alertController
+    }
+    
+    static func getUploadPhotoActionSheet(
+        isPhotoUploaded: Bool,
+        chooseCompletion: @escaping () -> Void,
+        deleteCompletion: @escaping () -> Void
+    ) -> UIAlertController {
+        let alertController = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(
+            title: Constants.Text.ButtonTitles.cancel,
+            style: .cancel)
+        let chooseAction = UIAlertAction(
+            title: Constants.Text.ButtonTitles.choosePhoto,
+            style: .default) { _ in
+                chooseCompletion()
+            }
+        let deleteAction = UIAlertAction(
+            title: Constants.Text.ButtonTitles.deletePhoto,
+            style: .destructive) { _ in
+                deleteCompletion()
+            }
+        cancelAction.holdLinkColor()
+        chooseAction.holdLinkColor()
+        alertController.addAction(cancelAction)
+        alertController.addAction(chooseAction)
+        if isPhotoUploaded {
+            alertController.addAction(deleteAction)
+        }
         return alertController
     }
     
@@ -36,9 +69,7 @@ struct AlertFactory {
         alertController.setValue(
             NSAttributedString(
                 string: title,
-                attributes: [
-                    .font: UIFont.systemFont(ofSize: 17, weight: .medium)
-                ]),
+                attributes: [.font: Constants.Fonts.text]),
             forKey: "attributedTitle"
         )
         let cancelAction = UIAlertAction(
@@ -50,6 +81,7 @@ struct AlertFactory {
         let continueAction = UIAlertAction(
             title: buttonTitle,
             style: .cancel)
+        continueAction.holdLinkColor()
         alertController.addAction(cancelAction)
         alertController.addAction(continueAction)
         return alertController
@@ -72,6 +104,7 @@ struct AlertFactory {
         let cancelAction = UIAlertAction(
             title: Constants.Text.ButtonTitles.no,
             style: .cancel)
+        cancelAction.holdLinkColor()
         alertController.addAction(exitAction)
         alertController.addAction(cancelAction)
         return alertController

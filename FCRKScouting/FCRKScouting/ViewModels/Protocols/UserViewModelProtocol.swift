@@ -18,9 +18,6 @@ extension UserViewModelProtocol {
     
     var userFullName: String {
         UserManager.shared.getCurrentUser()?.fullName ?? ""
-//        UserManager.shared.getCurrentUser()?.fullName?.replacingOccurrences(
-//            of: " ",
-//            with: "\n")
     }
 }
 

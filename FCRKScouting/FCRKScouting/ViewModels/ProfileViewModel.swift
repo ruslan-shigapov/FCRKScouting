@@ -11,6 +11,7 @@ protocol FormViewControllerDelegate {
 
 protocol ProfileViewModelProtocol: UserViewModelProtocol,
                                    FormViewControllerDelegate {
+    var profileFullName: String { get }
     var access: String { get }
     func logOut()
 }
@@ -18,6 +19,10 @@ protocol ProfileViewModelProtocol: UserViewModelProtocol,
 final class ProfileViewModel: ProfileViewModelProtocol {
     
     var userWasUpdated: (() -> Void)?
+    
+    var profileFullName: String {
+        userFullName.replacingOccurrences(of: " ", with: "\n")
+    }
     
     var access: String {
         isEditingAllowed

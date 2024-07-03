@@ -46,8 +46,8 @@ final class PrimaryTextFieldView: UIView {
     
     private let floatingLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .systemGray
-        label.font = Constants.Fonts.description
+        label.textColor = .black
+        label.font = Constants.Fonts.secondary
         return label
     }()
     
@@ -75,7 +75,6 @@ final class PrimaryTextFieldView: UIView {
     // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
-        setupTextFieldClearButton()
         setCommonShadow()
         if let text = textField.text, !text.isEmpty {
             addFloatingLabel()
@@ -83,18 +82,6 @@ final class PrimaryTextFieldView: UIView {
     }
     
     // MARK: Private Methods
-    private func setupTextFieldClearButton() {
-        textField.subviews.forEach {
-            if let button = $0 as? UIButton {
-                let buttonImage = button.image(for: .normal)
-                button.setImage(
-                    buttonImage?.withRenderingMode(.alwaysTemplate),
-                    for: .normal)
-                button.tintColor = .lightGray
-            }
-        }
-    }
-    
     private func setupUI() {
         backgroundColor = .white
         setCommonCornerRadius()

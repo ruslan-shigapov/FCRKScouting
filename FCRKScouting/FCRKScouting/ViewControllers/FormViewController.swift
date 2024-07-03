@@ -14,10 +14,13 @@ final class FormViewController: UIViewController {
     private var delegate: FormViewControllerDelegate?
         
     // MARK: Views
-    private let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
+        let labelText = delegate == nil
+        ? Constants.Text.ScreenTitles.greeting
+        : Constants.Text.ScreenTitles.form
         let label = CustomLabel(
             font: Constants.Fonts.header,
-            text: Constants.Text.ScreenTitles.form)
+            text: labelText)
         label.textAlignment = .center
         return label
     }()
@@ -40,6 +43,7 @@ final class FormViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        configureUI()
     }
 
     // MARK: Initialize
@@ -65,7 +69,10 @@ final class FormViewController: UIViewController {
         view.prepareForAutoLayout()
         setConstraints()
         setupAlerts()
-        configureUI()
+    }
+    
+    private func configureUI() {
+        fullNameTextFieldView.setText(viewModel.userFullName)
     }
  
     private func setupAlerts() {
@@ -83,33 +90,35 @@ final class FormViewController: UIViewController {
                 andMessage: Constants.Text.Alerts.incorrectFullName.message)
             present(alertController, animated: true)
         }
-    }
-    
-    private func configureUI() {
-        fullNameTextFieldView.setText(viewModel.userFullName)
+        viewModel.wasFullNameContainInvalidChars = { [weak self] in
+            guard let self else { return }
+            let alertController = AlertFactory.getWarningAlert(
+                withTitle: Constants.Text.Alerts.invalidChars.title,
+                andMessage: Constants.Text.Alerts.invalidChars.message)
+            present(alertController, animated: true)
+        }
     }
     
     @objc private func saveButtonTapped() {
-        viewModel.validateInput(
-            text: [fullNameTextFieldView.getInputText()]
-        ) { _ in 
-            showMainTabBarController()
-//            viewModel.saveUserBy(
-//                fullName: $0[0],
-//                post: postTextFieldView.getInputText()
-//            ) { isEditingMode in
-//                isEditingMode
-//                ? dismiss(animated: true) { [weak self] in
-//                    guard let self else { return }
-//                    self.delegate?.userWasUpdated?()
-//                }
-//            }
+        viewModel.validateInputText(
+            [fullNameTextFieldView.getInputText()]
+        ) {
+            viewModel.saveUserFullName($0[0]) { [weak self] in
+                guard let self else { return }
+                if delegate == nil {
+                    showMainTabBarController()
+                } else {
+                    dismiss(animated: true) {
+                        self.delegate?.userWasUpdated?()
+                    }
+                }
+            }
         }
     }
     
     private func showMainTabBarController() {
         let mainTabBarController = ScreenFactory.getMainTabBarController()
-        present(mainTabBarController, animated: true)
+        present(mainTabBarController, animated: false)
     }
 }
 

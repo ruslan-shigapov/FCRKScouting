@@ -24,6 +24,7 @@ final class EditorPickerViewDelegate: NSObject, UIPickerViewDelegate {
         let rowLabel = UILabel()
         rowLabel.text = viewModel.getTitleFor(pickerRow: row)
         rowLabel.font = Constants.Fonts.text
+        rowLabel.textColor = .black
         rowLabel.textAlignment = .center
         return rowLabel
     }

@@ -39,6 +39,11 @@ final class LoginViewController: UIViewController {
         return button
     }()
     
+    private let signInDescriptionLabel = CustomLabel(
+        font: Constants.Fonts.description,
+        text: Constants.Text.Descriptions.signIn,
+        numberOfLines: 2)
+    
     // MARK: Initialize
     init(viewModel: LoginViewModelProtocol) {
         self.viewModel = viewModel
@@ -71,7 +76,8 @@ final class LoginViewController: UIViewController {
             appNameLabel,
             accessKeyTextFieldView,
             accessDescriptionLabel,
-            appleSignInButton)
+            appleSignInButton,
+            signInDescriptionLabel)
         view.prepareForAutoLayout()
         setConstraints()
     }
@@ -89,9 +95,9 @@ final class LoginViewController: UIViewController {
     @objc private func appleSignInButtonTapped() {
         viewModel.logIn(
             byAccessKey: accessKeyTextFieldView.getInputText()
-        ) { [weak self] isEditingAllowed in
+        ) { [weak self] in
             guard let self else { return }
-            authManager = AuthManager(isEditingAllowed: isEditingAllowed)
+            authManager = AuthManager(isEditingAllowed: $0)
             authManager?.singInWithApple { result in
                 switch result {
                 case .success(let isNewUser):
@@ -116,11 +122,7 @@ final class LoginViewController: UIViewController {
     
     private func showMainTabBarController() {
         let mainTabBarController = ScreenFactory.getMainTabBarController()
-        present(mainTabBarController, animated: true)
-    }
-    
-    deinit {
-        print("loginVC has been allocated")
+        present(mainTabBarController, animated: false)
     }
 }
 
@@ -170,7 +172,17 @@ private extension LoginViewController {
                 constant: -48),
             appleSignInButton.heightAnchor.constraint(equalToConstant: 48),
             appleSignInButton.centerXAnchor.constraint(
-                equalTo: view.centerXAnchor)
+                equalTo: view.centerXAnchor),
+            
+            signInDescriptionLabel.topAnchor.constraint(
+                equalTo: appleSignInButton.bottomAnchor,
+                constant: 8),
+            signInDescriptionLabel.leadingAnchor.constraint(
+                equalTo: appleSignInButton.leadingAnchor,
+                constant: 5),
+            signInDescriptionLabel.trailingAnchor.constraint(
+                equalTo: appleSignInButton.trailingAnchor,
+                constant: -5),
         ])
     }
 }

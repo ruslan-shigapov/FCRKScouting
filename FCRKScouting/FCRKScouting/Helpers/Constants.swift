@@ -43,7 +43,8 @@ enum Constants {
         static let header = UIFont(name: "Ostrovsky", size: 21)
         static let normal = UIFont(name: "Ostrovsky", size: 16)
         static let text = UIFont.systemFont(ofSize: 16, weight: .light)
-        static let description = UIFont.systemFont(ofSize: 13, weight: .thin)
+        static let secondary = UIFont.systemFont(ofSize: 13, weight: .thin)
+        static let description = UIFont.systemFont(ofSize: 10, weight: .thin)
     }
     // MARK: Text
     enum Text {
@@ -74,7 +75,6 @@ enum Constants {
         static let summary = "Выводы:"
         static let viewingPlan = "План просмотра"
         static let allReports = "Все отчёты"
-        static let post = "Должность:"
         static let notSpecified = "Не указана"
         static let access = "Доступ:"
         static let onlyRead = "Только чтение"
@@ -82,7 +82,10 @@ enum Constants {
 
         enum Descriptions {
             static let access = """
-            Вход возможен только для сотрудников системы ФК \"Рубин\" Казань
+            Доступ предоставляется исключительно сотрудникам системы ФК \"Рубин\" Казань
+            """
+            static let signIn = """
+            Вход с помощью Apple ID необходим для совместного пользования приложением
             """
             static let pageSlider = """
             Поля в этом слайдере необязательные, любые данные можно добавить или изменить позже
@@ -92,7 +95,6 @@ enum Constants {
         enum Placeholders {
             static let accessKey = "Ключ доступа*"
             static let fullName = "Имя Фамилия*"
-            static let post = "Должность"
             static let patronymic = "Отчество"
             static let citizenship = "Гражданство*"
             static let club = "Клуб*"
@@ -107,6 +109,9 @@ enum Constants {
             static let no = "Нет"
             static let back = "Назад"
             static let uploadPhoto = "Загрузить фото"
+            static let editPhoto = "Изменить фото"
+            static let choosePhoto = "Выбрать из библиотеки"
+            static let deletePhoto = "Убрать фото"
             static let career = "Движение по фут. вертикали"
             static let continueAdding = "Продолжить добавление"
             static let continueEditing = "Продолжить редактирование"
@@ -114,6 +119,7 @@ enum Constants {
             static let save = "Сохранить"
         }
         enum ScreenTitles {
+            static let greeting = "Добро пожаловать!"
             static let form = "Личные данные"
             static let updates = "Обновления"
             static let search = "Поиск"
@@ -132,13 +138,12 @@ enum Constants {
         enum Alerts {
             static let wrongAccessKey = (
                 title: "Не удалось войти",
-                message: "Введите действительный ключ доступа"
+                message: "Пожалуйста, введите действительный ключ доступа"
             )
             static let authError = (
                 title: "Ошибка авторизации",
                 message: "Пожалуйста, попробуйте еще раз"
             )
-
             static let emptyTextFields = (
                 title: "Внимание",
                 message: "Пожалуйста, заполните обязательные поля для ввода"
@@ -147,6 +152,12 @@ enum Constants {
                 title: "Внимание",
                 message: """
                 Пожалуйста, введите имя и фамилию, и ничего лишнего
+                """
+            )
+            static let invalidChars = (
+                title: "Внимание",
+                message: """
+                Допустимы только символы кириллицы в имени и фамилии
                 """
             )
             static let notSelectedPosition = (
@@ -169,6 +180,7 @@ enum Constants {
             static let cancelEditing = """
             Вы уверены, что хотите отменить редактирование этого игрока?
             """
+            static let uploadPhoto = "" 
         }
         enum SegmentedControlItems {
             static let periodSegments = ["сегодня", "за неделю", "за месяц"]

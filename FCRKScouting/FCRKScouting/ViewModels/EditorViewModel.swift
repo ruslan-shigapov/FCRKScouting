@@ -75,6 +75,7 @@ final class EditorViewModel: EditorViewModelProtocol {
             
     var wereRequiredTextFieldsEmpty: (() -> Void)?
     var wasFullNameIncorrect: (() -> Void)?
+    var wasFullNameContainInvalidChars: (() -> Void)?
     var wasPositionNotSelected: (() -> Void)?
     var wasImageChanged: (() -> Void)?
     
