@@ -104,11 +104,11 @@ final class PrimaryTextFieldView: UIView {
     }
     
     // MARK: Public Methods
-    func setTag(_ tag: Int) {
+    func set(tag: Int) {
         textField.tag = tag
     }
     
-    func setText(_ text: String?) {
+    func set(text: String?) {
         textField.text = text
     }
     

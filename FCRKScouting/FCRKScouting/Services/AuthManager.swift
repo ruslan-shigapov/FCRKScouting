@@ -42,7 +42,10 @@ final class AuthManager: NSObject {
 // MARK: - ASAuthorization Controller Delegate
 extension AuthManager: ASAuthorizationControllerDelegate {
     
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    func authorizationController(
+        controller: ASAuthorizationController,
+        didCompleteWithAuthorization authorization: ASAuthorization
+    ) {
         let credential = authorization.credential
         if let credential = credential as? ASAuthorizationAppleIDCredential {
             StorageManager.shared.findUser(credential.user) { [weak self] in

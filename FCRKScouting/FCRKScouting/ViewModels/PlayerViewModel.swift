@@ -25,16 +25,20 @@ protocol PlayerViewModelProtocol: UserViewModelProtocol,
     var qualities: String { get }
     var mental: String { get }
     var creator: String { get }
-    var lastEditor: String { get }
+    var lastEdition: String { get }
     func getPlayer() -> Player
     func deletePlayer()
 }
         
-//final class PlayerViewModel: PlayerViewModelProtocol {
-
 final class PlayerViewModel: PlayerViewModelProtocol {
     
     private let player: Player
+    
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        return formatter
+    }()
     
     var playersWereChanged: (() -> Void)?
     
@@ -59,8 +63,11 @@ final class PlayerViewModel: PlayerViewModelProtocol {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         guard let birthDate = player.birthDate else { return "" }
-        let formattedBirthDate = formatter.string(from: birthDate)
-        let ageComponents = Calendar.current.dateComponents([.year], from: birthDate, to: Date())
+        let formattedBirthDate = dateFormatter.string(from: birthDate)
+        let ageComponents = Calendar.current.dateComponents(
+            [.year],
+            from: birthDate,
+            to: Date())
         return "\(ageComponents.year ?? 0) (\(formattedBirthDate))"
     }
     
@@ -108,12 +115,16 @@ final class PlayerViewModel: PlayerViewModelProtocol {
     
     var creator: String {
         guard let creator = player.creator else { return "" }
-        return "Создал карточку: \(abbreviateNameIn(fullName: creator))"
+        return "Создал карточку: \(creator)"
     }
     
-    var lastEditor: String {
+    var lastEdition: String {
         guard let lastEditor = player.lastEditor else { return "" }
-        return "Посл. редактировал: \(abbreviateNameIn(fullName: lastEditor))"
+        guard let updatedDate = player.updatedDate else { return "" }
+        let abbreviatedName = abbreviateNameIn(fullName: lastEditor)
+        let formattedUpdatedDate = dateFormatter.string(from: updatedDate)
+        let lastEdition = abbreviatedName + " (\(formattedUpdatedDate))"
+        return "Правки внес: \(lastEdition)"
     }
     
     init(player: Player) {
@@ -133,6 +144,6 @@ final class PlayerViewModel: PlayerViewModelProtocol {
     
     func deletePlayer() {
         guard let fullName = player.fullName else { return }
-        StorageManager.shared.deletePlayerBy(fullName)
+        StorageManager.shared.deletePlayer(byFullName: fullName)
     }
 }

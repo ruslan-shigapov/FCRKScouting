@@ -7,9 +7,7 @@
 
 protocol FormViewModelProtocol: UserViewModelProtocol,
                                 TextFieldValidationProtocol {
-    func saveUserFullName(
-        _ fullName: String,
-        completion: @escaping () -> Void)
+    func saveUserFullName(_ fullName: String, completion: @escaping () -> Void)
 }
 
 final class FormViewModel: FormViewModelProtocol {

@@ -83,7 +83,7 @@ final class DecimalTextFieldView: UIView {
     }
     
     // MARK: Public Methods
-    func setText(_ text: String?) {
+    func set(text: String?) {
         textField.text = text
     }
     

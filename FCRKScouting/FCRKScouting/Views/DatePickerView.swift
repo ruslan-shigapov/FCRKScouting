@@ -84,7 +84,7 @@ final class DatePickerView: UIView {
     }
     
     // MARK: Public Methods
-    func setDate(_ date: Date) {
+    func set(date: Date) {
         datePicker.date = date
     }
     

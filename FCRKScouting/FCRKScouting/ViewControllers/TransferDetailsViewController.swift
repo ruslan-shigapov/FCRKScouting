@@ -65,7 +65,7 @@ final class TransferDetailsViewController: UIViewController {
         stackView.spacing = 16
         for (index, view) in stackView.subviews.enumerated() {
             if let textFieldView = view as? PrimaryTextFieldView {
-                textFieldView.setTag(index)
+                textFieldView.set(tag: index)
             }
         }
         return stackView
@@ -126,11 +126,11 @@ final class TransferDetailsViewController: UIViewController {
         if let contractDate = delegate?.contractDate {
             contractDateSwitcher.isOn.toggle()
             contractDatePickerView.toggleDatePickerEnabled()
-            contractDatePickerView.setDate(contractDate)
+            contractDatePickerView.set(date: contractDate)
         }
         if let agentInfo = delegate?.agentInfo, agentInfo.count == 2 {
-            agentNameTextFieldView.setText(agentInfo[0])
-            contactsTextFieldView.setText(agentInfo[1])
+            agentNameTextFieldView.set(text: agentInfo[0])
+            contactsTextFieldView.set(text: agentInfo[1])
         }
     }
     

@@ -92,6 +92,17 @@ final class LoginViewController: UIViewController {
         }
     }
     
+    private func showFormViewController() {
+        let formVC = ScreenFactory.getFormController(withDelegate: nil)
+        formVC.modalPresentationStyle = .fullScreen
+        present(formVC, animated: true)
+    }
+    
+    private func showMainTabBarController() {
+        let mainTabBarController = ScreenFactory.getMainTabBarController()
+        present(mainTabBarController, animated: false)
+    }
+    
     @objc private func appleSignInButtonTapped() {
         viewModel.logIn(
             byAccessKey: accessKeyTextFieldView.getInputText()
@@ -112,17 +123,6 @@ final class LoginViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    private func showFormViewController() {
-        let formVC = ScreenFactory.getFormController(withDelegate: nil)
-        formVC.modalPresentationStyle = .fullScreen
-        present(formVC, animated: true)
-    }
-    
-    private func showMainTabBarController() {
-        let mainTabBarController = ScreenFactory.getMainTabBarController()
-        present(mainTabBarController, animated: false)
     }
 }
 

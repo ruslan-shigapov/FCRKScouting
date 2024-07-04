@@ -28,7 +28,7 @@ final class PlayerCellViewModel: PlayerCellViewModelProtocol {
     }
     
     var ageDescription: String {
-        getYear(from: player.birthDate) ?? "???"
+        getYear(fromDate: player.birthDate) ?? "???"
     }
     
     var position: String {
@@ -40,7 +40,7 @@ final class PlayerCellViewModel: PlayerCellViewModelProtocol {
         self.player = player
     }
     
-    private func getYear(from date: Date?) -> String? {
+    private func getYear(fromDate date: Date?) -> String? {
         guard let date else { return nil }
         let year = Calendar.current.component(.year, from: date)
         return String(year)

@@ -72,7 +72,7 @@ final class FormViewController: UIViewController {
     }
     
     private func configureUI() {
-        fullNameTextFieldView.setText(viewModel.userFullName)
+        fullNameTextFieldView.set(text: viewModel.userFullName)
     }
  
     private func setupAlerts() {
@@ -99,6 +99,11 @@ final class FormViewController: UIViewController {
         }
     }
     
+    private func showMainTabBarController() {
+        let mainTabBarController = ScreenFactory.getMainTabBarController()
+        present(mainTabBarController, animated: false)
+    }
+    
     @objc private func saveButtonTapped() {
         viewModel.validateInputText(
             [fullNameTextFieldView.getInputText()]
@@ -114,11 +119,6 @@ final class FormViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    private func showMainTabBarController() {
-        let mainTabBarController = ScreenFactory.getMainTabBarController()
-        present(mainTabBarController, animated: false)
     }
 }
 

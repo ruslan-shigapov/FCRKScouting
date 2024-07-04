@@ -150,8 +150,8 @@ final class UpdatesViewController: UIViewController {
     }
     
     @objc private func addPlayerButtonTapped() {
-        let playerAddingVC = ScreenFactory.getEditorViewControllerWith(
-            delegate: viewModel as EditorViewControllerDelegate, 
+        let playerAddingVC = ScreenFactory.getEditorViewController(
+            withDelegate: viewModel as EditorViewControllerDelegate, 
             andPlayer: nil)
         present(playerAddingVC, animated: true)
     }

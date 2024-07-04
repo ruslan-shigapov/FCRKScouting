@@ -27,7 +27,7 @@ protocol UpdatesViewModelProtocol: UserViewModelProtocol,
         for player: Player?) -> PlayerCellViewModelProtocol?
     func getPlayerViewModel(
         for player: Player?) -> PlayerViewModelProtocol?
-    func formatDate(_ date: Date) -> String
+    func format(date: Date) -> String
     func refreshPlayersList(completion: () -> Void)
 }
 
@@ -63,7 +63,10 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
     }
     
     private func fetchPlayers() {
-        StorageManager.shared.readPlayers { players = $0 }
+        StorageManager.shared.fetchPlayers { [weak self] in
+            guard let self else { return }
+            players = $0
+        }
     }
     
     private func filterPlayersByDate() {
@@ -124,7 +127,7 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
         return PlayerViewModel(player: player)
     }
     
-    func formatDate(_ date: Date) -> String {
+    func format(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         return formatter.string(from: date)

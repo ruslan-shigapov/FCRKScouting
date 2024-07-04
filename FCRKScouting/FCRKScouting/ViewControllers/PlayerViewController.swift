@@ -178,7 +178,7 @@ final class PlayerViewController: UIViewController {
             tacticsValue: viewModel.tactics,
             qualitiesValue: viewModel.qualities,
             mentalValue: viewModel.mental)
-        lastEditorLabel.text = viewModel.lastEditor
+        lastEditorLabel.text = viewModel.lastEdition
     }
     
     private func handlePlayerEditing() {
@@ -205,8 +205,8 @@ final class PlayerViewController: UIViewController {
     }
     
     @objc private func editPlayerButtonTapped() {
-        let playerEditingVC = ScreenFactory.getEditorViewControllerWith(
-            delegate: viewModel as EditorViewControllerDelegate, 
+        let playerEditingVC = ScreenFactory.getEditorViewController(
+            withDelegate: viewModel as EditorViewControllerDelegate, 
             andPlayer: viewModel.getPlayer())
         present(playerEditingVC, animated: true)
     }
@@ -218,8 +218,8 @@ final class PlayerViewController: UIViewController {
         ) { [weak self] in
             guard let self else { return }
             viewModel.deletePlayer()
-            navigationController?.popViewController(animated: true)
-            delegate.backButtonWasTapped?()
+            self.navigationController?.popViewController(animated: true)
+            self.delegate.backButtonWasTapped?()
         }
         present(alertController, animated: true)
     }

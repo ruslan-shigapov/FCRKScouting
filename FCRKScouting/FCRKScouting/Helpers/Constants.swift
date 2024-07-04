@@ -101,6 +101,7 @@ enum Constants {
             static let nationalTeam = "Сборная"
             static let agentName = "Агент"
             static let contacts = "Контакты"
+            static let startTyping = "Начните вводить"
         }
         enum ButtonTitles {
             static let exit = "Выйти"

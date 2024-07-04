@@ -9,7 +9,48 @@ import UIKit
 
 final class SearchViewController: UIViewController {
     
+    // MARK: Private Properties
     private var viewModel: SearchViewModelProtocol
+    
+    // MARK: Views
+    private lazy var filtersButton: UIButton = {
+        let button = NavigationBarButton(
+            image: Constants.Images.ButtonImages.filters)
+        button.addTarget(
+            self,
+            action: #selector(filtersButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    private lazy var relatedButton: UIButton = {
+        let button = NavigationBarButton(
+            image: Constants.Images.ButtonImages.related)
+        button.addTarget(
+            self,
+            action: #selector(relatedButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    private lazy var featuresButton: UIButton = {
+        let button = NavigationBarButton(
+            image: Constants.Images.ButtonImages.features)
+        button.addTarget(
+            self,
+            action: #selector(featuresButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    
+    private let searchController: UISearchController = {
+        let searchController = UISearchController()
+        searchController.searchBar.searchTextField.backgroundColor = .lightGray
+        searchController.searchBar.tintColor = .white
+        let placeholder = Constants.Text.Placeholders.startTyping
+        searchController.searchBar.placeholder = placeholder
+        searchController.searchBar.autocorrectionType = .no
+        searchController.searchBar.spellCheckingType = .no
+        return searchController
+    }()
     
     private lazy var searchTipsView = SearchTipsView(
         isFullSet: viewModel.isEditingAllowed)
@@ -25,39 +66,22 @@ final class SearchViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
+    // MARK: Private Methods
     private func setupUI() {
-        setupNavigationBarButton()
-        
-        let sc = UISearchController()
-        sc.searchBar.searchTextField.backgroundColor = .white
-        sc.searchBar.tintColor = .lightGray
-        sc.searchBar.placeholder = "Начните вводить"
-        sc.searchBar.autocorrectionType = .no
-        sc.searchBar.spellCheckingType = .no
-        navigationItem.searchController = sc
-        
+        setupNavigationBar()
         view.setupCommonGradientLayer()
         view.addSubview(searchTipsView)
         view.prepareForAutoLayout()
         setConstraints()
     }
     
-    private func setupNavigationBarButton() {
-        let filtersButton = NavigationBarButton(
-            image: Constants.Images.ButtonImages.filters)
-        filtersButton.addTarget(
-            self,
-            action: #selector(advancedFiltersButtonTapped),
-            for: .touchUpInside)
-        let relatedButton = NavigationBarButton(
-            image: Constants.Images.ButtonImages.related)
-        let featuresButton = NavigationBarButton(
-            image: Constants.Images.ButtonImages.features)
+    private func setupNavigationBar() {
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(customView: filtersButton),
             UIBarButtonItem(customView: featuresButton)
@@ -67,12 +91,27 @@ final class SearchViewController: UIViewController {
                 UIBarButtonItem(customView: relatedButton),
                 at: 1)
         }
-        // TODO: менять статусы на зеленый цвет
+        navigationItem.searchController = searchController
     }
     
-    @objc private func advancedFiltersButtonTapped() {
+    private func toggleStatus(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        sender.tintColor = sender.isSelected ? .systemGreen : .white
+    }
+    
+    @objc private func filtersButtonTapped(_ sender: UIButton) {
         let filtersVC = ScreenFactory.getFiltersViewController()
         present(filtersVC, animated: true)
+    }
+    
+    @objc private func relatedButtonTapped(_ sender: UIButton) {
+        toggleStatus(sender)
+        
+    }
+    
+    @objc private func featuresButtonTapped(_ sender: UIButton) {
+        toggleStatus(sender)
+        
     }
 }
 

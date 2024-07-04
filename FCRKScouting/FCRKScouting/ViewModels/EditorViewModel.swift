@@ -45,6 +45,7 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol,
     func getTransferDetails()
     func editPlayer(
         byFullName fullName: String,
+        editedFullName: String?,
         patronymic: String?,
         citizenship: String,
         club: String,
@@ -122,38 +123,37 @@ final class EditorViewModel: EditorViewModelProtocol {
         mental: String?,
         completion: () -> Void
     ) {
-        if position == 0 {
+        guard position != 0 else {
             wasPositionNotSelected?()
             return
-        } else {
-            let currentUserFullName = UserManager.shared.getCurrentUser()?.fullName
-            StorageManager.shared.createPlayer(
-                withFullName: fullName,
-                photo: selectedPhoto?.jpegData(compressionQuality: 1),
-                patronymic: patronymic,
-                citizenship: citizenship,
-                club: club,
-                nationalTeam: nationalTeam,
-                birthDate: birthDate,
-                position: Constants.Text.Positions.allCases[position].rawValue,
-                foot: Constants.Text.SegmentedControlItems.footSegments[foot],
-                height: height,
-                weight: weight,
-                generalInfo: generalInfo,
-                technique: technique,
-                tactics: tactics,
-                qualities: qualities,
-                mental: mental,
-                cost: prices.count == 2 ? prices[0] : nil,
-                salary: prices.count == 2 ? prices[1] : nil,
-                contractDate: contractDate,
-                agentName: agentInfo.count == 2 ? agentInfo[0] : nil,
-                agentContacts: agentInfo.count == 2 ? agentInfo[1] : nil,
-                lastEditor: currentUserFullName ?? "",
-                updatedDate: Date(),
-                creator: currentUserFullName ?? "")
-            completion()
         }
+        let currentUser = UserManager.shared.getCurrentUser()
+        StorageManager.shared.createPlayer(
+            withFullName: fullName,
+            photo: selectedPhoto?.jpegData(compressionQuality: 1),
+            patronymic: patronymic,
+            citizenship: citizenship,
+            club: club,
+            nationalTeam: nationalTeam,
+            birthDate: birthDate,
+            position: Constants.Text.Positions.allCases[position].rawValue,
+            foot: Constants.Text.SegmentedControlItems.footSegments[foot],
+            height: height,
+            weight: weight,
+            generalInfo: generalInfo,
+            technique: technique,
+            tactics: tactics,
+            qualities: qualities,
+            mental: mental,
+            cost: prices.count == 2 ? prices[0] : nil,
+            salary: prices.count == 2 ? prices[1] : nil,
+            contractDate: contractDate,
+            agentName: agentInfo.count == 2 ? agentInfo[0] : nil,
+            agentContacts: agentInfo.count == 2 ? agentInfo[1] : nil,
+            lastEditor: currentUser?.fullName ?? "",
+            updatedDate: Date(),
+            creator: currentUser?.fullName ?? "")
+            completion()
     }
     
     func getNumberOfComponentsInPicker() -> Int {
@@ -197,6 +197,7 @@ final class EditorViewModel: EditorViewModelProtocol {
     
     func editPlayer(
         byFullName fullName: String,
+        editedFullName: String?,
         patronymic: String?,
         citizenship: String,
         club: String,
@@ -213,36 +214,36 @@ final class EditorViewModel: EditorViewModelProtocol {
         mental: String?,
         completion: () -> Void
     ) {
-        if position == 0 {
+        guard position != 0 else {
             wasPositionNotSelected?()
             return
-        } else {
-            let currentUserFullName = UserManager.shared.getCurrentUser()?.fullName
-            StorageManager.shared.updatePlayer(
-                withFullName: fullName,
-                photo: getPhotoData(),
-                patronymic: patronymic,
-                citizenship: citizenship,
-                club: club,
-                nationalTeam: nationalTeam,
-                birthDate: birthDate,
-                position: Constants.Text.Positions.allCases[position].rawValue,
-                foot: Constants.Text.SegmentedControlItems.footSegments[foot],
-                height: height,
-                weight: weight,
-                generalInfo: generalInfo,
-                technique: technique,
-                tactics: tactics,
-                qualities: qualities,
-                mental: mental,
-                cost: prices.count == 2 ? prices[0] : nil,
-                salary: prices.count == 2 ? prices[1] : nil,
-                contractDate: contractDate,
-                agentName: agentInfo.count == 2 ? agentInfo[0] : nil,
-                agentContacts: agentInfo.count == 2 ? agentInfo[1] : nil,
-                lastEditor: currentUserFullName ?? "",
-                updatedDate: Date())
-            completion()
         }
+        let currentUser = UserManager.shared.getCurrentUser()
+        StorageManager.shared.updatePlayer(
+            withFullName: fullName,
+            editedFullName: editedFullName,
+            photo: getPhotoData(),
+            patronymic: patronymic,
+            citizenship: citizenship,
+            club: club,
+            nationalTeam: nationalTeam,
+            birthDate: birthDate,
+            position: Constants.Text.Positions.allCases[position].rawValue,
+            foot: Constants.Text.SegmentedControlItems.footSegments[foot],
+            height: height,
+            weight: weight,
+            generalInfo: generalInfo,
+            technique: technique,
+            tactics: tactics,
+            qualities: qualities,
+            mental: mental,
+            cost: prices.count == 2 ? prices[0] : nil,
+            salary: prices.count == 2 ? prices[1] : nil,
+            contractDate: contractDate,
+            agentName: agentInfo.count == 2 ? agentInfo[0] : nil,
+            agentContacts: agentInfo.count == 2 ? agentInfo[1] : nil,
+            lastEditor: currentUser?.fullName ?? "",
+            updatedDate: Date())
+        completion()
     }
 }

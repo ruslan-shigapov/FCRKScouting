@@ -54,8 +54,8 @@ struct ScreenFactory {
         return ProfileViewController(viewModel: viewModel)
     }
     
-    static func getEditorViewControllerWith(
-        delegate: EditorViewControllerDelegate,
+    static func getEditorViewController(
+        withDelegate delegate: EditorViewControllerDelegate,
         andPlayer player: Player?
     ) -> UIViewController {
         let viewModel = EditorViewModel(player: player)
@@ -66,25 +66,25 @@ struct ScreenFactory {
         return viewController
     }
     
-    static func getCareerDetailsVC() -> UIViewController {
+    static func getCareerDetailsViewController() -> UIViewController {
         CareerDetailsViewController()
     }
     
-    static func getTransferDetailsVCWith(
-        delegate: TransferDetailsViewControllerDelegate
+    static func getTransferDetailsViewController(
+        withDelegate delegate: TransferDetailsViewControllerDelegate
     ) -> UIViewController {
         TransferDetailsViewController(delegate: delegate)
     }
     
-    static func getPlayerViewControllerFor(
-        player: Player,
+    static func getPlayerViewController(
+        forPlayer player: Player,
         withDelegate delegate: PlayerViewControllerDelegate
     ) -> UIViewController {
         let viewModel = PlayerViewModel(player: player)
         return PlayerViewController(viewModel: viewModel, delegate: delegate)
     }
     
-    static func getTestingDetailsVC() -> UIViewController {
+    static func getTestingDetailsViewController() -> UIViewController {
         TestingDetailsViewController()
     }
     

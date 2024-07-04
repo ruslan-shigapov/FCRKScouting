@@ -53,12 +53,8 @@ final class TextViewWithTitle: UIView {
         prepareForAutoLayout()
     }
     
-    // MARK: Public Methods
-    func setDelegate(_ delegate: UITextViewDelegate) {
-        textView.delegate = delegate
-    }
-    
-    func setText(_ text: String?) {
+    // MARK: Public Methods    
+    func set(text: String?) {
         textView.text = text
     }
     

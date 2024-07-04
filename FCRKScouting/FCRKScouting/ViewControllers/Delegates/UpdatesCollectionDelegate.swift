@@ -56,8 +56,8 @@ final class UpdatesCollectionDelegate: NSObject,
         guard let currentPlayer = viewModel.getPlayer(at: indexPath) else {
             return
         }
-        let playerVC = ScreenFactory.getPlayerViewControllerFor(
-            player: currentPlayer, 
+        let playerVC = ScreenFactory.getPlayerViewController(
+            forPlayer: currentPlayer, 
             withDelegate: viewModel as PlayerViewControllerDelegate)
         navigationController?.pushViewController(playerVC, animated: true)
     }

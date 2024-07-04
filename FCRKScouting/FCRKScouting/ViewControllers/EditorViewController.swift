@@ -79,7 +79,7 @@ final class EditorViewController: UIViewController {
         stackView.spacing = 24
         for (index, view) in stackView.subviews.enumerated() {
             if let textFieldView = view as? PrimaryTextFieldView {
-                textFieldView.setTag(index)
+                textFieldView.set(tag: index)
             }
         }
         return stackView
@@ -293,23 +293,23 @@ final class EditorViewController: UIViewController {
             if let photo = player.photo {
                 photoImageView.image = UIImage(data: photo)
             }
-            fullNameTextFieldView.setText(player.fullName)
+            fullNameTextFieldView.set(text: player.fullName)
             if let patronymic = player.patronymic, !patronymic.isEmpty {
                 togglePatronymicFieldDisplayButtonTapped(
                     togglePatronymicFieldDisplayButton)
-                patronymicTextFieldView.setText(patronymic)
+                patronymicTextFieldView.set(text: patronymic)
             }
-            citizenshipTextFieldView.setText(player.citizenship)
-            clubTextFieldView.setText(player.club)
+            citizenshipTextFieldView.set(text: player.citizenship)
+            clubTextFieldView.set(text: player.club)
             if let nationalTeam = player.nationalTeam, !nationalTeam.isEmpty {
                 toggleNationalTeamFieldDisplayButtonTapped(
                     toggleNationalTeamFieldDisplayButton)
-                nationalTeamTextFieldView.setText(nationalTeam)
+                nationalTeamTextFieldView.set(text: nationalTeam)
             }
             if let birthDate = player.birthDate {
                 birthDateSwitcher.isOn.toggle()
                 birthDatePickerView.toggleDatePickerEnabled()
-                birthDatePickerView.setDate(birthDate)
+                birthDatePickerView.set(date: birthDate)
             }
             let pickerRow = viewModel.getPickerRowBy(title: player.position)
             positionPickerView.selectRow(
@@ -318,13 +318,13 @@ final class EditorViewController: UIViewController {
                 animated: true)
             let segmentIndex = viewModel.getSegmentIndexBy(title: player.foot)
             footSegmentedControl.selectedSegmentIndex = segmentIndex ?? 0
-            heightTextFieldView.setText(player.height)
-            weightTextFieldView.setText(player.weight)
-            generalInfoTextViewWithTitle.setText(player.generalInfo)
-            techniqueTextViewWithTitle.setText(player.technique)
-            tacticsTextViewWithTitle.setText(player.tactics)
-            qualitiesTextViewWithTitle.setText(player.qualities)
-            mentalTextViewWithTitle.setText(player.mental)
+            heightTextFieldView.set(text: player.height)
+            weightTextFieldView.set(text: player.weight)
+            generalInfoTextViewWithTitle.set(text: player.generalInfo)
+            techniqueTextViewWithTitle.set(text: player.technique)
+            tacticsTextViewWithTitle.set(text: player.tactics)
+            qualitiesTextViewWithTitle.set(text: player.qualities)
+            mentalTextViewWithTitle.set(text: player.mental)
             viewModel.getTransferDetails()
         }
     }
@@ -444,7 +444,7 @@ final class EditorViewController: UIViewController {
         sender.isSelected.toggle()
         if sender.isSelected {
             textFieldStackView.addArrangedSubview(nationalTeamTextFieldView)
-            nationalTeamTextFieldView.setTag(4)
+            nationalTeamTextFieldView.set(tag: 4)
         } else {
             textFieldStackView.removeArrangedSubview(nationalTeamTextFieldView)
             nationalTeamTextFieldView.removeFromSuperview()
@@ -456,13 +456,13 @@ final class EditorViewController: UIViewController {
     }
     
     @objc private func showCareerDetailsButtonTapped() {
-        let careerDetails = ScreenFactory.getCareerDetailsVC()
+        let careerDetails = ScreenFactory.getCareerDetailsViewController()
         present(careerDetails, animated: true)
     }
     
     @objc private func showTransferDetailsButtonTapped() {
-        let transferDetails = ScreenFactory.getTransferDetailsVCWith(
-            delegate: viewModel as TransferDetailsViewControllerDelegate)
+        let transferDetails = ScreenFactory.getTransferDetailsViewController(
+            withDelegate: viewModel as TransferDetailsViewControllerDelegate)
         present(transferDetails, animated: true)
     }
     
@@ -477,9 +477,10 @@ final class EditorViewController: UIViewController {
             let birthDate = birthDateSwitcher.isOn
             ? birthDatePickerView.getDate()
             : nil
-            if let _ = viewModel.getPlayer() {
+            if let player = viewModel.getPlayer() {
                 viewModel.editPlayer(
-                    byFullName: $0[0],
+                    byFullName: player.fullName ?? "",
+                    editedFullName: $0[0],
                     patronymic: patronymicTextFieldView.getInputText(),
                     citizenship: $0[1],
                     club: $0[2],

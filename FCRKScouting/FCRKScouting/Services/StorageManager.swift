@@ -149,7 +149,7 @@ extension StorageManager {
         saveContext()
     }
     
-    func readPlayers(completion: ([Player]) -> Void) {
+    func fetchPlayers(completion: @escaping ([Player]) -> Void) {
         let fetchRequest = Player.fetchRequest()
         if let players = try? viewContext.fetch(fetchRequest) {
             completion(players)
@@ -158,6 +158,7 @@ extension StorageManager {
     
     func updatePlayer(
         withFullName fullName: String,
+        editedFullName: String?,
         photo: Data?,
         patronymic: String?,
         citizenship: String,
@@ -181,13 +182,14 @@ extension StorageManager {
         lastEditor: String,
         updatedDate: Date
     ) {
-        readPlayers {
+        fetchPlayers { [weak self] in
             guard let requiredPlayer = $0.first(where: { player in
                 player.fullName == fullName
             }) else {
                 return
             }
-            requiredPlayer.fullName = fullName
+            guard let self else { return }
+            requiredPlayer.fullName = editedFullName
             requiredPlayer.photo = photo
             requiredPlayer.patronymic = patronymic
             requiredPlayer.citizenship = citizenship
@@ -214,21 +216,15 @@ extension StorageManager {
         }
     }
     
-    func deletePlayerBy(_ fullName: String) {
-        readPlayers {
+    func deletePlayer(byFullName fullName: String) {
+        fetchPlayers { [weak self] in
             guard let requiredPlayer = $0.first(where: { player in
                 player.fullName == fullName
             }) else {
                 return
             }
+            guard let self else { return }
             viewContext.delete(requiredPlayer)
-            saveContext()
-        }
-    }
-    
-    func deletePlayers() {
-        readPlayers {
-            $0.forEach { viewContext.delete($0) }
             saveContext()
         }
     }
