@@ -8,13 +8,9 @@
 import UIKit
 
 final class TipStackView: UIStackView {
-    
-    private let image: UIImage?
-    private let text: String
-    
-    private lazy var imageView: UIImageView = {
+        
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = image
         imageView.tintColor = .lightGray
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.heightAnchor.constraint(equalToConstant: 28).isActive = true
@@ -22,11 +18,11 @@ final class TipStackView: UIStackView {
         return imageView
     }()
     
-    private lazy var titleLabel = DefaultTextLabel(text: text)
+    private let titleLabel = DefaultTextLabel()
 
     init(image: UIImage?, text: String) {
-        self.image = image
-        self.text = text
+        imageView.image = image
+        titleLabel.text = text
         super.init(frame: .zero)
         setupUI()
     }

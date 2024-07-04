@@ -10,7 +10,7 @@ import UIKit
 final class ScoreTextFieldView: UIView {
 
     // MARK: Views
-    private lazy var titleLabel = DefaultTextLabel(text: Constants.Text.score)
+    private let titleLabel = DefaultTextLabel(text: Constants.Text.score)
 
     private let textField: UITextField = {
         let textField = UITextField()

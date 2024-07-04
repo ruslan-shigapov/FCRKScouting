@@ -20,6 +20,10 @@ protocol PlayerViewModelProtocol: UserViewModelProtocol,
     var height: String { get }
     var weight: String { get }
     var generalInfo: String { get }
+    var technique: String { get }
+    var tactics: String { get }
+    var qualities: String { get }
+    var mental: String { get }
     var creator: String { get }
     var lastEditor: String { get }
     func getPlayer() -> Player
@@ -68,10 +72,6 @@ final class PlayerViewModel: PlayerViewModelProtocol {
         "\(player.club ?? "") / \(player.nationalTeam ?? "")"
     }
     
-    var generalInfo: String {
-        player.generalInfo ?? ""
-    }
-    
     var foot: String {
         player.foot ?? ""
     }
@@ -84,6 +84,26 @@ final class PlayerViewModel: PlayerViewModelProtocol {
     var weight: String {
         guard let weight = player.weight, !weight.isEmpty else { return "" }
         return weight + " кг"
+    }
+    
+    var generalInfo: String {
+        player.generalInfo ?? ""
+    }
+    
+    var technique: String {
+        player.technique ?? ""
+    }
+    
+    var tactics: String {
+        player.tactics ?? ""
+    }
+    
+    var qualities: String {
+        player.qualities ?? ""
+    }
+    
+    var mental: String {
+        player.mental ?? ""
     }
     
     var creator: String {

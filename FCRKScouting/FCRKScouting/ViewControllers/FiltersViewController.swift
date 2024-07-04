@@ -9,13 +9,20 @@ import UIKit
 
 final class FiltersViewController: UIViewController {
     
-    private let titleLabel = CustomLabel(
-        font: Constants.Fonts.header,
-        text: Constants.Text.ScreenTitles.filters)
+    private let titleLabel: UILabel = {
+        let label = CustomLabel(
+            font: Constants.Fonts.header,
+            text: Constants.Text.ScreenTitles.filters)
+        label.textAlignment = .center
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.textAlignment = .center
+        setupUI()
+    }
+    
+    private func setupUI() {
         view.backgroundColor = .accent
         view.addSubview(titleLabel)
         view.prepareForAutoLayout()
@@ -27,7 +34,7 @@ final class FiltersViewController: UIViewController {
             titleLabel.topAnchor.constraint(
                 equalTo: view.topAnchor,
                 constant: 24),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 }

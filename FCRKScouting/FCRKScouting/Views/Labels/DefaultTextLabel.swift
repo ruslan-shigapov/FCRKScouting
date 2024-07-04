@@ -9,9 +9,10 @@ import UIKit
 
 final class DefaultTextLabel: UILabel {
     
-    init(text: String? = nil) {
+    init(text: String? = nil, numberOfLines: Int = 1) {
         super.init(frame: .zero)
         self.text = text
+        self.numberOfLines = numberOfLines
         setupUI()
     }
     

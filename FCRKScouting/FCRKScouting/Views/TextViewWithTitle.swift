@@ -9,13 +9,9 @@ import UIKit
 
 final class TextViewWithTitle: UIView {
     
-    // MARK: Private Properties
-    private let title: String
-    
     // MARK: Views
-    private lazy var titleLabel = CustomLabel(
-        font: Constants.Fonts.normal,
-        text: title)
+    private let titleLabel = CustomLabel(
+        font: Constants.Fonts.normal)
 
     private lazy var textView: UITextView = {
         let textView = UITextView()
@@ -35,7 +31,7 @@ final class TextViewWithTitle: UIView {
 
     // MARK: Initialize
     init(_ title: String) {
-        self.title = title
+        titleLabel.text = title
         super.init(frame: .zero)
         setupUI()
     }

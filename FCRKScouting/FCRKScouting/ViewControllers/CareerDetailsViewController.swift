@@ -9,10 +9,15 @@ import UIKit
 
 final class CareerDetailsViewController: UIViewController {
     
-    private let titleLabel = CustomLabel(
-        font: Constants.Fonts.header,
-        text: Constants.Text.ScreenTitles.career,
-        numberOfLines: 2)
+    private let titleLabel: UILabel = {
+        let label = CustomLabel(
+            font: Constants.Fonts.header,
+            text: Constants.Text.ScreenTitles.career,
+            numberOfLines: 2)
+        label.textColor = .systemGreen
+        label.textAlignment = .center
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +25,6 @@ final class CareerDetailsViewController: UIViewController {
     }
     
     private func setupUI() {
-        titleLabel.textColor = .systemGreen
-        titleLabel.textAlignment = .center
         view.backgroundColor = .accent
         view.addSubview(titleLabel)
         view.prepareForAutoLayout()
@@ -38,8 +41,7 @@ final class CareerDetailsViewController: UIViewController {
                 constant: 16),
             titleLabel.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -16),
-            
+                constant: -16)
         ])
     }
 }

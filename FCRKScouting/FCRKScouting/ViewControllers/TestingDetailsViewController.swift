@@ -13,9 +13,14 @@ final class TestingDetailsViewController: UIViewController {
 //    private var delegate: TestingDetailsViewControllerDelegate?
     
     // MARK: Views
-    private let titleLabel = CustomLabel(
-        font: Constants.Fonts.header,
-        text: Constants.Text.testingDetails)
+    private let titleLabel: UILabel = {
+        let label = CustomLabel(
+            font: Constants.Fonts.header,
+            text: Constants.Text.testingDetails)
+        label.textAlignment = .center
+        label.textColor = .systemGreen
+        return label
+    }()
     
     private let normativeLabel = CustomLabel(
         font: Constants.Fonts.normal,
@@ -33,14 +38,10 @@ final class TestingDetailsViewController: UIViewController {
     private let longJumpLabel = DefaultTextLabel(text: Constants.Text.longJump)
     private let highJumpLabel = DefaultTextLabel(text: Constants.Text.highJump)
     
-    private let runningFor15MTextFieldView = DecimalTextFieldView(
-        textFieldType: .time)
-    private let runningFor30MTextFieldView = DecimalTextFieldView(
-        textFieldType: .time)
-    private let longJumpTextFieldView = DecimalTextFieldView(
-        textFieldType: .meters)
-    private let highJumpTextFieldView = DecimalTextFieldView(
-        textFieldType: .meters)
+    private let runningFor15MTextFieldView = DecimalTextFieldView(type: .time)
+    private let runningFor30MTextFieldView = DecimalTextFieldView(type: .time)
+    private let longJumpTextFieldView = DecimalTextFieldView(type: .meters)
+    private let highJumpTextFieldView = DecimalTextFieldView(type: .meters)
     
     private let runningFor15MScoreView = ScoreTextFieldView()
     private let runningFor30MScoreView = ScoreTextFieldView()
@@ -79,13 +80,11 @@ final class TestingDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        configureUI()
     }
     
     // MARK: Private Methods
     private func setupUI() {
-        titleLabel.textAlignment = .center
-        titleLabel.textColor = .systemGreen
-        configureTextFields()
         view.backgroundColor = .accent
         view.setKeyboardDismissTap()
         view.addSubviews(
@@ -112,7 +111,7 @@ final class TestingDetailsViewController: UIViewController {
         setConstraints()
     }
     
-    private func configureTextFields() {
+    private func configureUI() {
 //        guard let testingDetails = delegate?.testingDetails,
 //                                    testingDetails.count == 7 else { return }
 //        heightTextFieldView.set(text: testingDetails[0])
@@ -129,7 +128,6 @@ final class TestingDetailsViewController: UIViewController {
     
     @objc private func saveButtonTapped() {
         view.endEditing(true)
-        
 //        delegate?.testingDetails = 
 //        
 //        let runningDetails = runningTextFieldStackView.subviews.map {

@@ -53,8 +53,8 @@ final class DecimalTextFieldView: UIView {
     private lazy var unitLabel = DefaultTextLabel(text: textFieldType.unit)
     
     // MARK: Initialize
-    init(textFieldType: DecimalTextFieldType) {
-        self.textFieldType = textFieldType
+    init(type: DecimalTextFieldType) {
+        textFieldType = type
         super.init(frame: .zero)
         textField.delegate = self
         setupUI()

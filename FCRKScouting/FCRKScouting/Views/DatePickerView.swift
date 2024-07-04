@@ -21,7 +21,7 @@ enum DatePickerType {
 final class DatePickerView: UIView {
     
     // MARK: Private Properties
-    private let type: DatePickerType
+    private let datePickerType: DatePickerType
     
     // MARK: Views
     private lazy var datePicker: UIDatePicker = {
@@ -30,7 +30,7 @@ final class DatePickerView: UIView {
         datePicker.preferredDatePickerStyle = .compact
         datePicker.tintColor = .systemGreen
         datePicker.isEnabled = false
-        switch type {
+        switch datePickerType {
         case .birth: datePicker.maximumDate = Date()
         case .contract: datePicker.minimumDate = Date()
         case .standard: datePicker.isEnabled = true
@@ -41,14 +41,14 @@ final class DatePickerView: UIView {
     private lazy var placeholderLabel: UILabel = {
         let label = CustomLabel(
             font: Constants.Fonts.text,
-            text: type.placeholder)
-        label.textColor = isDarkInterfaceStyle ? .white : .black
+            text: datePickerType.placeholder)
+        label.textColor = .black
         return label
     }()
 
     // MARK: Initialize
     init(type: DatePickerType) {
-        self.type = type
+        datePickerType = type
         super.init(frame: .zero)
         setupUI()
     }

@@ -13,9 +13,14 @@ final class TransferDetailsViewController: UIViewController {
     private var delegate: TransferDetailsViewControllerDelegate?
         
     // MARK: Views
-    private let titleLabel = CustomLabel(
-        font: Constants.Fonts.header,
-        text: Constants.Text.transferDetails)
+    private let titleLabel: UILabel = {
+        let label = CustomLabel(
+            font: Constants.Fonts.header,
+            text: Constants.Text.transferDetails)
+        label.textAlignment = .center
+        label.textColor = .systemGreen
+        return label
+    }()
     
     private let costLabel = CustomLabel(
         font: Constants.Fonts.normal,
@@ -91,13 +96,11 @@ final class TransferDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        configureUI()
     }
     
     // MARK: Private Methods
     private func setupUI() {
-        titleLabel.textAlignment = .center
-        titleLabel.textColor = .systemGreen
-        configureViews()
         view.backgroundColor = .accent
         view.setKeyboardDismissTap()
         view.addSubviews(
@@ -115,7 +118,7 @@ final class TransferDetailsViewController: UIViewController {
         setConstraints()
     }
     
-    private func configureViews() {
+    private func configureUI() {
         if let prices = delegate?.prices, prices.count == 2 {
             costTextFieldView.setText(prices[0])
             salaryTextFieldView.setText(prices[1])

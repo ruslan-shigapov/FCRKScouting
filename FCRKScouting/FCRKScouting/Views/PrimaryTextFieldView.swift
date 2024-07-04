@@ -60,8 +60,8 @@ final class PrimaryTextFieldView: UIView {
     
     // MARK: Initialize
     init(placeholder: String, type: TextFieldType) {
-        self._placeholder = placeholder
-        self.textFieldType = type
+        _placeholder = placeholder
+        textFieldType = type
         super.init(frame: .zero)
         textField.setupAttributesOfPlaceholder(placeholder)
         setupUI()

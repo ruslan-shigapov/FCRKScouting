@@ -42,7 +42,7 @@ final class EditorViewController: UIViewController {
         let button = UIButton(type: .system)
         button.backgroundColor = .lightGray
         button.titleLabel?.font = Constants.Fonts.text
-        button.tintColor = view.isDarkInterfaceStyle ? .white : .black
+        button.tintColor = .black
         button.setCommonCornerRadius()
         button.setupHighlightAnimation()
         button.addTarget(
@@ -144,15 +144,13 @@ final class EditorViewController: UIViewController {
         font: Constants.Fonts.normal,
         text: Constants.Text.height)
     
-    private let heightTextFieldView = DecimalTextFieldView(
-        textFieldType: .meters)
+    private let heightTextFieldView = DecimalTextFieldView(type: .meters)
     
     private let weightLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.weight)
     
-    private let weightTextFieldView = DecimalTextFieldView(
-        textFieldType: .weight)
+    private let weightTextFieldView = DecimalTextFieldView(type: .weight)
     
     private let pageSliderView = PageSliderView()
     
@@ -296,10 +294,18 @@ final class EditorViewController: UIViewController {
                 photoImageView.image = UIImage(data: photo)
             }
             fullNameTextFieldView.setText(player.fullName)
-            patronymicTextFieldView.setText(player.patronymic)
+            if let patronymic = player.patronymic, !patronymic.isEmpty {
+                togglePatronymicFieldDisplayButtonTapped(
+                    togglePatronymicFieldDisplayButton)
+                patronymicTextFieldView.setText(patronymic)
+            }
             citizenshipTextFieldView.setText(player.citizenship)
             clubTextFieldView.setText(player.club)
-            nationalTeamTextFieldView.setText(player.nationalTeam)
+            if let nationalTeam = player.nationalTeam, !nationalTeam.isEmpty {
+                toggleNationalTeamFieldDisplayButtonTapped(
+                    toggleNationalTeamFieldDisplayButton)
+                nationalTeamTextFieldView.setText(nationalTeam)
+            }
             if let birthDate = player.birthDate {
                 birthDateSwitcher.isOn.toggle()
                 birthDatePickerView.toggleDatePickerEnabled()
@@ -438,6 +444,7 @@ final class EditorViewController: UIViewController {
         sender.isSelected.toggle()
         if sender.isSelected {
             textFieldStackView.addArrangedSubview(nationalTeamTextFieldView)
+            nationalTeamTextFieldView.setTag(4)
         } else {
             textFieldStackView.removeArrangedSubview(nationalTeamTextFieldView)
             nationalTeamTextFieldView.removeFromSuperview()
@@ -550,7 +557,8 @@ private extension EditorViewController {
             photoImageView.trailingAnchor.constraint(
                 equalTo: uploadPhotoButton.leadingAnchor,
                 constant: -24),
-            photoImageView.heightAnchor.constraint(equalTo: photoImageView.widthAnchor),
+            photoImageView.heightAnchor.constraint(
+                equalTo: photoImageView.widthAnchor),
             
             uploadPhotoButton.trailingAnchor.constraint(
                 equalTo: textFieldStackView.trailingAnchor),

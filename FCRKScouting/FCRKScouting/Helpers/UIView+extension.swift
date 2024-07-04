@@ -9,9 +9,9 @@ import UIKit
 
 extension UIView {
     
-    var isDarkInterfaceStyle: Bool {
-        traitCollection.userInterfaceStyle == .dark
-    }
+//    var isDarkInterfaceStyle: Bool {
+//        traitCollection.userInterfaceStyle == .dark
+//    }
     
     func setCommonCornerRadius() {
         layer.cornerRadius = 12

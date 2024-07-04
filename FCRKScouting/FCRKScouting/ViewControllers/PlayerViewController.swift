@@ -13,7 +13,22 @@ final class PlayerViewController: UIViewController {
     private var viewModel: PlayerViewModelProtocol
     private var delegate: PlayerViewControllerDelegate
     
-    // MARK: Navigation Bar Buttons
+    // MARK: Views
+    private lazy var backButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(
+            title: Constants.Text.ButtonTitles.back,
+            style: .plain,
+            target: self,
+            action: #selector(backButtonTapped))
+        button.setTitleTextAttributes(
+            [.font : Constants.Fonts.normal as Any],
+            for: .normal)
+        button.setTitleTextAttributes(
+            [.font : Constants.Fonts.normal as Any],
+            for: .highlighted)
+        return button
+    }()
+ 
     private lazy var editPlayerButton: UIButton = {
         let button = NavigationBarButton(
             image: Constants.Images.ButtonImages.edit)
@@ -33,10 +48,24 @@ final class PlayerViewController: UIViewController {
         return button
     }()
     
-    // MARK: Labels
+    private let photoImageView = PhotoImageView()
+    
     private lazy var fullNameLabel = CustomLabel(
         font: Constants.Fonts.header,
         numberOfLines: 2)
+    
+    private let positionValueLabel = DefaultTextLabel(numberOfLines: 2)
+    
+    private lazy var titleStackView: UIStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews: [
+                fullNameLabel,
+                positionValueLabel
+            ])
+        stackView.axis = .vertical
+        stackView.spacing = 2
+        return stackView
+    }()
     
     private let ageLabel = CustomLabel(
         font: Constants.Fonts.normal,
@@ -56,74 +85,19 @@ final class PlayerViewController: UIViewController {
     private let weightLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.weight)
-    private let generalInfoLabel = CustomLabel(
-        font: Constants.Fonts.normal,
-        text: Constants.Text.TextViewTitles.generalInfo)
     
-    private lazy var patronymicValueLabel: UILabel = {
-        let label = DefaultTextLabel()
-        label.textColor = .white
-        return label
-    }()
-    private lazy var positionValueLabel: UILabel = {
-        let label = DefaultTextLabel()
-        label.numberOfLines = 2
-        return label
-    }()
-    private lazy var ageValueLabel = DefaultTextLabel()
-    private lazy var citizenshipValueLabel = DefaultTextLabel()
-    private lazy var clubAndNationalTeamValueLabel: UILabel = {
-        let label = DefaultTextLabel()
-        label.numberOfLines = 2
-        return label
-    }()
-    private lazy var footValueLabel = DefaultTextLabel()
-    private lazy var heightValueLabel = DefaultTextLabel()
-    private lazy var weightValueLabel = DefaultTextLabel()
-    private lazy var generalInfoValueLabel: UILabel = {
-        let label = DefaultTextLabel()
-        label.numberOfLines = 0
-        return label
-    }()
+    private let ageValueLabel = DefaultTextLabel()
+    private let citizenshipValueLabel = DefaultTextLabel()
+    private let clubAndNationalTeamValueLabel = DefaultTextLabel(
+        numberOfLines: 2)
+    private let footValueLabel = DefaultTextLabel()
+    private let heightValueLabel = DefaultTextLabel()
+    private let weightValueLabel = DefaultTextLabel()
+    
+    private let playerInfoScrollView = PlayerInfoScrollView()
+    
     private lazy var creatorLabel = DefaultTextLabel(text: viewModel.creator)
-    private lazy var lastEditorLabel = DefaultTextLabel()
-
-    // MARK: Buttons
-    private lazy var showStatisticsDetailsButton: UIButton = {
-        let button = PrimaryButton(
-            title: Constants.Text.statisticsDetails,
-            color: .accent)
-        button.addTarget(
-            self,
-            action: #selector(showStatisticsDetailsButtonTapped),
-            for: .touchUpInside)
-        return button
-    }()
-//    private lazy var showTestingDetailsButton: UIButton = {
-//        let button = PrimaryButton(
-//            title: Constants.Text.testingDetails,
-//            color: .accent)
-//        button.addTarget(
-//            self,
-//            action: #selector(showTestingDetailsButtonTapped),
-//            for: .touchUpInside)
-//        return button
-//    }()
-    
-    // MARK: Views
-    private lazy var titleStackView: UIStackView = {
-        let stackView = UIStackView(
-            arrangedSubviews: [
-                fullNameLabel,
-                patronymicValueLabel,
-                positionValueLabel
-            ])
-        stackView.axis = .vertical
-        stackView.spacing = 2
-        return stackView
-    }()
-    
-    private let photoImageView = PhotoImageView()
+    private let lastEditorLabel = DefaultTextLabel()
     
     private lazy var backgroundView: UIView = {
         let view = UIView()
@@ -139,18 +113,15 @@ final class PlayerViewController: UIViewController {
             footLabel,
             heightLabel,
             weightLabel,
-//            generalInfoLabel,
             ageValueLabel,
             citizenshipValueLabel,
             clubAndNationalTeamValueLabel,
             footValueLabel,
             heightValueLabel,
             weightValueLabel,
-//            generalInfoValueLabel,
+            playerInfoScrollView,
             creatorLabel,
-            lastEditorLabel,
-            showStatisticsDetailsButton)
-//            showTestingDetailsButton)
+            lastEditorLabel)
         view.prepareForAutoLayout()
         return view
     }()
@@ -174,6 +145,7 @@ final class PlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        configureUI()
         handlePlayerEditing()
     }
     
@@ -184,7 +156,6 @@ final class PlayerViewController: UIViewController {
         view.addSubview(backgroundView)
         view.prepareForAutoLayout()
         setConstraints()
-        configureUI()
     }
     
     private func configureUI() {
@@ -194,7 +165,6 @@ final class PlayerViewController: UIViewController {
             photoImageView.image = Constants.Images.photoPlaceholder
         }
         fullNameLabel.text = viewModel.fullName
-        patronymicValueLabel.text = viewModel.patronymic
         positionValueLabel.text = viewModel.position
         ageValueLabel.text = viewModel.age
         citizenshipValueLabel.text = viewModel.citizenship
@@ -202,12 +172,13 @@ final class PlayerViewController: UIViewController {
         footValueLabel.text = viewModel.foot
         heightValueLabel.text = viewModel.height
         weightValueLabel.text = viewModel.weight
-        generalInfoValueLabel.text = viewModel.generalInfo
+        playerInfoScrollView.configure(
+            withGeneralInfoValue: viewModel.generalInfo,
+            techniqueValue: viewModel.technique,
+            tacticsValue: viewModel.tactics,
+            qualitiesValue: viewModel.qualities,
+            mentalValue: viewModel.mental)
         lastEditorLabel.text = viewModel.lastEditor
-        // добавить всю ост инфу, попытаться вместить
-        // подумать над кнопками, которые детальные, как реализовать переходы
-        // сюда же, придумать, как добавить футбольную вертикаль
-        // разобраться со сменой имени
     }
     
     private func handlePlayerEditing() {
@@ -219,17 +190,6 @@ final class PlayerViewController: UIViewController {
     
     private func setupNavigationBar() {
         navigationController?.navigationBar.tintColor = .white
-        let backButton = UIBarButtonItem(
-            title: Constants.Text.ButtonTitles.back,
-            style: .plain,
-            target: self,
-            action: #selector(backButtonTapped))
-        backButton.setTitleTextAttributes(
-            [.font : Constants.Fonts.normal as Any],
-            for: .normal)
-        backButton.setTitleTextAttributes(
-            [.font : Constants.Fonts.normal as Any],
-            for: .highlighted)
         navigationItem.leftBarButtonItem = backButton
         if viewModel.isEditingAllowed {
             navigationItem.rightBarButtonItems = [
@@ -239,7 +199,6 @@ final class PlayerViewController: UIViewController {
         }
     }
     
-    // MARK: Selectors
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
         delegate.backButtonWasTapped?()
@@ -264,13 +223,6 @@ final class PlayerViewController: UIViewController {
         }
         present(alertController, animated: true)
     }
-    
-    @objc private func showStatisticsDetailsButtonTapped() {}
-    
-//    @objc private func showTestingDetailsButtonTapped() {
-//        let testingDetailsVC = ScreenFactory.getTestingDetailsVC()
-//        present(testingDetailsVC, animated: true)
-//    }
 }
 
 // MARK: - Layout
@@ -390,54 +342,30 @@ private extension PlayerViewController {
                 equalTo: weightLabel.centerYAnchor,
                 constant: -2),
             
-//            generalInfoLabel.leadingAnchor.constraint(
-//                equalTo: backgroundView.leadingAnchor,
-//                constant: 24),
-//            generalInfoLabel.topAnchor.constraint(
-//                equalTo: footLabel.bottomAnchor,
-//                constant: 32),
-            
-//            generalInfoValueLabel.leadingAnchor.constraint(
-//                equalTo: backgroundView.leadingAnchor,
-//                constant: 24),
-//            generalInfoValueLabel.trailingAnchor.constraint(
-//                equalTo: backgroundView.trailingAnchor,
-//                constant: -24),
-//            generalInfoValueLabel.topAnchor.constraint(
-//                equalTo: generalInfoLabel.bottomAnchor,
-//                constant: 4),
+            playerInfoScrollView.leadingAnchor.constraint(
+                equalTo: backgroundView.leadingAnchor,
+                constant: 18),
+            playerInfoScrollView.topAnchor.constraint(
+                equalTo: heightLabel.bottomAnchor,
+                constant: 16),
+            playerInfoScrollView.trailingAnchor.constraint(
+                equalTo: backgroundView.trailingAnchor,
+                constant: -18),
+            playerInfoScrollView.bottomAnchor.constraint(
+                equalTo: creatorLabel.topAnchor,
+                constant: -16),
             
             lastEditorLabel.centerXAnchor.constraint(
                 equalTo: backgroundView.centerXAnchor),
             lastEditorLabel.bottomAnchor.constraint(
-                equalTo: showStatisticsDetailsButton.topAnchor,
-                constant: -16),
+                equalTo: backgroundView.bottomAnchor,
+                constant: -24),
             
             creatorLabel.centerXAnchor.constraint(
                 equalTo: backgroundView.centerXAnchor),
             creatorLabel.bottomAnchor.constraint(
                 equalTo: lastEditorLabel.topAnchor,
-                constant: -4),
-            
-            showStatisticsDetailsButton.leadingAnchor.constraint(
-                equalTo: backgroundView.leadingAnchor,
-                constant: 24),
-            showStatisticsDetailsButton.bottomAnchor.constraint(
-                equalTo: backgroundView.bottomAnchor,
-                constant: -16),
-            showStatisticsDetailsButton.trailingAnchor.constraint(
-                equalTo: backgroundView.trailingAnchor,
-                constant: -24),
-            
-//            showTestingDetailsButton.leadingAnchor.constraint(
-//                equalTo: backgroundView.leadingAnchor,
-//                constant: 24),
-//            showTestingDetailsButton.bottomAnchor.constraint(
-//                equalTo: backgroundView.bottomAnchor,
-//                constant: -24),
-//            showTestingDetailsButton.trailingAnchor.constraint(
-//                equalTo: backgroundView.trailingAnchor,
-//                constant: -24),
+                constant: -4)
         ])
     }
 }
