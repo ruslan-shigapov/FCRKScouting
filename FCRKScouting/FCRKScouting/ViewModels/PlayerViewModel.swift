@@ -12,7 +12,8 @@ protocol PlayerViewModelProtocol: UserViewModelProtocol,
     var patronymic: String { get }
     func deletePlayer()
     func getPlayer() -> Player
-    func getMainPlayerCardViewModel() -> MainPlayerCardViewModelProtocol
+    func getPlayerMainCardViewModel() -> PlayerMainCardViewModelProtocol
+    func getPlayerExtraCardViewModel() -> PlayerExtraCardViewModelProtocol
 }
         
 final class PlayerViewModel: PlayerViewModelProtocol {
@@ -38,7 +39,11 @@ final class PlayerViewModel: PlayerViewModelProtocol {
         player
     }
     
-    func getMainPlayerCardViewModel() -> MainPlayerCardViewModelProtocol {
-        MainPlayerCardViewModel(player: player)
+    func getPlayerMainCardViewModel() -> PlayerMainCardViewModelProtocol {
+        PlayerMainCardViewModel(player: player)
+    }
+    
+    func getPlayerExtraCardViewModel() -> PlayerExtraCardViewModelProtocol {
+        PlayerExtraCardViewModel(player: player)
     }
 }

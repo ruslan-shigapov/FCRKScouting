@@ -14,6 +14,7 @@ protocol TransferDetailsViewControllerDelegate {
 }
 
 protocol TestingDetailsViewControllerDelegate {
+    var testingDate: Date? { get set }
     var results: [String?] { get set }
     var scores: [String?] { get set }
     var summary: String? { get set }
@@ -73,7 +74,7 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol,
 }
 
 final class EditorViewModel: EditorViewModelProtocol {
-            
+                
     private let player: Player?
 
     var prices: [String?] = []
@@ -81,6 +82,8 @@ final class EditorViewModel: EditorViewModelProtocol {
     var contractDate: Date?
     
     var agentInfo: [String?] = []
+    
+    var testingDate: Date?
     
     var results: [String?] = []
     
@@ -164,6 +167,7 @@ final class EditorViewModel: EditorViewModelProtocol {
             contractDate: contractDate,
             agentName: agentInfo.count == 2 ? agentInfo[0] : nil,
             agentContacts: agentInfo.count == 2 ? agentInfo[1] : nil,
+            testingDate: testingDate,
             runningFor15MResult: results.count == 4 ? results[0] : nil,
             runningFor30MResult: results.count == 4 ? results[1] : nil,
             longJumpResult: results.count == 4 ? results[2] : nil,
@@ -220,6 +224,7 @@ final class EditorViewModel: EditorViewModelProtocol {
     
     func getTestingDetails() {
         guard let player else { return }
+        testingDate = player.testingDate
         results = [
             player.runningFor15MResult,
             player.runningFor30MResult,
@@ -282,6 +287,7 @@ final class EditorViewModel: EditorViewModelProtocol {
             contractDate: contractDate,
             agentName: agentInfo.count == 2 ? agentInfo[0] : nil,
             agentContacts: agentInfo.count == 2 ? agentInfo[1] : nil,
+            testingDate: testingDate,
             runningFor15MResult: results.count == 4 ? results[0] : nil,
             runningFor30MResult: results.count == 4 ? results[1] : nil,
             longJumpResult: results.count == 4 ? results[2] : nil,

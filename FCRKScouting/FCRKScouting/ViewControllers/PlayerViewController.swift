@@ -50,7 +50,7 @@ final class PlayerViewController: UIViewController {
     
     private lazy var playerMainCard: PlayerMainCard = {
         let playerCard = PlayerMainCard()
-        playerCard.viewModel = viewModel.getMainPlayerCardViewModel()
+        playerCard.viewModel = viewModel.getPlayerMainCardViewModel()
         return playerCard
     }()
     private lazy var playerCareerCard: PlayerCareerCard = {
@@ -59,6 +59,7 @@ final class PlayerViewController: UIViewController {
     }()
     private lazy var playerExtraCard: PlayerExtraCard = {
         let playerCard = PlayerExtraCard()
+        playerCard.viewModel = viewModel.getPlayerExtraCardViewModel()
         return playerCard
     }()
     
@@ -105,7 +106,8 @@ final class PlayerViewController: UIViewController {
     private func handlePlayerEditing() {
         viewModel.playersWereChanged = { [weak self] in
             guard let self else { return }
-            playerMainCard.viewModel = viewModel.getMainPlayerCardViewModel()
+            playerMainCard.viewModel = viewModel.getPlayerMainCardViewModel()
+            playerExtraCard.viewModel = viewModel.getPlayerExtraCardViewModel()
         }
     }
     

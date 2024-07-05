@@ -52,7 +52,8 @@ enum Constants {
         static let transferDetails = "Трансферные детали"
         static let testingDetails = "Тестирование"
         static let statisticsDetails = "Статистика"
-        static let notSpecified = "Не указана"
+        static let notSpecified1 = "Не указана"
+        static let notSpecified2 = "Не указано"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
 
@@ -68,6 +69,8 @@ enum Constants {
             static let age = "Возраст:"
             static let citizenship = "Гражданство:"
             static let clubAndNationalTeam = "Клуб/сборная:"
+            static let agent = "Агент:"
+            static let contacts = "Контакты:"
             static let date = "Дата:"
             static let normative = "Нормативы:"
             static let runningFor15M = "Бег на 15м"
@@ -76,6 +79,7 @@ enum Constants {
             static let highJump = "Прыжок в высоту"
             static let score = "оценка:"
             static let summary = "Выводы:"
+            static let actualTest = "Результаты тестирования:"
             static let access = "Доступ:"
         }
         enum Descriptions {
@@ -125,6 +129,7 @@ enum Constants {
             static let addPlayer = "Добавить игрока"
             static let editPlayer = "Редактировать игрока"
             static let career = "Движение по футбольной вертикали"
+            static let extraInfo = "Дополнительная информация"
             static let search = "Поиск"
             static let filters = "Дополнительные фильтры"
             static let profile = "Профиль"

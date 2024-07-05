@@ -62,7 +62,7 @@ final class PriceTextFieldView: UIView {
     
     func getInputText() -> String {
         guard let text = textField.text else { return "" }
-        return text
+        return text.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
 

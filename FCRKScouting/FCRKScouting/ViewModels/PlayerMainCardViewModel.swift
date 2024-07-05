@@ -1,5 +1,5 @@
 //
-//  MainPlayerCardViewModel.swift
+//  PlayerMainCardViewModel.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 05.07.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol MainPlayerCardViewModelProtocol {
+protocol PlayerMainCardViewModelProtocol {
     var photo: UIImage? { get }
     var fullName: String { get }
     var position: String { get }
@@ -26,7 +26,7 @@ protocol MainPlayerCardViewModelProtocol {
     var lastEdition: String { get }
 }
 
-final class MainPlayerCardViewModel: MainPlayerCardViewModelProtocol {
+final class PlayerMainCardViewModel: PlayerMainCardViewModelProtocol {
     
     private let player: Player
     

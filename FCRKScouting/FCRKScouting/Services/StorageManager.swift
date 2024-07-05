@@ -117,6 +117,7 @@ extension StorageManager {
         contractDate: Date?,
         agentName: String?,
         agentContacts: String?,
+        testingDate: Date?,
         runningFor15MResult: String?,
         runningFor30MResult: String?,
         longJumpResult: String?,
@@ -152,6 +153,7 @@ extension StorageManager {
         player.contractDate = contractDate
         player.agentName = agentName
         player.agentContacts = agentContacts
+        player.testingDate = testingDate
         player.runningFor15MResult = runningFor15MResult
         player.runningFor30MResult = runningFor30MResult
         player.longJumpResult = longJumpResult
@@ -197,6 +199,7 @@ extension StorageManager {
         contractDate: Date?,
         agentName: String?,
         agentContacts: String?,
+        testingDate: Date?,
         runningFor15MResult: String?,
         runningFor30MResult: String?,
         longJumpResult: String?,
@@ -237,6 +240,7 @@ extension StorageManager {
             requiredPlayer.contractDate = contractDate
             requiredPlayer.agentName = agentName
             requiredPlayer.agentContacts = agentContacts
+            requiredPlayer.testingDate = testingDate
             requiredPlayer.runningFor15MResult = runningFor15MResult
             requiredPlayer.runningFor30MResult = runningFor30MResult
             requiredPlayer.longJumpResult = longJumpResult

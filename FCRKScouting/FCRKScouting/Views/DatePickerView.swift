@@ -12,8 +12,8 @@ enum DatePickerType {
     
     var placeholder: String {
         switch self {
-        case .birth, .standard: "Не указана"
-        case .contract: "Не указано"
+        case .birth, .standard: Constants.Text.notSpecified1
+        case .contract:Constants.Text.notSpecified2
         }
     }
 }
@@ -33,7 +33,9 @@ final class DatePickerView: UIView {
         switch datePickerType {
         case .birth: datePicker.maximumDate = Date()
         case .contract: datePicker.minimumDate = Date()
-        case .standard: datePicker.isEnabled = true
+        case .standard: 
+            datePicker.maximumDate = Date()
+            datePicker.isEnabled = true
         }
         return datePicker
     }()

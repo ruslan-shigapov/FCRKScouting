@@ -114,6 +114,9 @@ final class TestingDetailsViewController: UIViewController {
     }
     
     private func configureUI() {
+        if let testingDate = delegate?.testingDate {
+            testingDatePickerView.set(date: testingDate)
+        }
         if let results = delegate?.results, results.count == 4 {
             runningFor15MTextFieldView.set(text: results[0])
             runningFor30MTextFieldView.set(text: results[1])
@@ -131,6 +134,7 @@ final class TestingDetailsViewController: UIViewController {
     
     @objc private func saveButtonTapped() {
         view.endEditing(true)
+        delegate?.testingDate = testingDatePickerView.getDate()
         delegate?.results = [
             runningFor15MTextFieldView.getInputText(),
             runningFor30MTextFieldView.getInputText(),

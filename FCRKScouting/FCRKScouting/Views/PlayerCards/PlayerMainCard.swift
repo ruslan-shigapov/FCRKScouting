@@ -20,7 +20,11 @@ final class PlayerMainCard: UIView {
         return label
     }()
     
-    private let positionValueLabel = DefaultTextLabel(numberOfLines: 2)
+    private let positionValueLabel: DefaultTextLabel = {
+        let label = DefaultTextLabel(numberOfLines: 2)
+        label.textAlignment = .center
+        return label
+    }()
     
     private lazy var titleStackView: UIStackView = {
         let stackView = UIStackView(
@@ -30,7 +34,6 @@ final class PlayerMainCard: UIView {
             ])
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.spacing = 2
         return stackView
     }()
     
@@ -102,7 +105,7 @@ final class PlayerMainCard: UIView {
     }()
     
     // MARK: Public Properties
-    var viewModel: MainPlayerCardViewModelProtocol? {
+    var viewModel: PlayerMainCardViewModelProtocol? {
         didSet {
             if let photo = viewModel?.photo {
                 photoImageView.image = photo
@@ -179,6 +182,9 @@ private extension PlayerMainCard {
                 constant: -16),
             titleStackView.centerYAnchor.constraint(
                 equalTo: photoImageView.centerYAnchor),
+            titleStackView.heightAnchor.constraint(
+                equalTo: photoImageView.heightAnchor,
+                constant: -32),
             
             ageLabel.topAnchor.constraint(
                 equalTo: photoImageView.bottomAnchor,
@@ -200,7 +206,8 @@ private extension PlayerMainCard {
             clubAndNationalTeamLabel.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,
                 constant: 24),
-            clubAndNationalTeamLabel.widthAnchor.constraint(equalToConstant: 135),
+            clubAndNationalTeamLabel.widthAnchor.constraint(
+                equalToConstant: 135),
             
             footLabel.topAnchor.constraint(
                 equalTo: clubAndNationalTeamLabel.bottomAnchor,
@@ -226,13 +233,13 @@ private extension PlayerMainCard {
                 equalTo: clubAndNationalTeamValueLabel.leadingAnchor),
             ageValueLabel.centerYAnchor.constraint(
                 equalTo: ageLabel.centerYAnchor,
-                constant: -1),
+                constant: -2),
             
             citizenshipValueLabel.leadingAnchor.constraint(
                 equalTo: clubAndNationalTeamValueLabel.leadingAnchor),
             citizenshipValueLabel.centerYAnchor.constraint(
                 equalTo: citizenshipLabel.centerYAnchor,
-                constant: -1),
+                constant: -2),
             
             clubAndNationalTeamValueLabel.leadingAnchor.constraint(
                 equalTo: clubAndNationalTeamLabel.trailingAnchor,
@@ -242,27 +249,27 @@ private extension PlayerMainCard {
                 constant: -16),
             clubAndNationalTeamValueLabel.centerYAnchor.constraint(
                 equalTo: clubAndNationalTeamLabel.centerYAnchor,
-                constant: -1),
+                constant: -2),
             
             footValueLabel.leadingAnchor.constraint(
                 equalTo: clubAndNationalTeamValueLabel.leadingAnchor),
             footValueLabel.centerYAnchor.constraint(
                 equalTo: footLabel.centerYAnchor,
-                constant: -1),
+                constant: -2),
             
             heightValueLabel.leadingAnchor.constraint(
                 equalTo: heightLabel.trailingAnchor,
                 constant: 16),
             heightValueLabel.centerYAnchor.constraint(
                 equalTo: heightLabel.centerYAnchor,
-                constant: -1),
+                constant: -2),
             
             weightValueLabel.leadingAnchor.constraint(
                 equalTo: weightLabel.trailingAnchor,
                 constant: 16),
             weightValueLabel.centerYAnchor.constraint(
                 equalTo: weightLabel.centerYAnchor,
-                constant: -1),
+                constant: -2),
             
             playerInfoScrollView.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,
