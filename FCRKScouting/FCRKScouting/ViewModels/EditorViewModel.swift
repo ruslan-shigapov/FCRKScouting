@@ -13,8 +13,15 @@ protocol TransferDetailsViewControllerDelegate {
     var agentInfo: [String?] { get set }
 }
 
+protocol TestingDetailsViewControllerDelegate {
+    var results: [String?] { get set }
+    var scores: [String?] { get set }
+    var summary: String? { get set }
+}
+
 protocol EditorViewModelProtocol: TextFieldValidationProtocol,     
-                                  TransferDetailsViewControllerDelegate {
+                                  TransferDetailsViewControllerDelegate,
+                                  TestingDetailsViewControllerDelegate {
     var wasPositionNotSelected: (() -> Void)? { get set }
     var wasImageChanged: (() -> Void)? { get set }
     var title: String { get }
@@ -43,6 +50,7 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol,
     func getPickerRowBy(title: String?) -> Int?
     func getSegmentIndexBy(title: String?) -> Int?
     func getTransferDetails()
+    func getTestingDetails()
     func editPlayer(
         byFullName fullName: String,
         editedFullName: String?,
@@ -73,6 +81,12 @@ final class EditorViewModel: EditorViewModelProtocol {
     var contractDate: Date?
     
     var agentInfo: [String?] = []
+    
+    var results: [String?] = []
+    
+    var scores: [String?] = []
+    
+    var summary: String?
             
     var wereRequiredTextFieldsEmpty: (() -> Void)?
     var wasFullNameIncorrect: (() -> Void)?
@@ -150,6 +164,15 @@ final class EditorViewModel: EditorViewModelProtocol {
             contractDate: contractDate,
             agentName: agentInfo.count == 2 ? agentInfo[0] : nil,
             agentContacts: agentInfo.count == 2 ? agentInfo[1] : nil,
+            runningFor15MResult: results.count == 4 ? results[0] : nil,
+            runningFor30MResult: results.count == 4 ? results[1] : nil,
+            longJumpResult: results.count == 4 ? results[2] : nil,
+            highJumpResult: results.count == 4 ? results[3] : nil,
+            runningFor15MScore: scores.count == 4 ? scores[0] : nil,
+            runningFor30MScore: scores.count == 4 ? scores[1] : nil,
+            longJumpScore: scores.count == 4 ? scores[2] : nil,
+            highJumpScore: scores.count == 4 ? scores[3] : nil,
+            summary: summary,
             lastEditor: currentUser?.fullName ?? "",
             updatedDate: Date(),
             creator: currentUser?.fullName ?? "")
@@ -193,6 +216,23 @@ final class EditorViewModel: EditorViewModelProtocol {
         prices = [ player.cost, player.salary ]
         contractDate = player.contractDate
         agentInfo = [ player.agentName, player.agentContacts ]
+    }
+    
+    func getTestingDetails() {
+        guard let player else { return }
+        results = [
+            player.runningFor15MResult,
+            player.runningFor30MResult,
+            player.longJumpResult,
+            player.highJumpResult
+        ]
+        scores = [
+            player.runningFor15MScore,
+            player.runningFor30MScore,
+            player.longJumpScore,
+            player.highJumpScore
+        ]
+        summary = player.summary
     }
     
     func editPlayer(
@@ -242,6 +282,15 @@ final class EditorViewModel: EditorViewModelProtocol {
             contractDate: contractDate,
             agentName: agentInfo.count == 2 ? agentInfo[0] : nil,
             agentContacts: agentInfo.count == 2 ? agentInfo[1] : nil,
+            runningFor15MResult: results.count == 4 ? results[0] : nil,
+            runningFor30MResult: results.count == 4 ? results[1] : nil,
+            longJumpResult: results.count == 4 ? results[2] : nil,
+            highJumpResult: results.count == 4 ? results[3] : nil,
+            runningFor15MScore: scores.count == 4 ? scores[0] : nil,
+            runningFor30MScore: scores.count == 4 ? scores[1] : nil,
+            longJumpScore: scores.count == 4 ? scores[2] : nil,
+            highJumpScore: scores.count == 4 ? scores[3] : nil,
+            summary: summary,
             lastEditor: currentUser?.fullName ?? "",
             updatedDate: Date())
         completion()

@@ -170,16 +170,6 @@ final class EditorViewController: UIViewController {
         text: Constants.Text.Descriptions.pageSlider,
         numberOfLines: 2)
     
-    private lazy var showCareerDetailsButton: PrimaryButton = {
-        let button = PrimaryButton(
-            title: Constants.Text.ButtonTitles.career,
-            color: .accent)
-        button.addTarget(
-            self,
-            action: #selector(showCareerDetailsButtonTapped),
-            for: .touchUpInside)
-        return button
-    }()
     private lazy var showTransferDetailsButton: PrimaryButton = {
         let button = PrimaryButton(
             title: Constants.Text.transferDetails,
@@ -187,6 +177,16 @@ final class EditorViewController: UIViewController {
         button.addTarget(
             self,
             action: #selector(showTransferDetailsButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    private lazy var showTestingDetailsButton: PrimaryButton = {
+        let button = PrimaryButton(
+            title: Constants.Text.testingDetails,
+            color: .accent)
+        button.addTarget(
+            self,
+            action: #selector(showTestingDetailsButtonTapped),
             for: .touchUpInside)
         return button
     }()
@@ -228,7 +228,7 @@ final class EditorViewController: UIViewController {
             weightTextFieldView,
             pageSliderView,
             pageSliderViewDescription,
-            showCareerDetailsButton,
+            showTestingDetailsButton,
             showTransferDetailsButton)
         scrollView.prepareForAutoLayout()
         return scrollView
@@ -326,6 +326,7 @@ final class EditorViewController: UIViewController {
             qualitiesTextViewWithTitle.set(text: player.qualities)
             mentalTextViewWithTitle.set(text: player.mental)
             viewModel.getTransferDetails()
+            viewModel.getTestingDetails()
         }
     }
     
@@ -455,15 +456,16 @@ final class EditorViewController: UIViewController {
         birthDatePickerView.toggleDatePickerEnabled()
     }
     
-    @objc private func showCareerDetailsButtonTapped() {
-        let careerDetails = ScreenFactory.getCareerDetailsViewController()
-        present(careerDetails, animated: true)
-    }
-    
     @objc private func showTransferDetailsButtonTapped() {
         let transferDetails = ScreenFactory.getTransferDetailsViewController(
             withDelegate: viewModel as TransferDetailsViewControllerDelegate)
         present(transferDetails, animated: true)
+    }
+    
+    @objc private func showTestingDetailsButtonTapped() {
+        let careerDetails = ScreenFactory.getTestingDetailsViewController(
+            withDelegate: viewModel as TestingDetailsViewControllerDelegate)
+        present(careerDetails, animated: true)
     }
     
     @objc private func saveButtonTapped() {
@@ -689,27 +691,27 @@ private extension EditorViewController {
                 constant: 5),
             pageSliderViewDescription.trailingAnchor.constraint(
                 equalTo: pageSliderView.trailingAnchor,
-                constant: -5),
-            
-            showCareerDetailsButton.topAnchor.constraint(
-                equalTo: pageSliderViewDescription.bottomAnchor,
-                constant: 24),
-            showCareerDetailsButton.leadingAnchor.constraint(
-                equalTo: scrollView.leadingAnchor,
-                constant: 16),
-            showCareerDetailsButton.trailingAnchor.constraint(
-                equalTo: textFieldStackView.trailingAnchor),
+                constant: -20),
             
             showTransferDetailsButton.topAnchor.constraint(
-                equalTo: showCareerDetailsButton.bottomAnchor,
-                constant: 16),
+                equalTo: pageSliderViewDescription.bottomAnchor,
+                constant: 24),
             showTransferDetailsButton.leadingAnchor.constraint(
                 equalTo: scrollView.leadingAnchor,
                 constant: 16),
-            showTransferDetailsButton.bottomAnchor.constraint(
+            showTransferDetailsButton.trailingAnchor.constraint(
+                equalTo: textFieldStackView.trailingAnchor),
+            
+            showTestingDetailsButton.topAnchor.constraint(
+                equalTo: showTransferDetailsButton.bottomAnchor,
+                constant: 16),
+            showTestingDetailsButton.leadingAnchor.constraint(
+                equalTo: scrollView.leadingAnchor,
+                constant: 16),
+            showTestingDetailsButton.bottomAnchor.constraint(
                 equalTo: scrollView.bottomAnchor,
                 constant: -24),
-            showTransferDetailsButton.trailingAnchor.constraint(
+            showTestingDetailsButton.trailingAnchor.constraint(
                 equalTo: textFieldStackView.trailingAnchor),
             
             dividerView.topAnchor.constraint(

@@ -117,6 +117,15 @@ extension StorageManager {
         contractDate: Date?,
         agentName: String?,
         agentContacts: String?,
+        runningFor15MResult: String?,
+        runningFor30MResult: String?,
+        longJumpResult: String?,
+        highJumpResult: String?,
+        runningFor15MScore: String?,
+        runningFor30MScore: String?,
+        longJumpScore: String?,
+        highJumpScore: String?,
+        summary: String?,
         lastEditor: String,
         updatedDate: Date,
         creator: String
@@ -143,6 +152,15 @@ extension StorageManager {
         player.contractDate = contractDate
         player.agentName = agentName
         player.agentContacts = agentContacts
+        player.runningFor15MResult = runningFor15MResult
+        player.runningFor30MResult = runningFor30MResult
+        player.longJumpResult = longJumpResult
+        player.highJumpResult = highJumpResult
+        player.runningFor15MScore = runningFor15MScore
+        player.runningFor30MScore = runningFor30MScore
+        player.longJumpScore = longJumpScore
+        player.highJumpScore = highJumpScore
+        player.summary = summary
         player.lastEditor = lastEditor
         player.updatedDate = updatedDate
         player.creator = creator
@@ -179,6 +197,15 @@ extension StorageManager {
         contractDate: Date?,
         agentName: String?,
         agentContacts: String?,
+        runningFor15MResult: String?,
+        runningFor30MResult: String?,
+        longJumpResult: String?,
+        highJumpResult: String?,
+        runningFor15MScore: String?,
+        runningFor30MScore: String?,
+        longJumpScore: String?,
+        highJumpScore: String?,
+        summary: String?,
         lastEditor: String,
         updatedDate: Date
     ) {
@@ -210,6 +237,15 @@ extension StorageManager {
             requiredPlayer.contractDate = contractDate
             requiredPlayer.agentName = agentName
             requiredPlayer.agentContacts = agentContacts
+            requiredPlayer.runningFor15MResult = runningFor15MResult
+            requiredPlayer.runningFor30MResult = runningFor30MResult
+            requiredPlayer.longJumpResult = longJumpResult
+            requiredPlayer.highJumpResult = highJumpResult
+            requiredPlayer.runningFor15MScore = runningFor15MScore
+            requiredPlayer.runningFor30MScore = runningFor30MScore
+            requiredPlayer.longJumpScore = longJumpScore
+            requiredPlayer.highJumpScore = highJumpScore
+            requiredPlayer.summary = summary
             requiredPlayer.lastEditor = lastEditor
             requiredPlayer.updatedDate = updatedDate
             saveContext()

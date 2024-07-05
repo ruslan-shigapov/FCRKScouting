@@ -50,8 +50,8 @@ enum Constants {
     enum Text {
         static let appName = "FCRK Scouting"
         static let transferDetails = "Трансферные детали"
-        static let statisticsDetails = "Статистика"
         static let testingDetails = "Тестирование"
+        static let statisticsDetails = "Статистика"
         static let notSpecified = "Не указана"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
@@ -110,7 +110,6 @@ enum Constants {
             static let editPhoto = "Изменить фото"
             static let choosePhoto = "Выбрать из библиотеки"
             static let deletePhoto = "Убрать фото"
-            static let career = "Движение по фут. вертикали"
             static let save = "Сохранить"
             static let back = "Назад"
             static let no = "Нет"

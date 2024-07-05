@@ -12,9 +12,13 @@ final class PlayerMainCard: UIView {
     // MARK: Views
     private let photoImageView = PhotoImageView()
     
-    private lazy var fullNameLabel = CustomLabel(
-        font: Constants.Fonts.header,
-        numberOfLines: 2)
+    private lazy var fullNameLabel = {
+        let label = CustomLabel(
+            font: Constants.Fonts.header,
+            numberOfLines: 2)
+        label.textAlignment = .center
+        return label
+    }()
     
     private let positionValueLabel = DefaultTextLabel(numberOfLines: 2)
     
@@ -25,6 +29,7 @@ final class PlayerMainCard: UIView {
                 positionValueLabel
             ])
         stackView.axis = .vertical
+        stackView.alignment = .center
         stackView.spacing = 2
         return stackView
     }()
@@ -162,13 +167,13 @@ private extension PlayerMainCard {
                 equalTo: backgroundView.leadingAnchor,
                 constant: 24),
             photoImageView.heightAnchor.constraint(
-                equalToConstant: UIScreen.main.bounds.height * 0.17),
+                equalToConstant: UIScreen.main.bounds.height * 0.15),
             photoImageView.widthAnchor.constraint(
                 equalTo: photoImageView.heightAnchor),
             
             titleStackView.leadingAnchor.constraint(
                 equalTo: photoImageView.trailingAnchor,
-                constant: 28),
+                constant: 16),
             titleStackView.trailingAnchor.constraint(
                 equalTo: backgroundView.trailingAnchor,
                 constant: -16),
@@ -195,6 +200,7 @@ private extension PlayerMainCard {
             clubAndNationalTeamLabel.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,
                 constant: 24),
+            clubAndNationalTeamLabel.widthAnchor.constraint(equalToConstant: 135),
             
             footLabel.topAnchor.constraint(
                 equalTo: clubAndNationalTeamLabel.bottomAnchor,
@@ -214,30 +220,32 @@ private extension PlayerMainCard {
                 equalTo: footLabel.bottomAnchor,
                 constant: 16),
             weightLabel.leadingAnchor.constraint(
-                equalTo: fullNameLabel.leadingAnchor),
+                equalTo: clubAndNationalTeamValueLabel.leadingAnchor),
             
             ageValueLabel.leadingAnchor.constraint(
-                equalTo: fullNameLabel.leadingAnchor),
+                equalTo: clubAndNationalTeamValueLabel.leadingAnchor),
             ageValueLabel.centerYAnchor.constraint(
                 equalTo: ageLabel.centerYAnchor,
                 constant: -1),
             
             citizenshipValueLabel.leadingAnchor.constraint(
-                equalTo: fullNameLabel.leadingAnchor),
+                equalTo: clubAndNationalTeamValueLabel.leadingAnchor),
             citizenshipValueLabel.centerYAnchor.constraint(
                 equalTo: citizenshipLabel.centerYAnchor,
                 constant: -1),
             
             clubAndNationalTeamValueLabel.leadingAnchor.constraint(
-                equalTo: fullNameLabel.leadingAnchor),
+                equalTo: clubAndNationalTeamLabel.trailingAnchor,
+                constant: 16),
             clubAndNationalTeamValueLabel.trailingAnchor.constraint(
-                equalTo: fullNameLabel.trailingAnchor),
+                equalTo: backgroundView.trailingAnchor,
+                constant: -16),
             clubAndNationalTeamValueLabel.centerYAnchor.constraint(
                 equalTo: clubAndNationalTeamLabel.centerYAnchor,
                 constant: -1),
             
             footValueLabel.leadingAnchor.constraint(
-                equalTo: fullNameLabel.leadingAnchor),
+                equalTo: clubAndNationalTeamValueLabel.leadingAnchor),
             footValueLabel.centerYAnchor.constraint(
                 equalTo: footLabel.centerYAnchor,
                 constant: -1),
@@ -285,7 +293,7 @@ private extension PlayerMainCard {
                 equalTo: backgroundView.centerXAnchor),
             pageControl.bottomAnchor.constraint(
                 equalTo: backgroundView.bottomAnchor,
-                constant: -12),
+                constant: -12)
         ])
     }
 }

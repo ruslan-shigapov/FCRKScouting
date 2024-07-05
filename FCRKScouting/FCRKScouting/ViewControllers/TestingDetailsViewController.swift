@@ -10,7 +10,7 @@ import UIKit
 final class TestingDetailsViewController: UIViewController {
     
     // MARK: Private Properties
-//    private var delegate: TestingDetailsViewControllerDelegate?
+    private var delegate: TestingDetailsViewControllerDelegate?
     
     // MARK: Views
     private let titleLabel: CustomLabel = {
@@ -22,12 +22,12 @@ final class TestingDetailsViewController: UIViewController {
         return label
     }()
     
-    private let normativeLabel = CustomLabel(
-        font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.normative)
     private let dateLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.Titles.date)
+    private let normativeLabel = CustomLabel(
+        font: Constants.Fonts.normal,
+        text: Constants.Text.Titles.normative)
     
     private let testingDatePickerView = DatePickerView(type: .standard)
     
@@ -68,15 +68,15 @@ final class TestingDetailsViewController: UIViewController {
     }()
     
     // MARK: Initialize
-//    init(delegate: TestingDetailsViewControllerDelegate?) {
-//        self.delegate = delegate
-//        super.init(nibName: nil, bundle: nil)
-//    }
+    init(delegate: TestingDetailsViewControllerDelegate?) {
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
     
-//    @available(*, unavailable)
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -114,34 +114,36 @@ final class TestingDetailsViewController: UIViewController {
     }
     
     private func configureUI() {
-//        guard let testingDetails = delegate?.testingDetails,
-//                                    testingDetails.count == 7 else { return }
-//        heightTextFieldView.set(text: testingDetails[0])
-//        weightTextFieldView.set(text: testingDetails[1])
-//        let runningDetails = Array(testingDetails[2...4])
-//        for (index, view) in runningTextFieldStackView.subviews.enumerated() {
-//            if let textFieldView = view as? DecimalTextFieldView {
-//                textFieldView.set(text: runningDetails[index])
-//            }
-//        }
-//        longJumpTextFieldView.set(text: testingDetails[5])
-//        highJumpTextFieldView.set(text: testingDetails[6])
+        if let results = delegate?.results, results.count == 4 {
+            runningFor15MTextFieldView.set(text: results[0])
+            runningFor30MTextFieldView.set(text: results[1])
+            longJumpTextFieldView.set(text: results[2])
+            highJumpTextFieldView.set(text: results[3])
+        }
+        if let scores = delegate?.scores, scores.count == 4 {
+            runningFor15MScoreView.set(text: scores[0])
+            runningFor30MScoreView.set(text: scores[1])
+            longJumpScoreView.set(text: scores[2])
+            highJumpScoreView.set(text: scores[3])
+        }
+        summaryTextViewWithTitle.set(text: delegate?.summary)
     }
     
     @objc private func saveButtonTapped() {
         view.endEditing(true)
-//        delegate?.testingDetails = 
-//        
-//        let runningDetails = runningTextFieldStackView.subviews.map {
-//            ($0 as? DecimalTextFieldView)?.getInputText()
-//        }
-//        delegate?.testingDetails = [
-//            heightTextFieldView.getInputText(),
-//            weightTextFieldView.getInputText()
-//        ] + runningDetails + [
-//            longJumpTextFieldView.getInputText(),
-//            highJumpTextFieldView.getInputText()
-//        ]
+        delegate?.results = [
+            runningFor15MTextFieldView.getInputText(),
+            runningFor30MTextFieldView.getInputText(),
+            longJumpTextFieldView.getInputText(),
+            highJumpTextFieldView.getInputText()
+        ]
+        delegate?.scores = [
+            runningFor15MScoreView.getInputText(),
+            runningFor30MScoreView.getInputText(),
+            longJumpScoreView.getInputText(),
+            highJumpScoreView.getInputText()
+        ]
+        delegate?.summary = summaryTextViewWithTitle.getInputText()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
             guard let self else { return }
             dismiss(animated: true)

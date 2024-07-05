@@ -56,7 +56,7 @@ final class ScoreTextFieldView: UIView {
     }
     
     // MARK: Public Methods
-    func setText(_ text: String?) {
+    func set(text: String?) {
         textField.text = text
     }
     

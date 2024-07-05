@@ -103,9 +103,9 @@ final class PlayerViewController: UIViewController {
     }
     
     private func handlePlayerEditing() {
-        viewModel.playersWereChanged = { /*[weak self] in*/
-//            guard let self else { return }
-//            configureUI() TODO: Send by delegate
+        viewModel.playersWereChanged = { [weak self] in
+            guard let self else { return }
+            playerMainCard.viewModel = viewModel.getMainPlayerCardViewModel()
         }
     }
     

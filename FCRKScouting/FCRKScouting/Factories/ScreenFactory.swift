@@ -66,14 +66,16 @@ struct ScreenFactory {
         return viewController
     }
     
-    static func getCareerDetailsViewController() -> UIViewController {
-        CareerDetailsViewController()
-    }
-    
     static func getTransferDetailsViewController(
         withDelegate delegate: TransferDetailsViewControllerDelegate
     ) -> UIViewController {
         TransferDetailsViewController(delegate: delegate)
+    }
+    
+    static func getTestingDetailsViewController(
+        withDelegate delegate: TestingDetailsViewControllerDelegate
+    ) -> UIViewController {
+        TestingDetailsViewController(delegate: delegate)
     }
     
     static func getPlayerViewController(
@@ -84,8 +86,8 @@ struct ScreenFactory {
         return PlayerViewController(viewModel: viewModel, delegate: delegate)
     }
     
-    static func getTestingDetailsViewController() -> UIViewController {
-        TestingDetailsViewController()
+    static func getCareerDetailsViewController() -> UIViewController {
+        CareerDetailsViewController()
     }
     
     static func getFiltersViewController() -> UIViewController {

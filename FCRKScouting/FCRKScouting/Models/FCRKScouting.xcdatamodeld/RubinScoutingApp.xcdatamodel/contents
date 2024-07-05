@@ -13,32 +13,28 @@
         <attribute name="fullName" optional="YES" attributeType="String"/>
         <attribute name="generalInfo" optional="YES" attributeType="String"/>
         <attribute name="height" optional="YES" attributeType="String"/>
+        <attribute name="highJumpResult" optional="YES" attributeType="String"/>
+        <attribute name="highJumpScore" optional="YES" attributeType="String"/>
         <attribute name="lastEditor" optional="YES" attributeType="String"/>
+        <attribute name="longJumpResult" optional="YES" attributeType="String"/>
+        <attribute name="longJumpScore" optional="YES" attributeType="String"/>
         <attribute name="mental" optional="YES" attributeType="String"/>
         <attribute name="nationalTeam" optional="YES" attributeType="String"/>
         <attribute name="patronymic" optional="YES" attributeType="String"/>
         <attribute name="photo" optional="YES" attributeType="Binary"/>
         <attribute name="position" optional="YES" attributeType="String"/>
         <attribute name="qualities" optional="YES" attributeType="String"/>
-        <attribute name="salary" optional="YES" attributeType="String"/>
-        <attribute name="tactics" optional="YES" attributeType="String"/>
-        <attribute name="technique" optional="YES" attributeType="String"/>
-        <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="weight" optional="YES" attributeType="String"/>
-        <relationship name="tests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Test" inverseName="player" inverseEntity="Test"/>
-    </entity>
-    <entity name="Test" representedClassName="Test" syncable="YES" codeGenerationType="class">
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="highJumpResult" optional="YES" attributeType="String"/>
-        <attribute name="highJumpScore" optional="YES" attributeType="String"/>
-        <attribute name="longJumpResult" optional="YES" attributeType="String"/>
-        <attribute name="longJumpScore" optional="YES" attributeType="String"/>
         <attribute name="runningFor15MResult" optional="YES" attributeType="String"/>
         <attribute name="runningFor15MScore" optional="YES" attributeType="String"/>
         <attribute name="runningFor30MResult" optional="YES" attributeType="String"/>
         <attribute name="runningFor30MScore" optional="YES" attributeType="String"/>
+        <attribute name="salary" optional="YES" attributeType="String"/>
         <attribute name="summary" optional="YES" attributeType="String"/>
-        <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="tests" inverseEntity="Player"/>
+        <attribute name="tactics" optional="YES" attributeType="String"/>
+        <attribute name="technique" optional="YES" attributeType="String"/>
+        <attribute name="testingDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="weight" optional="YES" attributeType="String"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="appleID" optional="YES" attributeType="String"/>
