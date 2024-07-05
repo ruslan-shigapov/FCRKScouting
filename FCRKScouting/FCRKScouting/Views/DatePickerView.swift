@@ -38,7 +38,7 @@ final class DatePickerView: UIView {
         return datePicker
     }()
     
-    private lazy var placeholderLabel: UILabel = {
+    private lazy var placeholderLabel: CustomLabel = {
         let label = CustomLabel(
             font: Constants.Fonts.text,
             text: datePickerType.placeholder)
@@ -61,7 +61,7 @@ final class DatePickerView: UIView {
     // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
-        setCommonShadow()
+        setupShadow()
     }
     
     // MARK: Private Methods
@@ -72,7 +72,7 @@ final class DatePickerView: UIView {
         addSubviews(datePicker, placeholderLabel)
         prepareForAutoLayout()
         setConstraints()
-        setCommonCornerRadius()
+        setupCornerRadius()
     }
     
     private func toggleSubviewInFront() {

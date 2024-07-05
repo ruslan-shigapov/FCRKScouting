@@ -20,7 +20,7 @@ final class PriceTextFieldView: UIView {
         textField.rightView = UIView(
             frame: CGRectMake(0, 0, 10, textField.frame.height))
         textField.rightViewMode = .always
-        textField.setCommonCornerRadius()
+        textField.setupCornerRadius()
         return textField
     }()
     
@@ -41,14 +41,14 @@ final class PriceTextFieldView: UIView {
     // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
-        textField.setCommonShadow()
+        textField.setupShadow()
     }
     
     // MARK: Private Methods 
     private func setupUI() {
         textField.placeholder = "0"
         if let placeholder = textField.placeholder {
-            textField.setupAttributesOfPlaceholder(placeholder)
+            textField.setupAttributes(ofPlaceholder: placeholder)
         }
         addSubviews(textField, currencyLabel)
         setConstraints()

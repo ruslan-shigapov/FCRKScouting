@@ -13,7 +13,7 @@ final class TransferDetailsViewController: UIViewController {
     private var delegate: TransferDetailsViewControllerDelegate?
         
     // MARK: Views
-    private let titleLabel: UILabel = {
+    private let titleLabel: CustomLabel = {
         let label = CustomLabel(
             font: Constants.Fonts.header,
             text: Constants.Text.transferDetails)
@@ -24,15 +24,15 @@ final class TransferDetailsViewController: UIViewController {
     
     private let costLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.cost,
+        text: Constants.Text.Titles.cost,
         numberOfLines: 2)
     private let salaryLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.salary,
+        text: Constants.Text.Titles.salary,
         numberOfLines: 2)
     private let contractLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.contract,
+        text: Constants.Text.Titles.contract,
         numberOfLines: 2)
     
     private let costTextFieldView = PriceTextFieldView()
@@ -71,7 +71,7 @@ final class TransferDetailsViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var saveButton: UIButton = {
+    private lazy var saveButton: PrimaryButton = {
         let button = PrimaryButton(
             title: Constants.Text.ButtonTitles.save)
         button.addTarget(

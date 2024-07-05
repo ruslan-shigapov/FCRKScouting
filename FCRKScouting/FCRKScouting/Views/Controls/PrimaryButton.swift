@@ -23,12 +23,12 @@ final class PrimaryButton: UIButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setCommonShadow()
+        setupShadow()
     }
     
     private func setupUI() {
         titleLabel?.font = Constants.Fonts.normal
-        setCommonCornerRadius()
+        setupCornerRadius()
         setupHighlightAnimation()
         heightAnchor.constraint(equalToConstant: 48).isActive = true
     }

@@ -25,7 +25,7 @@ final class TextViewWithTitle: UIView {
             left: 5,
             bottom: 10,
             right: 5)
-        textView.setCommonCornerRadius()
+        textView.setupCornerRadius()
         return textView
     }()
 

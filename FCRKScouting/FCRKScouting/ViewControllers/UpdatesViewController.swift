@@ -19,7 +19,7 @@ final class UpdatesViewController: UIViewController {
         viewModel: viewModel)
     
     // MARK: Views
-    private lazy var refreshButton: UIButton = {
+    private lazy var refreshButton: NavigationBarButton = {
         let button = NavigationBarButton(
             image: Constants.Images.ButtonImages.refresh)
         button.addTarget(
@@ -28,7 +28,7 @@ final class UpdatesViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
-    private lazy var addPlayerButton: UIButton = {
+    private lazy var addPlayerButton: NavigationBarButton = {
         let button = NavigationBarButton(
             image: Constants.Images.ButtonImages.add)
         button.addTarget(
@@ -38,7 +38,7 @@ final class UpdatesViewController: UIViewController {
         return button
     }()
     
-    private lazy var intervalSegmentedControl: UISegmentedControl = {
+    private lazy var intervalSegmentedControl: GraySegmentedControl = {
         let segmentedControl = GraySegmentedControl(
             items: Constants.Text.SegmentedControlItems.periodSegments)
         segmentedControl.addTarget(
@@ -56,7 +56,7 @@ final class UpdatesViewController: UIViewController {
         return view
     }()
     
-    private lazy var playerCollectionView: UICollectionView = {
+    private lazy var playerCollectionView: PlayerCollectionView = {
         let collectionView = PlayerCollectionView()
         collectionView.delegate = collectionViewDelegate
         collectionView.dataSource = collectionViewDataSource
@@ -100,7 +100,7 @@ final class UpdatesViewController: UIViewController {
     // MARK: Private Methods 
     private func setupUI() {
         addNavigationBarButtons()
-        view.setupCommonGradientLayer()
+        view.setupGradientLayer()
         view.addSubviews(
             segmentedControlBackgroundView,
             playerCollectionView,

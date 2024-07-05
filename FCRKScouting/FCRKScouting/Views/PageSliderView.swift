@@ -18,13 +18,7 @@ final class PageSliderView: UIView {
         return scrollView
     }()
     
-    private let pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        pageControl.isEnabled = false
-        pageControl.currentPageIndicatorTintColor = .white
-        pageControl.pageIndicatorTintColor = .black.withAlphaComponent(0.7)
-        return pageControl
-    }()
+    private let pageControl = DisabledPageControl()
     
     private lazy var pageControlBackgroundView: UIView = {
         let view = UIView()
@@ -66,8 +60,7 @@ final class PageSliderView: UIView {
                 x: frame.width * CGFloat(index),
                 y: 0,
                 width: frame.width,
-                height: frame.height
-            )
+                height: frame.height)
             scrollView.addSubview(page)
         }
     }

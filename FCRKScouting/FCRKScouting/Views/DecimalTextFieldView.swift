@@ -46,7 +46,7 @@ final class DecimalTextFieldView: UIView {
         textField.leftView = UIView(
             frame: CGRectMake(0, 0, 6, textField.frame.height))
         textField.leftViewMode = .always
-        textField.setCommonCornerRadius()
+        textField.setupCornerRadius()
         return textField
     }()
     
@@ -68,14 +68,14 @@ final class DecimalTextFieldView: UIView {
     // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
-        textField.setCommonShadow()
+        textField.setupShadow()
     }
         
     // MARK: Private Methods
     private func setupUI() {
         textField.placeholder = textFieldType.placeholder
         if let placeholder = textField.placeholder {
-            textField.setupAttributesOfPlaceholder(placeholder)
+            textField.setupAttributes(ofPlaceholder: placeholder)
         }
         addSubviews(textField, unitLabel)
         setConstraints()

@@ -30,7 +30,7 @@ final class NavigationButton: UIButton {
     private func setupUI() {
         backgroundColor = .accent
         titleLabel?.font = Constants.Fonts.normal
-        setCommonCornerRadius()
+        setupCornerRadius()
         addSubview(arrowImageView)
         prepareForAutoLayout()
         setConstraints()

@@ -64,7 +64,7 @@ final class LoginViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        appleSignInButton.setCommonShadow()
+        appleSignInButton.setupShadow()
     }
     
     // MARK: Private Methods

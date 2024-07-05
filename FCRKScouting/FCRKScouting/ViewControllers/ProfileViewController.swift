@@ -13,7 +13,7 @@ final class ProfileViewController: UIViewController {
     private var viewModel: ProfileViewModelProtocol
         
     // MARK: Views
-    private lazy var editButton: UIButton = {
+    private lazy var editButton: NavigationBarButton = {
         let button = NavigationBarButton(
             image: Constants.Images.ButtonImages.edit)
         button.addTarget(
@@ -25,7 +25,7 @@ final class ProfileViewController: UIViewController {
     
     private let logoImageView = UIImageView(image: Constants.Images.logo)
 
-    private lazy var fullNameLabel: UILabel = {
+    private lazy var fullNameLabel: CustomLabel = {
         let label = CustomLabel(
             font: Constants.Fonts.header,
             text: viewModel.profileFullName,
@@ -37,22 +37,24 @@ final class ProfileViewController: UIViewController {
     private lazy var topBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .accent
-        view.setCommonCornerRadius()
+        view.setupCornerRadius()
         view.addSubviews(logoImageView, fullNameLabel)
         view.prepareForAutoLayout()
         return view
     }()
     
-    private lazy var viewingPlanNavigationButton: UIButton = {
-        let button = NavigationButton(title: Constants.Text.viewingPlan)
+    private lazy var viewingPlanNavigationButton: NavigationButton = {
+        let button = NavigationButton(
+            title: Constants.Text.ButtonTitles.viewingPlan)
         button.addTarget(
             self,
             action: #selector(viewingPlanNavigationButtonTapped),
             for: .touchUpInside)
         return button
     }()
-    private lazy var allReportsNavigationButton: UIButton = {
-        let button = NavigationButton(title: Constants.Text.allReports)
+    private lazy var allReportsNavigationButton: NavigationButton = {
+        let button = NavigationButton(
+            title: Constants.Text.ButtonTitles.allReports)
         button.addTarget(
             self,
             action: #selector(allReportsNavigationButtonTapped),
@@ -62,11 +64,11 @@ final class ProfileViewController: UIViewController {
     
     private let accessLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.access)
+        text: Constants.Text.Titles.access)
     
     private lazy var accessValueLabel = DefaultTextLabel(text: viewModel.access)
     
-    private lazy var logoutButton: UIButton = {
+    private lazy var logoutButton: PrimaryButton = {
         let button = PrimaryButton(title: Constants.Text.ButtonTitles.exit)
         button.addTarget(
             self,
@@ -78,7 +80,7 @@ final class ProfileViewController: UIViewController {
     private lazy var bottomBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .accent
-        view.setCommonCornerRadius()
+        view.setupCornerRadius()
         view.addSubviews(accessLabel, accessValueLabel, logoutButton)
         view.prepareForAutoLayout()
         return view
@@ -105,7 +107,7 @@ final class ProfileViewController: UIViewController {
     // MARK: Private Methods
     private func setupUI() {
         addNavigationBarButtons()
-        view.setupCommonGradientLayer()
+        view.setupGradientLayer()
         view.addSubviews(
             topBackgroundView,
             viewingPlanNavigationButton,

@@ -63,7 +63,7 @@ final class PrimaryTextFieldView: UIView {
         _placeholder = placeholder
         textFieldType = type
         super.init(frame: .zero)
-        textField.setupAttributesOfPlaceholder(placeholder)
+        textField.setupAttributes(ofPlaceholder: placeholder)
         setupUI()
     }
     
@@ -75,7 +75,7 @@ final class PrimaryTextFieldView: UIView {
     // MARK: Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
-        setCommonShadow()
+        setupShadow()
         if let text = textField.text, !text.isEmpty {
             addFloatingLabel()
         }
@@ -84,7 +84,7 @@ final class PrimaryTextFieldView: UIView {
     // MARK: Private Methods
     private func setupUI() {
         backgroundColor = .white
-        setCommonCornerRadius()
+        setupCornerRadius()
         addSubview(containerStackView)
         prepareForAutoLayout()
         setConstraints()

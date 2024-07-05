@@ -13,10 +13,8 @@ final class SearchTipsView: UIView {
     private let isFullSet: Bool
     
     // MARK: Views
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = Constants.Fonts.text
-        label.text = Constants.Text.Tips.title
+    private let titleLabel: DefaultTextLabel = {
+        let label = DefaultTextLabel(text: Constants.Text.Tips.title)
         label.textColor = .white
         return label
     }()

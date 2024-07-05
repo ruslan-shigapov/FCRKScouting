@@ -49,37 +49,35 @@ enum Constants {
     // MARK: Text
     enum Text {
         static let appName = "FCRK Scouting"
-        static let birthDate = "Дата рождения:"
-        static let position = "Позиция:"
-        static let foot = "Рабочая нога:"
-        static let height = "Рост:"
-        static let weight = "Вес:"
-        
         static let transferDetails = "Трансферные детали"
         static let statisticsDetails = "Статистика"
         static let testingDetails = "Тестирование"
-        
-        static let age = "Возраст:"
-        static let citizenship = "Гражданство:"
-        static let clubAndNationalTeam = "Клуб/сборная:"
-        static let cost = "Стоимость перехода:"
-        static let salary = "Зарплата игрока:"
-        static let contract = "Окончание контракта:"
-        static let date = "Дата:"
-        static let normative = "Нормативы:"
-        static let runningFor15M = "Бег на 15м"
-        static let runningFor30M = "Бег на 30м"
-        static let longJump = "Прыжок с места"
-        static let highJump = "Прыжок в высоту"
-        static let score = "оценка:"
-        static let summary = "Выводы:"
-        static let viewingPlan = "План просмотра"
-        static let allReports = "Все отчёты"
         static let notSpecified = "Не указана"
-        static let access = "Доступ:"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
 
+        enum Titles {
+            static let birthDate = "Дата рождения:"
+            static let position = "Позиция:"
+            static let foot = "Рабочая нога:"
+            static let height = "Рост:"
+            static let weight = "Вес:"
+            static let cost = "Стоимость перехода:"
+            static let salary = "Зарплата игрока:"
+            static let contract = "Окончание контракта:"
+            static let age = "Возраст:"
+            static let citizenship = "Гражданство:"
+            static let clubAndNationalTeam = "Клуб/сборная:"
+            static let date = "Дата:"
+            static let normative = "Нормативы:"
+            static let runningFor15M = "Бег на 15м"
+            static let runningFor30M = "Бег на 30м"
+            static let longJump = "Прыжок с места"
+            static let highJump = "Прыжок в высоту"
+            static let score = "оценка:"
+            static let summary = "Выводы:"
+            static let access = "Доступ:"
+        }
         enum Descriptions {
             static let access = """
             Доступ предоставляется исключительно сотрудникам системы ФК \"Рубин\" Казань
@@ -104,31 +102,33 @@ enum Constants {
             static let startTyping = "Начните вводить"
         }
         enum ButtonTitles {
-            static let exit = "Выйти"
             static let ok = "OK"
-            static let yes = "Да"
-            static let no = "Нет"
-            static let back = "Назад"
+            static let cancel = "Отменить"
+            static let continueAdding = "Продолжить добавление"
+            static let continueEditing = "Продолжить редактирование"
             static let uploadPhoto = "Загрузить фото"
             static let editPhoto = "Изменить фото"
             static let choosePhoto = "Выбрать из библиотеки"
             static let deletePhoto = "Убрать фото"
             static let career = "Движение по фут. вертикали"
-            static let continueAdding = "Продолжить добавление"
-            static let continueEditing = "Продолжить редактирование"
-            static let cancel = "Отменить"
             static let save = "Сохранить"
+            static let back = "Назад"
+            static let no = "Нет"
+            static let yes = "Да"
+            static let exit = "Выйти"
+            static let viewingPlan = "План просмотра"
+            static let allReports = "Все отчёты"
         }
         enum ScreenTitles {
             static let greeting = "Добро пожаловать!"
             static let form = "Личные данные"
             static let updates = "Обновления"
-            static let search = "Поиск"
-            static let profile = "Профиль"
             static let addPlayer = "Добавить игрока"
             static let editPlayer = "Редактировать игрока"
             static let career = "Движение по футбольной вертикали"
+            static let search = "Поиск"
             static let filters = "Дополнительные фильтры"
+            static let profile = "Профиль"
         }
         enum Tips {
             static let title = "Справка:"
@@ -181,7 +181,6 @@ enum Constants {
             static let cancelEditing = """
             Вы уверены, что хотите отменить редактирование этого игрока?
             """
-            static let uploadPhoto = "" 
         }
         enum SegmentedControlItems {
             static let periodSegments = ["сегодня", "за неделю", "за месяц"]

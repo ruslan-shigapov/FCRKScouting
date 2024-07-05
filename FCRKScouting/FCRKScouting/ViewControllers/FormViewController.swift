@@ -14,7 +14,7 @@ final class FormViewController: UIViewController {
     private var delegate: FormViewControllerDelegate?
         
     // MARK: Views
-    private lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: CustomLabel = {
         let labelText = delegate == nil
         ? Constants.Text.ScreenTitles.greeting
         : Constants.Text.ScreenTitles.form
@@ -29,7 +29,7 @@ final class FormViewController: UIViewController {
         placeholder: Constants.Text.Placeholders.fullName,
         type: .name)
     
-    private lazy var saveButton: UIButton = {
+    private lazy var saveButton: PrimaryButton = {
         let button = PrimaryButton(
             title: Constants.Text.ButtonTitles.save)
         button.addTarget(

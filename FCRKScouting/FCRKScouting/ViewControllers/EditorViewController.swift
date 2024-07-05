@@ -26,7 +26,7 @@ final class EditorViewController: UIViewController {
         font: Constants.Fonts.header,
         text: viewModel.title)
     
-    private lazy var closeButton: UIButton = {
+    private lazy var closeButton: NavigationBarButton = {
         let button = NavigationBarButton(
             image: Constants.Images.ButtonImages.close)
         button.addTarget(
@@ -43,7 +43,7 @@ final class EditorViewController: UIViewController {
         button.backgroundColor = .lightGray
         button.titleLabel?.font = Constants.Fonts.text
         button.tintColor = .black
-        button.setCommonCornerRadius()
+        button.setupCornerRadius()
         button.setupHighlightAnimation()
         button.addTarget(
             self,
@@ -104,7 +104,7 @@ final class EditorViewController: UIViewController {
     
     private let birthDateLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.birthDate,
+        text: Constants.Text.Titles.birthDate,
         numberOfLines: 2)
     
     private let birthDatePickerView = DatePickerView(type: .birth)
@@ -122,12 +122,12 @@ final class EditorViewController: UIViewController {
     
     private let positionLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.position)
+        text: Constants.Text.Titles.position)
     
     private lazy var positionPickerView: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.backgroundColor = .white
-        pickerView.setCommonCornerRadius()
+        pickerView.setupCornerRadius()
         pickerView.delegate = pickerViewDelegate
         pickerView.dataSource = pickerViewDataSource
         return pickerView
@@ -135,20 +135,20 @@ final class EditorViewController: UIViewController {
     
     private let footLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.foot)
+        text: Constants.Text.Titles.foot)
     
     private let footSegmentedControl = GraySegmentedControl(
         items: Constants.Text.SegmentedControlItems.footSegments)
     
     private let heightLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.height)
+        text: Constants.Text.Titles.height)
     
     private let heightTextFieldView = DecimalTextFieldView(type: .meters)
     
     private let weightLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.weight)
+        text: Constants.Text.Titles.weight)
     
     private let weightTextFieldView = DecimalTextFieldView(type: .weight)
     
@@ -170,7 +170,7 @@ final class EditorViewController: UIViewController {
         text: Constants.Text.Descriptions.pageSlider,
         numberOfLines: 2)
     
-    private lazy var showCareerDetailsButton: UIButton = {
+    private lazy var showCareerDetailsButton: PrimaryButton = {
         let button = PrimaryButton(
             title: Constants.Text.ButtonTitles.career,
             color: .accent)
@@ -180,7 +180,7 @@ final class EditorViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
-    private lazy var showTransferDetailsButton: UIButton = {
+    private lazy var showTransferDetailsButton: PrimaryButton = {
         let button = PrimaryButton(
             title: Constants.Text.transferDetails,
             color: .accent)
@@ -197,7 +197,7 @@ final class EditorViewController: UIViewController {
         return view
     }()
     
-    private lazy var saveButton: UIButton = {
+    private lazy var saveButton: PrimaryButton = {
         let button = PrimaryButton(title: Constants.Text.ButtonTitles.save)
         button.addTarget(
             self,
@@ -260,9 +260,9 @@ final class EditorViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateUploadButtonTitle()
-        uploadPhotoButton.setCommonShadow()
-        positionPickerView.setCommonShadow()
-        footSegmentedControl.setCommonShadow()
+        uploadPhotoButton.setupShadow()
+        positionPickerView.setupShadow()
+        footSegmentedControl.setupShadow()
         pageSliderView.configure(
             withPages: [
                 generalInfoTextViewWithTitle,

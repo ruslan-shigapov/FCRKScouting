@@ -14,7 +14,7 @@ final class PhotoImageView: UIImageView {
             if image == Constants.Images.photoPlaceholder {
                 layer.borderWidth = 0
             } else {
-                setCommonBorder()
+                setupBorder()
             }
         }
     }

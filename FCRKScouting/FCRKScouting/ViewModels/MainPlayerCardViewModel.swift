@@ -1,17 +1,15 @@
 //
-//  PlayerViewModel.swift
+//  MainPlayerCardViewModel.swift
 //  FCRKScouting
 //
-//  Created by Ruslan Shigapov on 20.06.2024.
+//  Created by Ruslan Shigapov on 05.07.2024.
 //
 
 import UIKit
 
-protocol PlayerViewModelProtocol: UserViewModelProtocol,
-                                  EditorViewControllerDelegate {
+protocol MainPlayerCardViewModelProtocol {
     var photo: UIImage? { get }
     var fullName: String { get }
-    var patronymic: String { get }
     var position: String { get }
     var age: String { get }
     var citizenship: String { get }
@@ -26,12 +24,9 @@ protocol PlayerViewModelProtocol: UserViewModelProtocol,
     var mental: String { get }
     var creator: String { get }
     var lastEdition: String { get }
-    func deletePlayer()
-    func getPlayer() -> Player
-    func getMainPlayerCardViewModel() -> MainPlayerCardViewModelProtocol
 }
-        
-final class PlayerViewModel: PlayerViewModelProtocol {
+
+final class MainPlayerCardViewModel: MainPlayerCardViewModelProtocol {
     
     private let player: Player
     
@@ -41,8 +36,6 @@ final class PlayerViewModel: PlayerViewModelProtocol {
         return formatter
     }()
     
-    var playersWereChanged: (() -> Void)?
-    
     var photo: UIImage? {
         guard let photo = player.photo else { return nil }
         return UIImage(data: photo)
@@ -50,10 +43,6 @@ final class PlayerViewModel: PlayerViewModelProtocol {
     
     var fullName: String {
         player.fullName?.replacingOccurrences(of: " ", with: "\n") ?? ""
-    }
-    
-    var patronymic: String {
-        player.patronymic ?? ""
     }
     
     var position: String {
@@ -122,7 +111,7 @@ final class PlayerViewModel: PlayerViewModelProtocol {
     var lastEdition: String {
         guard let lastEditor = player.lastEditor else { return "" }
         guard let updatedDate = player.updatedDate else { return "" }
-        let abbreviatedName = abbreviateNameIn(fullName: lastEditor)
+        let abbreviatedName = abbreviate(fullName: lastEditor)
         let formattedUpdatedDate = dateFormatter.string(from: updatedDate)
         let lastEdition = abbreviatedName + " (\(formattedUpdatedDate))"
         return "Правки внес: \(lastEdition)"
@@ -132,23 +121,10 @@ final class PlayerViewModel: PlayerViewModelProtocol {
         self.player = player
     }
     
-    private func abbreviateNameIn(fullName: String) -> String {
+    private func abbreviate(fullName: String) -> String {
         let components = fullName.components(separatedBy: " ")
         guard let abbreviatedName = fullName.first,
               let lastName = components.last else { return "" }
         return String(abbreviatedName) + ". " + lastName
-    }
-    
-    func deletePlayer() {
-        guard let fullName = player.fullName else { return }
-        StorageManager.shared.deletePlayer(byFullName: fullName)
-    }
-    
-    func getPlayer() -> Player {
-        player
-    }
-    
-    func getMainPlayerCardViewModel() -> MainPlayerCardViewModelProtocol {
-        MainPlayerCardViewModel(player: player)
     }
 }

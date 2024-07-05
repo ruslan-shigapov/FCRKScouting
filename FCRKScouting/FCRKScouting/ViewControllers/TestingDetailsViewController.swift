@@ -13,7 +13,7 @@ final class TestingDetailsViewController: UIViewController {
 //    private var delegate: TestingDetailsViewControllerDelegate?
     
     // MARK: Views
-    private let titleLabel: UILabel = {
+    private let titleLabel: CustomLabel = {
         let label = CustomLabel(
             font: Constants.Fonts.header,
             text: Constants.Text.testingDetails)
@@ -24,19 +24,21 @@ final class TestingDetailsViewController: UIViewController {
     
     private let normativeLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.normative)
+        text: Constants.Text.Titles.normative)
     private let dateLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.date)
+        text: Constants.Text.Titles.date)
     
     private let testingDatePickerView = DatePickerView(type: .standard)
     
     private let runningFor15MLabel = DefaultTextLabel(
-        text: Constants.Text.runningFor15M)
+        text: Constants.Text.Titles.runningFor15M)
     private let runningFor30MLabel = DefaultTextLabel(
-        text: Constants.Text.runningFor30M)
-    private let longJumpLabel = DefaultTextLabel(text: Constants.Text.longJump)
-    private let highJumpLabel = DefaultTextLabel(text: Constants.Text.highJump)
+        text: Constants.Text.Titles.runningFor30M)
+    private let longJumpLabel = DefaultTextLabel(
+        text: Constants.Text.Titles.longJump)
+    private let highJumpLabel = DefaultTextLabel(
+        text: Constants.Text.Titles.highJump)
     
     private let runningFor15MTextFieldView = DecimalTextFieldView(type: .time)
     private let runningFor30MTextFieldView = DecimalTextFieldView(type: .time)
@@ -53,9 +55,9 @@ final class TestingDetailsViewController: UIViewController {
         text: Constants.Text.Descriptions.forGoalkeepers)
     
     private let summaryTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.summary)
+        Constants.Text.Titles.summary)
     
-    private lazy var saveButton: UIButton = {
+    private lazy var saveButton: PrimaryButton = {
         let button = PrimaryButton(
             title: Constants.Text.ButtonTitles.save)
         button.addTarget(

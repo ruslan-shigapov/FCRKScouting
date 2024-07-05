@@ -9,7 +9,7 @@ import UIKit
 
 extension UITextField {
     
-    func setupAttributesOfPlaceholder(_ placeholder: String) {
+    func setupAttributes(ofPlaceholder placeholder: String) {
         attributedPlaceholder = NSAttributedString(
             string: placeholder,
             attributes: [

@@ -78,18 +78,18 @@ final class PlayerInfoScrollView: UIScrollView {
     private func setupUI() {
         layer.borderWidth = 1
         layer.borderColor = UIColor.lightGray.cgColor
-        setCommonCornerRadius()
+        setupCornerRadius()
         addSubviews(backgroundView)
         prepareForAutoLayout()
     }
     
     // MARK: Public Methods
     func configure(
-        withGeneralInfoValue generalInfoValue: String,
-        techniqueValue: String,
-        tacticsValue: String,
-        qualitiesValue: String,
-        mentalValue: String
+        withGeneralInfoValue generalInfoValue: String?,
+        techniqueValue: String?,
+        tacticsValue: String?,
+        qualitiesValue: String?,
+        mentalValue: String?
     ) {
         generalInfoValueLabel.text = generalInfoValue
         techniqueValueLabel.text = techniqueValue

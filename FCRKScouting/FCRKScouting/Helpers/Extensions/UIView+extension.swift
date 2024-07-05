@@ -9,11 +9,7 @@ import UIKit
 
 extension UIView {
     
-//    var isDarkInterfaceStyle: Bool {
-//        traitCollection.userInterfaceStyle == .dark
-//    }
-    
-    func setCommonCornerRadius() {
+    func setupCornerRadius() {
         layer.cornerRadius = 12
     }
     
@@ -23,7 +19,7 @@ extension UIView {
         }
     }
     
-    func setCommonShadow() {
+    func setupShadow() {
         clipsToBounds = false
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowRadius = 7
@@ -50,7 +46,7 @@ extension UIView {
         subviews.forEach { addSubview($0) }
     }
     
-    func setupCommonGradientLayer() {
+    func setupGradientLayer() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [
             UIColor.accent.withAlphaComponent(0.7).cgColor,
@@ -62,7 +58,7 @@ extension UIView {
         layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    func setCommonBorder() {
+    func setupBorder() {
         layer.borderWidth = 1
         layer.borderColor = Constants.Colors.naturalGold?.cgColor
     }

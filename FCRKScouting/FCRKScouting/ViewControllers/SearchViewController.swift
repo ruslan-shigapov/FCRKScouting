@@ -13,7 +13,7 @@ final class SearchViewController: UIViewController {
     private var viewModel: SearchViewModelProtocol
     
     // MARK: Views
-    private lazy var filtersButton: UIButton = {
+    private lazy var filtersButton: NavigationBarButton = {
         let button = NavigationBarButton(
             image: Constants.Images.ButtonImages.filters)
         button.addTarget(
@@ -22,7 +22,7 @@ final class SearchViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
-    private lazy var relatedButton: UIButton = {
+    private lazy var relatedButton: NavigationBarButton = {
         let button = NavigationBarButton(
             image: Constants.Images.ButtonImages.related)
         button.addTarget(
@@ -31,7 +31,7 @@ final class SearchViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
-    private lazy var featuresButton: UIButton = {
+    private lazy var featuresButton: NavigationBarButton = {
         let button = NavigationBarButton(
             image: Constants.Images.ButtonImages.features)
         button.addTarget(
@@ -75,7 +75,7 @@ final class SearchViewController: UIViewController {
     // MARK: Private Methods
     private func setupUI() {
         setupNavigationBar()
-        view.setupCommonGradientLayer()
+        view.setupGradientLayer()
         view.addSubview(searchTipsView)
         view.prepareForAutoLayout()
         setConstraints()
