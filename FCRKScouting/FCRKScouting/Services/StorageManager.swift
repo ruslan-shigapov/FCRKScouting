@@ -96,7 +96,7 @@ extension StorageManager {
 extension StorageManager {
     
     func createPlayer(
-        withFullName fullName: String,
+        byFullName fullName: String,
         photo: Data?,
         patronymic: String?,
         citizenship: String,
@@ -176,8 +176,21 @@ extension StorageManager {
         }
     }
     
+    func findPlayers(
+        byText text: String,
+        completion: @escaping ([Player]) -> Void
+    ) {
+        let fetchRequest = Player.fetchRequest()
+        fetchRequest.predicate = NSPredicate(
+            format: "fullName CONTAINS[cd] %@",
+            text)
+        if let players = try? viewContext.fetch(fetchRequest) {
+            completion(players)
+        }
+    }
+    
     func updatePlayer(
-        withFullName fullName: String,
+        byFullName fullName: String,
         editedFullName: String?,
         photo: Data?,
         patronymic: String?,

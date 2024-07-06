@@ -20,6 +20,7 @@ protocol UpdatesViewModelProtocol: UserViewModelProtocol,
                                    PlayerViewControllerDelegate {
     var currentInterval: Int { get set }
     var sortedDates: [Date] { get }
+    var hasNoResults: Bool { get }
     func getNumberOfSections() -> Int
     func getNumberOfItemsIn(_ section: Int) -> Int
     func getPlayer(at indexPath: IndexPath) -> Player?
@@ -28,7 +29,7 @@ protocol UpdatesViewModelProtocol: UserViewModelProtocol,
     func getPlayerViewModel(
         for player: Player?) -> PlayerViewModelProtocol?
     func format(date: Date) -> String
-    func refreshPlayersList(completion: () -> Void)
+    func refreshPlayersList(completion: @escaping () -> Void)
 }
 
 final class UpdatesViewModel: UpdatesViewModelProtocol {
@@ -55,6 +56,10 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
     
     var sortedDates: [Date] {
         filteredPlayersByDate.keys.sorted(by: <)
+    }
+    
+    var hasNoResults: Bool {
+        filteredPlayersByDate.isEmpty
     }
             
     init() {
@@ -133,9 +138,11 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
         return formatter.string(from: date)
     }
     
-    func refreshPlayersList(completion: () -> Void) {
+    func refreshPlayersList(completion: @escaping () -> Void) {
         fetchPlayers()
         filterPlayersByDate()
-        completion()
+        DispatchQueue.main.async {
+            completion()
+        }
     }
 }

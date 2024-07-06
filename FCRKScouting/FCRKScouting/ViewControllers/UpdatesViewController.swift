@@ -71,6 +71,16 @@ final class UpdatesViewController: UIViewController {
         return collectionView
     }()
     
+    private let noResultsLabel: DefaultTextLabel = {
+        let label = DefaultTextLabel(
+            text: Constants.Text.noIntervalResults,
+            numberOfLines: 2)
+        label.textColor = .white
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
+    
     private let activityIndicator: UIActivityIndicatorView = {
         let indicatorView = UIActivityIndicatorView(style: .large)
         indicatorView.hidesWhenStopped = true
@@ -100,9 +110,11 @@ final class UpdatesViewController: UIViewController {
     // MARK: Private Methods 
     private func setupUI() {
         addNavigationBarButtons()
+        setupNoResultsLabelDisplaying()
         view.setupGradientLayer()
         view.addSubviews(
             segmentedControlBackgroundView,
+            noResultsLabel,
             playerCollectionView,
             activityIndicator)
         view.prepareForAutoLayout()
@@ -133,12 +145,18 @@ final class UpdatesViewController: UIViewController {
         }
     }
     
+    private func setupNoResultsLabelDisplaying() {
+        noResultsLabel.isHidden = !viewModel.hasNoResults
+    }
+    
     private func updateCollectionView() {
         playerCollectionView.setContentOffset(.zero, animated: true)
+        setupNoResultsLabelDisplaying()
         playerCollectionView.reloadData()
     }
     
     @objc private func refreshButtonTapped() {
+        noResultsLabel.isHidden = true
         activityIndicator.startAnimating()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
             guard let self else { return }
@@ -188,6 +206,12 @@ private extension UpdatesViewController {
             intervalSegmentedControl.trailingAnchor.constraint(
                 equalTo: segmentedControlBackgroundView.trailingAnchor,
                 constant: -16),
+            
+            noResultsLabel.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor),
+            noResultsLabel.centerYAnchor.constraint(
+                equalTo: view.centerYAnchor),
+            noResultsLabel.widthAnchor.constraint(equalToConstant: 170),
             
             playerCollectionView.topAnchor.constraint(
                 equalTo: segmentedControlBackgroundView.bottomAnchor),

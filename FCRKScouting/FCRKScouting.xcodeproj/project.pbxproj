@@ -67,6 +67,8 @@
 		E4BFCA992BF9472200C4FDD2 /* SearchTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BFCA982BF9472200C4FDD2 /* SearchTipsView.swift */; };
 		E4BFCA9B2BF94C1200C4FDD2 /* TipStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BFCA9A2BF94C1200C4FDD2 /* TipStackView.swift */; };
 		E4C0DE172BC6A3C400BCD235 /* TextViewWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C0DE162BC6A3C400BCD235 /* TextViewWithTitle.swift */; };
+		E4C890592C39C8BE002BC336 /* SearchCollectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C890582C39C8BE002BC336 /* SearchCollectionDelegate.swift */; };
+		E4C8905B2C39CA66002BC336 /* SearchCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C8905A2C39CA66002BC336 /* SearchCollectionDataSource.swift */; };
 		E4D101492BD27742006D2DCF /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D101482BD27742006D2DCF /* CustomLabel.swift */; };
 		E4D1D6A32C130D3E00810C3B /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D1D6A22C130D3E00810C3B /* DatePickerView.swift */; };
 		E4D92C3B2C11C30200401E1F /* PriceTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D92C3A2C11C30200401E1F /* PriceTextFieldView.swift */; };
@@ -143,6 +145,8 @@
 		E4BFCA982BF9472200C4FDD2 /* SearchTipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTipsView.swift; sourceTree = "<group>"; };
 		E4BFCA9A2BF94C1200C4FDD2 /* TipStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipStackView.swift; sourceTree = "<group>"; };
 		E4C0DE162BC6A3C400BCD235 /* TextViewWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewWithTitle.swift; path = FCRKScouting/Views/TextViewWithTitle.swift; sourceTree = SOURCE_ROOT; };
+		E4C890582C39C8BE002BC336 /* SearchCollectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionDelegate.swift; sourceTree = "<group>"; };
+		E4C8905A2C39CA66002BC336 /* SearchCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionDataSource.swift; sourceTree = "<group>"; };
 		E4D101482BD27742006D2DCF /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		E4D1D6A22C130D3E00810C3B /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		E4D92C3A2C11C30200401E1F /* PriceTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTextFieldView.swift; sourceTree = "<group>"; };
@@ -242,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				E46194B62C08864700AC4FFC /* UpdatesCollectionDelegate.swift */,
+				E4C890582C39C8BE002BC336 /* SearchCollectionDelegate.swift */,
 				E4B243692C2D620700D8E121 /* EditorImagePickerDelegate.swift */,
 				E46194BA2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift */,
 			);
@@ -252,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				E46194B82C08866E00AC4FFC /* UpdatesCollectionDataSource.swift */,
+				E4C8905A2C39CA66002BC336 /* SearchCollectionDataSource.swift */,
 				E46194BC2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift */,
 			);
 			path = DataSources;
@@ -286,8 +292,8 @@
 				E4BB48622BC3D53700F91513 /* LoginViewModel.swift */,
 				E471B20A2BFB6062003C0DCD /* FormViewModel.swift */,
 				E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */,
-				E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */,
 				E404BEA82BE9087C0078961C /* PlayerCellViewModel.swift */,
+				E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */,
 				E4F38F302C2431E80011830D /* PlayerViewModel.swift */,
 				E4A0B52B2C37D630009CA1C1 /* PlayerMainCardViewModel.swift */,
 				E4A0B5332C388BDA009CA1C1 /* PlayerExtraCardViewModel.swift */,
@@ -519,6 +525,7 @@
 				E40C7FEC2BFF2F5D0043DC3E /* PageSliderView.swift in Sources */,
 				E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */,
 				E4C0DE172BC6A3C400BCD235 /* TextViewWithTitle.swift in Sources */,
+				E4C8905B2C39CA66002BC336 /* SearchCollectionDataSource.swift in Sources */,
 				E4A0B5342C388BDA009CA1C1 /* PlayerExtraCardViewModel.swift in Sources */,
 				E41FEF202C05FAFC0083F9DB /* DefaultTextLabel.swift in Sources */,
 				E4D1D6A32C130D3E00810C3B /* DatePickerView.swift in Sources */,
@@ -526,6 +533,7 @@
 				E4BB48602BC3D51200F91513 /* ScreenFactory.swift in Sources */,
 				E4BB48652BC3D53700F91513 /* LoginViewModel.swift in Sources */,
 				E49993902C3454F300D2C7C2 /* UIButton+extension.swift in Sources */,
+				E4C890592C39C8BE002BC336 /* SearchCollectionDelegate.swift in Sources */,
 				E4100F272C19B63900DC743D /* String+extension.swift in Sources */,
 				E471B20B2BFB6062003C0DCD /* FormViewModel.swift in Sources */,
 				E4BB48882BC3D54600F91513 /* PrimaryTextFieldView.swift in Sources */,

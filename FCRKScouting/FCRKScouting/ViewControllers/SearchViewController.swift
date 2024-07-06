@@ -11,6 +11,13 @@ final class SearchViewController: UIViewController {
     
     // MARK: Private Properties
     private var viewModel: SearchViewModelProtocol
+    private var searchTimer: Timer?
+    
+    private lazy var collectionViewDelegate = SearchCollectionDelegate(
+        navigationController: navigationController,
+        viewModel: viewModel)
+    private lazy var collectionViewDataSource = SearchCollectionDataSource(
+        viewModel: viewModel)
     
     // MARK: Views
     private lazy var filtersButton: NavigationBarButton = {
@@ -41,19 +48,45 @@ final class SearchViewController: UIViewController {
         return button
     }()
     
-    private let searchController: UISearchController = {
+    private lazy var searchController: UISearchController = {
         let searchController = UISearchController()
-        searchController.searchBar.searchTextField.backgroundColor = .lightGray
-        searchController.searchBar.tintColor = .white
-        let placeholder = Constants.Text.Placeholders.startTyping
-        searchController.searchBar.placeholder = placeholder
-        searchController.searchBar.autocorrectionType = .no
-        searchController.searchBar.spellCheckingType = .no
+        searchController.searchResultsUpdater = self
+        searchController.delegate = self
+        let searchBar = searchController.searchBar
+        searchBar.placeholder = Constants.Text.Placeholders.startTyping
+        searchBar.spellCheckingType = .no
+        searchBar.autocorrectionType = .no
+        let backgroundColor = UIColor.white.withAlphaComponent(0.6)
+        searchBar.searchTextField.backgroundColor = backgroundColor
         return searchController
+    }()
+    
+    private lazy var playerCollectionView: PlayerCollectionView = {
+        let collectionView = PlayerCollectionView()
+        collectionView.delegate = collectionViewDelegate
+        collectionView.dataSource = collectionViewDataSource
+        collectionView.register(
+            PlayerCell.self,
+            forCellWithReuseIdentifier: String(describing: PlayerCell.self))
+        return collectionView
     }()
     
     private lazy var searchTipsView = SearchTipsView(
         isFullSet: viewModel.isEditingAllowed)
+    
+    private let noResultsLabel: DefaultTextLabel = {
+        let label = DefaultTextLabel(text: Constants.Text.noSearchResults)
+        label.textColor = .white
+        label.isHidden = true
+        return label
+    }()
+    
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView(style: .large)
+        indicatorView.hidesWhenStopped = true
+        indicatorView.color = .naturalGold
+        return indicatorView
+    }()
     
     // MARK: Initialize
     init(viewModel: SearchViewModelProtocol) {
@@ -76,7 +109,11 @@ final class SearchViewController: UIViewController {
     private func setupUI() {
         setupNavigationBar()
         view.setupGradientLayer()
-        view.addSubview(searchTipsView)
+        view.addSubviews(
+            searchTipsView,
+            noResultsLabel,
+            playerCollectionView,
+            activityIndicator)
         view.prepareForAutoLayout()
         setConstraints()
     }
@@ -92,6 +129,11 @@ final class SearchViewController: UIViewController {
                 at: 1)
         }
         navigationItem.searchController = searchController
+        let barButtonAppearance = UIBarButtonItem.appearance(
+            whenContainedInInstancesOf: [UISearchBar.self])
+        barButtonAppearance.setTitleTextAttributes(
+            [.foregroundColor: UIColor.white],
+            for: .normal)
     }
     
     private func toggleStatus(_ sender: UIButton) {
@@ -115,14 +157,70 @@ final class SearchViewController: UIViewController {
     }
 }
 
-// MARK: - Layout
-private extension SearchViewController {
+// MARK: - Search Results Updating
+extension SearchViewController: UISearchResultsUpdating {
     
-    func setConstraints() {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text, !searchText.isEmpty else { return }
+        searchTipsView.isHidden = true
+        if !searchText.isEmpty {
+            noResultsLabel.isHidden = true
+            activityIndicator.startAnimating()
+        }
+        searchTimer?.invalidate()
+        searchTimer = Timer.scheduledTimer(
+            withTimeInterval: 0.8,
+            repeats: false,
+            block: { [weak self] _ in
+                guard let self else { return }
+                viewModel.findPlayers(byText: searchText) {
+                    self.noResultsLabel.isHidden = !self.viewModel.hasNoResults
+                    self.playerCollectionView.reloadData()
+                    self.activityIndicator.stopAnimating()
+                }
+            })
+    }
+}
+
+// MARK: - Search Bar Delegate
+extension SearchViewController: UISearchControllerDelegate {
+    
+    func willDismissSearchController(_ searchController: UISearchController) {
+        noResultsLabel.isHidden = true
+        viewModel.cancelSearch()
+        playerCollectionView.reloadData()
+        searchTipsView.isHidden = false
+    }
+}
+
+// MARK: - Layout
+extension SearchViewController {
+    
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             searchTipsView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
-            searchTipsView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            searchTipsView.centerYAnchor.constraint(
+                equalTo: view.centerYAnchor),
+            
+            noResultsLabel.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor),
+            noResultsLabel.centerYAnchor.constraint(
+                equalTo: view.centerYAnchor),
+            
+            playerCollectionView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor),
+            playerCollectionView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor),
+            playerCollectionView.bottomAnchor.constraint(
+                equalTo: view.bottomAnchor),
+            playerCollectionView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor),
+            
+            activityIndicator.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(
+                equalTo: view.centerYAnchor)
         ])
     }
 }

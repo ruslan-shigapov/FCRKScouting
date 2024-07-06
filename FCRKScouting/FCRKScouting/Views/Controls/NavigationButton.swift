@@ -8,6 +8,10 @@
 import UIKit
 
 final class NavigationButton: UIButton {
+    
+    private let soonLabel = CustomLabel(
+        font: Constants.Fonts.secondary,
+        text: "скоро")
             
     private let arrowImageView: UIImageView = {
         let imageView = UIImageView()
@@ -31,13 +35,18 @@ final class NavigationButton: UIButton {
         backgroundColor = .accent
         titleLabel?.font = Constants.Fonts.normal
         setupCornerRadius()
-        addSubview(arrowImageView)
+        addSubviews(soonLabel, arrowImageView)
         prepareForAutoLayout()
         setConstraints()
     }
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
+            soonLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            soonLabel.leadingAnchor.constraint(
+                equalTo: leadingAnchor,
+                constant: 8),
+            
             arrowImageView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
                 constant: -24),

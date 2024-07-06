@@ -24,16 +24,9 @@ final class EditorImagePickerDelegate: NSObject,
             UIImagePickerController.InfoKey : Any
         ]
     ) {
-        if let pickedImage = info[
-            UIImagePickerController.InfoKey.originalImage
-        ] as? UIImage {
+        if let pickedImage = info[.editedImage] as? UIImage {
             viewModel.selectedPhoto = pickedImage
         }
-        picker.dismiss(animated: true)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        viewModel.selectedPhoto = nil
         picker.dismiss(animated: true)
     }
 }

@@ -414,10 +414,15 @@ final class EditorViewController: UIViewController {
         let alertController = AlertFactory.getUploadPhotoActionSheet(
             isPhotoUploaded: isPhotoUploaded) { [weak self] in
                 guard let self else { return }
-                let imagePicker = UIImagePickerController()
-                imagePicker.sourceType = .photoLibrary
-                imagePicker.delegate = imagePickerDelegate
-                present(imagePicker, animated: true)
+                if UIImagePickerController.isSourceTypeAvailable(
+                    .photoLibrary
+                ) {
+                    let imagePicker = UIImagePickerController()
+                    imagePicker.delegate = imagePickerDelegate
+                    imagePicker.allowsEditing = true
+                    imagePicker.sourceType = .photoLibrary
+                    present(imagePicker, animated: true)
+                }
             } deleteCompletion: { [weak self] in
                 guard let self else { return }
                 setPlaceholderForImageView()

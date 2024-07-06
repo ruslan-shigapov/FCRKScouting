@@ -54,6 +54,8 @@ enum Constants {
         static let statisticsDetails = "Статистика"
         static let notSpecified1 = "Не указана"
         static let notSpecified2 = "Не указано"
+        static let noSearchResults = "Поиск не дал результатов"
+        static let noIntervalResults = "За этот период игроков не найдено"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
 

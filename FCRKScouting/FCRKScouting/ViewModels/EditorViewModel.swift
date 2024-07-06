@@ -146,7 +146,7 @@ final class EditorViewModel: EditorViewModelProtocol {
         }
         let currentUser = UserManager.shared.getCurrentUser()
         StorageManager.shared.createPlayer(
-            withFullName: fullName,
+            byFullName: fullName,
             photo: selectedPhoto?.jpegData(compressionQuality: 1),
             patronymic: patronymic,
             citizenship: citizenship,
@@ -265,7 +265,7 @@ final class EditorViewModel: EditorViewModelProtocol {
         }
         let currentUser = UserManager.shared.getCurrentUser()
         StorageManager.shared.updatePlayer(
-            withFullName: fullName,
+            byFullName: fullName,
             editedFullName: editedFullName,
             photo: getPhotoData(),
             patronymic: patronymic,
