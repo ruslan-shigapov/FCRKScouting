@@ -5,7 +5,7 @@
 //  Created by Ruslan Shigapov on 12.03.2024.
 //
 
-import Foundation
+import AuthenticationServices
 
 enum AccessError: Error {
     case wrongKey
@@ -39,27 +39,17 @@ final class UserManager {
         }
     }
     
-    func getCurrentUser() -> User? {
-        currentUser
-    }
-    
-    func validateAccessKey(
-        _ accessKey: String?,
-        completion: @escaping (Result<Bool, Error>) -> Void
-    ) {
-        guard let accessKey, !accessKey.isEmpty,
-              let isEditingAllowed = accessLevels[accessKey] else {
-            completion(.failure(AccessError.wrongKey))
-            return
+    private func getUserFullNameFrom(
+        _ personNameComponents: PersonNameComponents?
+    ) -> String {
+        guard let firstName = personNameComponents?.givenName,
+              let secondName = personNameComponents?.familyName else {
+            return ""
         }
-        completion(.success(isEditingAllowed))
+        return firstName + " " + secondName
     }
     
-    func setCurrentUser(_ user: User) {
-        currentUser = user
-    }
-    
-    func createUser(
+    private func createUser(
         _ appleID: String,
         fullName: String,
         isEditingAllowed: Bool
@@ -68,10 +58,46 @@ final class UserManager {
             byAppleID: appleID,
             fullName: fullName,
             isEditingAllowed: isEditingAllowed
-        ) { [weak self] createdUser in
+        ) { [weak self] in
+            guard let self, let createdUser = $0 else { return }
+            currentUser = createdUser
+        }
+    }
+    
+    func getCurrentUser() -> User? {
+        currentUser
+    }
+    
+    func validateAccessKey(
+        _ accessKey: String?,
+        completion: @escaping (Result<Bool, AccessError>) -> Void
+    ) {
+        guard let accessKey, !accessKey.isEmpty,
+              let isEditingAllowed = accessLevels[accessKey] else {
+            completion(.failure(.wrongKey))
+            return
+        }
+        completion(.success(isEditingAllowed))
+    }
+    
+    func setUser(
+        by credential: ASAuthorizationAppleIDCredential,
+        isEditingAllowed: Bool,
+        completion: @escaping (_ isNewUser: Bool) -> Void
+    ) {
+        StorageManager.shared.findUserFromCloud(
+            byAppleID: credential.user
+        ) { [weak self] in
             guard let self else { return }
-            if let createdUser {
-                currentUser = createdUser
+            if let foundUser = $0 {
+                currentUser = foundUser
+                completion(false)
+            } else {
+                createUser(
+                    credential.user,
+                    fullName: getUserFullNameFrom(credential.fullName),
+                    isEditingAllowed: isEditingAllowed)
+                completion(true)
             }
         }
     }
@@ -84,12 +110,10 @@ final class UserManager {
         StorageManager.shared.renameUser(
             appleID,
             toFullName: fullName
-        ) { [weak self] updatedUser in
-            guard let self else { return }
-            if let updatedUser {
-                currentUser = updatedUser
-                completion()
-            }
+        ) { [weak self] in
+            guard let self, let updatedUser = $0 else { return }
+            currentUser = updatedUser
+            completion()
         }
     }
     

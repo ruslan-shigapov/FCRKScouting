@@ -175,7 +175,7 @@ private extension ProfileViewController {
             logoImageView.bottomAnchor.constraint(
                 equalTo: topBackgroundView.bottomAnchor,
                 constant: -24),
-            logoImageView.heightAnchor.constraint(equalToConstant: 100),
+            logoImageView.heightAnchor.constraint(equalToConstant: 110),
             logoImageView.widthAnchor.constraint(equalToConstant: 90),
             
             fullNameLabel.leadingAnchor.constraint(

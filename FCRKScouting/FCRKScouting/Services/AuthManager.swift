@@ -48,19 +48,12 @@ extension AuthManager: ASAuthorizationControllerDelegate {
     ) {
         let credential = authorization.credential
         if let credential = credential as? ASAuthorizationAppleIDCredential {
-            StorageManager.shared.findUser(credential.user) { [weak self] in
+            UserManager.shared.setUser(
+                by: credential,
+                isEditingAllowed: isEditingAllowed
+            ) { [weak self] in
                 guard let self else { return }
-                if let matchedUser = $0 {
-                    UserManager.shared.setCurrentUser(matchedUser)
-                    completionHandler?(.success(false))
-                } else {
-                    UserManager.shared.createUser(
-                        credential.user,
-                        fullName: getUserFullNameFrom(credential.fullName),
-                        isEditingAllowed: isEditingAllowed
-                    )
-                    completionHandler?(.success(true))
-                }
+                self.completionHandler?(.success($0))
             }
         }
     }

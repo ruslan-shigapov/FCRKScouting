@@ -148,7 +148,16 @@ final class SearchViewController: UIViewController {
     
     @objc private func relatedButtonTapped(_ sender: UIButton) {
         toggleStatus(sender)
-        
+        if sender.isSelected {
+            searchTipsView.isHidden = true
+            viewModel.getRelatedPlayers()
+            playerCollectionView.reloadData()
+        } else {
+            viewModel.cancelSearch()
+            playerCollectionView.reloadData()
+            searchTipsView.isHidden = false
+        }
+        // TODO: доделать логику
     }
     
     @objc private func featuresButtonTapped(_ sender: UIButton) {

@@ -16,6 +16,7 @@ protocol SearchViewModelProtocol: UserViewModelProtocol,
     func getPlayerCellViewModel(
         for player: Player?) -> PlayerCellViewModelProtocol?
     func cancelSearch()
+    func getRelatedPlayers()
 }
 
 final class SearchViewModel: SearchViewModelProtocol {
@@ -55,5 +56,14 @@ final class SearchViewModel: SearchViewModelProtocol {
     
     func cancelSearch() {
         filteredPlayers = []
+    }
+    
+    func getRelatedPlayers() {
+        StorageManager.shared.fetchRelatedPlayers(
+            forUser: userFullName
+        ) { [weak self] in
+            guard let self else { return }
+            filteredPlayers = $0
+        }
     }
 }

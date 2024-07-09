@@ -112,9 +112,11 @@ final class LoginViewController: UIViewController {
             authManager?.singInWithApple { result in
                 switch result {
                 case .success(let isNewUser):
-                    isNewUser
-                    ? self.showFormViewController()
-                    : self.showMainTabBarController()
+                    DispatchQueue.main.async {
+                        isNewUser
+                        ? self.showFormViewController()
+                        : self.showMainTabBarController()
+                    }
                 case .failure(_):
                     let alertController = AlertFactory.getWarningAlert(
                         withTitle: Constants.Text.Alerts.authError.title,

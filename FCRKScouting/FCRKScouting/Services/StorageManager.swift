@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import CloudKit
 
 final class StorageManager {
     
@@ -13,6 +14,8 @@ final class StorageManager {
     
     private let persistentContainer: NSPersistentCloudKitContainer = {
         let container = NSPersistentCloudKitContainer(name: "FCRKScouting")
+        let storeDescription = container.persistentStoreDescriptions.first
+        storeDescription?.cloudKitContainerOptions?.databaseScope = .public
         container.loadPersistentStores { _, error in
             if let error {
                 fatalError("Data loading error: \(error)")
@@ -21,10 +24,10 @@ final class StorageManager {
         return container
     }()
     
-    private var viewContext: NSManagedObjectContext {
+    var viewContext: NSManagedObjectContext {
         persistentContainer.viewContext
     }
-    
+
     private init() {}
     
     private func saveContext() {
@@ -52,10 +55,18 @@ extension StorageManager {
         user.fullName = fullName
         user.isEditingAllowed = isEditingAllowed
         saveContext()
+        CloudManager.shared.saveDataToCloud(forUser: user) { [weak self] in
+            guard let self else { return }
+            user.recordName = $0
+            self.saveContext()
+        }
         completion(user)
     }
     
-    func findUser(_ appleID: String, completion: @escaping (User?) -> Void) {
+    func findUser(
+        _ appleID: String,
+        completion: @escaping (User?) -> Void
+    ) {
         let fetchRequest = User.fetchRequest()
         let users = try? viewContext.fetch(fetchRequest)
         if let user = users?.first(where: { $0.appleID == appleID }) {
@@ -63,6 +74,40 @@ extension StorageManager {
             return
         }
         completion(nil)
+    }
+    
+    func findUserFromCloud(
+        byAppleID appleID: String,
+        completion: @escaping (User?) -> Void
+    ) {
+        CloudManager.shared.findUserFromCloud(
+            byAppleID: appleID
+        ) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let record):
+                guard let entityDescription = NSEntityDescription.entity(
+                    forEntityName: "User",
+                    in: viewContext
+                ) else {
+                    return
+                }
+                let user = User(
+                    entity: entityDescription,
+                    insertInto: viewContext)
+                user.appleID = record.value(forKey: "CD_appleID") as? String
+                user.fullName = record.value(forKey: "CD_fullName") as? String
+                let accessValue = record.value(
+                    forKey: "CD_isEditingAllowed") as? Int64
+                user.isEditingAllowed = accessValue == 1 ? true : false
+                user.recordName = record.recordID.recordName
+                DispatchQueue.main.async {
+                    completion(user)
+                }
+            case .failure(_):
+                completion(nil)
+            }
+        }
     }
     
     func renameUser(
@@ -75,11 +120,12 @@ extension StorageManager {
             if let foundUser = $0 {
                 foundUser.fullName = fullName
                 saveContext()
+                CloudManager.shared.updateCloudData(forUser: foundUser)
                 completion(foundUser)
             }
         }
     }
-        
+            
     func deleteUser(_ appleID: String, completion: @escaping () -> Void) {
         findUser(appleID) { [weak self] in
             guard let self else { return }
@@ -173,6 +219,16 @@ extension StorageManager {
         let fetchRequest = Player.fetchRequest()
         if let players = try? viewContext.fetch(fetchRequest) {
             completion(players)
+        }
+    }
+    
+    func fetchRelatedPlayers(
+        forUser userFullName: String,
+        completion: @escaping ([Player]) -> Void
+    ) {
+        fetchPlayers { players in
+            let relatedPlayers = players.filter { $0.creator == userFullName }
+            completion(relatedPlayers)
         }
     }
     

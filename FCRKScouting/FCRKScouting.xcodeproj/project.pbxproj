@@ -34,6 +34,7 @@
 		E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */; };
 		E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471B2082BFB4543003C0DCD /* FormViewController.swift */; };
 		E471B20B2BFB6062003C0DCD /* FormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471B20A2BFB6062003C0DCD /* FormViewModel.swift */; };
+		E476137B2C3C03FF000AA14E /* CloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E476137A2C3C03FF000AA14E /* CloudManager.swift */; };
 		E48159E62BCE7BAB0090FC42 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */; };
 		E481C1C02C2EDD12008D6460 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E481C1BF2C2EDD12008D6460 /* AuthManager.swift */; };
 		E486D13D2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486D13C2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift */; };
@@ -111,6 +112,7 @@
 		E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
 		E471B2082BFB4543003C0DCD /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		E471B20A2BFB6062003C0DCD /* FormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewModel.swift; sourceTree = "<group>"; };
+		E476137A2C3C03FF000AA14E /* CloudManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudManager.swift; sourceTree = "<group>"; };
 		E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		E481C1BE2C2EDBDF008D6460 /* FCRKScouting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FCRKScouting.entitlements; sourceTree = "<group>"; };
 		E481C1BF2C2EDD12008D6460 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 		E412BCFB2BC7D28900A9BCF6 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				E4BB485F2BC3D51200F91513 /* Factories */,
 				E439E87C2C371F750017006E /* Extensions */,
 				E4BB484D2BC3D26A00F91513 /* Constants.swift */,
 			);
@@ -232,9 +235,8 @@
 				E4BB484A2BC3D21C00F91513 /* Application */,
 				E4BB484B2BC3D22700F91513 /* Models */,
 				E4BB48812BC3D54600F91513 /* Views */,
-				E4BB48632BC3D53700F91513 /* ViewControllers */,
+				E4BB48632BC3D53700F91513 /* Controllers */,
 				E491BBA22BDCD9B500232677 /* ViewModels */,
-				E4BB485F2BC3D51200F91513 /* Factories */,
 				E4BB48572BC3D33400F91513 /* Services */,
 				E412BCFB2BC7D28900A9BCF6 /* Helpers */,
 				E4BB484C2BC3D23300F91513 /* Resources */,
@@ -323,8 +325,8 @@
 			isa = PBXGroup;
 			children = (
 				E4BB48512BC3D2C700F91513 /* Fonts */,
-				E481C1BE2C2EDBDF008D6460 /* FCRKScouting.entitlements */,
 				E44855B72BC3D01400E5FCD8 /* Assets.xcassets */,
+				E481C1BE2C2EDBDF008D6460 /* FCRKScouting.entitlements */,
 				E44855BC2BC3D01400E5FCD8 /* Info.plist */,
 			);
 			path = Resources;
@@ -342,9 +344,10 @@
 		E4BB48572BC3D33400F91513 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				E4BB48562BC3D33400F91513 /* UserManager.swift */,
 				E481C1BF2C2EDD12008D6460 /* AuthManager.swift */,
+				E4BB48562BC3D33400F91513 /* UserManager.swift */,
 				E4BB48552BC3D33400F91513 /* StorageManager.swift */,
+				E476137A2C3C03FF000AA14E /* CloudManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -358,7 +361,7 @@
 			path = Factories;
 			sourceTree = "<group>";
 		};
-		E4BB48632BC3D53700F91513 /* ViewControllers */ = {
+		E4BB48632BC3D53700F91513 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				E46194B12C0875CD00AC4FFC /* Delegates */,
@@ -376,7 +379,7 @@
 				E4BB48692BC3D53E00F91513 /* FiltersViewController.swift */,
 				E4BB48662BC3D53E00F91513 /* ProfileViewController.swift */,
 			);
-			path = ViewControllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		E4BB48812BC3D54600F91513 /* Views */ = {
@@ -517,6 +520,7 @@
 				E46194BD2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift in Sources */,
 				E414C35D2C00C2230068077E /* TestingDetailsViewController.swift in Sources */,
 				E4BB48732BC3D53E00F91513 /* ProfileViewController.swift in Sources */,
+				E476137B2C3C03FF000AA14E /* CloudManager.swift in Sources */,
 				E4F4CE462BC92E0B009F9A8D /* PlayerCollectionView.swift in Sources */,
 				E4BB48832BC3D54600F91513 /* GraySegmentedControl.swift in Sources */,
 				E4BB48782BC3D53E00F91513 /* UpdatesViewController.swift in Sources */,
@@ -689,6 +693,7 @@
 				INFOPLIST_FILE = FCRKScouting/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "FCRK Scouting";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Для выбора фото из вашего альбома";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -723,6 +728,7 @@
 				INFOPLIST_FILE = FCRKScouting/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "FCRK Scouting";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Для выбора фото из вашего альбома";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

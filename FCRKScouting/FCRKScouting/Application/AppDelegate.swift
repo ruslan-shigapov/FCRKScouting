@@ -21,7 +21,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         ScreenFactory.setRootViewController()
-        UITextField.appearance().tintColor = .accent
+        UITextField.appearance().tintColor = .accent // TODO: replace
         return true
     }
 }

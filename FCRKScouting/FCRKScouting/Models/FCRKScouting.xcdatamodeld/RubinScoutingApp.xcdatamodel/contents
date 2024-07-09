@@ -21,7 +21,7 @@
         <attribute name="mental" optional="YES" attributeType="String"/>
         <attribute name="nationalTeam" optional="YES" attributeType="String"/>
         <attribute name="patronymic" optional="YES" attributeType="String"/>
-        <attribute name="photo" optional="YES" attributeType="Binary"/>
+        <attribute name="photo" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="position" optional="YES" attributeType="String"/>
         <attribute name="qualities" optional="YES" attributeType="String"/>
         <attribute name="runningFor15MResult" optional="YES" attributeType="String"/>
@@ -40,5 +40,6 @@
         <attribute name="appleID" optional="YES" attributeType="String"/>
         <attribute name="fullName" optional="YES" attributeType="String"/>
         <attribute name="isEditingAllowed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="recordName" optional="YES" attributeType="String"/>
     </entity>
 </model>
