@@ -122,7 +122,7 @@ final class PlayerExtraCardViewModel: PlayerExtraCardViewModelProtocol {
     }
     
     var summary: String {
-        player.summary ?? ""
+        player.testingSummary ?? ""
     }
     
     init(player: Player) {

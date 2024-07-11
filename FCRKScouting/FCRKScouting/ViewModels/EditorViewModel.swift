@@ -115,11 +115,15 @@ final class EditorViewModel: EditorViewModelProtocol {
     }
     
     private func getPhotoData() -> Data? {
-        if let selectedPhoto {
-            return selectedPhoto.jpegData(compressionQuality: 1)
+        if let image = selectedPhoto {
+            let scale = image.size.width > 1080 ? 1080 / image.size.width : 1
+            guard let pngData = image.pngData(),
+                  let scaleImage = UIImage(data: pngData, scale: scale) else {
+                return nil
+            }
+            return scaleImage.jpegData(compressionQuality: 1)
         }
-        guard let currentData = player?.photo else { return nil }
-        return currentData
+        return player?.photo
     }
         
     func savePlayer(
@@ -237,7 +241,7 @@ final class EditorViewModel: EditorViewModelProtocol {
             player.longJumpScore,
             player.highJumpScore
         ]
-        summary = player.summary
+        summary = player.testingSummary
     }
     
     func editPlayer(

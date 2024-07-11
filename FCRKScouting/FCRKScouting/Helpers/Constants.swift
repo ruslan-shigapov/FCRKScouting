@@ -148,7 +148,7 @@ enum Constants {
                 message: "Пожалуйста, введите действительный ключ доступа"
             )
             static let authError = (
-                title: "Ошибка авторизации",
+                title: "Не удалось авторизоваться",
                 message: "Пожалуйста, попробуйте еще раз"
             )
             static let emptyTextFields = (

@@ -84,7 +84,7 @@ final class UpdatesViewController: UIViewController {
     private let activityIndicator: UIActivityIndicatorView = {
         let indicatorView = UIActivityIndicatorView(style: .large)
         indicatorView.hidesWhenStopped = true
-        indicatorView.color = .naturalGold
+        indicatorView.color = .black 
         return indicatorView
     }()
     

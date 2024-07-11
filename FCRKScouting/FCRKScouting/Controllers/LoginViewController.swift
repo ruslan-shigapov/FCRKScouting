@@ -44,6 +44,13 @@ final class LoginViewController: UIViewController {
         text: Constants.Text.Descriptions.signIn,
         numberOfLines: 2)
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView(style: .large)
+        indicatorView.hidesWhenStopped = true
+        indicatorView.color = .black
+        return indicatorView
+    }()
+    
     // MARK: Initialize
     init(viewModel: LoginViewModelProtocol) {
         self.viewModel = viewModel
@@ -77,7 +84,8 @@ final class LoginViewController: UIViewController {
             accessKeyTextFieldView,
             accessDescriptionLabel,
             appleSignInButton,
-            signInDescriptionLabel)
+            signInDescriptionLabel,
+            activityIndicator)
         view.prepareForAutoLayout()
         setConstraints()
     }
@@ -109,15 +117,18 @@ final class LoginViewController: UIViewController {
         ) { [weak self] in
             guard let self else { return }
             authManager = AuthManager(isEditingAllowed: $0)
+            activityIndicator.startAnimating()
+            appleSignInButton.isEnabled = false
             authManager?.singInWithApple { result in
                 switch result {
                 case .success(let isNewUser):
-                    DispatchQueue.main.async {
-                        isNewUser
-                        ? self.showFormViewController()
-                        : self.showMainTabBarController()
-                    }
+                    isNewUser
+                    ? self.showFormViewController()
+                    : self.showMainTabBarController()
+                    self.activityIndicator.stopAnimating()
                 case .failure(_):
+                    self.activityIndicator.stopAnimating()
+                    self.appleSignInButton.isEnabled = true
                     let alertController = AlertFactory.getWarningAlert(
                         withTitle: Constants.Text.Alerts.authError.title,
                         andMessage: Constants.Text.Alerts.authError.message)
@@ -185,6 +196,11 @@ private extension LoginViewController {
             signInDescriptionLabel.trailingAnchor.constraint(
                 equalTo: appleSignInButton.trailingAnchor,
                 constant: -5),
+            
+            activityIndicator.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(
+                equalTo: view.centerYAnchor)
         ])
     }
 }

@@ -68,9 +68,9 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
     }
     
     private func fetchPlayers() {
-        StorageManager.shared.fetchPlayers { [weak self] in
+        StorageManager.shared.fetchPlayersFromCloud() { [weak self] in
             guard let self else { return }
-            players = $0
+            players.append($0)
         }
     }
     

@@ -17,16 +17,6 @@ final class AuthManager: NSObject {
         self.isEditingAllowed = isEditingAllowed
     }
     
-    private func getUserFullNameFrom(
-        _ personNameComponents: PersonNameComponents?
-    ) -> String {
-        guard let firstName = personNameComponents?.givenName,
-              let secondName = personNameComponents?.familyName else {
-            return ""
-        }
-        return firstName + " " + secondName
-    }
-    
     func singInWithApple(completion: @escaping (Result<Bool, Error>) -> Void) {
         let provider = ASAuthorizationAppleIDProvider()
         let request = provider.createRequest()

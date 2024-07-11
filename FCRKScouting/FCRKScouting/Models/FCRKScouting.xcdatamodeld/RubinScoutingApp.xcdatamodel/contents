@@ -29,10 +29,10 @@
         <attribute name="runningFor30MResult" optional="YES" attributeType="String"/>
         <attribute name="runningFor30MScore" optional="YES" attributeType="String"/>
         <attribute name="salary" optional="YES" attributeType="String"/>
-        <attribute name="summary" optional="YES" attributeType="String"/>
         <attribute name="tactics" optional="YES" attributeType="String"/>
         <attribute name="technique" optional="YES" attributeType="String"/>
         <attribute name="testingDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="testingSummary" optional="YES" attributeType="String"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="weight" optional="YES" attributeType="String"/>
     </entity>
@@ -40,6 +40,5 @@
         <attribute name="appleID" optional="YES" attributeType="String"/>
         <attribute name="fullName" optional="YES" attributeType="String"/>
         <attribute name="isEditingAllowed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="recordName" optional="YES" attributeType="String"/>
     </entity>
 </model>
