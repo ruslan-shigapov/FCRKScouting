@@ -8,9 +8,21 @@
 import CoreData
 import CloudKit
 
+enum CloudError: Error {
+    case recordNotFound
+    case fetchError(Error)
+}
+
 final class StorageManager {
     
     static let shared = StorageManager()
+    
+    private let identifier = """
+    iCloud.RuslanShigapov.FCRKScouting.CloudKitContainer
+    """
+    
+    private lazy var publicDatabase = CKContainer(
+        identifier: identifier).publicCloudDatabase
     
     private let persistentContainer: NSPersistentCloudKitContainer = {
         let container = NSPersistentCloudKitContainer(name: "FCRKScouting")
@@ -46,6 +58,20 @@ final class StorageManager {
 // MARK: - User CRUD
 extension StorageManager {
     
+    private func deleteDuplicateUsers(_ appleID: String?) {
+        let fetchRequest = User.fetchRequest()
+        guard let appleID else { return }
+        fetchRequest.predicate = NSPredicate(format: "appleID == %@", appleID)
+        let users = try? self.viewContext.fetch(fetchRequest)
+        if let users, users.count > 1 {
+            for index in 1..<users.count {
+                let user = users[index]
+                viewContext.delete(user)
+            }
+            saveContext()
+        }
+    }
+    
     func saveUser(
         byAppleID appleID: String,
         fullName: String,
@@ -56,7 +82,6 @@ extension StorageManager {
         user.appleID = appleID
         user.fullName = fullName
         user.isEditingAllowed = isEditingAllowed
-//        saveContext()
         completion(user)
     }
     
@@ -77,7 +102,7 @@ extension StorageManager {
         byAppleID appleID: String,
         completion: @escaping (User?) -> Void
     ) {
-        CloudManager.shared.findUserFromCloud(
+        findUserRecordFromCloud(
             byAppleID: appleID
         ) { [weak self] result in
             guard let self else { return }
@@ -89,6 +114,10 @@ extension StorageManager {
                 let accessValue = record.value(
                     forKey: "CD_isEditingAllowed") as? Int64
                 user.isEditingAllowed = accessValue == 1 ? true : false
+                DispatchQueue.global().asyncAfter(deadline: .now() + 4.0) {
+                    self.deleteDuplicateUsers(user.appleID)
+                    // TODO: видимо придется добавить свойство с датой(временем)
+                }
                 DispatchQueue.main.async {
                     completion(user)
                 }
@@ -96,6 +125,26 @@ extension StorageManager {
                 DispatchQueue.main.async {
                     completion(nil)
                 }
+            }
+        }
+    }
+    
+    func findUserRecordFromCloud(
+        byAppleID appleID: String,
+        completion: @escaping (Result<CKRecord, Error>) -> Void
+    ) {
+        let predicate = NSPredicate(format: "CD_appleID == %@", appleID)
+        let query = CKQuery(recordType: "CD_User", predicate: predicate)
+        publicDatabase.fetch(withQuery: query) { result in
+            switch result {
+            case .success((let matchResults, _)):
+                guard let result = matchResults.first?.1 else {
+                    completion(.failure(CloudError.recordNotFound))
+                    return
+                }
+                completion(result)
+            case .failure(let error):
+                completion(.failure(CloudError.fetchError(error)))
             }
         }
     }
@@ -117,14 +166,8 @@ extension StorageManager {
 // MARK: - Player CRUD
 extension StorageManager {
     
-    private func getImageData(from record: CKRecord) -> Data? {
-        let imageAsset = record.value(forKey: "CD_photo") as? CKAsset
-        guard let fileURL = imageAsset?.fileURL else { return nil }
-        let data = try? Data(contentsOf: fileURL)
-        return data
-    }
-    
-    private func fetchPlayers(completion: @escaping ([Player]) -> Void) {
+    func fetchPlayers(completion: @escaping ([Player]) -> Void) {
+        // TODO: надо загружать раньше? или по датам?
         let fetchRequest = Player.fetchRequest()
         if let players = try? viewContext.fetch(fetchRequest) {
             completion(players)
@@ -168,8 +211,9 @@ extension StorageManager {
         creator: String
     ) {
         let player = Player(context: viewContext)
+        // TODO: добавить проверку на совпадение имени
         player.fullName = fullName
-        player.photo = photo
+        player.photoData = photo
         player.patronymic = patronymic
         player.citizenship = citizenship
         player.club = club
@@ -203,108 +247,8 @@ extension StorageManager {
         player.updatedDate = updatedDate
         player.creator = creator
         saveContext()
-//        CloudManager.shared.savePlayerToCloud(
-//            player,
-//            withImageData: photo
-//        ) { [weak self] in
-//            guard let self else { return }
-//            player.recordName = $0
-//            self.saveContext()
-//        }
-    }
-    
-    func fetchPlayersFromCloud(completion: @escaping (Player) -> Void) {
-        CloudManager.shared.fetchPlayerFromCloud { [weak self] record in
-            guard let self else { return }
-            guard let entity = NSEntityDescription.entity(
-                forEntityName: "Player",
-                in: self.viewContext
-            ) else {
-                return
-            }
-            let player = Player(
-                entity: entity,
-                insertInto: self.viewContext)
-            let fullName = record.value(
-                forKey: "CD_fullName") as? String
-            fetchPlayers {
-                if $0.allSatisfy({ $0.fullName != fullName }) {
-                    player.fullName = fullName
-                    player.photo = self.getImageData(from: record)
-                    player.patronymic = record.value(
-                        forKey: "CD_patronymic") as? String
-                    player.citizenship = record.value(
-                        forKey: "CD_citizenship") as? String
-                    player.club = record.value(
-                        forKey: "CD_club") as? String
-                    player.nationalTeam = record.value(
-                        forKey: "CD_nationalTeam") as? String
-                    player.birthDate = record.value(
-                        forKey: "CD_birthDate") as? Date
-                    player.position = record.value(
-                        forKey: "CD_position") as? String
-                    player.foot = record.value(
-                        forKey: "CD_foot") as? String
-                    player.height = record.value(
-                        forKey: "CD_height") as? String
-                    player.weight = record.value(
-                        forKey: "CD_weight") as? String
-                    player.generalInfo = record.value(
-                        forKey: "CD_generalInfo") as? String
-                    player.technique = record.value(
-                        forKey: "CD_technique") as? String
-                    player.tactics = record.value(
-                        forKey: "CD_tactics") as? String
-                    player.qualities = record.value(
-                        forKey: "CD_qualities") as? String
-                    player.mental = record.value(
-                        forKey: "CD_mental") as? String
-                    player.cost = record.value(
-                        forKey: "CD_cost") as? String
-                    player.salary = record.value(
-                        forKey: "CD_salary") as? String
-                    player.contractDate = record.value(
-                        forKey: "CD_contractDate") as? Date
-                    player.agentName = record.value(
-                        forKey: "CD_agentName") as? String
-                    player.agentContacts = record.value(
-                        forKey: "CD_agentContacts") as? String
-                    player.testingDate = record.value(
-                        forKey: "CD_testingDate") as? Date
-                    player.runningFor15MResult = record.value(
-                        forKey: "CD_runningFor15MResult") as? String
-                    player.runningFor30MResult = record.value(
-                        forKey: "CD_runningFor30MResult") as? String
-                    player.longJumpResult = record.value(
-                        forKey: "CD_longJumpResult") as? String
-                    player.highJumpResult = record.value(
-                        forKey: "CD_highJumpResult") as? String
-                    player.runningFor15MScore = record.value(
-                        forKey: "CD_runningFor15MScore") as? String
-                    player.runningFor30MScore = record.value(
-                        forKey: "CD_runningFor30MScore") as? String
-                    player.longJumpScore = record.value(
-                        forKey: "CD_longJumpScore") as? String
-                    player.highJumpScore = record.value(
-                        forKey: "CD_highJumpScore") as? String
-                    player.testingSummary = record.value(
-                        forKey: "CD_summary") as? String
-                    player.lastEditor = record.value(
-                        forKey: "CD_lastEditor") as? String
-                    player.updatedDate = record.value(
-                        forKey: "CD_updatedDate") as? Date
-                    player.creator = record.value(
-                        forKey: "CD_creator") as? String
-                    self.saveContext()
-                    DispatchQueue.main.async {
-                        completion(player)
-                    }
-                }
-            }
-        }
     }
 
-    
     func fetchRelatedPlayers(
         forUser userFullName: String,
         completion: @escaping ([Player]) -> Void
@@ -372,7 +316,7 @@ extension StorageManager {
             }
             guard let self else { return }
             requiredPlayer.fullName = editedFullName
-            requiredPlayer.photo = photo
+            requiredPlayer.photoData = photo
             requiredPlayer.patronymic = patronymic
             requiredPlayer.citizenship = citizenship
             requiredPlayer.club = club
@@ -416,8 +360,35 @@ extension StorageManager {
                 return
             }
             guard let self else { return }
+            deletePlayerRecordFromCloud(byFullName: fullName)
             viewContext.delete(requiredPlayer)
             saveContext()
+        }
+    }
+    
+    private func deletePlayerRecordFromCloud(byFullName fullName: String) {
+        let predicate = NSPredicate(format: "CD_fullName == %@", fullName)
+        let query = CKQuery(recordType: "CD_Player", predicate: predicate)
+        let queryOperation = CKQueryOperation(query: query)
+        queryOperation.desiredKeys = ["CD_fullName"]
+        queryOperation.queuePriority = .veryHigh
+        queryOperation.recordMatchedBlock = { [weak self] recordID, _ in
+            guard let self else { return }
+            // TODO: почему-то только с третьего раза удаляется
+            publicDatabase.delete(withRecordID: recordID) { _, error in
+                if let error {
+                    print("===============\(error)")
+                }
+            }
+            queryOperation.queryResultBlock = {
+                switch $0 {
+                case .success(_):
+                    print("===============DELETE")
+                case .failure(let error):
+                    print("===============\(error)")
+                }
+            }
+            publicDatabase.add(queryOperation)
         }
     }
 }

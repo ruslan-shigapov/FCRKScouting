@@ -290,7 +290,7 @@ final class EditorViewController: UIViewController {
     
     private func configureUI() {
         if let player = viewModel.getPlayer() {
-            if let photo = player.photo {
+            if let photo = player.photoData {
                 photoImageView.image = UIImage(data: photo)
             }
             fullNameTextFieldView.set(text: player.fullName)

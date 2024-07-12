@@ -37,7 +37,7 @@ final class PlayerMainCardViewModel: PlayerMainCardViewModelProtocol {
     }()
     
     var photo: UIImage? {
-        guard let photo = player.photo else { return nil }
+        guard let photo = player.photoData else { return nil }
         return UIImage(data: photo)
     }
     

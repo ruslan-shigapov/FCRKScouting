@@ -19,7 +19,7 @@ final class PlayerCellViewModel: PlayerCellViewModelProtocol {
     private let player: Player
         
     var photo: UIImage? {
-        guard let photo = player.photo else { return nil }
+        guard let photo = player.photoData else { return nil }
         return UIImage(data: photo)
     }
     

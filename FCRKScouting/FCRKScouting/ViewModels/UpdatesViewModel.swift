@@ -63,14 +63,10 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
     }
             
     init() {
-        fetchPlayers()
-        filterPlayersByDate()
-    }
-    
-    private func fetchPlayers() {
-        StorageManager.shared.fetchPlayersFromCloud() { [weak self] in
+        StorageManager.shared.fetchPlayers() { [weak self] in
             guard let self else { return }
-            players.append($0)
+            players = $0
+            filterPlayersByDate()
         }
     }
     
@@ -139,9 +135,10 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
     }
     
     func refreshPlayersList(completion: @escaping () -> Void) {
-        fetchPlayers()
-        filterPlayersByDate()
-        DispatchQueue.main.async {
+        StorageManager.shared.fetchPlayers() { [weak self] in
+            guard let self else { return }
+            players = $0
+            filterPlayersByDate()
             completion()
         }
     }

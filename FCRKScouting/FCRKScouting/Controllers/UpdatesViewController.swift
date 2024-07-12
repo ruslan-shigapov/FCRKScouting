@@ -158,7 +158,7 @@ final class UpdatesViewController: UIViewController {
     @objc private func refreshButtonTapped() {
         noResultsLabel.isHidden = true
         activityIndicator.startAnimating()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self else { return }
             viewModel.refreshPlayersList {
                 self.updateCollectionView()

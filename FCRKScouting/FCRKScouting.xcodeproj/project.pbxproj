@@ -34,7 +34,6 @@
 		E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */; };
 		E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471B2082BFB4543003C0DCD /* FormViewController.swift */; };
 		E471B20B2BFB6062003C0DCD /* FormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471B20A2BFB6062003C0DCD /* FormViewModel.swift */; };
-		E476137B2C3C03FF000AA14E /* CloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E476137A2C3C03FF000AA14E /* CloudManager.swift */; };
 		E48159E62BCE7BAB0090FC42 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */; };
 		E481C1C02C2EDD12008D6460 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E481C1BF2C2EDD12008D6460 /* AuthManager.swift */; };
 		E486D13D2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486D13C2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift */; };
@@ -112,7 +111,6 @@
 		E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
 		E471B2082BFB4543003C0DCD /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		E471B20A2BFB6062003C0DCD /* FormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewModel.swift; sourceTree = "<group>"; };
-		E476137A2C3C03FF000AA14E /* CloudManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudManager.swift; sourceTree = "<group>"; };
 		E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		E481C1BE2C2EDBDF008D6460 /* FCRKScouting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FCRKScouting.entitlements; sourceTree = "<group>"; };
 		E481C1BF2C2EDD12008D6460 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
@@ -347,7 +345,6 @@
 				E481C1BF2C2EDD12008D6460 /* AuthManager.swift */,
 				E4BB48562BC3D33400F91513 /* UserManager.swift */,
 				E4BB48552BC3D33400F91513 /* StorageManager.swift */,
-				E476137A2C3C03FF000AA14E /* CloudManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -520,7 +517,6 @@
 				E46194BD2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift in Sources */,
 				E414C35D2C00C2230068077E /* TestingDetailsViewController.swift in Sources */,
 				E4BB48732BC3D53E00F91513 /* ProfileViewController.swift in Sources */,
-				E476137B2C3C03FF000AA14E /* CloudManager.swift in Sources */,
 				E4F4CE462BC92E0B009F9A8D /* PlayerCollectionView.swift in Sources */,
 				E4BB48832BC3D54600F91513 /* GraySegmentedControl.swift in Sources */,
 				E4BB48782BC3D53E00F91513 /* UpdatesViewController.swift in Sources */,

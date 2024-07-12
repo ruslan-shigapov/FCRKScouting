@@ -123,7 +123,7 @@ final class EditorViewModel: EditorViewModelProtocol {
             }
             return scaleImage.jpegData(compressionQuality: 1)
         }
-        return player?.photo
+        return player?.photoData
     }
         
     func savePlayer(
