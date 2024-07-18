@@ -1,5 +1,5 @@
 //
-//  PlayerCell.swift
+//  PlayerCollectionViewCell.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 12.04.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PlayerCell: UICollectionViewCell {
+final class PlayerCollectionViewCell: UICollectionViewCell {
     
     // MARK: Views
     private let photoImageView = PhotoImageView()
@@ -70,7 +70,7 @@ final class PlayerCell: UICollectionViewCell {
 }
 
 // MARK: - Layout
-private extension PlayerCell {
+private extension PlayerCollectionViewCell {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
@@ -83,7 +83,7 @@ private extension PlayerCell {
             
             fullNameLabel.leadingAnchor.constraint(
                 equalTo: photoImageView.trailingAnchor,
-                constant: 12),
+                constant: 10),
             fullNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             infoStackView.leadingAnchor.constraint(

@@ -66,8 +66,9 @@ final class UpdatesViewController: UIViewController {
             forSupplementaryViewOfKind: elementKind,
             withReuseIdentifier: String(describing: DateHeaderView.self))
         collectionView.register(
-            PlayerCell.self,
-            forCellWithReuseIdentifier: String(describing: PlayerCell.self))
+            PlayerCollectionViewCell.self,
+            forCellWithReuseIdentifier: String(
+                describing: PlayerCollectionViewCell.self))
         return collectionView
     }()
     

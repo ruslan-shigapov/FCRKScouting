@@ -30,6 +30,8 @@ enum Constants {
             static let close = UIImage(systemName: "xmark.circle")
             static let plus = UIImage(systemName: "plus.square")
             static let minus = UIImage(systemName: "minus.square")
+            static let featuresOff = UIImage(systemName: "star")
+            static let featuresOn = UIImage(systemName: "star.fill")
             static let features = UIImage(systemName: "star.circle")
             static let related = UIImage(systemName: "personalhotspot.circle")
             static let filters = UIImage(systemName: "magnifyingglass.circle")

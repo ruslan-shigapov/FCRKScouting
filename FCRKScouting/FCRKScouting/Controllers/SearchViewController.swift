@@ -66,8 +66,9 @@ final class SearchViewController: UIViewController {
         collectionView.delegate = collectionViewDelegate
         collectionView.dataSource = collectionViewDataSource
         collectionView.register(
-            PlayerCell.self,
-            forCellWithReuseIdentifier: String(describing: PlayerCell.self))
+            PlayerCollectionViewCell.self,
+            forCellWithReuseIdentifier: String(
+                describing: PlayerCollectionViewCell.self))
         return collectionView
     }()
     

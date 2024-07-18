@@ -73,10 +73,13 @@
 		E4D1D6A32C130D3E00810C3B /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D1D6A22C130D3E00810C3B /* DatePickerView.swift */; };
 		E4D92C3B2C11C30200401E1F /* PriceTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D92C3A2C11C30200401E1F /* PriceTextFieldView.swift */; };
 		E4E029532C359332004F51C9 /* UIAlertAction+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E029522C359332004F51C9 /* UIAlertAction+extension.swift */; };
+		E4E7F3432C490A5500493A2F /* FeaturesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E7F3422C490A5500493A2F /* FeaturesButton.swift */; };
+		E4E7F3452C49375F00493A2F /* CareerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E7F3442C49375F00493A2F /* CareerTableViewCell.swift */; };
+		E4E7F3472C4941F200493A2F /* CareerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E7F3462C4941F200493A2F /* CareerCellViewModel.swift */; };
 		E4F38F2D2C24167E0011830D /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38F2C2C24167E0011830D /* PlayerViewController.swift */; };
 		E4F38F312C2431E80011830D /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38F302C2431E80011830D /* PlayerViewModel.swift */; };
 		E4F4CE462BC92E0B009F9A8D /* PlayerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE452BC92E0B009F9A8D /* PlayerCollectionView.swift */; };
-		E4F4CE482BC935BD009F9A8D /* PlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE472BC935BD009F9A8D /* PlayerCell.swift */; };
+		E4F4CE482BC935BD009F9A8D /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */; };
 		E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */; };
 		E4F4CE4C2BC95122009F9A8D /* DateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE4B2BC95122009F9A8D /* DateHeaderView.swift */; };
 /* End PBXBuildFile section */
@@ -151,10 +154,13 @@
 		E4D1D6A22C130D3E00810C3B /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		E4D92C3A2C11C30200401E1F /* PriceTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTextFieldView.swift; sourceTree = "<group>"; };
 		E4E029522C359332004F51C9 /* UIAlertAction+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+extension.swift"; sourceTree = "<group>"; };
+		E4E7F3422C490A5500493A2F /* FeaturesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesButton.swift; sourceTree = "<group>"; };
+		E4E7F3442C49375F00493A2F /* CareerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerTableViewCell.swift; sourceTree = "<group>"; };
+		E4E7F3462C4941F200493A2F /* CareerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerCellViewModel.swift; sourceTree = "<group>"; };
 		E4F38F2C2C24167E0011830D /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		E4F38F302C2431E80011830D /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		E4F4CE452BC92E0B009F9A8D /* PlayerCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionView.swift; sourceTree = "<group>"; };
-		E4F4CE472BC935BD009F9A8D /* PlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCell.swift; sourceTree = "<group>"; };
+		E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
 		E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesViewModel.swift; sourceTree = "<group>"; };
 		E4F4CE4B2BC95122009F9A8D /* DateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -271,6 +277,7 @@
 				E4BB487B2BC3D54600F91513 /* GraySegmentedControl.swift */,
 				E486D13C2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift */,
 				E4A0B5312C37FA88009CA1C1 /* DisabledPageControl.swift */,
+				E4E7F3422C490A5500493A2F /* FeaturesButton.swift */,
 				E46AC8AE2BF773C600A3C801 /* NavigationButton.swift */,
 			);
 			path = Controls;
@@ -296,6 +303,7 @@
 				E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */,
 				E4F38F302C2431E80011830D /* PlayerViewModel.swift */,
 				E4A0B52B2C37D630009CA1C1 /* PlayerMainCardViewModel.swift */,
+				E4E7F3462C4941F200493A2F /* CareerCellViewModel.swift */,
 				E4A0B5332C388BDA009CA1C1 /* PlayerExtraCardViewModel.swift */,
 				E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */,
 				E4BB48672BC3D53E00F91513 /* ProfileViewModel.swift */,
@@ -406,7 +414,8 @@
 		E4D101452BD274F8006D2DCF /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				E4F4CE472BC935BD009F9A8D /* PlayerCell.swift */,
+				E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */,
+				E4E7F3442C49375F00493A2F /* CareerTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -500,7 +509,9 @@
 				E4BB48742BC3D53E00F91513 /* ProfileViewModel.swift in Sources */,
 				E4D92C3B2C11C30200401E1F /* PriceTextFieldView.swift in Sources */,
 				E439E8842C37469B0017006E /* PlayerMainCard.swift in Sources */,
+				E4E7F3432C490A5500493A2F /* FeaturesButton.swift in Sources */,
 				E4B2436A2C2D620700D8E121 /* EditorImagePickerDelegate.swift in Sources */,
+				E4E7F3452C49375F00493A2F /* CareerTableViewCell.swift in Sources */,
 				E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */,
 				E426774A2C20564100A4333F /* CareerDetailsViewController.swift in Sources */,
 				E4D101492BD27742006D2DCF /* CustomLabel.swift in Sources */,
@@ -522,6 +533,7 @@
 				E4BB48782BC3D53E00F91513 /* UpdatesViewController.swift in Sources */,
 				E4A0B5322C37FA88009CA1C1 /* DisabledPageControl.swift in Sources */,
 				E4BB48592BC3D33400F91513 /* StorageManager.swift in Sources */,
+				E4E7F3472C4941F200493A2F /* CareerCellViewModel.swift in Sources */,
 				E40C7FEC2BFF2F5D0043DC3E /* PageSliderView.swift in Sources */,
 				E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */,
 				E4C0DE172BC6A3C400BCD235 /* TextViewWithTitle.swift in Sources */,
@@ -538,7 +550,7 @@
 				E471B20B2BFB6062003C0DCD /* FormViewModel.swift in Sources */,
 				E4BB48882BC3D54600F91513 /* PrimaryTextFieldView.swift in Sources */,
 				E4BB48842BC3D54600F91513 /* NavigationBarButton.swift in Sources */,
-				E4F4CE482BC935BD009F9A8D /* PlayerCell.swift in Sources */,
+				E4F4CE482BC935BD009F9A8D /* PlayerCollectionViewCell.swift in Sources */,
 				E4BB48872BC3D54600F91513 /* PrimaryButton.swift in Sources */,
 				E4BB484E2BC3D26A00F91513 /* Constants.swift in Sources */,
 				E4A0B52C2C37D630009CA1C1 /* PlayerMainCardViewModel.swift in Sources */,

@@ -26,8 +26,7 @@ final class PlayerExtraCard: UIView {
         numberOfLines: 2)
     private let salaryLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.salary,
-        numberOfLines: 2)
+        text: Constants.Text.Titles.salary)
     private let contractLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.Titles.contract,
@@ -39,11 +38,31 @@ final class PlayerExtraCard: UIView {
         font: Constants.Fonts.normal,
         text: Constants.Text.Titles.contacts)
     
-    private let costValueLabel = DefaultTextLabel()
-    private let salaryValueLabel = DefaultTextLabel()
-    private let contractValueLabel = DefaultTextLabel()
-    private let agentNameValueLabel = DefaultTextLabel()
-    private let contactsValueLabel = DefaultTextLabel()
+    private let costValueLabel: DefaultTextLabel = {
+        let label = DefaultTextLabel()
+        label.textAlignment = .right
+        return label
+    }()
+    private let salaryValueLabel: DefaultTextLabel = {
+        let label = DefaultTextLabel()
+        label.textAlignment = .right
+        return label
+    }()
+    private let contractValueLabel: DefaultTextLabel = {
+        let label = DefaultTextLabel()
+        label.textAlignment = .right
+        return label
+    }()
+    private let agentNameValueLabel: DefaultTextLabel = {
+        let label = DefaultTextLabel()
+        label.textAlignment = .right
+        return label
+    }()
+    private let contactsValueLabel: DefaultTextLabel = {
+        let label = DefaultTextLabel()
+        label.textAlignment = .right
+        return label
+    }()
     
     private let testResultsLabel: CustomLabel = {
         let label = CustomLabel(
@@ -235,7 +254,7 @@ private extension PlayerExtraCard {
             
             costLabel.topAnchor.constraint(
                 equalTo: titleLabel.bottomAnchor,
-                constant: 24),
+                constant: 16),
             costLabel.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,
                 constant: 24),
@@ -271,29 +290,37 @@ private extension PlayerExtraCard {
             contactsLabel.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,
                 constant: 24),
+            contactsLabel.widthAnchor.constraint(equalToConstant: 120),
             
             costValueLabel.leadingAnchor.constraint(
                 equalTo: salaryValueLabel.leadingAnchor),
+            costValueLabel.trailingAnchor.constraint(
+                equalTo: backgroundView.trailingAnchor,
+                constant: -24),
             costValueLabel.centerYAnchor.constraint(
                 equalTo: costLabel.centerYAnchor,
                 constant: -2),
             
             salaryValueLabel.leadingAnchor.constraint(
-                equalTo: salaryLabel.trailingAnchor,
-                constant: 12),
+                equalTo: salaryLabel.trailingAnchor),
+            salaryValueLabel.trailingAnchor.constraint(
+                equalTo: backgroundView.trailingAnchor,
+                constant: -24),
             salaryValueLabel.centerYAnchor.constraint(
                 equalTo: salaryLabel.centerYAnchor,
                 constant: -2),
             
             contractValueLabel.leadingAnchor.constraint(
                 equalTo: salaryValueLabel.leadingAnchor),
+            contractValueLabel.trailingAnchor.constraint(
+                equalTo: backgroundView.trailingAnchor,
+                constant: -24),
             contractValueLabel.centerYAnchor.constraint(
                 equalTo: contractLabel.centerYAnchor,
                 constant: -1),
             
             agentNameValueLabel.leadingAnchor.constraint(
-                equalTo: salaryValueLabel.leadingAnchor,
-                constant: -24),
+                equalTo: contactsValueLabel.leadingAnchor),
             agentNameValueLabel.trailingAnchor.constraint(
                 equalTo: backgroundView.trailingAnchor,
                 constant: -24),
@@ -302,7 +329,9 @@ private extension PlayerExtraCard {
                 constant: -2),
             
             contactsValueLabel.leadingAnchor.constraint(
-                equalTo: salaryValueLabel.leadingAnchor,
+                equalTo: contactsLabel.trailingAnchor),
+            contactsValueLabel.trailingAnchor.constraint(
+                equalTo: backgroundView.trailingAnchor,
                 constant: -24),
             contactsValueLabel.centerYAnchor.constraint(
                 equalTo: contactsLabel.centerYAnchor,

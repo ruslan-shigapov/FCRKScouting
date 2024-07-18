@@ -31,8 +31,9 @@ final class UpdatesCollectionDataSource: NSObject, UICollectionViewDataSource {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: String(describing: PlayerCell.self),
-            for: indexPath) as? PlayerCell
+            withReuseIdentifier: String(
+                describing: PlayerCollectionViewCell.self),
+            for: indexPath) as? PlayerCollectionViewCell
         let currentPlayer = viewModel.getPlayer(at: indexPath)
         cell?.viewModel = viewModel.getPlayerCellViewModel(for: currentPlayer)
         return cell ?? UICollectionViewCell()

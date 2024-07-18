@@ -33,8 +33,17 @@ final class PlayerMainCard: UIView {
                 positionValueLabel
             ])
         stackView.axis = .vertical
-        stackView.alignment = .center
+        stackView.distribution = .fillEqually
         return stackView
+    }()
+    
+    private lazy var toggleFeaturesButton: FeaturesButton = {
+        let button = FeaturesButton()
+        button.addTarget(
+            self,
+            action: #selector(toggleFeaturesButtonTapped),
+            for: .touchUpInside)
+        return button
     }()
     
     private let ageLabel = CustomLabel(
@@ -56,11 +65,26 @@ final class PlayerMainCard: UIView {
         font: Constants.Fonts.normal,
         text: Constants.Text.Titles.weight)
     
-    private let ageValueLabel = DefaultTextLabel()
-    private let citizenshipValueLabel = DefaultTextLabel()
-    private let clubAndNationalTeamValueLabel = DefaultTextLabel(
-        numberOfLines: 2)
-    private let footValueLabel = DefaultTextLabel()
+    private let ageValueLabel: DefaultTextLabel = {
+        let label = DefaultTextLabel()
+        label.textAlignment = .center
+        return label
+    }()
+    private let citizenshipValueLabel: DefaultTextLabel = {
+        let label = DefaultTextLabel()
+        label.textAlignment = .center
+        return label
+    }()
+    private let clubAndNationalTeamValueLabel: DefaultTextLabel = {
+        let label = DefaultTextLabel(numberOfLines: 2)
+        label.textAlignment = .center
+        return label
+    }()
+    private let footValueLabel: DefaultTextLabel = {
+        let label = DefaultTextLabel()
+        label.textAlignment = .center
+        return label
+    }()
     private let heightValueLabel = DefaultTextLabel()
     private let weightValueLabel = DefaultTextLabel()
     
@@ -84,6 +108,7 @@ final class PlayerMainCard: UIView {
         view.addSubviews(
             photoImageView,
             titleStackView,
+            toggleFeaturesButton,
             ageLabel,
             citizenshipLabel,
             clubAndNationalTeamLabel,
@@ -147,6 +172,11 @@ final class PlayerMainCard: UIView {
         prepareForAutoLayout()
         setConstraints()
     }
+    
+    @objc private func toggleFeaturesButtonTapped(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        // TODO: add features logic
+    }
 }
 
 // MARK: - Layout
@@ -165,30 +195,35 @@ private extension PlayerMainCard {
             
             photoImageView.topAnchor.constraint(
                 equalTo: backgroundView.topAnchor,
-                constant: 24),
+                constant: 16),
             photoImageView.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,
-                constant: 24),
+                constant: 16),
             photoImageView.heightAnchor.constraint(
                 equalToConstant: UIScreen.main.bounds.height * 0.15),
             photoImageView.widthAnchor.constraint(
                 equalTo: photoImageView.heightAnchor),
             
+            titleStackView.topAnchor.constraint(
+                equalTo: toggleFeaturesButton.bottomAnchor,
+                constant: 12),
             titleStackView.leadingAnchor.constraint(
                 equalTo: photoImageView.trailingAnchor,
-                constant: 16),
+                constant: 12),
             titleStackView.trailingAnchor.constraint(
                 equalTo: backgroundView.trailingAnchor,
                 constant: -16),
-            titleStackView.centerYAnchor.constraint(
-                equalTo: photoImageView.centerYAnchor),
-            titleStackView.heightAnchor.constraint(
-                equalTo: photoImageView.heightAnchor,
-                constant: -32),
+            
+            toggleFeaturesButton.topAnchor.constraint(
+                equalTo: backgroundView.topAnchor,
+                constant: 8),
+            toggleFeaturesButton.trailingAnchor.constraint(
+                equalTo: backgroundView.trailingAnchor,
+                constant: -8),
             
             ageLabel.topAnchor.constraint(
                 equalTo: photoImageView.bottomAnchor,
-                constant: 24),
+                constant: 16),
             ageLabel.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,
                 constant: 24),
@@ -231,19 +266,25 @@ private extension PlayerMainCard {
             
             ageValueLabel.leadingAnchor.constraint(
                 equalTo: clubAndNationalTeamValueLabel.leadingAnchor),
+            ageValueLabel.trailingAnchor.constraint(
+                equalTo: backgroundView.trailingAnchor,
+                constant: -16),
             ageValueLabel.centerYAnchor.constraint(
                 equalTo: ageLabel.centerYAnchor,
                 constant: -2),
             
             citizenshipValueLabel.leadingAnchor.constraint(
                 equalTo: clubAndNationalTeamValueLabel.leadingAnchor),
+            citizenshipValueLabel.trailingAnchor.constraint(
+                equalTo: backgroundView.trailingAnchor,
+                constant: -16),
             citizenshipValueLabel.centerYAnchor.constraint(
                 equalTo: citizenshipLabel.centerYAnchor,
                 constant: -2),
             
             clubAndNationalTeamValueLabel.leadingAnchor.constraint(
                 equalTo: clubAndNationalTeamLabel.trailingAnchor,
-                constant: 16),
+                constant: 8),
             clubAndNationalTeamValueLabel.trailingAnchor.constraint(
                 equalTo: backgroundView.trailingAnchor,
                 constant: -16),
@@ -253,6 +294,9 @@ private extension PlayerMainCard {
             
             footValueLabel.leadingAnchor.constraint(
                 equalTo: clubAndNationalTeamValueLabel.leadingAnchor),
+            footValueLabel.trailingAnchor.constraint(
+                equalTo: backgroundView.trailingAnchor,
+                constant: -16),
             footValueLabel.centerYAnchor.constraint(
                 equalTo: footLabel.centerYAnchor,
                 constant: -2),

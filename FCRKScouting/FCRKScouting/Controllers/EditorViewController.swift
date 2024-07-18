@@ -333,10 +333,12 @@ final class EditorViewController: UIViewController {
     private func handlePhotoSelecting() {
         viewModel.wasImageChanged = { [weak self] in
             guard let self else { return }
-            if let photo = viewModel.selectedPhoto {
-                photoImageView.image = photo
-            } else {
-                setPlaceholderForImageView()
+            DispatchQueue.main.async {
+                if let photo = self.viewModel.selectedPhoto {
+                    self.photoImageView.image = photo
+                } else {
+                    self.setPlaceholderForImageView()
+                }
             }
         }
     }
@@ -425,7 +427,7 @@ final class EditorViewController: UIViewController {
                 }
             } deleteCompletion: { [weak self] in
                 guard let self else { return }
-                setPlaceholderForImageView()
+                viewModel.selectedPhoto = nil
             }
         present(alertController, animated: true)
     }

@@ -114,9 +114,9 @@ extension StorageManager {
                 let accessValue = record.value(
                     forKey: "CD_isEditingAllowed") as? Int64
                 user.isEditingAllowed = accessValue == 1 ? true : false
-                DispatchQueue.global().asyncAfter(deadline: .now() + 4.0) {
+                saveContext()
+                DispatchQueue.global().asyncAfter(deadline: .now() + 3.0) {
                     self.deleteDuplicateUsers(user.appleID)
-                    // TODO: видимо придется добавить свойство с датой(временем)
                 }
                 DispatchQueue.main.async {
                     completion(user)
@@ -167,7 +167,6 @@ extension StorageManager {
 extension StorageManager {
     
     func fetchPlayers(completion: @escaping ([Player]) -> Void) {
-        // TODO: надо загружать раньше? или по датам?
         let fetchRequest = Player.fetchRequest()
         if let players = try? viewContext.fetch(fetchRequest) {
             completion(players)
@@ -211,7 +210,7 @@ extension StorageManager {
         creator: String
     ) {
         let player = Player(context: viewContext)
-        // TODO: добавить проверку на совпадение имени
+        // TODO: добавить проверку на совпадение имени и проверить нагрузку вызовов получения все-таки (блин, не всегда удаляется с первого раза)
         player.fullName = fullName
         player.photoData = photo
         player.patronymic = patronymic
@@ -374,20 +373,7 @@ extension StorageManager {
         queryOperation.queuePriority = .veryHigh
         queryOperation.recordMatchedBlock = { [weak self] recordID, _ in
             guard let self else { return }
-            // TODO: почему-то только с третьего раза удаляется
-            publicDatabase.delete(withRecordID: recordID) { _, error in
-                if let error {
-                    print("===============\(error)")
-                }
-            }
-            queryOperation.queryResultBlock = {
-                switch $0 {
-                case .success(_):
-                    print("===============DELETE")
-                case .failure(let error):
-                    print("===============\(error)")
-                }
-            }
+            publicDatabase.delete(withRecordID: recordID) { _, _ in }
             publicDatabase.add(queryOperation)
         }
     }

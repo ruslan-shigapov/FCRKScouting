@@ -76,6 +76,8 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol,
 final class EditorViewModel: EditorViewModelProtocol {
                 
     private let player: Player?
+    
+    private var isPhotoChanged = false
 
     var prices: [String?] = []
     
@@ -106,6 +108,7 @@ final class EditorViewModel: EditorViewModelProtocol {
     
     var selectedPhoto: UIImage? {
         didSet {
+            isPhotoChanged = true
             wasImageChanged?()
         }
     }
@@ -114,16 +117,23 @@ final class EditorViewModel: EditorViewModelProtocol {
         self.player = player
     }
     
-    private func getPhotoData() -> Data? {
-        if let image = selectedPhoto {
-            let scale = image.size.width > 1080 ? 1080 / image.size.width : 1
-            guard let pngData = image.pngData(),
-                  let scaleImage = UIImage(data: pngData, scale: scale) else {
-                return nil
-            }
-            return scaleImage.jpegData(compressionQuality: 1)
+    private func formatImageToData(_ image: UIImage?) -> Data? {
+        guard let image else { return nil }
+        let scale = image.size.width > 1080 ? 1080 / image.size.width : 1
+        guard let pngData = image.pngData(),
+              let scaleImage = UIImage(data: pngData, scale: scale) else {
+            return nil
         }
-        return player?.photoData
+        return scaleImage.jpegData(compressionQuality: 1)
+    }
+    
+    private func getPhotoData() -> Data? {
+        if isPhotoChanged {
+            guard let image = selectedPhoto else { return nil }
+            return formatImageToData(image)
+        } else {
+            return player?.photoData
+        }
     }
         
     func savePlayer(
@@ -151,7 +161,7 @@ final class EditorViewModel: EditorViewModelProtocol {
         let currentUser = UserManager.shared.getCurrentUser()
         StorageManager.shared.createPlayer(
             byFullName: fullName,
-            photo: selectedPhoto?.jpegData(compressionQuality: 1),
+            photo: formatImageToData(selectedPhoto),
             patronymic: patronymic,
             citizenship: citizenship,
             club: club,
