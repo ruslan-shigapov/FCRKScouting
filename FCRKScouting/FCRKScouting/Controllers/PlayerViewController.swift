@@ -55,6 +55,7 @@ final class PlayerViewController: UIViewController {
     }()
     private lazy var playerCareerCard: PlayerCareerCard = {
         let playerCard = PlayerCareerCard()
+        playerCard.delegate = viewModel as PlayerCareerCardDelegate
         playerCard.viewModel = viewModel.getPlayerCareerCardViewModel()
         return playerCard
     }()
@@ -91,6 +92,7 @@ final class PlayerViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         handlePlayerEditing()
+        handleAddCareerButtonTapping()
     }
     
     // MARK: Private Methods
@@ -112,6 +114,26 @@ final class PlayerViewController: UIViewController {
             let playerCareerCardVM = viewModel.getPlayerCareerCardViewModel()
             playerCareerCard.viewModel = playerCareerCardVM
         }
+    }
+    
+    private func handleAddCareerButtonTapping() {
+        viewModel.addCareerButtonWasTapped = { [weak self] in
+            guard let self else { return }
+            let addCareerVC = ScreenFactory.getAddCareerViewController(
+                withDelegate: viewModel as AddCareerViewControllerDelegate)
+            if let sheet = addCareerVC.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+                sheet.prefersGrabberVisible = true
+            }
+            present(addCareerVC, animated: true)
+        }
+    }
+    
+    private func handleCareerAdding() {
+//        viewModel.careerWasAdded = { [weak self] in
+//            guard let self else { return }
+//            
+//        }
     }
     
     private func setupNavigationBar() {

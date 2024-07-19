@@ -7,8 +7,18 @@
 
 import UIKit
 
+protocol PlayerCareerCardDelegate {
+    var addCareerButtonWasTapped: (() -> Void)? { get set }
+}
+
+protocol AddCareerViewControllerDelegate {
+    var careerWasAdded: (() -> Void)? { get set }
+}
+
 protocol PlayerViewModelProtocol: UserViewModelProtocol,
-                                  EditorViewControllerDelegate {
+                                  EditorViewControllerDelegate,
+                                  PlayerCareerCardDelegate,
+                                  AddCareerViewControllerDelegate {
     var patronymic: String { get }
     func deletePlayer()
     func getPlayer() -> Player
@@ -22,6 +32,8 @@ final class PlayerViewModel: PlayerViewModelProtocol {
     private let player: Player
     
     var playersWereChanged: (() -> Void)?
+    var addCareerButtonWasTapped: (() -> Void)?
+    var careerWasAdded: (() -> Void)?
     
     var patronymic: String {
         player.patronymic ?? ""

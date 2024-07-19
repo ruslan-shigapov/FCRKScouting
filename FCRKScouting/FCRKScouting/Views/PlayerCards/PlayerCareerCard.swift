@@ -8,7 +8,7 @@
 import UIKit
 
 final class PlayerCareerCard: UIView {
-
+    
     // MARK: Views
     private let titleLabel: CustomLabel = {
         let label = CustomLabel(
@@ -33,7 +33,20 @@ final class PlayerCareerCard: UIView {
         return label
     }()
     
-    // TODO: add button like uploadButton
+    private lazy var addCareerButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = .lightGray
+        button.titleLabel?.font = Constants.Fonts.text
+        button.tintColor = .black
+        button.setTitle(Constants.Text.ButtonTitles.add, for: .normal)
+        button.setupCornerRadius()
+        button.setupHighlightAnimation()
+        button.addTarget(
+            self,
+            action: #selector(addCareerButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
     
     private lazy var careerTableView: UITableView = {
         let tableView = UITableView()
@@ -74,6 +87,7 @@ final class PlayerCareerCard: UIView {
             fullNameLabel,
             careerLabel,
             fullNameValueLabel,
+            addCareerButton,
             roundedContainerView,
             pageControl)
         view.prepareForAutoLayout()
@@ -86,6 +100,8 @@ final class PlayerCareerCard: UIView {
             fullNameValueLabel.text = viewModel?.fullName
         }
     }
+    
+    var delegate: PlayerCareerCardDelegate?
 
     // MARK: Initialize
     override init(frame: CGRect) {
@@ -102,6 +118,10 @@ final class PlayerCareerCard: UIView {
         addSubview(backgroundView)
         prepareForAutoLayout()
         setConstraints()
+    }
+    
+    @objc private func addCareerButtonTapped() {
+        delegate?.addCareerButtonWasTapped?()
     }
 }
 
@@ -177,6 +197,14 @@ private extension PlayerCareerCard {
             fullNameValueLabel.centerYAnchor.constraint(
                 equalTo: fullNameLabel.centerYAnchor,
                 constant: -2),
+            
+            addCareerButton.trailingAnchor.constraint(
+                equalTo: backgroundView.trailingAnchor,
+                constant: -24),
+            addCareerButton.centerYAnchor.constraint(
+                equalTo: careerLabel.centerYAnchor,
+                constant: -4),
+            addCareerButton.widthAnchor.constraint(equalToConstant: 100),
             
             roundedContainerView.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,

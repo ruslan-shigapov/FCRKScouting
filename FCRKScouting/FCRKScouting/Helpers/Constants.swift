@@ -86,6 +86,10 @@ enum Constants {
             static let actualTest = "Результаты тестирования:"
             static let fullName = "ФИО:"
             static let career = "Карьера:"
+            static let year = "Год:"
+            static let dash = "--"
+            static let period = "Период:"
+            static let league = "Лига:"
             static let access = "Доступ:"
         }
         enum Descriptions {
@@ -109,6 +113,7 @@ enum Constants {
             static let nationalTeam = "Сборная"
             static let agentName = "Агент"
             static let contacts = "Контакты"
+            static let coach = "Тренер"
             static let startTyping = "Начните вводить"
         }
         enum ButtonTitles {
@@ -122,6 +127,7 @@ enum Constants {
             static let deletePhoto = "Убрать фото"
             static let save = "Сохранить"
             static let back = "Назад"
+            static let add = "Добавить"
             static let no = "Нет"
             static let yes = "Да"
             static let exit = "Выйти"
@@ -224,6 +230,17 @@ enum Constants {
                 case .forward: "\"НП\""
                 }
             }
+        }
+        enum Leagues: String, CaseIterable {
+            case stageOne = "1 этап"
+            case stageTwo = "2 этап"
+            case stageThree = "3 этап"
+            case stageFour = "4 этап"
+            case uflOne = "ЮФЛ-1"
+            case uflTwo = "ЮФЛ-2"
+            case uflThree = "ЮФЛ-3"
+            case youngTeam = "Рубин-М"
+            case reserveTeam = "Рубин-2"
         }
         enum TextViewTitles {
             static let generalInfo = "Общ. информация:"

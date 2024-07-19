@@ -18,7 +18,6 @@
 		E414C35F2C00C3D00068077E /* TransferDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414C35E2C00C3D00068077E /* TransferDetailsViewController.swift */; };
 		E41C7C1A2C071ABF002755E5 /* DecimalTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41C7C192C071ABF002755E5 /* DecimalTextFieldView.swift */; };
 		E41FEF202C05FAFC0083F9DB /* DefaultTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41FEF1F2C05FAFC0083F9DB /* DefaultTextLabel.swift */; };
-		E426774A2C20564100A4333F /* CareerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42677492C20564100A4333F /* CareerDetailsViewController.swift */; };
 		E439E87B2C36A79D0017006E /* PlayerInfoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E439E87A2C36A79D0017006E /* PlayerInfoScrollView.swift */; };
 		E439E8842C37469B0017006E /* PlayerMainCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E439E8832C37469B0017006E /* PlayerMainCard.swift */; };
 		E439E8862C3746C40017006E /* PlayerCareerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E439E8852C3746C40017006E /* PlayerCareerCard.swift */; };
@@ -39,6 +38,7 @@
 		E486D13D2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486D13C2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift */; };
 		E49993902C3454F300D2C7C2 /* UIButton+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E499938F2C3454F300D2C7C2 /* UIButton+extension.swift */; };
 		E49C245D2C4A686900472C3B /* PlayerCareerCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49C245C2C4A686900472C3B /* PlayerCareerCardViewModel.swift */; };
+		E49C245F2C4AA7A900472C3B /* AddCareerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49C245E2C4AA7A900472C3B /* AddCareerViewController.swift */; };
 		E4A0B52C2C37D630009CA1C1 /* PlayerMainCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A0B52B2C37D630009CA1C1 /* PlayerMainCardViewModel.swift */; };
 		E4A0B5322C37FA88009CA1C1 /* DisabledPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A0B5312C37FA88009CA1C1 /* DisabledPageControl.swift */; };
 		E4A0B5342C388BDA009CA1C1 /* PlayerExtraCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A0B5332C388BDA009CA1C1 /* PlayerExtraCardViewModel.swift */; };
@@ -97,7 +97,6 @@
 		E414C35E2C00C3D00068077E /* TransferDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewController.swift; sourceTree = "<group>"; };
 		E41C7C192C071ABF002755E5 /* DecimalTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalTextFieldView.swift; sourceTree = "<group>"; };
 		E41FEF1F2C05FAFC0083F9DB /* DefaultTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextLabel.swift; sourceTree = "<group>"; };
-		E42677492C20564100A4333F /* CareerDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerDetailsViewController.swift; sourceTree = "<group>"; };
 		E439E87A2C36A79D0017006E /* PlayerInfoScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInfoScrollView.swift; sourceTree = "<group>"; };
 		E439E8832C37469B0017006E /* PlayerMainCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMainCard.swift; sourceTree = "<group>"; };
 		E439E8852C3746C40017006E /* PlayerCareerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCareerCard.swift; sourceTree = "<group>"; };
@@ -121,6 +120,7 @@
 		E486D13C2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTextFieldDisplayButton.swift; sourceTree = "<group>"; };
 		E499938F2C3454F300D2C7C2 /* UIButton+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+extension.swift"; sourceTree = "<group>"; };
 		E49C245C2C4A686900472C3B /* PlayerCareerCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCareerCardViewModel.swift; sourceTree = "<group>"; };
+		E49C245E2C4AA7A900472C3B /* AddCareerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCareerViewController.swift; sourceTree = "<group>"; };
 		E4A0B52B2C37D630009CA1C1 /* PlayerMainCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMainCardViewModel.swift; sourceTree = "<group>"; };
 		E4A0B5312C37FA88009CA1C1 /* DisabledPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledPageControl.swift; sourceTree = "<group>"; };
 		E4A0B5332C388BDA009CA1C1 /* PlayerExtraCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerExtraCardViewModel.swift; sourceTree = "<group>"; };
@@ -380,9 +380,9 @@
 				E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */,
 				E4BB486D2BC3D53E00F91513 /* EditorViewController.swift */,
 				E4F38F2C2C24167E0011830D /* PlayerViewController.swift */,
-				E42677492C20564100A4333F /* CareerDetailsViewController.swift */,
 				E414C35E2C00C3D00068077E /* TransferDetailsViewController.swift */,
 				E414C35C2C00C2230068077E /* TestingDetailsViewController.swift */,
+				E49C245E2C4AA7A900472C3B /* AddCareerViewController.swift */,
 				E4BB486B2BC3D53E00F91513 /* SearchViewController.swift */,
 				E4BB48692BC3D53E00F91513 /* FiltersViewController.swift */,
 				E4BB48662BC3D53E00F91513 /* ProfileViewController.swift */,
@@ -516,10 +516,10 @@
 				E4B2436A2C2D620700D8E121 /* EditorImagePickerDelegate.swift in Sources */,
 				E4E7F3452C49375F00493A2F /* CareerTableViewCell.swift in Sources */,
 				E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */,
-				E426774A2C20564100A4333F /* CareerDetailsViewController.swift in Sources */,
 				E4D101492BD27742006D2DCF /* CustomLabel.swift in Sources */,
 				E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */,
 				E486D13D2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift in Sources */,
+				E49C245F2C4AA7A900472C3B /* AddCareerViewController.swift in Sources */,
 				E404BEA92BE9087C0078961C /* PlayerCellViewModel.swift in Sources */,
 				E4F38F312C2431E80011830D /* PlayerViewModel.swift in Sources */,
 				E46194B72C08864700AC4FFC /* UpdatesCollectionDelegate.swift in Sources */,
