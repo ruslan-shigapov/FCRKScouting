@@ -33,7 +33,7 @@ final class PlayerMainCard: UIView {
                 positionValueLabel
             ])
         stackView.axis = .vertical
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fillProportionally
         return stackView
     }()
     
@@ -175,7 +175,7 @@ final class PlayerMainCard: UIView {
     
     @objc private func toggleFeaturesButtonTapped(_ sender: UIButton) {
         sender.isSelected.toggle()
-        // TODO: add features logic
+        // TODO: add features logic and replace button
     }
 }
 
@@ -204,15 +204,14 @@ private extension PlayerMainCard {
             photoImageView.widthAnchor.constraint(
                 equalTo: photoImageView.heightAnchor),
             
-            titleStackView.topAnchor.constraint(
-                equalTo: toggleFeaturesButton.bottomAnchor,
-                constant: 12),
             titleStackView.leadingAnchor.constraint(
                 equalTo: photoImageView.trailingAnchor,
-                constant: 12),
+                constant: 8),
             titleStackView.trailingAnchor.constraint(
                 equalTo: backgroundView.trailingAnchor,
-                constant: -16),
+                constant: -8),
+            titleStackView.centerYAnchor.constraint(
+                equalTo: photoImageView.centerYAnchor, constant: 8),
             
             toggleFeaturesButton.topAnchor.constraint(
                 equalTo: backgroundView.topAnchor,
@@ -308,9 +307,8 @@ private extension PlayerMainCard {
                 equalTo: heightLabel.centerYAnchor,
                 constant: -2),
             
-            weightValueLabel.leadingAnchor.constraint(
-                equalTo: weightLabel.trailingAnchor,
-                constant: 16),
+            weightValueLabel.centerXAnchor.constraint(
+                equalTo: footValueLabel.centerXAnchor),
             weightValueLabel.centerYAnchor.constraint(
                 equalTo: weightLabel.centerYAnchor,
                 constant: -2),

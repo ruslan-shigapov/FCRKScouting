@@ -55,6 +55,7 @@ final class PlayerViewController: UIViewController {
     }()
     private lazy var playerCareerCard: PlayerCareerCard = {
         let playerCard = PlayerCareerCard()
+        playerCard.viewModel = viewModel.getPlayerCareerCardViewModel()
         return playerCard
     }()
     private lazy var playerExtraCard: PlayerExtraCard = {
@@ -96,7 +97,7 @@ final class PlayerViewController: UIViewController {
     private func setupUI() {
         setupNavigationBar()
         generateScrollView(
-            withPages: [playerMainCard, playerCareerCard, playerExtraCard])
+            withPages: [playerMainCard, playerExtraCard, playerCareerCard])
         view.backgroundColor = .accent
         view.addSubview(cardSliderView)
         view.prepareForAutoLayout()
@@ -108,6 +109,8 @@ final class PlayerViewController: UIViewController {
             guard let self else { return }
             playerMainCard.viewModel = viewModel.getPlayerMainCardViewModel()
             playerExtraCard.viewModel = viewModel.getPlayerExtraCardViewModel()
+            let playerCareerCardVM = viewModel.getPlayerCareerCardViewModel()
+            playerCareerCard.viewModel = playerCareerCardVM
         }
     }
     

@@ -22,12 +22,18 @@ final class PlayerCareerCard: UIView {
     
     private let fullNameLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: "ФИО:")
+        text: Constants.Text.Titles.fullName)
     private let careerLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: "Карьера:")
+        text: Constants.Text.Titles.career)
     
-    private let fullNameValueLabel = DefaultTextLabel()
+    private let fullNameValueLabel: DefaultTextLabel = {
+        let label = DefaultTextLabel(numberOfLines: 2)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    // TODO: add button like uploadButton
     
     private lazy var careerTableView: UITableView = {
         let tableView = UITableView()
@@ -54,7 +60,7 @@ final class PlayerCareerCard: UIView {
     private let pageControl: DisabledPageControl = {
         let pageControl = DisabledPageControl()
         pageControl.numberOfPages = 3
-        pageControl.currentPage = 1
+        pageControl.currentPage = 2
         return pageControl
     }()
     
@@ -73,6 +79,13 @@ final class PlayerCareerCard: UIView {
         view.prepareForAutoLayout()
         return view
     }()
+    
+    // MARK: Public Properties 
+    var viewModel: PlayerCareerCardViewModelProtocol? {
+        didSet {
+            fullNameValueLabel.text = viewModel?.fullName
+        }
+    }
 
     // MARK: Initialize
     override init(frame: CGRect) {
@@ -102,7 +115,7 @@ extension PlayerCareerCard: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        1
+        viewModel?.getNumberOfRows() ?? 0
     }
     
     func tableView(
@@ -112,7 +125,7 @@ extension PlayerCareerCard: UITableViewDataSource {
         let identifier = String(describing: CareerTableViewCell.self)
         let cell = tableView.dequeueReusableCell(
             withIdentifier: identifier) as? CareerTableViewCell
-        cell?.viewModel = CareerCellViewModel()
+        cell?.viewModel = viewModel?.getCareerCellViewModel(at: indexPath)
         return cell ?? UITableViewCell()
     }
 }
@@ -150,20 +163,20 @@ private extension PlayerCareerCard {
             
             careerLabel.topAnchor.constraint(
                 equalTo: fullNameLabel.bottomAnchor,
-                constant: 16),
+                constant: 24),
             careerLabel.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,
                 constant: 24),
             
             fullNameValueLabel.leadingAnchor.constraint(
                 equalTo: fullNameLabel.trailingAnchor,
-                constant: 12),
+                constant: 8),
             fullNameValueLabel.trailingAnchor.constraint(
                 equalTo: backgroundView.trailingAnchor,
-                constant: 24),
+                constant: -8),
             fullNameValueLabel.centerYAnchor.constraint(
                 equalTo: fullNameLabel.centerYAnchor,
-                constant: -1),
+                constant: -2),
             
             roundedContainerView.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,
@@ -190,9 +203,9 @@ private extension PlayerCareerCard {
             careerTableView.trailingAnchor.constraint(
                 equalTo: roundedContainerView.trailingAnchor,
                 constant: -6),
-//            careerTableView.widthAnchor.constraint(
-//                equalTo: roundedContainerView.widthAnchor,
-//                constant: -12),
+            careerTableView.widthAnchor.constraint(
+                equalTo: roundedContainerView.widthAnchor,
+                constant: -12),
             
             pageControl.centerXAnchor.constraint(
                 equalTo: backgroundView.centerXAnchor),

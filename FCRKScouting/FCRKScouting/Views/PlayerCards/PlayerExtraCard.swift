@@ -161,7 +161,7 @@ final class PlayerExtraCard: UIView {
     private let pageControl: DisabledPageControl = {
         let pageControl = DisabledPageControl()
         pageControl.numberOfPages = 3
-        pageControl.currentPage = 2
+        pageControl.currentPage = 1
         return pageControl
     }()
     

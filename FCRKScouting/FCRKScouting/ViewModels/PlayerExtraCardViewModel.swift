@@ -36,11 +36,17 @@ final class PlayerExtraCardViewModel: PlayerExtraCardViewModelProtocol {
     }()
 
     var cost: String {
-        "\(player.cost ?? "0") \u{20BD}"
+        guard let cost = player.cost, !cost.isEmpty else {
+            return "0 \u{20BD}"
+        }
+        return "\(cost) \u{20BD}"
     }
     
     var salary: String {
-        "\(player.salary ?? "0") \u{20BD}"
+        guard let salary = player.salary, !salary.isEmpty else {
+            return "0 \u{20BD}"
+        }
+        return "\(salary) \u{20BD}"
     }
     
     var contractDate: String {

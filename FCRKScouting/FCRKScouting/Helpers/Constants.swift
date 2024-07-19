@@ -84,6 +84,8 @@ enum Constants {
             static let score = "оценка:"
             static let summary = "Выводы:"
             static let actualTest = "Результаты тестирования:"
+            static let fullName = "ФИО:"
+            static let career = "Карьера:"
             static let access = "Доступ:"
         }
         enum Descriptions {

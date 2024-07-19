@@ -52,7 +52,7 @@ final class PlayerMainCardViewModel: PlayerMainCardViewModelProtocol {
     var age: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
-        guard let birthDate = player.birthDate else { return "" }
+        guard let birthDate = player.birthDate else { return "Не указан" }
         let formattedBirthDate = dateFormatter.string(from: birthDate)
         let ageComponents = Calendar.current.dateComponents(
             [.year],
@@ -74,12 +74,16 @@ final class PlayerMainCardViewModel: PlayerMainCardViewModelProtocol {
     }
     
     var height: String {
-        guard let height = player.height, !height.isEmpty else { return "" }
+        guard let height = player.height, !height.isEmpty else {
+            return "0.00 м"
+        }
         return height + " м"
     }
     
     var weight: String {
-        guard let weight = player.weight, !weight.isEmpty else { return "" }
+        guard let weight = player.weight, !weight.isEmpty else {
+            return "00.00 кг"
+        }
         return weight + " кг"
     }
     

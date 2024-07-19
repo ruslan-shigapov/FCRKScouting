@@ -13,21 +13,21 @@ protocol CareerCellViewModelProtocol {
 
 final class CareerCellViewModel: CareerCellViewModelProtocol {
     
-//    private let player: Player
+    private let career: Career
     
     var year: String {
-        "2024"
+        career.year ?? ""
     }
     
     var league: String {
-        "Рубин-М. Тренер:"
+        "\(career.league ?? ""). Тренер:"
     }
     
     var coachName: String {
-        "Яруллин/Хораськин"
+        career.coachName ?? ""
     }
     
-//    init(player: Player) {
-//        self.player = player
-//    }
+    init(career: Career) {
+        self.career = career
+    }
 }
