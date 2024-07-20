@@ -28,6 +28,7 @@
 		E46194B92C08866E00AC4FFC /* UpdatesCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194B82C08866E00AC4FFC /* UpdatesCollectionDataSource.swift */; };
 		E46194BB2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194BA2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift */; };
 		E46194BD2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194BC2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift */; };
+		E46213152C4BFF62008D9B00 /* AddCareerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46213142C4BFF62008D9B00 /* AddCareerViewModel.swift */; };
 		E46272262C22EDF200794705 /* ScoreTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46272252C22EDF200794705 /* ScoreTextFieldView.swift */; };
 		E46AC8AF2BF773C600A3C801 /* NavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46AC8AE2BF773C600A3C801 /* NavigationButton.swift */; };
 		E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */; };
@@ -109,6 +110,7 @@
 		E46194B82C08866E00AC4FFC /* UpdatesCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesCollectionDataSource.swift; sourceTree = "<group>"; };
 		E46194BA2C088DEF00AC4FFC /* EditorPickerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPickerViewDelegate.swift; sourceTree = "<group>"; };
 		E46194BC2C088DFF00AC4FFC /* EditorPickerViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPickerViewDataSource.swift; sourceTree = "<group>"; };
+		E46213142C4BFF62008D9B00 /* AddCareerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCareerViewModel.swift; sourceTree = "<group>"; };
 		E46272252C22EDF200794705 /* ScoreTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTextFieldView.swift; sourceTree = "<group>"; };
 		E46AC8AE2BF773C600A3C801 /* NavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButton.swift; sourceTree = "<group>"; };
 		E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				E4A0B5332C388BDA009CA1C1 /* PlayerExtraCardViewModel.swift */,
 				E49C245C2C4A686900472C3B /* PlayerCareerCardViewModel.swift */,
 				E4E7F3462C4941F200493A2F /* CareerCellViewModel.swift */,
+				E46213142C4BFF62008D9B00 /* AddCareerViewModel.swift */,
 				E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */,
 				E4BB48672BC3D53E00F91513 /* ProfileViewModel.swift */,
 			);
@@ -552,6 +555,7 @@
 				E4100F272C19B63900DC743D /* String+extension.swift in Sources */,
 				E471B20B2BFB6062003C0DCD /* FormViewModel.swift in Sources */,
 				E4BB48882BC3D54600F91513 /* PrimaryTextFieldView.swift in Sources */,
+				E46213152C4BFF62008D9B00 /* AddCareerViewModel.swift in Sources */,
 				E4BB48842BC3D54600F91513 /* NavigationBarButton.swift in Sources */,
 				E4F4CE482BC935BD009F9A8D /* PlayerCollectionViewCell.swift in Sources */,
 				E4BB48872BC3D54600F91513 /* PrimaryButton.swift in Sources */,

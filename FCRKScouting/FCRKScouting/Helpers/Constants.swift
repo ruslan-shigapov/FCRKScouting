@@ -89,7 +89,6 @@ enum Constants {
             static let year = "Год:"
             static let dash = "--"
             static let period = "Период:"
-            static let league = "Лига:"
             static let access = "Доступ:"
         }
         enum Descriptions {
@@ -127,7 +126,6 @@ enum Constants {
             static let deletePhoto = "Убрать фото"
             static let save = "Сохранить"
             static let back = "Назад"
-            static let add = "Добавить"
             static let no = "Нет"
             static let yes = "Да"
             static let exit = "Выйти"
@@ -181,6 +179,10 @@ enum Constants {
                 title: "Внимание",
                 message: "Пожалуйста, выберите позицию игрока"
             )
+            static let wrongRatioOfYears = (
+                title: "Внимание",
+                message: "Неправильное соотношение годов"
+            )
             static let exit = (
                 title: "Покинуть профиль?",
                 message: ""
@@ -232,10 +234,10 @@ enum Constants {
             }
         }
         enum Leagues: String, CaseIterable {
-            case stageOne = "1 этап"
-            case stageTwo = "2 этап"
-            case stageThree = "3 этап"
-            case stageFour = "4 этап"
+            case stageOne = "1 этап Академии"
+            case stageTwo = "2 этап Академии"
+            case stageThree = "3 этап Академии"
+            case stageFour = "4 этап Академии"
             case uflOne = "ЮФЛ-1"
             case uflTwo = "ЮФЛ-2"
             case uflThree = "ЮФЛ-3"

@@ -10,7 +10,11 @@ import UIKit
 final class CareerTableViewCell: UITableViewCell {
     
     // MARK: Private Properties
-    private let yearLabel = CustomLabel(font: Constants.Fonts.normal)
+    private let yearLabel: CustomLabel = {
+        let label = CustomLabel(font: Constants.Fonts.normal)
+        label.textAlignment = .center
+        return label
+    }()
     
     private let leagueLabel = DefaultTextLabel()
     private let coachLabel = DefaultTextLabel()
@@ -53,21 +57,23 @@ final class CareerTableViewCell: UITableViewCell {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             yearLabel.leadingAnchor.constraint(
-                equalTo: leadingAnchor,
+                equalTo: contentView.leadingAnchor,
                 constant: 8),
-            yearLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            yearLabel.widthAnchor.constraint(equalToConstant: 60),
+            yearLabel.centerYAnchor.constraint(
+                equalTo: centerYAnchor),
             
             containerStackView.topAnchor.constraint(
-                equalTo: topAnchor,
+                equalTo: contentView.topAnchor,
                 constant: 4),
             containerStackView.leadingAnchor.constraint(
                 equalTo: yearLabel.trailingAnchor,
                 constant: 16),
             containerStackView.bottomAnchor.constraint(
-                equalTo: bottomAnchor,
+                equalTo: contentView.bottomAnchor,
                 constant: -4),
             containerStackView.trailingAnchor.constraint(
-                equalTo: trailingAnchor,
+                equalTo: contentView.trailingAnchor,
                 constant: -16)
         ])
     }

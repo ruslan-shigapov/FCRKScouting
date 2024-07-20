@@ -34,16 +34,26 @@ final class PlayerCareerCard: UIView {
     }()
     
     private lazy var addCareerButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .contactAdd)
         button.backgroundColor = .lightGray
-        button.titleLabel?.font = Constants.Fonts.text
-        button.tintColor = .black
-        button.setTitle(Constants.Text.ButtonTitles.add, for: .normal)
         button.setupCornerRadius()
         button.setupHighlightAnimation()
         button.addTarget(
             self,
             action: #selector(addCareerButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var deletingModeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = .lightGray
+        button.setImage(UIImage(systemName: "minus.circle"), for: .normal)
+        button.setupCornerRadius()
+        button.setupHighlightAnimation()
+        button.addTarget(
+            self,
+            action: #selector(deletingModeButtonTapped),
             for: .touchUpInside)
         return button
     }()
@@ -88,6 +98,7 @@ final class PlayerCareerCard: UIView {
             careerLabel,
             fullNameValueLabel,
             addCareerButton,
+            deletingModeButton,
             roundedContainerView,
             pageControl)
         view.prepareForAutoLayout()
@@ -98,6 +109,7 @@ final class PlayerCareerCard: UIView {
     var viewModel: PlayerCareerCardViewModelProtocol? {
         didSet {
             fullNameValueLabel.text = viewModel?.fullName
+            careerTableView.reloadData()
         }
     }
     
@@ -123,12 +135,45 @@ final class PlayerCareerCard: UIView {
     @objc private func addCareerButtonTapped() {
         delegate?.addCareerButtonWasTapped?()
     }
+    
+    @objc private func deletingModeButtonTapped() {
+        deletingModeButton.backgroundColor = careerTableView.isEditing
+        ? .lightGray
+        : .white
+        careerTableView.isEditing.toggle()
+    }
 }
 
+// MARK: - Table View Delegate
 extension PlayerCareerCard: UITableViewDelegate {
     
+    func tableView(
+        _ tableView: UITableView,
+        shouldHighlightRowAt indexPath: IndexPath
+    ) -> Bool {
+        false
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
+        50
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        if editingStyle == .delete {
+            viewModel?.deleteCareer(at: indexPath)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
 }
 
+// MARK: - Table View Data Source
 extension PlayerCareerCard: UITableViewDataSource {
     
     func tableView(
@@ -146,6 +191,10 @@ extension PlayerCareerCard: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: identifier) as? CareerTableViewCell
         cell?.viewModel = viewModel?.getCareerCellViewModel(at: indexPath)
+        if indexPath.row == 0 {
+            cell?.layer.borderWidth = 1
+            cell?.layer.borderColor = UIColor.accent.cgColor
+        }
         return cell ?? UITableViewCell()
     }
 }
@@ -204,7 +253,15 @@ private extension PlayerCareerCard {
             addCareerButton.centerYAnchor.constraint(
                 equalTo: careerLabel.centerYAnchor,
                 constant: -4),
-            addCareerButton.widthAnchor.constraint(equalToConstant: 100),
+            addCareerButton.widthAnchor.constraint(equalToConstant: 50),
+            
+            deletingModeButton.trailingAnchor.constraint(
+                equalTo: addCareerButton.leadingAnchor,
+                constant: -12),
+            deletingModeButton.centerYAnchor.constraint(
+                equalTo: careerLabel.centerYAnchor,
+                constant: -4),
+            deletingModeButton.widthAnchor.constraint(equalToConstant: 50),
             
             roundedContainerView.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,
@@ -231,9 +288,6 @@ private extension PlayerCareerCard {
             careerTableView.trailingAnchor.constraint(
                 equalTo: roundedContainerView.trailingAnchor,
                 constant: -6),
-            careerTableView.widthAnchor.constraint(
-                equalTo: roundedContainerView.widthAnchor,
-                constant: -12),
             
             pageControl.centerXAnchor.constraint(
                 equalTo: backgroundView.centerXAnchor),

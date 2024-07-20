@@ -9,8 +9,11 @@ import UIKit
 
 final class AddCareerViewController: UIViewController {
     
+    // MARK: Private Properties
     private var delegate: AddCareerViewControllerDelegate
+    private var viewModel: AddCareerViewModelProtocol
     
+    // MARK: Views
     private let yearLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.Titles.year)
@@ -20,9 +23,6 @@ final class AddCareerViewController: UIViewController {
     private let periodLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.Titles.period)
-    private let leagueLabel = CustomLabel(
-        font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.league)
     
     private lazy var yearPickerView: UIPickerView = {
         let pickerView = UIPickerView()
@@ -67,8 +67,26 @@ final class AddCareerViewController: UIViewController {
         return pickerView
     }()
     
-    init(delegate: AddCareerViewControllerDelegate) {
+    private let coachTextFieldView = PrimaryTextFieldView(
+        placeholder: Constants.Text.Placeholders.coach,
+        type: .name)
+    
+    private lazy var saveButton: PrimaryButton = {
+        let button = PrimaryButton(title: Constants.Text.ButtonTitles.save)
+        button.addTarget(
+            self,
+            action: #selector(saveButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    
+    // MARK: Initialize
+    init(
+        delegate: AddCareerViewControllerDelegate,
+        viewModel: AddCareerViewModelProtocol
+    ) {
         self.delegate = delegate
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -77,8 +95,23 @@ final class AddCareerViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+        handleWrongRatioOfYears()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        yearPickerView.setupShadow()
+        toYearPickerView.setupShadow()
+        leaguePickerView.setupShadow()
+    }
+    
+    // MARK: Private Methods
+    private func setupUI() {
+        setKeyboardDismissTap()
         view.backgroundColor = .lightGray
         view.addSubviews(
             yearLabel,
@@ -87,31 +120,82 @@ final class AddCareerViewController: UIViewController {
             periodLabel,
             toYearSwitcher,
             toYearPickerView,
-            leagueLabel,
-            leaguePickerView)
+            leaguePickerView,
+            coachTextFieldView,
+            saveButton)
         view.prepareForAutoLayout()
         setConstraints()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    private func handleWrongRatioOfYears() {
+        viewModel.wasRatioOfYearsWrong = { [weak self] in
+            guard let self else { return }
+            let alertController = AlertFactory.getWarningAlert(
+                withTitle: Constants.Text.Alerts.wrongRatioOfYears.title,
+                andMessage: Constants.Text.Alerts.wrongRatioOfYears.message)
+            present(alertController, animated: true)
+        }
     }
     
-    func getYears() -> [Int] {
-        let currentYear = Calendar.current.component(.year, from: Date())
-        let yearsInPast = 30
-        var years: [Int] = []
-        for year in (currentYear - yearsInPast)...currentYear {
-            years.append(year)
+    private func setKeyboardDismissTap() {
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    private func finishAdding() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            delegate.careerWasAdded?()
+            dismiss(animated: true)
         }
-        return years.reversed()
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @objc private func toYearSwitcherChanged() {
         toYearPickerView.isHidden.toggle()
     }
+    
+    @objc private func saveButtonTapped() {
+        let yearPickerSelectedRow = yearPickerView.selectedRow(inComponent: 0)
+        let leaguePickerSelectedRow = leaguePickerView.selectedRow(
+            inComponent: 0)
+        guard toYearSwitcher.isOn else {
+            viewModel.saveCareer(
+                forYear: yearPickerSelectedRow,
+                toYear: nil,
+                league: leaguePickerSelectedRow,
+                coach: coachTextFieldView.getInputText()
+            ) { [weak self] in
+                guard let self else { return }
+                finishAdding()
+            }
+            return
+        }
+        let toYearPickerSelectedRow = toYearPickerView.selectedRow(
+            inComponent: 0)
+        viewModel.checkRatioOf(
+            year: yearPickerSelectedRow,
+            andYear: toYearPickerSelectedRow
+        ) {
+            viewModel.saveCareer(
+                forYear: yearPickerSelectedRow,
+                toYear: toYearPickerSelectedRow,
+                league: leaguePickerSelectedRow,
+                coach: coachTextFieldView.getInputText()
+            ) { [weak self] in
+                guard let self else { return }
+                finishAdding()
+            }
+        }
+    }
 }
 
+// MARK: - Picker View Delegate
 extension AddCareerViewController: UIPickerViewDelegate {
 
     func pickerView(
@@ -122,7 +206,7 @@ extension AddCareerViewController: UIPickerViewDelegate {
     ) -> UIView {
         let rowLabel = UILabel()
         rowLabel.text = pickerView.tag == 1
-        ? String(getYears()[row])
+        ? String(viewModel.years[row])
         : Constants.Text.Leagues.allCases[row].rawValue
         rowLabel.font = Constants.Fonts.text
         rowLabel.textColor = .black
@@ -131,6 +215,7 @@ extension AddCareerViewController: UIPickerViewDelegate {
     }
 }
 
+// MARK: - Picker View Data Source
 extension AddCareerViewController: UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -142,7 +227,7 @@ extension AddCareerViewController: UIPickerViewDataSource {
         numberOfRowsInComponent component: Int
     ) -> Int {
         pickerView.tag == 1
-        ? getYears().count
+        ? viewModel.years.count
         : Constants.Text.Leagues.allCases.count
     }
 }
@@ -154,18 +239,18 @@ private extension AddCareerViewController {
         NSLayoutConstraint.activate([
             yearLabel.topAnchor.constraint(
                 equalTo: view.topAnchor,
-                constant: 48),
+                constant: 24),
             yearLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 24),
             
             yearPickerView.topAnchor.constraint(
                 equalTo: yearLabel.bottomAnchor,
-                constant: 12),
+                constant: 8),
             yearPickerView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 24),
-            yearPickerView.heightAnchor.constraint(equalToConstant: 80),
+            yearPickerView.heightAnchor.constraint(equalToConstant: 70),
             yearPickerView.widthAnchor.constraint(equalToConstant: 150),
             
             dashLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -177,7 +262,7 @@ private extension AddCareerViewController {
                 constant: -24),
             toYearPickerView.centerYAnchor.constraint(
                 equalTo: yearPickerView.centerYAnchor),
-            toYearPickerView.heightAnchor.constraint(equalToConstant: 80),
+            toYearPickerView.heightAnchor.constraint(equalToConstant: 70),
             toYearPickerView.widthAnchor.constraint(equalToConstant: 150),
             
             periodLabel.centerYAnchor.constraint(
@@ -186,23 +271,37 @@ private extension AddCareerViewController {
                 equalTo: toYearPickerView.leadingAnchor),
             
             toYearSwitcher.centerYAnchor.constraint(
-                equalTo: yearLabel.centerYAnchor),
+                equalTo: yearLabel.centerYAnchor,
+                constant: -4),
             toYearSwitcher.trailingAnchor.constraint(
                 equalTo: toYearPickerView.trailingAnchor),
-            
-            leagueLabel.centerYAnchor.constraint(
-                equalTo: leaguePickerView.centerYAnchor),
-            leagueLabel.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 24),
             
             leaguePickerView.centerXAnchor.constraint(
                 equalTo: dashLabel.centerXAnchor),
             leaguePickerView.topAnchor.constraint(
                 equalTo: yearPickerView.bottomAnchor,
-                constant: 24),
-            leaguePickerView.heightAnchor.constraint(equalToConstant: 80),
-            leaguePickerView.widthAnchor.constraint(equalToConstant: 190),
+                constant: 16),
+            leaguePickerView.heightAnchor.constraint(equalToConstant: 70),
+            leaguePickerView.widthAnchor.constraint(
+                equalTo: coachTextFieldView.widthAnchor),
+            
+            coachTextFieldView.topAnchor.constraint(
+                equalTo: leaguePickerView.bottomAnchor,
+                constant: 16),
+            coachTextFieldView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 48),
+            coachTextFieldView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -48),
+            
+            saveButton.topAnchor.constraint(
+                equalTo: coachTextFieldView.bottomAnchor,
+                constant: 16),
+            saveButton.widthAnchor.constraint(
+                equalTo: coachTextFieldView.widthAnchor),
+            saveButton.centerXAnchor.constraint(
+                equalTo: coachTextFieldView.centerXAnchor)
         ])
     }
 }

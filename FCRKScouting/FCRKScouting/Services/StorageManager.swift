@@ -210,7 +210,7 @@ extension StorageManager {
         creator: String
     ) {
         let player = Player(context: viewContext)
-        // TODO: добавить проверку на совпадение имени и проверить нагрузку вызовов получения все-таки (блин, не всегда удаляется с первого раза)
+        // TODO: добавить проверку на совпадение имени и проверить нагрузку вызовов получения все-таки (блин, не всегда удаляется с первого раза с этим проблемы и с другими сущностями - синхр)
         player.fullName = fullName
         player.photoData = photo
         player.patronymic = patronymic
@@ -242,6 +242,7 @@ extension StorageManager {
         player.longJumpScore = longJumpScore
         player.highJumpScore = highJumpScore
         player.testingSummary = summary
+        player.careers = NSSet()
         player.lastEditor = lastEditor
         player.updatedDate = updatedDate
         player.creator = creator
@@ -349,6 +350,33 @@ extension StorageManager {
             requiredPlayer.updatedDate = updatedDate
             saveContext()
         }
+    }
+    
+    func addCareer(
+        forPlayer fullName: String,
+        forPeriod period: String,
+        league: String,
+        coach: String
+    ) {
+        fetchPlayers { [weak self] in
+            guard let requiredPlayer = $0.first(where: { player in
+                player.fullName == fullName
+            }) else {
+                return
+            }
+            guard let self else { return }
+            let career = Career(context: viewContext)
+            career.year = period
+            career.league = league
+            career.coachName = coach
+            requiredPlayer.addToCareers(career)
+            saveContext()
+        }
+    }
+    
+    func deleteCareer(_ career: Career, forPlayer player: Player) {
+        player.removeFromCareers(career)
+        saveContext()
     }
     
     func deletePlayer(byFullName fullName: String) {

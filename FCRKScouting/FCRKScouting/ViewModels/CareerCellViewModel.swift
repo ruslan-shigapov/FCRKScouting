@@ -20,7 +20,10 @@ final class CareerCellViewModel: CareerCellViewModelProtocol {
     }
     
     var league: String {
-        "\(career.league ?? ""). Тренер:"
+        if let coachName = career.coachName, !coachName.isEmpty {
+            return "\(career.league ?? ""). Тренер:"
+        }
+        return career.league ?? ""
     }
     
     var coachName: String {
