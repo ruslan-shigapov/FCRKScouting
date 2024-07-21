@@ -57,15 +57,7 @@ final class AddCareerViewController: UIViewController {
         return switcher
     }()
     
-    private lazy var leaguePickerView: UIPickerView = {
-        let pickerView = UIPickerView()
-        pickerView.tag = 2
-        pickerView.backgroundColor = .white
-        pickerView.setupCornerRadius()
-        pickerView.delegate = self
-        pickerView.dataSource = self
-        return pickerView
-    }()
+    private lazy var leaguePickerView = CustomPickerView(type: .league)
     
     private let coachTextFieldView = PrimaryTextFieldView(
         placeholder: Constants.Text.Placeholders.coach,
@@ -106,12 +98,12 @@ final class AddCareerViewController: UIViewController {
         super.viewDidLayoutSubviews()
         yearPickerView.setupShadow()
         toYearPickerView.setupShadow()
-        leaguePickerView.setupShadow()
     }
     
     // MARK: Private Methods
     private func setupUI() {
         setKeyboardDismissTap()
+        dashLabel.isHidden = true
         view.backgroundColor = .lightGray
         view.addSubviews(
             yearLabel,
@@ -150,6 +142,7 @@ final class AddCareerViewController: UIViewController {
     
     @objc private func toYearSwitcherChanged() {
         toYearPickerView.isHidden.toggle()
+        dashLabel.isHidden.toggle()
     }
     
     @objc private func saveButtonTapped() {
@@ -201,9 +194,7 @@ extension AddCareerViewController: UIPickerViewDelegate {
         reusing view: UIView?
     ) -> UIView {
         let rowLabel = UILabel()
-        rowLabel.text = pickerView.tag == 1
-        ? String(viewModel.years[row])
-        : Constants.Text.Leagues.allCases[row].rawValue
+        rowLabel.text = String(viewModel.years[row])
         rowLabel.font = Constants.Fonts.text
         rowLabel.textColor = .black
         rowLabel.textAlignment = .center
@@ -222,9 +213,7 @@ extension AddCareerViewController: UIPickerViewDataSource {
         _ pickerView: UIPickerView,
         numberOfRowsInComponent component: Int
     ) -> Int {
-        pickerView.tag == 1
-        ? viewModel.years.count
-        : Constants.Text.Leagues.allCases.count
+        viewModel.years.count
     }
 }
 

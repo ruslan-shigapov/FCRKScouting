@@ -45,10 +45,10 @@ final class TestingDetailsViewController: UIViewController {
     private let longJumpTextFieldView = DecimalTextFieldView(type: .meters)
     private let highJumpTextFieldView = DecimalTextFieldView(type: .meters)
     
-    private let runningFor15MScoreView = ScoreTextFieldView()
-    private let runningFor30MScoreView = ScoreTextFieldView()
-    private let longJumpScoreView = ScoreTextFieldView()
-    private let highJumpScoreView = ScoreTextFieldView()
+    private let runningFor15MScoreView = NumeralTextFieldView(type: .score)
+    private let runningFor30MScoreView = NumeralTextFieldView(type: .score)
+    private let longJumpScoreView = NumeralTextFieldView(type: .score)
+    private let highJumpScoreView = NumeralTextFieldView(type: .score)
     
     private let descriptionLabel = CustomLabel(
         font: Constants.Fonts.description,

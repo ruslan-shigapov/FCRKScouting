@@ -89,6 +89,7 @@ enum Constants {
             static let year = "Год:"
             static let dash = "--"
             static let period = "Период:"
+            static let league = "Лига:"
             static let access = "Доступ:"
         }
         enum Descriptions {

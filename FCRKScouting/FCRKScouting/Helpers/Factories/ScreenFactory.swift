@@ -95,6 +95,7 @@ struct ScreenFactory {
     }
     
     static func getFiltersViewController() -> UIViewController {
-        FiltersViewController()
+        let viewModel = FiltersViewModel()
+        return FiltersViewController(viewModel: viewModel)
     }
 }

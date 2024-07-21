@@ -1,5 +1,5 @@
 //
-//  ScoreTextFieldView.swift
+//  NumeralTextFieldView.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 19.06.2024.
@@ -7,10 +7,24 @@
 
 import UIKit
 
-final class ScoreTextFieldView: UIView {
+enum NumeralTextFieldType {
+    case score, age
+}
 
+final class NumeralTextFieldView: UIView {
+    
+    // MARK: Private Properties 
+    private let type: NumeralTextFieldType
+    
+    private var widthConstant: CGFloat {
+        switch type {
+        case .score: 30
+        case .age: 50
+        }
+    }
+    
     // MARK: Views
-    private let titleLabel = DefaultTextLabel(text: Constants.Text.Titles.score)
+    private let titleLabel = DefaultTextLabel()
 
     private let textField: UITextField = {
         let textField = UITextField()
@@ -27,8 +41,9 @@ final class ScoreTextFieldView: UIView {
     }()
 
     // MARK: Initialize
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(type: NumeralTextFieldType) {
+        self.type = type
+        super.init(frame: .zero)
         textField.delegate = self
         setupUI()
     }
@@ -46,6 +61,9 @@ final class ScoreTextFieldView: UIView {
         
     // MARK: Private Methods
     private func setupUI() {
+        if type == .score {
+            titleLabel.text = Constants.Text.Titles.score
+        }
         textField.placeholder = "0"
         if let placeholder = textField.placeholder {
             textField.setupAttributes(ofPlaceholder: placeholder)
@@ -66,7 +84,7 @@ final class ScoreTextFieldView: UIView {
 }
 
 // MARK: - Text Field Delegate
-extension ScoreTextFieldView: UITextFieldDelegate {
+extension NumeralTextFieldView: UITextFieldDelegate {
     
     func textField(
         _ textField: UITextField,
@@ -74,13 +92,18 @@ extension ScoreTextFieldView: UITextFieldDelegate {
         replacementString string: String
     ) -> Bool {
         guard let text = textField.text else { return true }
-        if text.count == 1, !string.isEmpty { return false }
+        var maxDigits: Int
+        switch type {
+        case .score: maxDigits = 1
+        case .age: maxDigits = 2
+        }
+        if text.count == maxDigits, !string.isEmpty { return false }
         return true
     }
 }
 
 // MARK: - Layout
-extension ScoreTextFieldView {
+extension NumeralTextFieldView {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
@@ -96,7 +119,7 @@ extension ScoreTextFieldView {
             textField.bottomAnchor.constraint(equalTo: bottomAnchor),
             textField.trailingAnchor.constraint(equalTo: trailingAnchor),
             textField.heightAnchor.constraint(equalToConstant: 30),
-            textField.widthAnchor.constraint(equalToConstant: 30)
+            textField.widthAnchor.constraint(equalToConstant: widthConstant)
         ])
     }
 }

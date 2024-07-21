@@ -144,6 +144,9 @@ final class SearchViewController: UIViewController {
     
     @objc private func filtersButtonTapped(_ sender: UIButton) {
         let filtersVC = ScreenFactory.getFiltersViewController()
+        if let sheet = filtersVC.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+        }
         present(filtersVC, animated: true)
     }
     

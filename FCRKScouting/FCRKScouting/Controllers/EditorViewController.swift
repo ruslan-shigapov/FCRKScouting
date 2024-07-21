@@ -16,11 +16,6 @@ final class EditorViewController: UIViewController {
     private lazy var imagePickerDelegate = EditorImagePickerDelegate(
         viewModel: viewModel)
     
-    private lazy var pickerViewDelegate = EditorPickerViewDelegate(
-        viewModel: viewModel)
-    private lazy var pickerViewDataSource = EditorPickerViewDataSource(
-        viewModel: viewModel)
-    
     // MARK: Views
     private lazy var titleLabel = CustomLabel(
         font: Constants.Fonts.header,
@@ -124,14 +119,7 @@ final class EditorViewController: UIViewController {
         font: Constants.Fonts.normal,
         text: Constants.Text.Titles.position)
     
-    private lazy var positionPickerView: UIPickerView = {
-        let pickerView = UIPickerView()
-        pickerView.backgroundColor = .white
-        pickerView.setupCornerRadius()
-        pickerView.delegate = pickerViewDelegate
-        pickerView.dataSource = pickerViewDataSource
-        return pickerView
-    }()
+    private lazy var positionPickerView = CustomPickerView(type: .position)
     
     private let footLabel = CustomLabel(
         font: Constants.Fonts.normal,
@@ -261,7 +249,6 @@ final class EditorViewController: UIViewController {
         super.viewDidLayoutSubviews()
         updateUploadButtonTitle()
         uploadPhotoButton.setupShadow()
-        positionPickerView.setupShadow()
         footSegmentedControl.setupShadow()
         pageSliderView.configure(
             withPages: [
@@ -711,7 +698,7 @@ private extension EditorViewController {
             
             showTestingDetailsButton.topAnchor.constraint(
                 equalTo: showTransferDetailsButton.bottomAnchor,
-                constant: 16),
+                constant: 24),
             showTestingDetailsButton.leadingAnchor.constraint(
                 equalTo: scrollView.leadingAnchor,
                 constant: 16),

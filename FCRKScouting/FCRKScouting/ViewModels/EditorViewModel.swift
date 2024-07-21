@@ -44,9 +44,6 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol,
         qualities: String?,
         mental: String?,
         completion: () -> Void)
-    func getNumberOfComponentsInPicker() -> Int
-    func getNumberOfRowsInPicker() -> Int
-    func getTitleFor(pickerRow: Int) -> String
     func getPlayer() -> Player?
     func getPickerRowBy(title: String?) -> Int?
     func getSegmentIndexBy(title: String?) -> Int?
@@ -195,18 +192,6 @@ final class EditorViewModel: EditorViewModelProtocol {
             updatedDate: Date(),
             creator: currentUser?.fullName ?? "")
             completion()
-    }
-    
-    func getNumberOfComponentsInPicker() -> Int {
-        1
-    }
-    
-    func getNumberOfRowsInPicker() -> Int {
-        Constants.Text.Positions.allCases.count
-    }
-    
-    func getTitleFor(pickerRow: Int) -> String {
-        Constants.Text.Positions.allCases[pickerRow].rawValue
     }
     
     func getPlayer() -> Player? {
