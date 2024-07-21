@@ -37,11 +37,11 @@ final class PlayerMainCard: UIView {
         return stackView
     }()
     
-    private lazy var toggleFeaturesButton: FeaturesButton = {
-        let button = FeaturesButton()
+    private lazy var toggleFavoritesButton: FavoritesButton = {
+        let button = FavoritesButton()
         button.addTarget(
             self,
-            action: #selector(toggleFeaturesButtonTapped),
+            action: #selector(toggleFavoritesButtonTapped),
             for: .touchUpInside)
         return button
     }()
@@ -108,7 +108,7 @@ final class PlayerMainCard: UIView {
         view.addSubviews(
             photoImageView,
             titleStackView,
-            toggleFeaturesButton,
+            toggleFavoritesButton,
             ageLabel,
             citizenshipLabel,
             clubAndNationalTeamLabel,
@@ -153,6 +153,8 @@ final class PlayerMainCard: UIView {
                 mentalValue: viewModel?.mental)
             creatorLabel.text = viewModel?.creator
             lastEditorLabel.text = viewModel?.lastEdition
+            guard let viewModel else { return }
+            toggleFavoritesButton.isSelected = viewModel.isFavorite
         }
     }
 
@@ -173,9 +175,11 @@ final class PlayerMainCard: UIView {
         setConstraints()
     }
     
-    @objc private func toggleFeaturesButtonTapped(_ sender: UIButton) {
+    @objc private func toggleFavoritesButtonTapped(_ sender: UIButton) {
         sender.isSelected.toggle()
-        // TODO: add features logic and replace button
+        sender.isSelected
+        ? viewModel?.addPlayerToFavorites()
+        : viewModel?.removePlayerFromFavorites()
     }
 }
 
@@ -213,10 +217,10 @@ private extension PlayerMainCard {
             titleStackView.centerYAnchor.constraint(
                 equalTo: photoImageView.centerYAnchor, constant: 8),
             
-            toggleFeaturesButton.topAnchor.constraint(
+            toggleFavoritesButton.topAnchor.constraint(
                 equalTo: backgroundView.topAnchor,
                 constant: 8),
-            toggleFeaturesButton.trailingAnchor.constraint(
+            toggleFavoritesButton.trailingAnchor.constraint(
                 equalTo: backgroundView.trailingAnchor,
                 constant: -8),
             
@@ -300,9 +304,9 @@ private extension PlayerMainCard {
                 equalTo: footLabel.centerYAnchor,
                 constant: -2),
             
-            heightValueLabel.leadingAnchor.constraint(
-                equalTo: heightLabel.trailingAnchor,
-                constant: 16),
+            heightValueLabel.trailingAnchor.constraint(
+                equalTo: footLabel.trailingAnchor,
+                constant: -8),
             heightValueLabel.centerYAnchor.constraint(
                 equalTo: heightLabel.centerYAnchor,
                 constant: -2),

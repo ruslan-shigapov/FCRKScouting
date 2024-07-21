@@ -93,7 +93,7 @@ final class PlayerViewController: UIViewController {
         setupUI()
         handlePlayerEditing()
         handleAddCareerButtonTapping()
-        handleCareerAdding()
+        handleAddCareerScreenClosing()
     }
     
     // MARK: Private Methods
@@ -131,8 +131,8 @@ final class PlayerViewController: UIViewController {
         }
     }
     
-    private func handleCareerAdding() {
-        viewModel.careerWasAdded = { [weak self] in
+    private func handleAddCareerScreenClosing() {
+        viewModel.addCareerScreenWasClosed = { [weak self] in
             guard let self else { return }
             let playerCareerCardVM = viewModel.getPlayerCareerCardViewModel()
             playerCareerCard.viewModel = playerCareerCardVM

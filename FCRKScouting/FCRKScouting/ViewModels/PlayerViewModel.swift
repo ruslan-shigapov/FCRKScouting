@@ -12,7 +12,7 @@ protocol PlayerCareerCardDelegate {
 }
 
 protocol AddCareerViewControllerDelegate {
-    var careerWasAdded: (() -> Void)? { get set }
+    var addCareerScreenWasClosed: (() -> Void)? { get set }
 }
 
 protocol PlayerViewModelProtocol: UserViewModelProtocol,
@@ -33,7 +33,7 @@ final class PlayerViewModel: PlayerViewModelProtocol {
     
     var playersWereChanged: (() -> Void)?
     var addCareerButtonWasTapped: (() -> Void)?
-    var careerWasAdded: (() -> Void)?
+    var addCareerScreenWasClosed: (() -> Void)?
     
     var patronymic: String {
         player.patronymic ?? ""

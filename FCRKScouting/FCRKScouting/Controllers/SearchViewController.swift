@@ -38,12 +38,12 @@ final class SearchViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
-    private lazy var featuresButton: NavigationBarButton = {
+    private lazy var favoritesButton: NavigationBarButton = {
         let button = NavigationBarButton(
-            image: Constants.Images.ButtonImages.features)
+            image: Constants.Images.ButtonImages.favorites)
         button.addTarget(
             self,
-            action: #selector(featuresButtonTapped),
+            action: #selector(favoritesButtonTapped),
             for: .touchUpInside)
         return button
     }()
@@ -122,7 +122,7 @@ final class SearchViewController: UIViewController {
     private func setupNavigationBar() {
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(customView: filtersButton),
-            UIBarButtonItem(customView: featuresButton)
+            UIBarButtonItem(customView: favoritesButton)
         ]
         if viewModel.isEditingAllowed {
             navigationItem.rightBarButtonItems?.insert(
@@ -161,7 +161,7 @@ final class SearchViewController: UIViewController {
         // TODO: доделать логику
     }
     
-    @objc private func featuresButtonTapped(_ sender: UIButton) {
+    @objc private func favoritesButtonTapped(_ sender: UIButton) {
         toggleStatus(sender)
         
     }

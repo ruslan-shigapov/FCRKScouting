@@ -144,14 +144,6 @@ final class AddCareerViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
-    private func finishAdding() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            delegate.careerWasAdded?()
-            dismiss(animated: true)
-        }
-    }
-    
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -172,7 +164,7 @@ final class AddCareerViewController: UIViewController {
                 coach: coachTextFieldView.getInputText()
             ) { [weak self] in
                 guard let self else { return }
-                finishAdding()
+                dismiss(animated: true)
             }
             return
         }
@@ -189,9 +181,13 @@ final class AddCareerViewController: UIViewController {
                 coach: coachTextFieldView.getInputText()
             ) { [weak self] in
                 guard let self else { return }
-                finishAdding()
+                dismiss(animated: true)
             }
         }
+    }
+    
+    deinit {
+        delegate.addCareerScreenWasClosed?()
     }
 }
 

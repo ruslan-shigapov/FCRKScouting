@@ -42,10 +42,12 @@
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="weight" optional="YES" attributeType="String"/>
         <relationship name="careers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Career" inverseName="player" inverseEntity="Career"/>
+        <relationship name="user" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="favorites" inverseEntity="User"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="appleID" optional="YES" attributeType="String"/>
         <attribute name="fullName" optional="YES" attributeType="String"/>
         <attribute name="isEditingAllowed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="favorites" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Player" inverseName="user" inverseEntity="Player"/>
     </entity>
 </model>

@@ -161,6 +161,18 @@ extension StorageManager {
             completion(foundUser)
         }
     }
+    
+    func addFavoritePlayer(_ player: Player) {
+        let currentUser = UserManager.shared.getCurrentUser()
+        currentUser?.addToFavorites(player)
+        saveContext()
+    }
+    
+    func deleteFavoritePlayer(_ player: Player) {
+        let currentUser = UserManager.shared.getCurrentUser()
+        currentUser?.removeFromFavorites(player)
+        saveContext()
+    }
 }
 
 // MARK: - Player CRUD

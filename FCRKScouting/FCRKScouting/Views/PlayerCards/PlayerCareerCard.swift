@@ -109,6 +109,7 @@ final class PlayerCareerCard: UIView {
     var viewModel: PlayerCareerCardViewModelProtocol? {
         didSet {
             fullNameValueLabel.text = viewModel?.fullName
+            addCareerButton.backgroundColor = .lightGray
             careerTableView.reloadData()
         }
     }
@@ -133,6 +134,7 @@ final class PlayerCareerCard: UIView {
     }
     
     @objc private func addCareerButtonTapped() {
+        addCareerButton.backgroundColor = .white
         delegate?.addCareerButtonWasTapped?()
     }
     
@@ -191,10 +193,6 @@ extension PlayerCareerCard: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: identifier) as? CareerTableViewCell
         cell?.viewModel = viewModel?.getCareerCellViewModel(at: indexPath)
-        if indexPath.row == 0 {
-            cell?.layer.borderWidth = 1
-            cell?.layer.borderColor = UIColor.accent.cgColor
-        }
         return cell ?? UITableViewCell()
     }
 }

@@ -24,6 +24,9 @@ protocol PlayerMainCardViewModelProtocol {
     var mental: String { get }
     var creator: String { get }
     var lastEdition: String { get }
+    var isFavorite: Bool { get }
+    func addPlayerToFavorites()
+    func removePlayerFromFavorites()
 }
 
 final class PlayerMainCardViewModel: PlayerMainCardViewModelProtocol {
@@ -121,6 +124,14 @@ final class PlayerMainCardViewModel: PlayerMainCardViewModelProtocol {
         return "Правки внес: \(lastEdition)"
     }
     
+    var isFavorite: Bool {
+        guard let currentUser = UserManager.shared.getCurrentUser(),
+              let favorites = currentUser.favorites else {
+            return false
+        }
+        return favorites.contains(player)
+    }
+    
     init(player: Player) {
         self.player = player
     }
@@ -130,5 +141,13 @@ final class PlayerMainCardViewModel: PlayerMainCardViewModelProtocol {
         guard let abbreviatedName = fullName.first,
               let lastName = components.last else { return "" }
         return String(abbreviatedName) + ". " + lastName
+    }
+    
+    func addPlayerToFavorites() {
+        StorageManager.shared.addFavoritePlayer(player)
+    }
+    
+    func removePlayerFromFavorites() {
+        StorageManager.shared.deleteFavoritePlayer(player)
     }
 }

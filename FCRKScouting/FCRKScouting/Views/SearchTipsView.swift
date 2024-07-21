@@ -19,9 +19,9 @@ final class SearchTipsView: UIView {
         return label
     }()
     
-    private let featuresStackView = TipStackView(
-        image: Constants.Images.ButtonImages.features,
-        text: Constants.Text.Tips.features)
+    private let favoritesStackView = TipStackView(
+        image: Constants.Images.ButtonImages.favorites,
+        text: Constants.Text.Tips.favorites)
     private let relatedStackView = TipStackView(
         image: Constants.Images.ButtonImages.related,
         text: Constants.Text.Tips.related)
@@ -33,7 +33,7 @@ final class SearchTipsView: UIView {
         let stackView = UIStackView(
             arrangedSubviews: [
                 titleLabel,
-                featuresStackView,
+                favoritesStackView,
                 filtersStackView
             ])
         if isFullSet {
