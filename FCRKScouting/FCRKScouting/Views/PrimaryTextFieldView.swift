@@ -18,11 +18,25 @@ final class PrimaryTextFieldView: UIView {
     private let textFieldType: TextFieldType
     
     // MARK: Views
+    private lazy var clearButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        button.tintColor = .lightGray
+        button.isHidden = true
+        button.addTarget(
+            self,
+            action: #selector(clearButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.font = Constants.Fonts.text
         textField.textColor = .black
-        textField.clearButtonMode = .whileEditing
+        textField.rightView = clearButton
+        textField.rightViewMode = .always
         textField.autocorrectionType = .no
         textField.spellCheckingType = .no
         textField.autocapitalizationType = .words
@@ -90,6 +104,12 @@ final class PrimaryTextFieldView: UIView {
         setConstraints()
     }
     
+    @objc private func clearButtonTapped() {
+        textField.text = ""
+        removeFloatingLabel()
+        clearButton.isHidden = true
+    }
+    
     @objc private func addFloatingLabel() {
         floatingLabel.text = _placeholder
         floatingLabel.isHidden = false
@@ -130,6 +150,8 @@ extension PrimaryTextFieldView: UITextFieldDelegate {
         if textFieldType != .name {
             textField.moveCursorToEnd()
         }
+        guard let text = textField.text else { return }
+        clearButton.isHidden = text.isEmpty
     }
     
     func textField(
@@ -167,6 +189,8 @@ extension PrimaryTextFieldView {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 48),
+            
+            clearButton.widthAnchor.constraint(equalToConstant: 30),
             
             containerStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             containerStackView.leadingAnchor.constraint(

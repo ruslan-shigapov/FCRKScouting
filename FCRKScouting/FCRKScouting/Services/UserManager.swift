@@ -9,16 +9,12 @@ import AuthenticationServices
 
 enum AccessError: Error {
     case wrongKey
+    case unknownError
 }
 
 final class UserManager {
     
     static let shared = UserManager()
-    
-    private let accessLevels = [
-        "200458": false, // readOnly
-        "220888": true   // editingAllowed
-    ]
     
     private var currentUser: User? {
         didSet {
@@ -72,12 +68,24 @@ final class UserManager {
         _ accessKey: String?,
         completion: @escaping (Result<Bool, AccessError>) -> Void
     ) {
-        guard let accessKey, !accessKey.isEmpty,
-              let isEditingAllowed = accessLevels[accessKey] else {
-            completion(.failure(.wrongKey))
-            return
+        guard let accessKey, !accessKey.isEmpty else { return }
+        StorageManager.shared.fetchAccessFromCloud(byKey: accessKey) {
+            switch $0 {
+            case .success(let accessValue):
+                guard let accessValue else {
+                    completion(.failure(.wrongKey))
+                    return
+                }
+                accessValue == 1 
+                ? completion(.success(true))
+                : completion(.success(false))
+            case .failure(let error):
+                switch error {
+                case .recordNotFound: completion(.failure(.wrongKey))
+                case .fetchError: completion(.failure(.unknownError))
+                }
+            }
         }
-        completion(.success(isEditingAllowed))
     }
     
     func setUser(

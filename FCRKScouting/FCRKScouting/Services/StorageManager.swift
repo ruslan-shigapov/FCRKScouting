@@ -10,7 +10,7 @@ import CloudKit
 
 enum CloudError: Error {
     case recordNotFound
-    case fetchError(Error)
+    case fetchError
 }
 
 final class StorageManager {
@@ -50,6 +50,49 @@ final class StorageManager {
                 try viewContext.save()
             } catch {
                 viewContext.rollback()
+            }
+        }
+    }
+}
+
+// MARK: - Access
+extension StorageManager {
+    
+    private func findAccessRecordFromCloud(
+        byKey key: String,
+        completion: @escaping (Result<CKRecord, Error>) -> Void
+    ) {
+        let predicate = NSPredicate(format: "key == %@", key)
+        let query = CKQuery(recordType: "Access", predicate: predicate)
+        publicDatabase.fetch(withQuery: query) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success((let matchResults, _)):
+                    guard let matchResult = matchResults.first?.1 else {
+                        completion(.failure(CloudError.recordNotFound))
+                        return
+                    }
+                    completion(matchResult)
+                case .failure(_):
+                    completion(.failure(CloudError.fetchError))
+                }
+            }
+        }
+    }
+    
+    func fetchAccessFromCloud(
+        byKey key: String,
+        completion: @escaping (Result<Int64?, CloudError>) -> Void
+    ) {
+        findAccessRecordFromCloud(byKey: key) {
+            switch $0 {
+            case .success(let record):
+                let accessValue = record.value(forKey: "accessValue") as? Int64
+                completion(.success(accessValue))
+            case .failure(let error):
+                if let cloudError = error as? CloudError {
+                    completion(.failure(cloudError))
+                }
             }
         }
     }
@@ -143,8 +186,8 @@ extension StorageManager {
                     return
                 }
                 completion(result)
-            case .failure(let error):
-                completion(.failure(CloudError.fetchError(error)))
+            case .failure(_):
+                completion(.failure(CloudError.fetchError))
             }
         }
     }

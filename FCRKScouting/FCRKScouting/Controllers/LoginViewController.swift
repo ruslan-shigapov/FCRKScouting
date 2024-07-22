@@ -66,7 +66,7 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        handleWrongAccessKey()
+        handleErrors()
     }
     
     override func viewDidLayoutSubviews() {
@@ -90,12 +90,19 @@ final class LoginViewController: UIViewController {
         setConstraints()
     }
     
-    private func handleWrongAccessKey() {
+    private func handleErrors() {
         viewModel.wasAccessKeyWrong = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.wrongAccessKey.title,
                 andMessage: Constants.Text.Alerts.wrongAccessKey.message)
+            present(alertController, animated: true)
+        }
+        viewModel.wasSomethingWrong = { [weak self] in
+            guard let self else { return }
+            let alertController = AlertFactory.getWarningAlert(
+                withTitle: Constants.Text.Alerts.wrongSomething.title,
+                andMessage: Constants.Text.Alerts.wrongSomething.message)
             present(alertController, animated: true)
         }
     }

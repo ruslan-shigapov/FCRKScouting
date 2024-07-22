@@ -156,6 +156,10 @@ enum Constants {
                 title: "Не удалось войти",
                 message: "Пожалуйста, введите действительный ключ доступа"
             )
+            static let wrongSomething = (
+                title: "Что-то пошло не так",
+                message: "Пожалуйста, проверьте подключение"
+            )
             static let authError = (
                 title: "Не удалось авторизоваться",
                 message: "Пожалуйста, попробуйте еще раз"

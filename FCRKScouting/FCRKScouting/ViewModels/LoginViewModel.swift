@@ -7,6 +7,7 @@
 
 protocol LoginViewModelProtocol {
     var wasAccessKeyWrong: (() -> Void)? { get set }
+    var wasSomethingWrong: (() -> Void)? { get set }
     func logIn(
         byAccessKey accessKey: String?,
         completion: @escaping (Bool) -> Void
@@ -16,6 +17,7 @@ protocol LoginViewModelProtocol {
 final class LoginViewModel: LoginViewModelProtocol {
     
     var wasAccessKeyWrong: (() -> Void)?
+    var wasSomethingWrong: (() -> Void)?
     
     func logIn(
         byAccessKey accessKey: String?,
@@ -26,8 +28,11 @@ final class LoginViewModel: LoginViewModelProtocol {
             switch result {
             case .success(let isEditingAllowed):
                 completion(isEditingAllowed)
-            case .failure(_):
-                wasAccessKeyWrong?()
+            case .failure(let error):
+                switch error {
+                case .wrongKey: wasAccessKeyWrong?()
+                case .unknownError: wasSomethingWrong?()
+                }
             }
         }
     }
