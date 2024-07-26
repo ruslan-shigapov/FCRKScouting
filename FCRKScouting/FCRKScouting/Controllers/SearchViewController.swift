@@ -85,7 +85,7 @@ final class SearchViewController: UIViewController {
     private let activityIndicator: UIActivityIndicatorView = {
         let indicatorView = UIActivityIndicatorView(style: .large)
         indicatorView.hidesWhenStopped = true
-        indicatorView.color = .naturalGold
+        indicatorView.color = .black
         return indicatorView
     }()
     
@@ -166,7 +166,15 @@ final class SearchViewController: UIViewController {
     
     @objc private func favoritesButtonTapped(_ sender: UIButton) {
         toggleStatus(sender)
-        
+        if sender.isSelected {
+            searchTipsView.isHidden = true
+            viewModel.getFavoritePlayers()
+            playerCollectionView.reloadData()
+        } else {
+            viewModel.cancelSearch()
+            playerCollectionView.reloadData()
+            searchTipsView.isHidden = false
+        }
     }
 }
 

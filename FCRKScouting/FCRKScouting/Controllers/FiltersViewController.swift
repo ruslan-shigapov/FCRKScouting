@@ -101,7 +101,7 @@ final class FiltersViewController: UIViewController {
         view.setKeyboardDismissTap()
         dashLabel.isHidden = true
         toAgeTextFieldView.isHidden = true
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .deepGreen
         view.addSubviews(
             titleLabel,
             positionLabel,

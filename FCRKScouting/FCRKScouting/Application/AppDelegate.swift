@@ -22,11 +22,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.LaunchOptionsKey: Any
         ]?
     ) -> Bool {
-//        StorageManager.shared.fetchPlayers { _ in }
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        setupUIAppearance()
         ScreenFactory.setRootViewController()
+        setupUIAppearance()
         return true
     }
 }

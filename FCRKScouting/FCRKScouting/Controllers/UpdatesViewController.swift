@@ -125,14 +125,28 @@ final class UpdatesViewController: UIViewController {
     private func handlePlayerAdding() {
         viewModel.playersWereChanged = { [weak self] in
             guard let self else { return }
-            refreshButtonTapped()
+            noResultsLabel.isHidden = true
+            activityIndicator.startAnimating()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.viewModel.refreshPlayersList {
+                    self.updateCollectionView()
+                    self.activityIndicator.stopAnimating()
+                }
+            }
         }
     }
     
     private func handleReturnBack() {
         viewModel.backButtonWasTapped = { [weak self] in
             guard let self else { return }
-            refreshButtonTapped()
+            noResultsLabel.isHidden = true
+            activityIndicator.startAnimating()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.viewModel.refreshPlayersList {
+                    self.updateCollectionView()
+                    self.activityIndicator.stopAnimating()
+                }
+            }
         }
     }
     
@@ -159,13 +173,17 @@ final class UpdatesViewController: UIViewController {
     @objc private func refreshButtonTapped() {
         noResultsLabel.isHidden = true
         activityIndicator.startAnimating()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            guard let self else { return }
-            viewModel.refreshPlayersList {
-                self.updateCollectionView()
-                self.activityIndicator.stopAnimating()
+            viewModel.syncWithDatabase() {
+                DispatchQueue.main.asyncAfter(
+                    deadline: .now() + 0.5
+                ) { [weak self] in
+                    guard let self else { return }
+                    self.viewModel.refreshPlayersList {
+                        self.updateCollectionView()
+                        self.activityIndicator.stopAnimating()
+                    }
+                }
             }
-        }
     }
     
     @objc private func addPlayerButtonTapped() {

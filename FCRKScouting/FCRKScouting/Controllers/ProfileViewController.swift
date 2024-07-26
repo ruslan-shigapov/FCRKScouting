@@ -43,25 +43,6 @@ final class ProfileViewController: UIViewController {
         return view
     }()
     
-    private lazy var viewingPlanNavigationButton: NavigationButton = {
-        let button = NavigationButton(
-            title: Constants.Text.ButtonTitles.viewingPlan)
-        button.addTarget(
-            self,
-            action: #selector(viewingPlanNavigationButtonTapped),
-            for: .touchUpInside)
-        return button
-    }()
-    private lazy var allReportsNavigationButton: NavigationButton = {
-        let button = NavigationButton(
-            title: Constants.Text.ButtonTitles.allReports)
-        button.addTarget(
-            self,
-            action: #selector(allReportsNavigationButtonTapped),
-            for: .touchUpInside)
-        return button
-    }()
-    
     private let accessLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Text.Titles.access)
@@ -110,8 +91,6 @@ final class ProfileViewController: UIViewController {
         view.setupGradientLayer()
         view.addSubviews(
             topBackgroundView,
-            viewingPlanNavigationButton,
-            allReportsNavigationButton,
             bottomBackgroundView)
         view.prepareForAutoLayout()
         setConstraints()
@@ -132,12 +111,12 @@ final class ProfileViewController: UIViewController {
     @objc private func editButtonTapped() {
         let formVC = ScreenFactory.getFormController(
             withDelegate: viewModel as FormViewControllerDelegate)
+        if let sheet = formVC.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersGrabberVisible = true
+        }
         present(formVC, animated: true)
     }
-    
-    @objc private func viewingPlanNavigationButtonTapped() {}
-    
-    @objc private func allReportsNavigationButtonTapped() {}
     
     @objc private func logOutButtonTapped() {
         let alertController = AlertFactory.getConfirmationAlert(
@@ -187,32 +166,8 @@ private extension ProfileViewController {
             fullNameLabel.centerYAnchor.constraint(
                 equalTo: topBackgroundView.centerYAnchor),
             
-            viewingPlanNavigationButton.topAnchor.constraint(
-                equalTo: topBackgroundView.bottomAnchor,
-                constant: 8),
-            viewingPlanNavigationButton.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 8),
-            viewingPlanNavigationButton.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: -8),
-            viewingPlanNavigationButton.heightAnchor.constraint(
-                equalToConstant: 72),
-            
-            allReportsNavigationButton.topAnchor.constraint(
-                equalTo: viewingPlanNavigationButton.bottomAnchor,
-                constant: 8),
-            allReportsNavigationButton.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 8),
-            allReportsNavigationButton.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: -8),
-            allReportsNavigationButton.heightAnchor.constraint(
-                equalTo: viewingPlanNavigationButton.heightAnchor),
-            
             bottomBackgroundView.topAnchor.constraint(
-                equalTo: allReportsNavigationButton.bottomAnchor,
+                equalTo: topBackgroundView.bottomAnchor,
                 constant: 8),
             bottomBackgroundView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,

@@ -371,6 +371,13 @@ final class EditorViewController: UIViewController {
                 andMessage: Constants.Text.Alerts.notSelectedPosition.message)
             present(alertController, animated: true)
         }
+        viewModel.wasSuchPlayerFound = { [weak self] in
+            guard let self else { return }
+            let alertController = AlertFactory.getWarningAlert(
+                withTitle: Constants.Text.Alerts.suchPlayerExists.title,
+                andMessage: Constants.Text.Alerts.suchPlayerExists.message)
+            present(alertController, animated: true)
+        }
     }
     
     private func finishChanges() {

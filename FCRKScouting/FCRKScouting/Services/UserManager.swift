@@ -82,7 +82,7 @@ final class UserManager {
             case .failure(let error):
                 switch error {
                 case .recordNotFound: completion(.failure(.wrongKey))
-                case .fetchError: completion(.failure(.unknownError))
+                case .unknownError: completion(.failure(.unknownError))
                 }
             }
         }
@@ -93,8 +93,8 @@ final class UserManager {
         isEditingAllowed: Bool,
         completion: @escaping (_ isNewUser: Bool) -> Void
     ) {
-        StorageManager.shared.findUserFromCloud(
-            byAppleID: credential.user
+        StorageManager.shared.findUser(
+            credential.user
         ) { [weak self] in
             guard let self else { return }
             if let foundUser = $0 {

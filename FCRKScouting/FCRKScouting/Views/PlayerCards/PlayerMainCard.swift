@@ -306,7 +306,7 @@ private extension PlayerMainCard {
             
             heightValueLabel.trailingAnchor.constraint(
                 equalTo: footLabel.trailingAnchor,
-                constant: -8),
+                constant: -12),
             heightValueLabel.centerYAnchor.constraint(
                 equalTo: heightLabel.centerYAnchor,
                 constant: -2),

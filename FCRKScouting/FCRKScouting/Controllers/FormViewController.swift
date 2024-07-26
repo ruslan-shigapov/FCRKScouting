@@ -20,7 +20,8 @@ final class FormViewController: UIViewController {
         : Constants.Text.ScreenTitles.form
         let label = CustomLabel(
             font: Constants.Fonts.header,
-            text: labelText)
+            text: labelText,
+            color: .accent)
         label.textAlignment = .center
         return label
     }()
@@ -37,6 +38,36 @@ final class FormViewController: UIViewController {
             action: #selector(saveButtonTapped),
             for: .touchUpInside)
         return button
+    }()
+    
+    private let versionLabel = CustomLabel(
+        font: Constants.Fonts.secondary,
+        text: "Version 1.0", 
+        color: .white)
+    private let devContactsLabel = CustomLabel(
+        font: Constants.Fonts.secondary,
+        text: "Для связи с разработчиком", 
+        color: .black)
+    private let devTelegramLabel = CustomLabel(
+        font: Constants.Fonts.secondary,
+        text: "Telegram: @shiga_boom", 
+        color: .black)
+    private let devEmailLabel = CustomLabel(
+        font: Constants.Fonts.secondary,
+        text: "Email: ilgamovich@gmail.com", 
+        color: .black)
+    
+    private lazy var infoStackView: UIStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews: [
+                versionLabel,
+                devContactsLabel,
+                devTelegramLabel,
+                devEmailLabel
+            ])
+        stackView.axis = .vertical
+        stackView.spacing = 2
+        return stackView
     }()
     
     // MARK: Lifecycle
@@ -63,9 +94,13 @@ final class FormViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
-        view.backgroundColor = .accent
+        view.backgroundColor = .deepGreen
         view.setKeyboardDismissTap()
-        view.addSubviews(titleLabel, fullNameTextFieldView, saveButton)
+        view.addSubviews(
+            titleLabel,
+            fullNameTextFieldView,
+            saveButton,
+            infoStackView)
         view.prepareForAutoLayout()
         setConstraints()
         setupAlerts()
@@ -142,7 +177,7 @@ private extension FormViewController {
             
             saveButton.topAnchor.constraint(
                 equalTo: fullNameTextFieldView.bottomAnchor,
-                constant: 48
+                constant: 24
             ),
             saveButton.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
@@ -150,7 +185,13 @@ private extension FormViewController {
             saveButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -48),
-            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            infoStackView.leadingAnchor.constraint(
+                equalTo: saveButton.leadingAnchor),
+            infoStackView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: -24)
         ])
     }
 }

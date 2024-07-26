@@ -119,13 +119,13 @@ final class LoginViewController: UIViewController {
     }
     
     @objc private func appleSignInButtonTapped() {
+        activityIndicator.startAnimating()
+        appleSignInButton.isEnabled = false
         viewModel.logIn(
             byAccessKey: accessKeyTextFieldView.getInputText()
         ) { [weak self] in
             guard let self else { return }
             authManager = AuthManager(isEditingAllowed: $0)
-            activityIndicator.startAnimating()
-            appleSignInButton.isEnabled = false
             authManager?.singInWithApple { result in
                 switch result {
                 case .success(let isNewUser):

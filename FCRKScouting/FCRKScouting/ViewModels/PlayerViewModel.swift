@@ -20,7 +20,7 @@ protocol PlayerViewModelProtocol: UserViewModelProtocol,
                                   PlayerCareerCardDelegate,
                                   AddCareerViewControllerDelegate {
     var patronymic: String { get }
-    func deletePlayer()
+    func deletePlayer(completion: @escaping () -> Void)
     func getPlayer() -> Player
     func getPlayerMainCardViewModel() -> PlayerMainCardViewModelProtocol
     func getPlayerCareerCardViewModel() -> PlayerCareerCardViewModelProtocol
@@ -43,9 +43,11 @@ final class PlayerViewModel: PlayerViewModelProtocol {
         self.player = player
     }
     
-    func deletePlayer() {
+    func deletePlayer(completion: @escaping () -> Void) {
         guard let fullName = player.fullName else { return }
-        StorageManager.shared.deletePlayer(byFullName: fullName)
+        StorageManager.shared.deletePlayer(byFullName: fullName) {
+            completion()
+        }
     }
     
     func getPlayer() -> Player {

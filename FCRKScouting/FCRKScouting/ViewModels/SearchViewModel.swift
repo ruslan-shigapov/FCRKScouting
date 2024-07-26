@@ -17,11 +17,12 @@ protocol SearchViewModelProtocol: UserViewModelProtocol,
         for player: Player?) -> PlayerCellViewModelProtocol?
     func cancelSearch()
     func getRelatedPlayers()
+    func getFavoritePlayers()
 }
 
 final class SearchViewModel: SearchViewModelProtocol {
     
-    private var filteredPlayers: [Player] = []
+    private var filteredPlayers: Set<Player> = []
     
     var backButtonWasTapped: (() -> Void)?
     
@@ -32,7 +33,7 @@ final class SearchViewModel: SearchViewModelProtocol {
     func findPlayers(byText text: String, completion: @escaping () -> Void) {
         StorageManager.shared.findPlayers(byText: text) { [weak self] in
             guard let self else { return }
-            filteredPlayers = $0
+            filteredPlayers.formUnion($0) 
             DispatchQueue.main.async {
                 completion()
             }
@@ -40,7 +41,7 @@ final class SearchViewModel: SearchViewModelProtocol {
     }
     
     func getPlayer(at indexPath: IndexPath) -> Player? {
-        filteredPlayers[indexPath.item]
+        Array(filteredPlayers)[indexPath.item]
     }
     
     func getNumberOfItems() -> Int {
@@ -63,7 +64,16 @@ final class SearchViewModel: SearchViewModelProtocol {
             forUser: userFullName
         ) { [weak self] in
             guard let self else { return }
-            filteredPlayers = $0
+            filteredPlayers.formUnion($0)
         }
+    }
+    
+    func getFavoritePlayers() {
+        let currentUser = UserManager.shared.getCurrentUser()
+        guard let favorites = currentUser?.favorites,
+              let favoritePlayers = favorites.allObjects as? [Player] else {
+            return
+        }
+        filteredPlayers.formUnion(favoritePlayers)
     }
 }

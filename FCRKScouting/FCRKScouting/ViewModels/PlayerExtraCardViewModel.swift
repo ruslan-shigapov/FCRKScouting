@@ -57,11 +57,17 @@ final class PlayerExtraCardViewModel: PlayerExtraCardViewModelProtocol {
     }
     
     var agentName: String {
-        player.agentName ?? ""
+        guard let agentName = player.agentName, !agentName.isEmpty else {
+            return ""
+        }
+        return agentName
     }
     
     var contacts: String {
-        player.agentContacts ?? ""
+        guard let contacts = player.agentContacts, !contacts.isEmpty else {
+            return ""
+        }
+        return contacts
     }
     
     var testingDate: String {

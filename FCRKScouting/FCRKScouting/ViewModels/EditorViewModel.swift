@@ -27,6 +27,7 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol,
     var wasImageChanged: (() -> Void)? { get set }
     var title: String { get }
     var selectedPhoto: UIImage? { get set }
+    var wasSuchPlayerFound: (() -> Void)? { get set }
     func savePlayer(
         byFullName fullName: String,
         patronymic: String?,
@@ -95,6 +96,7 @@ final class EditorViewModel: EditorViewModelProtocol {
     var wasFullNameContainInvalidChars: (() -> Void)?
     var wasPositionNotSelected: (() -> Void)?
     var wasImageChanged: (() -> Void)?
+    var wasSuchPlayerFound: (() -> Void)?
     
     var title: String {
         guard player != nil else {
@@ -132,7 +134,11 @@ final class EditorViewModel: EditorViewModelProtocol {
             return player?.photoData
         }
     }
-        
+    
+    private func hasMatching(by fullName: String) -> Bool {
+        StorageManager.shared.hasDuplicatePlayer(byFullName: fullName)
+    }
+    
     func savePlayer(
         byFullName fullName: String,
         patronymic: String?,
@@ -153,6 +159,13 @@ final class EditorViewModel: EditorViewModelProtocol {
     ) {
         guard position != 0 else {
             wasPositionNotSelected?()
+            return
+        }
+        guard !hasMatching(by: fullName) else {
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                wasSuchPlayerFound?()
+            }
             return
         }
         let currentUser = UserManager.shared.getCurrentUser()

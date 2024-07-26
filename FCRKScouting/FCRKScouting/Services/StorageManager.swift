@@ -10,7 +10,7 @@ import CloudKit
 
 enum CloudError: Error {
     case recordNotFound
-    case fetchError
+    case unknownError
 }
 
 final class StorageManager {
@@ -38,7 +38,7 @@ final class StorageManager {
     
     private var viewContext: NSManagedObjectContext {
         let context = persistentContainer.viewContext
-        context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         return context
     }
 
@@ -46,11 +46,7 @@ final class StorageManager {
     
     private func saveContext() {
         if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-            } catch {
-                viewContext.rollback()
-            }
+            try? viewContext.save()
         }
     }
 }
@@ -74,7 +70,7 @@ extension StorageManager {
                     }
                     completion(matchResult)
                 case .failure(_):
-                    completion(.failure(CloudError.fetchError))
+                    completion(.failure(CloudError.unknownError))
                 }
             }
         }
@@ -98,22 +94,8 @@ extension StorageManager {
     }
 }
 
-// MARK: - User CRUD
+// MARK: - User
 extension StorageManager {
-    
-    private func deleteDuplicateUsers(_ appleID: String?) {
-        let fetchRequest = User.fetchRequest()
-        guard let appleID else { return }
-        fetchRequest.predicate = NSPredicate(format: "appleID == %@", appleID)
-        let users = try? self.viewContext.fetch(fetchRequest)
-        if let users, users.count > 1 {
-            for index in 1..<users.count {
-                let user = users[index]
-                viewContext.delete(user)
-            }
-            saveContext()
-        }
-    }
     
     func saveUser(
         byAppleID appleID: String,
@@ -139,57 +121,6 @@ extension StorageManager {
             return
         }
         completion(nil)
-    }
-    
-    func findUserFromCloud(
-        byAppleID appleID: String,
-        completion: @escaping (User?) -> Void
-    ) {
-        findUserRecordFromCloud(
-            byAppleID: appleID
-        ) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let record):
-                let user = User(context: viewContext)
-                user.appleID = record.value(forKey: "CD_appleID") as? String
-                user.fullName = record.value(forKey: "CD_fullName") as? String
-                let accessValue = record.value(
-                    forKey: "CD_isEditingAllowed") as? Int64
-                user.isEditingAllowed = accessValue == 1 ? true : false
-                saveContext()
-                DispatchQueue.global().asyncAfter(deadline: .now() + 3.0) {
-                    self.deleteDuplicateUsers(user.appleID)
-                }
-                DispatchQueue.main.async {
-                    completion(user)
-                }
-            case .failure(_):
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-            }
-        }
-    }
-    
-    func findUserRecordFromCloud(
-        byAppleID appleID: String,
-        completion: @escaping (Result<CKRecord, Error>) -> Void
-    ) {
-        let predicate = NSPredicate(format: "CD_appleID == %@", appleID)
-        let query = CKQuery(recordType: "CD_User", predicate: predicate)
-        publicDatabase.fetch(withQuery: query) { result in
-            switch result {
-            case .success((let matchResults, _)):
-                guard let result = matchResults.first?.1 else {
-                    completion(.failure(CloudError.recordNotFound))
-                    return
-                }
-                completion(result)
-            case .failure(_):
-                completion(.failure(CloudError.fetchError))
-            }
-        }
     }
     
     func renameUser(
@@ -218,14 +149,24 @@ extension StorageManager {
     }
 }
 
-// MARK: - Player CRUD
+// MARK: - Player
 extension StorageManager {
     
-    func fetchPlayers(completion: @escaping ([Player]) -> Void) {
-        let fetchRequest = Player.fetchRequest()
-        if let players = try? viewContext.fetch(fetchRequest) {
-            completion(players)
+    private func deletePlayerRecordFromCloud(
+        byFullName fullName: String,
+        completion: @escaping () -> Void
+    ) {
+        let predicate = NSPredicate(format: "CD_fullName == %@", fullName)
+        let query = CKQuery(recordType: "CD_Player", predicate: predicate)
+        let queryOperation = CKQueryOperation(query: query)
+        queryOperation.desiredKeys = ["CD_fullName"]
+        queryOperation.queuePriority = .veryHigh
+        queryOperation.recordMatchedBlock = { [weak self] recordID, _ in
+            guard let self else { return }
+            publicDatabase.delete(withRecordID: recordID) { _, _ in }
+            completion()
         }
+        publicDatabase.add(queryOperation)
     }
     
     func createPlayer(
@@ -265,7 +206,6 @@ extension StorageManager {
         creator: String
     ) {
         let player = Player(context: viewContext)
-        // TODO: добавить проверку на совпадение имени и проверить нагрузку вызовов получения все-таки (блин, не всегда удаляется с первого раза с этим проблемы и с другими сущностями - синхр)
         player.fullName = fullName
         player.photoData = photo
         player.patronymic = patronymic
@@ -303,6 +243,22 @@ extension StorageManager {
         player.creator = creator
         saveContext()
     }
+    
+    func fetchPlayers(completion: @escaping ([Player]) -> Void) {
+        let fetchRequest = Player.fetchRequest()
+        if let players = try? viewContext.fetch(fetchRequest) {
+            completion(players)
+        }
+    }
+    
+    func hasDuplicatePlayer(byFullName fullName: String) -> Bool {
+        let fetchRequest = Player.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "fullName == %@", fullName)
+        let players = try? viewContext.fetch(fetchRequest)
+        guard let player = players?.first,
+              let matchedFullName = player.fullName else { return false }
+        return matchedFullName == fullName
+    }
 
     func fetchRelatedPlayers(
         forUser userFullName: String,
@@ -325,6 +281,44 @@ extension StorageManager {
         if let players = try? viewContext.fetch(fetchRequest) {
             completion(players)
         }
+    }
+    
+    func fetchPlayersFromCloud(completion: @escaping () -> Void) {
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: "CD_Player", predicate: predicate)
+        let queryOperation = CKQueryOperation(query: query)
+        queryOperation.queuePriority = .veryHigh
+        var cloudPlayerFullNames: [String] = []
+        queryOperation.recordMatchedBlock = { _, result in
+            switch result {
+            case .success(let record):
+                if let fullName = record.value(
+                    forKey: "CD_fullName") as? String {
+                    cloudPlayerFullNames.append(fullName)
+                }
+            case .failure(_): break
+            }
+        }
+        queryOperation.queryResultBlock = { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(_):
+                let fetchRequest = Player.fetchRequest()
+                let players = try? viewContext.fetch(fetchRequest)
+                let playersToDelete = players?.filter {
+                    !cloudPlayerFullNames.contains($0.fullName ?? "")
+                }
+                DispatchQueue.main.async {
+                    playersToDelete?.forEach {
+                        self.viewContext.delete($0)
+                    }
+                    self.saveContext()
+                    completion()
+                }
+            case .failure(_): break
+            }
+        }
+        publicDatabase.add(queryOperation)
     }
     
     func updatePlayer(
@@ -434,7 +428,10 @@ extension StorageManager {
         saveContext()
     }
     
-    func deletePlayer(byFullName fullName: String) {
+    func deletePlayer(
+        byFullName fullName: String,
+        completion: @escaping () -> Void
+    ) {
         fetchPlayers { [weak self] in
             guard let requiredPlayer = $0.first(where: { player in
                 player.fullName == fullName
@@ -442,22 +439,13 @@ extension StorageManager {
                 return
             }
             guard let self else { return }
-            deletePlayerRecordFromCloud(byFullName: fullName)
-            viewContext.delete(requiredPlayer)
-            saveContext()
-        }
-    }
-    
-    private func deletePlayerRecordFromCloud(byFullName fullName: String) {
-        let predicate = NSPredicate(format: "CD_fullName == %@", fullName)
-        let query = CKQuery(recordType: "CD_Player", predicate: predicate)
-        let queryOperation = CKQueryOperation(query: query)
-        queryOperation.desiredKeys = ["CD_fullName"]
-        queryOperation.queuePriority = .veryHigh
-        queryOperation.recordMatchedBlock = { [weak self] recordID, _ in
-            guard let self else { return }
-            publicDatabase.delete(withRecordID: recordID) { _, _ in }
-            publicDatabase.add(queryOperation)
+            deletePlayerRecordFromCloud(byFullName: fullName) {
+                DispatchQueue.main.async {
+                    self.viewContext.delete(requiredPlayer)
+                    self.saveContext()
+                    completion()
+                }
+            }
         }
     }
 }

@@ -30,6 +30,7 @@ protocol UpdatesViewModelProtocol: UserViewModelProtocol,
         for player: Player?) -> PlayerViewModelProtocol?
     func format(date: Date) -> String
     func refreshPlayersList(completion: @escaping () -> Void)
+    func syncWithDatabase(completion: @escaping () -> Void)
 }
 
 final class UpdatesViewModel: UpdatesViewModelProtocol {
@@ -139,6 +140,12 @@ final class UpdatesViewModel: UpdatesViewModelProtocol {
             guard let self else { return }
             players = $0
             filterPlayersByDate()
+            completion()
+        }
+    }
+    
+    func syncWithDatabase(completion: @escaping () -> Void) {
+        StorageManager.shared.fetchPlayersFromCloud { 
             completion()
         }
     }

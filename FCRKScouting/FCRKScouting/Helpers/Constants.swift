@@ -168,6 +168,10 @@ enum Constants {
                 title: "Внимание",
                 message: "Пожалуйста, заполните обязательные поля для ввода"
             )
+            static let suchPlayerExists = (
+                title: "Не удалось сохранить",
+                message: "Игрок с таким именем и фамилией уже существует"
+            )
             static let incorrectFullName = (
                 title: "Внимание",
                 message: """

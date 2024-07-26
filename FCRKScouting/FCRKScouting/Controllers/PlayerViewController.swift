@@ -183,9 +183,10 @@ final class PlayerViewController: UIViewController {
             andMessage: Constants.Text.Alerts.delete.message
         ) { [weak self] in
             guard let self else { return }
-            viewModel.deletePlayer()
-            self.navigationController?.popViewController(animated: true)
-            self.delegate.backButtonWasTapped?()
+            viewModel.deletePlayer() {
+                self.navigationController?.popViewController(animated: true)
+                self.delegate.backButtonWasTapped?()
+            }
         }
         present(alertController, animated: true)
     }
