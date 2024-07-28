@@ -29,6 +29,5 @@ final class PlayerCollectionView: UICollectionView {
     
     private func setupUI() {
         backgroundColor = .clear
-        showsVerticalScrollIndicator = false
     }
 }

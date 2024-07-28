@@ -32,6 +32,7 @@ final class SearchViewController: UIViewController {
     private lazy var relatedButton: NavigationBarButton = {
         let button = NavigationBarButton(
             image: Constants.Images.ButtonImages.related)
+        button.tag = 1
         button.addTarget(
             self,
             action: #selector(relatedButtonTapped),
@@ -41,6 +42,7 @@ final class SearchViewController: UIViewController {
     private lazy var favoritesButton: NavigationBarButton = {
         let button = NavigationBarButton(
             image: Constants.Images.ButtonImages.favorites)
+        button.tag = 0
         button.addTarget(
             self,
             action: #selector(favoritesButtonTapped),
@@ -49,7 +51,8 @@ final class SearchViewController: UIViewController {
     }()
     
     private lazy var searchController: UISearchController = {
-        let searchController = UISearchController()
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchResultsUpdater = self
         searchController.delegate = self
         let searchBar = searchController.searchBar
@@ -142,6 +145,21 @@ final class SearchViewController: UIViewController {
         sender.tintColor = sender.isSelected ? .systemGreen : .white
     }
     
+    private func setupFilterMode(with sender: UIButton)  {
+        toggleStatus(sender)
+        if sender.isSelected {
+            viewModel.toggleFilter(byTag: sender.tag)
+            viewModel.getRequiredPlayers()
+            playerCollectionView.reloadData()
+        } else {
+            viewModel.toggleFilter(byTag: sender.tag)
+            viewModel.getRequiredPlayers()
+            playerCollectionView.reloadData()
+            searchTipsView.isHidden = !viewModel.isFiltersInactive
+        }
+        searchTipsView.isHidden = !viewModel.hasNoResults
+    }
+    
     @objc private func filtersButtonTapped(_ sender: UIButton) {
         let filtersVC = ScreenFactory.getFiltersViewController()
         if let sheet = filtersVC.sheetPresentationController {
@@ -151,30 +169,11 @@ final class SearchViewController: UIViewController {
     }
     
     @objc private func relatedButtonTapped(_ sender: UIButton) {
-        toggleStatus(sender)
-        if sender.isSelected {
-            searchTipsView.isHidden = true
-            viewModel.getRelatedPlayers()
-            playerCollectionView.reloadData()
-        } else {
-            viewModel.cancelSearch()
-            playerCollectionView.reloadData()
-            searchTipsView.isHidden = false
-        }
-        // TODO: доделать логику
+        setupFilterMode(with: sender)
     }
     
     @objc private func favoritesButtonTapped(_ sender: UIButton) {
-        toggleStatus(sender)
-        if sender.isSelected {
-            searchTipsView.isHidden = true
-            viewModel.getFavoritePlayers()
-            playerCollectionView.reloadData()
-        } else {
-            viewModel.cancelSearch()
-            playerCollectionView.reloadData()
-            searchTipsView.isHidden = false
-        }
+        setupFilterMode(with: sender)
     }
 }
 
@@ -182,7 +181,13 @@ final class SearchViewController: UIViewController {
 extension SearchViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text, !searchText.isEmpty else { return }
+        guard let searchText = searchController.searchBar.text,
+              !searchText.isEmpty else {
+            viewModel.returnOriginalPlayers()
+            playerCollectionView.reloadData()
+            noResultsLabel.isHidden = true
+            return
+        }
         searchTipsView.isHidden = true
         if !searchText.isEmpty {
             noResultsLabel.isHidden = true
@@ -190,7 +195,7 @@ extension SearchViewController: UISearchResultsUpdating {
         }
         searchTimer?.invalidate()
         searchTimer = Timer.scheduledTimer(
-            withTimeInterval: 0.8,
+            withTimeInterval: 0.5,
             repeats: false,
             block: { [weak self] _ in
                 guard let self else { return }
@@ -210,7 +215,7 @@ extension SearchViewController: UISearchControllerDelegate {
         noResultsLabel.isHidden = true
         viewModel.cancelSearch()
         playerCollectionView.reloadData()
-        searchTipsView.isHidden = false
+        searchTipsView.isHidden = !viewModel.hasNoResults
     }
 }
 

@@ -163,8 +163,22 @@ extension StorageManager {
         queryOperation.queuePriority = .veryHigh
         queryOperation.recordMatchedBlock = { [weak self] recordID, _ in
             guard let self else { return }
+            DispatchQueue.main.async {
+                self.deleteAllPlayerCareers(forPlayer: recordID.recordName)
+                self.publicDatabase.delete(withRecordID: recordID) { _, _ in }
+                completion()
+            }
+        }
+        publicDatabase.add(queryOperation)
+    }
+    
+    private func deleteAllPlayerCareers(forPlayer recordID: String) {
+        let predicate = NSPredicate(format: "CD_player == %@", recordID)
+        let query = CKQuery(recordType: "CD_Career", predicate: predicate)
+        let queryOperation = CKQueryOperation(query: query)
+        queryOperation.recordMatchedBlock = { [weak self] recordID, _ in
+            guard let self else { return }
             publicDatabase.delete(withRecordID: recordID) { _, _ in }
-            completion()
         }
         publicDatabase.add(queryOperation)
     }
@@ -440,11 +454,13 @@ extension StorageManager {
             }
             guard let self else { return }
             deletePlayerRecordFromCloud(byFullName: fullName) {
-                DispatchQueue.main.async {
-                    self.viewContext.delete(requiredPlayer)
-                    self.saveContext()
-                    completion()
+                requiredPlayer.careers?.forEach {
+                    guard let career = $0 as? Career else { return }
+                    self.deleteCareer(career, forPlayer: requiredPlayer)
                 }
+                self.viewContext.delete(requiredPlayer)
+                self.saveContext()
+                completion()
             }
         }
     }
