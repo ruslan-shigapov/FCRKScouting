@@ -34,7 +34,7 @@ final class PlayerCollectionViewCell: UICollectionViewCell {
     }()
     
     // MARK: Public Properties
-    var viewModel: PlayerCellViewModelProtocol? {
+    weak var viewModel: PlayerCellViewModelProtocol? {
         didSet {
             if let photo = viewModel?.photo {
                 photoImageView.image = photo

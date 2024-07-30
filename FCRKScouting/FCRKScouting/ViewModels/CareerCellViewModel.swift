@@ -5,10 +5,9 @@
 //  Created by Ruslan Shigapov on 18.07.2024.
 //
 
-protocol CareerCellViewModelProtocol {
+protocol CareerCellViewModelProtocol: AnyObject {
     var year: String { get }
-    var league: String { get }
-    var coachName: String { get }
+    var careerInfo: String { get }
 }
 
 final class CareerCellViewModel: CareerCellViewModelProtocol {
@@ -19,15 +18,15 @@ final class CareerCellViewModel: CareerCellViewModelProtocol {
         career.year ?? ""
     }
     
-    var league: String {
+    var careerInfo: String {
+        let notSelectedLeague = Constants.Text.Leagues.notSelected.rawValue
+        guard career.league != notSelectedLeague else {
+            return career.coachName ?? ""
+        }
         if let coachName = career.coachName, !coachName.isEmpty {
-            return "\(career.league ?? ""). Тренер:"
+            return "\(career.league ?? ""). Тренер: \(coachName)"
         }
         return career.league ?? ""
-    }
-    
-    var coachName: String {
-        career.coachName ?? ""
     }
     
     init(career: Career) {

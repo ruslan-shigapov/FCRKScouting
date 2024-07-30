@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol PlayerCellViewModelProtocol {
+protocol PlayerCellViewModelProtocol: AnyObject {
     var photo: UIImage? { get }
     var fullName: String { get }
     var ageDescription: String { get }

@@ -110,7 +110,10 @@ final class PlayerCareerCard: UIView {
         didSet {
             fullNameValueLabel.text = viewModel?.fullName
             addCareerButton.backgroundColor = .lightGray
-            careerTableView.reloadData()
+            viewModel?.getSortedCareers { [weak self] in
+                guard let self else { return }
+                careerTableView.reloadData()
+            }
         }
     }
     

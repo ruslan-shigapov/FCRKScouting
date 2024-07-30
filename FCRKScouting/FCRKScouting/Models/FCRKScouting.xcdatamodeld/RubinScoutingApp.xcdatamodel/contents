@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23211.1" systemVersion="24A5298h" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Career" representedClassName="Career" syncable="YES" codeGenerationType="class">
         <attribute name="coachName" optional="YES" attributeType="String"/>
         <attribute name="league" optional="YES" attributeType="String"/>
+        <attribute name="playerFullName" optional="YES" attributeType="String"/>
         <attribute name="year" optional="YES" attributeType="String"/>
         <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="careers" inverseEntity="Player"/>
     </entity>
@@ -15,6 +16,7 @@
         <attribute name="contractDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="cost" optional="YES" attributeType="String"/>
         <attribute name="creator" optional="YES" attributeType="String"/>
+        <attribute name="currentLeague" optional="YES" attributeType="String"/>
         <attribute name="foot" optional="YES" attributeType="String"/>
         <attribute name="fullName" optional="YES" attributeType="String"/>
         <attribute name="generalInfo" optional="YES" attributeType="String"/>

@@ -10,8 +10,8 @@ import UIKit
 final class SearchViewController: UIViewController {
     
     // MARK: Private Properties
-    private var viewModel: SearchViewModelProtocol
     private var searchTimer: Timer?
+    private var viewModel: SearchViewModelProtocol
     
     private lazy var collectionViewDelegate = SearchCollectionDelegate(
         navigationController: navigationController,
@@ -107,6 +107,7 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        handleExtraFiltersChange()
     }
     
     // MARK: Private Methods
@@ -120,6 +121,19 @@ final class SearchViewController: UIViewController {
             activityIndicator)
         view.prepareForAutoLayout()
         setConstraints()
+    }
+    
+    private func handleExtraFiltersChange() {
+        viewModel.extraFiltersWareChanged = { [weak self] in
+            guard let self else { return }
+            viewModel.extraFiltersValue.toggle()
+            filtersButton.tintColor = viewModel.extraFiltersValue
+            ? .systemGreen
+            : .white
+            viewModel.getRequiredPlayers()
+            searchTipsView.isHidden = !viewModel.hasNoResults
+            playerCollectionView.reloadData()
+        }
     }
     
     private func setupNavigationBar() {
@@ -161,7 +175,9 @@ final class SearchViewController: UIViewController {
     }
     
     @objc private func filtersButtonTapped(_ sender: UIButton) {
-        let filtersVC = ScreenFactory.getFiltersViewController()
+        let filtersVC = ScreenFactory.getFiltersViewController(
+            withDelegate: viewModel as FiltersViewControllerDelegate,
+            andFiltersValue: viewModel.extraFiltersValue)
         if let sheet = filtersVC.sheetPresentationController {
             sheet.prefersGrabberVisible = true
         }

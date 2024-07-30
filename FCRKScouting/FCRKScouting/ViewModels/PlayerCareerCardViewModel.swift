@@ -10,6 +10,7 @@ import Foundation
 protocol PlayerCareerCardViewModelProtocol {
     var fullName: String { get }
     func getNumberOfRows() -> Int
+    func getSortedCareers(completion: @escaping (() -> Void))
     func getCareerCellViewModel(
         at indexPath: IndexPath) -> CareerCellViewModelProtocol
     func deleteCareer(at indexPath: IndexPath)
@@ -32,14 +33,13 @@ final class PlayerCareerCardViewModel: PlayerCareerCardViewModelProtocol {
     
     init(player: Player) {
         self.player = player
-        getSortedCareers()
     }
-    
-    func getSortedCareers() {
+
+    func getSortedCareers(completion: @escaping (() -> Void)) {
         guard let careers = player.careers?.allObjects as? [Career] else {
             return
         }
-        self.careers = careers.sorted(by: {
+        let sortedCareers = careers.sorted(by: {
             guard let firstYear = $0.year, let secondYear = $1.year else {
                 return false
             }
@@ -47,11 +47,12 @@ final class PlayerCareerCardViewModel: PlayerCareerCardViewModelProtocol {
                   let shortenedSecondYear = Int(secondYear.suffix(2)) else {
                 return false
             }
-            if shortenedFirstYear == shortenedSecondYear {
-                return firstYear.count < secondYear.count
-            }
             return shortenedFirstYear > shortenedSecondYear
         })
+        self.careers = sortedCareers
+        DispatchQueue.main.async {
+            completion()
+        }
     }
     
     func getNumberOfRows() -> Int {

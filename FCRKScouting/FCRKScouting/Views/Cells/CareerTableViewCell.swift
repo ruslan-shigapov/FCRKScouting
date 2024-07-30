@@ -16,23 +16,13 @@ final class CareerTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let leagueLabel = DefaultTextLabel()
-    private let coachLabel = DefaultTextLabel()
-    
-    private lazy var containerStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [leagueLabel, coachLabel])
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.spacing = 4
-        return stackView
-    }()
-    
+    private let careerLabel = DefaultTextLabel(numberOfLines: 2)
+
     // MARK: Public Properties
-    var viewModel: CareerCellViewModelProtocol? {
+    weak var viewModel: CareerCellViewModelProtocol? {
         didSet {
             yearLabel.text = viewModel?.year
-            leagueLabel.text = viewModel?.league
-            coachLabel.text = viewModel?.coachName
+            careerLabel.text = viewModel?.careerInfo
         }
     }
 
@@ -42,16 +32,21 @@ final class CareerTableViewCell: UITableViewCell {
         setupUI()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setConstraints()
     }
     
     // MARK: Private Methods 
     private func setupUI() {
         backgroundColor = .clear
-        addSubviews(yearLabel, containerStackView)
+        addSubviews(yearLabel, careerLabel)
         prepareForAutoLayout()
-        setConstraints()
     }
     
     private func setConstraints() {
@@ -61,20 +56,17 @@ final class CareerTableViewCell: UITableViewCell {
                 constant: 8),
             yearLabel.widthAnchor.constraint(equalToConstant: 60),
             yearLabel.centerYAnchor.constraint(
-                equalTo: centerYAnchor),
+                equalTo: centerYAnchor,
+                constant: 1),
             
-            containerStackView.topAnchor.constraint(
-                equalTo: contentView.topAnchor,
-                constant: 4),
-            containerStackView.leadingAnchor.constraint(
+            careerLabel.centerYAnchor.constraint(
+                equalTo: contentView.centerYAnchor),
+            careerLabel.leadingAnchor.constraint(
                 equalTo: yearLabel.trailingAnchor,
                 constant: 16),
-            containerStackView.bottomAnchor.constraint(
-                equalTo: contentView.bottomAnchor,
-                constant: -4),
-            containerStackView.trailingAnchor.constraint(
+            careerLabel.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: -16)
+                constant: -8)
         ])
     }
 }

@@ -129,6 +129,8 @@ enum Constants {
             static let back = "Назад"
             static let no = "Нет"
             static let yes = "Да"
+            static let apply = "Применить"
+            static let reset = "Сбросить"
             static let exit = "Выйти"
             static let viewingPlan = "План просмотра"
             static let allReports = "Все отчёты"
@@ -192,6 +194,16 @@ enum Constants {
                 title: "Внимание",
                 message: "Неправильное соотношение годов"
             )
+            static let wrongRatioOfAges = (
+                title: "Внимание",
+                message: "Неправильное соотношение возрастов"
+            )
+            static let repeatedYears = (
+                title: "Внимание",
+                message: """
+            За этот период уже есть запись, сначала удалите ее, если необходимо
+            """
+            )
             static let exit = (
                 title: "Покинуть профиль?",
                 message: ""
@@ -243,6 +255,7 @@ enum Constants {
             }
         }
         enum Leagues: String, CaseIterable {
+            case notSelected = "- не выбрано -"
             case stageOne = "1 этап Академии"
             case stageTwo = "2 этап Академии"
             case stageThree = "3 этап Академии"

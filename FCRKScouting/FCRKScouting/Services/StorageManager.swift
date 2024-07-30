@@ -164,7 +164,6 @@ extension StorageManager {
         queryOperation.recordMatchedBlock = { [weak self] recordID, _ in
             guard let self else { return }
             DispatchQueue.main.async {
-                self.deleteAllPlayerCareers(forPlayer: recordID.recordName)
                 self.publicDatabase.delete(withRecordID: recordID) { _, _ in }
                 completion()
             }
@@ -172,13 +171,40 @@ extension StorageManager {
         publicDatabase.add(queryOperation)
     }
     
-    private func deleteAllPlayerCareers(forPlayer recordID: String) {
-        let predicate = NSPredicate(format: "CD_player == %@", recordID)
+    private func deleteAllPlayerCareers(forPlayer fullName: String) {
+        fetchPlayers { [weak self] in
+            guard let self else { return }
+            guard let requiredPlayer = $0.first(where: { player in
+                player.fullName == fullName
+            }) else {
+                return
+            }
+            if let playerCareers = requiredPlayer.careers as? Set<Career> {
+                for career in playerCareers {
+                    deleteCareer(career, forPlayer: requiredPlayer)
+                }
+            }
+        }
+    }
+    
+    private func deleteAllPlayerCareersFromCloud(
+        forPlayer fullName: String,
+        completion: @escaping () -> Void
+    ) {
+        let predicate = NSPredicate(format: "CD_playerFullName == %@", fullName)
         let query = CKQuery(recordType: "CD_Career", predicate: predicate)
         let queryOperation = CKQueryOperation(query: query)
+        queryOperation.desiredKeys = ["CD_player"]
+        queryOperation.queuePriority = .veryHigh
         queryOperation.recordMatchedBlock = { [weak self] recordID, _ in
             guard let self else { return }
             publicDatabase.delete(withRecordID: recordID) { _, _ in }
+        }
+        queryOperation.queryResultBlock = { result in
+            switch result {
+            case .success(_): completion()
+            case .failure(_): break
+            }
         }
         publicDatabase.add(queryOperation)
     }
@@ -272,6 +298,32 @@ extension StorageManager {
         guard let player = players?.first,
               let matchedFullName = player.fullName else { return false }
         return matchedFullName == fullName
+    }
+    
+    func hasDuplicateCareer(
+        period: String,
+        ofPlayer fullName: String,
+        completion: @escaping (Bool) -> Void
+    ) {
+        fetchPlayers {
+            guard let requiredPlayer = $0.first(where: { player in
+                player.fullName == fullName
+            }) else {
+                completion(false)
+                return
+            }
+            guard let careers = requiredPlayer.careers else {
+                completion(false)
+                return
+            }
+            let isRepeated = careers.contains {
+                guard let career = $0 as? Career, let year = career.year else {
+                    return false
+                }
+                return String(year.suffix(2)) == period
+            }
+            completion(isRepeated)
+        }
     }
 
     func fetchRelatedPlayers(
@@ -432,13 +484,28 @@ extension StorageManager {
             career.year = period
             career.league = league
             career.coachName = coach
+            career.playerFullName = requiredPlayer.fullName
             requiredPlayer.addToCareers(career)
+            saveContext()
+        }
+    }
+    
+    func saveCurrentLeague(_ league: String, forPlayer fullName: String) {
+        fetchPlayers { [weak self] in
+            guard let requiredPlayer = $0.first(where: { player in
+                player.fullName == fullName
+            }) else {
+                return
+            }
+            guard let self else { return }
+            requiredPlayer.currentLeague = league
             saveContext()
         }
     }
     
     func deleteCareer(_ career: Career, forPlayer player: Player) {
         player.removeFromCareers(career)
+        viewContext.delete(career)
         saveContext()
     }
     
@@ -447,20 +514,16 @@ extension StorageManager {
         completion: @escaping () -> Void
     ) {
         fetchPlayers { [weak self] in
-            guard let requiredPlayer = $0.first(where: { player in
-                player.fullName == fullName
-            }) else {
-                return
-            }
+            guard let requiredPlayer = $0.first(
+                where: { $0.fullName == fullName }) else { return }
             guard let self else { return }
-            deletePlayerRecordFromCloud(byFullName: fullName) {
-                requiredPlayer.careers?.forEach {
-                    guard let career = $0 as? Career else { return }
-                    self.deleteCareer(career, forPlayer: requiredPlayer)
+            deleteAllPlayerCareersFromCloud(forPlayer: fullName) {
+                self.deletePlayerRecordFromCloud(byFullName: fullName) {
+                    self.deleteAllPlayerCareers(forPlayer: fullName)
+                    self.viewContext.delete(requiredPlayer)
+                    self.saveContext()
+                    completion()
                 }
-                self.viewContext.delete(requiredPlayer)
-                self.saveContext()
-                completion()
             }
         }
     }

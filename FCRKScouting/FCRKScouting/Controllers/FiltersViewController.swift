@@ -10,6 +10,7 @@ import UIKit
 final class FiltersViewController: UIViewController {
     
     // MARK: Private Properties
+    private var delegate: FiltersViewControllerDelegate
     private var viewModel: FiltersViewModelProtocol
     
     // MARK: Views
@@ -61,21 +62,20 @@ final class FiltersViewController: UIViewController {
     }()
     
     private lazy var applyButton: PrimaryButton = {
-        let title = viewModel.isFiltersActive
-        ? "Сбросить"
-        : "Применить"
-        let color: UIColor = viewModel.isFiltersActive
-        ? .accent
-        : .systemGreen.withAlphaComponent(0.7)
-        let button = PrimaryButton(
-            title: title,
-            color: color)
-//        button.addTarget(<#T##target: Any?##Any?#>, action: <#T##Selector#>, for: <#T##UIControl.Event#>)
+        let button = PrimaryButton(title: "")
+        button.addTarget(
+            self,
+            action: #selector(applyButtonTapped),
+            for: .touchUpInside)
         return button
     }()
     
     // MARK: Initialize
-    init(viewModel: FiltersViewModelProtocol) {
+    init(
+        delegate: FiltersViewControllerDelegate,
+        viewModel: FiltersViewModelProtocol
+    ) {
+        self.delegate = delegate
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -89,10 +89,13 @@ final class FiltersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        configureUI()
+        handleWrongRatioOfAges()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        setupApplyButton()
         footSegmentedControl.setupShadow()
     }
     
@@ -120,9 +123,74 @@ final class FiltersViewController: UIViewController {
         setConstraints()
     }
     
+    private func configureUI() {
+        if viewModel.isFiltersActive {
+            positionPickerView.selectRow(
+                delegate.position,
+                inComponent: 0,
+                animated: true)
+            leaguePickerView.selectRow(
+                delegate.league,
+                inComponent: 0,
+                animated: true)
+            footSegmentedControl.selectedSegmentIndex = delegate.foot
+            ageTextFieldView.set(text: delegate.age)
+            if let toAgeValue = delegate.toAge, !toAgeValue.isEmpty {
+                toAgeSwitcher.isOn = true
+                toAgeTextFieldView.isHidden = false
+                toAgeTextFieldView.set(text: toAgeValue)
+            }
+        }
+    }
+    
+    private func handleWrongRatioOfAges() {
+        viewModel.wasRatioOfAgesWrong = { [weak self] in
+            guard let self else { return }
+            let alertController = AlertFactory.getWarningAlert(
+                withTitle: Constants.Text.Alerts.wrongRatioOfAges.title,
+                andMessage: Constants.Text.Alerts.wrongRatioOfAges.message)
+            present(alertController, animated: true)
+        }
+    }
+    
+    private func setupApplyButton() {
+        let title = viewModel.isFiltersActive
+        ? Constants.Text.ButtonTitles.reset
+        : Constants.Text.ButtonTitles.apply
+        applyButton.setTitle(title, for: .normal)
+        let color: UIColor = viewModel.isFiltersActive
+        ? .accent
+        : .systemGreen.withAlphaComponent(0.7)
+        applyButton.backgroundColor = color
+        
+    }
+    
     @objc private func toAgeSwitcherChanged() {
         dashLabel.isHidden.toggle()
         toAgeTextFieldView.isHidden.toggle()
+    }
+    
+    @objc private func applyButtonTapped() {
+        viewModel.checkRatioOf(
+            age: ageTextFieldView.getInputText(),
+            andAge: toAgeTextFieldView.getInputText()
+        ) {
+            viewModel.isFiltersActive.toggle()
+            setupApplyButton()
+            DispatchQueue.main.asyncAfter(
+                deadline: .now() + 0.4
+            ) { [weak self] in
+                guard let self else { return }
+                delegate.position = positionPickerView.selectedRow(
+                    inComponent: 0)
+                delegate.league = leaguePickerView.selectedRow(inComponent: 0)
+                delegate.foot = footSegmentedControl.selectedSegmentIndex
+                delegate.age = ageTextFieldView.getInputText()
+                delegate.toAge = toAgeTextFieldView.getInputText()
+                delegate.extraFiltersWareChanged?()
+                dismiss(animated: true)
+            }
+        }
     }
 }
 
@@ -139,8 +207,8 @@ private extension FiltersViewController {
             positionLabel.topAnchor.constraint(
                 equalTo: titleLabel.bottomAnchor,
                 constant: 12),
-            positionLabel.centerXAnchor.constraint(
-                equalTo: positionPickerView.centerXAnchor),
+            positionLabel.leadingAnchor.constraint(
+                equalTo: positionPickerView.leadingAnchor),
             
             positionPickerView.topAnchor.constraint(
                 equalTo: positionLabel.bottomAnchor,
@@ -152,8 +220,8 @@ private extension FiltersViewController {
             leagueLabel.topAnchor.constraint(
                 equalTo: positionPickerView.bottomAnchor,
                 constant: 12),
-            leagueLabel.centerXAnchor.constraint(
-                equalTo: leaguePickerView.centerXAnchor),
+            leagueLabel.leadingAnchor.constraint(
+                equalTo: leaguePickerView.leadingAnchor),
             
             leaguePickerView.topAnchor.constraint(
                 equalTo: leagueLabel.bottomAnchor,

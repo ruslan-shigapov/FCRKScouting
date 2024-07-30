@@ -9,6 +9,7 @@ import Foundation
 
 protocol AddCareerViewModelProtocol {
     var wasRatioOfYearsWrong: (() -> Void)? { get set }
+    var wereYearsRepeated: (() -> Void)? { get set }
     var years: [Int] { get }
     func saveCareer(
         forYear year: Int,
@@ -24,16 +25,48 @@ final class AddCareerViewModel: AddCareerViewModelProtocol {
     
     private let player: Player
     
+    private let currentYear = Calendar.current.component(.year, from: Date())
+    
     var wasRatioOfYearsWrong: (() -> Void)?
+    var wereYearsRepeated: (() -> Void)?
     
     var years: [Int] {
-        let currentYear = Calendar.current.component(.year, from: Date())
         let years = Array(2000...currentYear)
         return years.reversed()
     }
     
     init(player: Player) {
         self.player = player
+    }
+    
+    
+    private func savePossibleCurrentLeague() {
+        guard let careers = player.careers?.allObjects as? [Career] else {
+            return
+        }
+        if let currentCareer = careers.first(where: {
+            guard let year = $0.year else { return false }
+            return Int(year.suffix(2)) == currentYear - 2000
+        }) {
+            guard let league = currentCareer.league else { return }
+            StorageManager.shared.saveCurrentLeague(
+                league,
+                forPlayer: player.fullName ?? "")
+        }
+    }
+    
+    private func checkRepeatingOf(
+        _ years: String,
+        completion: @escaping () -> Void
+    ) {
+        guard let fullName = player.fullName else { return }
+        StorageManager.shared.hasDuplicateCareer(
+            period: String(years.suffix(2)),
+            ofPlayer: fullName
+        ) { [weak self] in
+            guard let self else { return }
+            $0 ? wereYearsRepeated?() : completion()
+        }
     }
     
     func saveCareer(
@@ -46,14 +79,18 @@ final class AddCareerViewModel: AddCareerViewModelProtocol {
         let period = toYear == nil
         ? String(years[year])
         : "\(years[year] % 100)/\(years[toYear ?? 0] % 100)"
-        let league = Constants.Text.Leagues.allCases[league].rawValue
-        StorageManager.shared.addCareer(
-            forPlayer: player.fullName ?? "",
-            forPeriod: period,
-            league: league,
-            coach: coach)
-        DispatchQueue.main.async {
-            completion()
+        checkRepeatingOf(period) { [weak self] in
+            guard let self else { return }
+            let league = Constants.Text.Leagues.allCases[league].rawValue
+            StorageManager.shared.addCareer(
+                forPlayer: player.fullName ?? "",
+                forPeriod: period,
+                league: league,
+                coach: coach)
+            savePossibleCurrentLeague()
+            DispatchQueue.main.async {
+                completion()
+            }
         }
     }
     

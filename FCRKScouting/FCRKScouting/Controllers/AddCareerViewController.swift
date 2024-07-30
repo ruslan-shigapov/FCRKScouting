@@ -91,7 +91,7 @@ final class AddCareerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        handleWrongRatioOfYears()
+        handleErrors()
     }
     
     override func viewDidLayoutSubviews() {
@@ -119,12 +119,19 @@ final class AddCareerViewController: UIViewController {
         setConstraints()
     }
     
-    private func handleWrongRatioOfYears() {
+    private func handleErrors() {
         viewModel.wasRatioOfYearsWrong = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
                 withTitle: Constants.Text.Alerts.wrongRatioOfYears.title,
                 andMessage: Constants.Text.Alerts.wrongRatioOfYears.message)
+            present(alertController, animated: true)
+        }
+        viewModel.wereYearsRepeated = { [weak self] in
+            guard let self else { return }
+            let alertController = AlertFactory.getWarningAlert(
+                withTitle: Constants.Text.Alerts.repeatedYears.title,
+                andMessage: Constants.Text.Alerts.repeatedYears.message)
             present(alertController, animated: true)
         }
     }

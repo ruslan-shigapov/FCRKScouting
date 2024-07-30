@@ -94,8 +94,11 @@ struct ScreenFactory {
         return AddCareerViewController(delegate: delegate, viewModel: viewModel)
     }
     
-    static func getFiltersViewController() -> UIViewController {
-        let viewModel = FiltersViewModel()
-        return FiltersViewController(viewModel: viewModel)
+    static func getFiltersViewController(
+        withDelegate delegate: FiltersViewControllerDelegate,
+        andFiltersValue filtersValue: Bool
+    ) -> UIViewController {
+        let viewModel = FiltersViewModel(isFiltersActive: filtersValue)
+        return FiltersViewController(delegate: delegate, viewModel: viewModel)
     }
 }
