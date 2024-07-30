@@ -53,8 +53,6 @@ final class PlayerMainCardViewModel: PlayerMainCardViewModelProtocol {
     }
     
     var age: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
         guard let birthDate = player.birthDate else { return "Не указан" }
         let formattedBirthDate = dateFormatter.string(from: birthDate)
         let ageComponents = Calendar.current.dateComponents(

@@ -29,6 +29,10 @@ final class FiltersViewModel: FiltersViewModelProtocol {
         andAge toAge: String?,
         completion: () -> Void
     ) {
+        if toAge == nil || toAge == "" {
+            completion()
+            return
+        }
         guard Int(age ?? "") ?? 0 <= Int(toAge ?? "") ?? 0 else {
             wasRatioOfAgesWrong?()
             return

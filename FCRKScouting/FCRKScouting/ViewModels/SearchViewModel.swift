@@ -164,11 +164,16 @@ final class SearchViewModel: SearchViewModelProtocol {
                 let feet = Constants.Text.SegmentedControlItems.footSegments
                 isMatched = isMatched && $0.foot == feet[foot - 1]
             }
-            if let age, !age.isEmpty, toAge == nil || toAge == "" {
-                // TODO: закончить логику
-            }
-            if let age, let toAge, !age.isEmpty, !toAge.isEmpty {
-                
+            if let age, !age.isEmpty, let playerAge = getAge(ofPlayer: $0) {
+                if let toAge,
+                   !toAge.isEmpty,
+                   let age = Int(age),
+                   let toAge = Int(toAge) {
+                    let isInRange = playerAge >= age && playerAge <= toAge
+                    isMatched = isMatched && isInRange
+                } else {
+                    isMatched = isMatched && playerAge == Int(age)
+                }
             }
             return isMatched
         }
@@ -177,6 +182,15 @@ final class SearchViewModel: SearchViewModelProtocol {
         } else {
             filteredPlayers = filteredPlayers.intersection(extraFilteredPlayers)
         }
+    }
+    
+    private func getAge(ofPlayer player: Player) -> Int? {
+        guard let birthDate = player.birthDate else { return nil }
+        let ageComponents = Calendar.current.dateComponents(
+            [.year],
+            from: birthDate,
+            to: Date())
+        return ageComponents.year
     }
     
     func cancelSearch() {
