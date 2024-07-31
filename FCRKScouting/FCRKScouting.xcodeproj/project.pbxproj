@@ -464,7 +464,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				ru,
-				Base,
 			);
 			mainGroup = E448559F2BC3D01300E5FCD8;
 			productRefGroup = E44855A92BC3D01300E5FCD8 /* Products */;
@@ -700,7 +699,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FCRKScouting/Resources/FCRKScouting.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = X7QDNJU74Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FCRKScouting/Resources/Info.plist;
@@ -716,7 +715,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = RuslanShigapov.FCRKScouting;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RuslanShigapov.FCRKScouting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -735,7 +734,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FCRKScouting/Resources/FCRKScouting.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = X7QDNJU74Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FCRKScouting/Resources/Info.plist;
@@ -751,7 +750,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = RuslanShigapov.FCRKScouting;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RuslanShigapov.FCRKScouting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
