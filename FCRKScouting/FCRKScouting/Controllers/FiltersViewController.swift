@@ -215,7 +215,7 @@ private extension FiltersViewController {
                 constant: 6),
             positionPickerView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
-            positionPickerView.heightAnchor.constraint(equalToConstant: 70),
+            positionPickerView.heightAnchor.constraint(equalToConstant: 96),
             
             leagueLabel.topAnchor.constraint(
                 equalTo: positionPickerView.bottomAnchor,
@@ -228,7 +228,7 @@ private extension FiltersViewController {
                 constant: 6),
             leaguePickerView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
-            leaguePickerView.heightAnchor.constraint(equalToConstant: 70),
+            leaguePickerView.heightAnchor.constraint(equalToConstant: 96),
             
             footLabel.leadingAnchor.constraint(
                 equalTo: leaguePickerView.leadingAnchor),

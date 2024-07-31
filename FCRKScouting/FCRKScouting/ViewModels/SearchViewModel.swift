@@ -129,20 +129,31 @@ final class SearchViewModel: SearchViewModelProtocol {
     
     func getRequiredPlayers() {
         filteredPlayers.removeAll()
-        if isFavoritesButtonActive {
+        if isFavoritesButtonActive && !isRelatedButtonActive {
             let currentUser = UserManager.shared.getCurrentUser()
-            guard let favorites = currentUser?.favorites,
-                  let favoritePlayers = favorites.allObjects as? [Player] else {
+            guard let favorites = currentUser?.favorites as? Set<Player> else {
                 return
             }
-            filteredPlayers.formUnion(favoritePlayers)
+            filteredPlayers.formUnion(favorites)
             filterByExtraParameters(filteredPlayers)
-        } else if isRelatedButtonActive {
+        } else if isRelatedButtonActive && !isFavoritesButtonActive {
             StorageManager.shared.fetchRelatedPlayers(
                 forUser: userFullName
             ) { [weak self] in
                 guard let self else { return }
                 filteredPlayers.formUnion($0)
+                filterByExtraParameters(filteredPlayers)
+            }
+        } else if isRelatedButtonActive && isFavoritesButtonActive {
+            let currentUser = UserManager.shared.getCurrentUser()
+            guard let favorites = currentUser?.favorites as? Set<Player> else {
+                return
+            }
+            StorageManager.shared.fetchRelatedPlayers(
+                forUser: userFullName
+            ) { [weak self] in
+                guard let self else { return }
+                filteredPlayers = favorites.intersection($0)
                 filterByExtraParameters(filteredPlayers)
             }
         }
