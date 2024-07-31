@@ -464,6 +464,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				ru,
+				Base,
 			);
 			mainGroup = E448559F2BC3D01300E5FCD8;
 			productRefGroup = E44855A92BC3D01300E5FCD8 /* Products */;
@@ -715,7 +716,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.RuslanShigapov.FCRKScouting;
+				PRODUCT_BUNDLE_IDENTIFIER = RuslanShigapov.FCRKScouting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -750,7 +751,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.RuslanShigapov.FCRKScouting;
+				PRODUCT_BUNDLE_IDENTIFIER = RuslanShigapov.FCRKScouting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
