@@ -23,6 +23,7 @@ final class LoginViewModel: LoginViewModelProtocol {
         byAccessKey accessKey: String?,
         completion: @escaping (Bool) -> Void
     ) {
+        guard let accessKey, !accessKey.isEmpty else { return }
         UserManager.shared.validateAccessKey(accessKey) { [weak self] result in
             guard let self else { return }
             switch result {
@@ -30,8 +31,10 @@ final class LoginViewModel: LoginViewModelProtocol {
                 completion(isEditingAllowed)
             case .failure(let error):
                 switch error {
-                case .wrongKey: wasAccessKeyWrong?()
-                case .unknownError: wasSomethingWrong?()
+                case .wrongKey:
+                    wasAccessKeyWrong?()
+                case .unknownError:
+                    wasSomethingWrong?()
                 }
             }
         }

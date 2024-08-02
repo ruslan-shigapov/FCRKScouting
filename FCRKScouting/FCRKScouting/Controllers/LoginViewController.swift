@@ -97,6 +97,8 @@ final class LoginViewController: UIViewController {
                 withTitle: Constants.Text.Alerts.wrongAccessKey.title,
                 andMessage: Constants.Text.Alerts.wrongAccessKey.message)
             present(alertController, animated: true)
+            self.activityIndicator.stopAnimating()
+            self.appleSignInButton.isEnabled = true
         }
         viewModel.wasSomethingWrong = { [weak self] in
             guard let self else { return }
@@ -104,6 +106,8 @@ final class LoginViewController: UIViewController {
                 withTitle: Constants.Text.Alerts.wrongSomething.title,
                 andMessage: Constants.Text.Alerts.wrongSomething.message)
             present(alertController, animated: true)
+            self.activityIndicator.stopAnimating()
+            self.appleSignInButton.isEnabled = true
         }
     }
     
@@ -119,12 +123,14 @@ final class LoginViewController: UIViewController {
     }
     
     @objc private func appleSignInButtonTapped() {
+        if !accessKeyTextFieldView.getInputText().isEmpty {
+            activityIndicator.startAnimating()
+            appleSignInButton.isEnabled = false
+        }
         viewModel.logIn(
             byAccessKey: accessKeyTextFieldView.getInputText()
         ) { [weak self] in
             guard let self else { return }
-            activityIndicator.startAnimating()
-            appleSignInButton.isEnabled = false
             authManager = AuthManager(isEditingAllowed: $0)
             authManager?.singInWithApple { result in
                 switch result {

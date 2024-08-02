@@ -18,7 +18,9 @@ final class UserManager {
     
     private var currentUser: User? {
         didSet {
-            UserDefaults.standard.set(currentUser?.appleID, forKey: "appleID")
+            currentUser != nil
+            ? UserDefaults.standard.set(currentUser?.appleID,forKey: "appleID")
+            : UserDefaults.standard.removeObject(forKey: "appleID")
         }
     }
 
@@ -65,10 +67,9 @@ final class UserManager {
     }
     
     func validateAccessKey(
-        _ accessKey: String?,
+        _ accessKey: String,
         completion: @escaping (Result<Bool, AccessError>) -> Void
     ) {
-        guard let accessKey, !accessKey.isEmpty else { return }
         StorageManager.shared.fetchAccessFromCloud(byKey: accessKey) {
             switch $0 {
             case .success(let accessValue):
@@ -127,7 +128,8 @@ final class UserManager {
     
     func clearCurrentUser(completion: @escaping () -> Void) {
         currentUser = nil
-        UserDefaults.standard.removeObject(forKey: "appleID")
-        completion()
+        DispatchQueue.main.async {
+            completion()
+        }
     }
 }
