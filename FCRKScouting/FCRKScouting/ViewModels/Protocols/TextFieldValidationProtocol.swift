@@ -10,7 +10,6 @@ import Foundation
 protocol TextFieldValidationProtocol {
     var wereRequiredTextFieldsEmpty: (() -> Void)? { get set }
     var wasFullNameIncorrect: (() -> Void)? { get set }
-    var wasFullNameContainInvalidChars: (() -> Void)? { get set }
 }
 
 extension TextFieldValidationProtocol {
@@ -40,11 +39,6 @@ extension TextFieldValidationProtocol {
         } 
         guard let correctFullName = getCorrectFullName(fromText: text[0]) else {
             wasFullNameIncorrect?()
-            return
-        }
-        guard correctFullName.range(
-            of: "^[А-Яа-яЁё\\s]+$", options: .regularExpression) != nil else {
-            wasFullNameContainInvalidChars?()
             return
         }
         let correctedText = text.enumerated().map {

@@ -11,16 +11,13 @@ final class FormViewController: UIViewController {
 
     // MARK: Private Properties
     private var viewModel: FormViewModelProtocol
-    private var delegate: FormViewControllerDelegate?
+    private var delegate: FormViewControllerDelegate
         
     // MARK: Views
     private lazy var titleLabel: CustomLabel = {
-        let labelText = delegate == nil
-        ? Constants.Text.ScreenTitles.greeting
-        : Constants.Text.ScreenTitles.form
         let label = CustomLabel(
             font: Constants.Fonts.header,
-            text: labelText,
+            text: Constants.Text.ScreenTitles.form,
             color: .accent)
         label.textAlignment = .center
         return label
@@ -29,6 +26,11 @@ final class FormViewController: UIViewController {
     private let fullNameTextFieldView = PrimaryTextFieldView(
         placeholder: Constants.Text.Placeholders.fullName,
         type: .name)
+    
+    private let fullNameDescriptionLabel = CustomLabel(
+        font: Constants.Fonts.description,
+        text: Constants.Text.Descriptions.fullName,
+        numberOfLines: 2)
     
     private lazy var saveButton: PrimaryButton = {
         let button = PrimaryButton(
@@ -80,7 +82,7 @@ final class FormViewController: UIViewController {
     // MARK: Initialize
     init(
         viewModel: FormViewModelProtocol,
-        delegate: FormViewControllerDelegate?
+        delegate: FormViewControllerDelegate
     ) {
         self.viewModel = viewModel
         self.delegate = delegate
@@ -99,6 +101,7 @@ final class FormViewController: UIViewController {
         view.addSubviews(
             titleLabel,
             fullNameTextFieldView,
+            fullNameDescriptionLabel,
             saveButton,
             infoStackView)
         view.prepareForAutoLayout()
@@ -125,13 +128,6 @@ final class FormViewController: UIViewController {
                 andMessage: Constants.Text.Alerts.incorrectFullName.message)
             present(alertController, animated: true)
         }
-        viewModel.wasFullNameContainInvalidChars = { [weak self] in
-            guard let self else { return }
-            let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.invalidChars.title,
-                andMessage: Constants.Text.Alerts.invalidChars.message)
-            present(alertController, animated: true)
-        }
     }
     
     private func showMainTabBarController() {
@@ -145,12 +141,8 @@ final class FormViewController: UIViewController {
         ) {
             viewModel.saveUserFullName($0[0]) { [weak self] in
                 guard let self else { return }
-                if delegate == nil {
-                    showMainTabBarController()
-                } else {
-                    dismiss(animated: true) {
-                        self.delegate?.userWasUpdated?()
-                    }
+                dismiss(animated: true) {
+                    self.delegate.userWasUpdated?()
                 }
             }
         }
@@ -169,16 +161,25 @@ private extension FormViewController {
             
             fullNameTextFieldView.topAnchor.constraint(
                 equalTo: titleLabel.bottomAnchor,
-                constant: 48),
+                constant: 24),
             fullNameTextFieldView.widthAnchor.constraint(
                 equalTo: saveButton.widthAnchor),
             fullNameTextFieldView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor),
+                        
+            fullNameDescriptionLabel.topAnchor.constraint(
+                equalTo: fullNameTextFieldView.bottomAnchor,
+                constant: 8),
+            fullNameDescriptionLabel.leadingAnchor.constraint(
+                equalTo: fullNameTextFieldView.leadingAnchor,
+                constant: 5),
+            fullNameDescriptionLabel.trailingAnchor.constraint(
+                equalTo: fullNameTextFieldView.trailingAnchor,
+                constant: -5),
             
             saveButton.topAnchor.constraint(
                 equalTo: fullNameTextFieldView.bottomAnchor,
-                constant: 24
-            ),
+                constant: 48),
             saveButton.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 48),

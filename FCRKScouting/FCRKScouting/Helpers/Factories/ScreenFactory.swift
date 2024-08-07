@@ -24,7 +24,7 @@ struct ScreenFactory {
     }
     
     static func getFormController(
-        withDelegate delegate: FormViewControllerDelegate?
+        withDelegate delegate: FormViewControllerDelegate
     ) -> UIViewController {
         let viewModel = FormViewModel()
         let viewController = FormViewController(

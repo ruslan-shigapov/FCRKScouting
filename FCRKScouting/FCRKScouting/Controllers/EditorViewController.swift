@@ -357,13 +357,6 @@ final class EditorViewController: UIViewController {
                 andMessage: Constants.Text.Alerts.incorrectFullName.message)
             present(alertController, animated: true)
         }
-        viewModel.wasFullNameContainInvalidChars = { [weak self] in
-            guard let self else { return }
-            let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.invalidChars.title,
-                andMessage: Constants.Text.Alerts.invalidChars.message)
-            present(alertController, animated: true)
-        }
         viewModel.wasPositionNotSelected = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(

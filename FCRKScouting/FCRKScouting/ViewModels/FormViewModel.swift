@@ -14,7 +14,6 @@ final class FormViewModel: FormViewModelProtocol {
     
     var wereRequiredTextFieldsEmpty: (() -> Void)?
     var wasFullNameIncorrect: (() -> Void)?
-    var wasFullNameContainInvalidChars: (() -> Void)?
     
     func saveUserFullName(
         _ fullName: String,

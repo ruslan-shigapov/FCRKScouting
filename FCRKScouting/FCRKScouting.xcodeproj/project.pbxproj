@@ -296,7 +296,6 @@
 			children = (
 				E404BEA52BE904DF0078961C /* Protocols */,
 				E4BB48622BC3D53700F91513 /* LoginViewModel.swift */,
-				E471B20A2BFB6062003C0DCD /* FormViewModel.swift */,
 				E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */,
 				E404BEA82BE9087C0078961C /* PlayerCellViewModel.swift */,
 				E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */,
@@ -309,6 +308,7 @@
 				E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */,
 				E403F1B12C4D566300E84FFD /* FiltersViewModel.swift */,
 				E4BB48672BC3D53E00F91513 /* ProfileViewModel.swift */,
+				E471B20A2BFB6062003C0DCD /* FormViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -374,7 +374,6 @@
 				E46194B12C0875CD00AC4FFC /* Delegates */,
 				E46194C02C08918700AC4FFC /* DataSources */,
 				E4BB48612BC3D53700F91513 /* LoginViewController.swift */,
-				E471B2082BFB4543003C0DCD /* FormViewController.swift */,
 				E4BB48712BC3D53E00F91513 /* MainTabBarController.swift */,
 				E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */,
 				E4BB486D2BC3D53E00F91513 /* EditorViewController.swift */,
@@ -385,6 +384,7 @@
 				E4BB486B2BC3D53E00F91513 /* SearchViewController.swift */,
 				E4BB48692BC3D53E00F91513 /* FiltersViewController.swift */,
 				E4BB48662BC3D53E00F91513 /* ProfileViewController.swift */,
+				E471B2082BFB4543003C0DCD /* FormViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

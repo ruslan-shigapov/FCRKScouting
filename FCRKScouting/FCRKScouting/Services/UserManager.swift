@@ -92,7 +92,7 @@ final class UserManager {
     func setUser(
         by credential: ASAuthorizationAppleIDCredential,
         isEditingAllowed: Bool,
-        completion: @escaping (_ isNewUser: Bool) -> Void
+        completion: @escaping () -> Void
     ) {
         StorageManager.shared.findUser(
             credential.user
@@ -100,13 +100,13 @@ final class UserManager {
             guard let self else { return }
             if let foundUser = $0 {
                 currentUser = foundUser
-                completion(false)
+                completion()
             } else {
                 createUser(
                     credential.user,
                     fullName: getUserFullNameFrom(credential.fullName),
                     isEditingAllowed: isEditingAllowed)
-                completion(true)
+                completion()
             }
         }
     }

@@ -103,6 +103,9 @@ enum Constants {
             Поля в этом слайдере необязательные, любые данные можно добавить или изменить позже
             """
             static let forGoalkeepers = "(для вратарей)"
+            static let fullName = """
+            Для консистентности данных, рекомендуется использовать только символы кириллицы
+            """
         }
         enum Placeholders {
             static let accessKey = "Ключ доступа*"
@@ -178,12 +181,6 @@ enum Constants {
                 title: "Внимание",
                 message: """
                 Пожалуйста, введите имя и фамилию, и ничего лишнего
-                """
-            )
-            static let invalidChars = (
-                title: "Внимание",
-                message: """
-                Допустимы только символы кириллицы в имени и фамилии
                 """
             )
             static let notSelectedPosition = (

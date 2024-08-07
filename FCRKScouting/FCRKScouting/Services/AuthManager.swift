@@ -11,13 +11,13 @@ final class AuthManager: NSObject {
     
     private var isEditingAllowed: Bool
     
-    private var completionHandler: ((Result<Bool, Error>) -> Void)?
+    private var completionHandler: ((Result<Void, Error>) -> Void)?
     
     init(isEditingAllowed: Bool) {
         self.isEditingAllowed = isEditingAllowed
     }
     
-    func singInWithApple(completion: @escaping (Result<Bool, Error>) -> Void) {
+    func singInWithApple(completion: @escaping (Result<Void, Error>) -> Void) {
         let provider = ASAuthorizationAppleIDProvider()
         let request = provider.createRequest()
         request.requestedScopes = [.fullName]
@@ -43,7 +43,7 @@ extension AuthManager: ASAuthorizationControllerDelegate {
                 isEditingAllowed: isEditingAllowed
             ) { [weak self] in
                 guard let self else { return }
-                self.completionHandler?(.success($0))
+                completionHandler?(.success(()))
             }
         }
     }

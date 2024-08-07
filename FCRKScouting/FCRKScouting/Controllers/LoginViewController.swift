@@ -111,12 +111,6 @@ final class LoginViewController: UIViewController {
         }
     }
     
-    private func showFormViewController() {
-        let formVC = ScreenFactory.getFormController(withDelegate: nil)
-        formVC.modalPresentationStyle = .fullScreen
-        present(formVC, animated: true)
-    }
-    
     private func showMainTabBarController() {
         let mainTabBarController = ScreenFactory.getMainTabBarController()
         present(mainTabBarController, animated: false)
@@ -134,10 +128,8 @@ final class LoginViewController: UIViewController {
             authManager = AuthManager(isEditingAllowed: $0)
             authManager?.singInWithApple { result in
                 switch result {
-                case .success(let isNewUser):
-                    isNewUser
-                    ? self.showFormViewController()
-                    : self.showMainTabBarController()
+                case .success():
+                    self.showMainTabBarController()
                     self.activityIndicator.stopAnimating()
                 case .failure(_):
                     self.activityIndicator.stopAnimating()
