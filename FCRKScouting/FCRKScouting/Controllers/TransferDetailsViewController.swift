@@ -101,7 +101,7 @@ final class TransferDetailsViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
-        view.backgroundColor = .accent
+        view.backgroundColor = .rubin
         view.setKeyboardDismissTap()
         view.addSubviews(
             titleLabel,

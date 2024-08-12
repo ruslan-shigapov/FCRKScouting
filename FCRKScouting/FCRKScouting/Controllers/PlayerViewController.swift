@@ -101,7 +101,7 @@ final class PlayerViewController: UIViewController {
         setupNavigationBar()
         generateScrollView(
             withPages: [playerMainCard, playerExtraCard, playerCareerCard])
-        view.backgroundColor = .accent
+        view.backgroundColor = .rubin
         view.addSubview(cardSliderView)
         view.prepareForAutoLayout()
         setConstraints()

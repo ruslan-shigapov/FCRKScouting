@@ -15,7 +15,7 @@ final class PlayerCareerCard: UIView {
             font: Constants.Fonts.header,
             text: Constants.Text.ScreenTitles.career,
             numberOfLines: 2,
-            color: .accent)
+            color: .rubin)
         label.textAlignment = .center
         return label
     }()

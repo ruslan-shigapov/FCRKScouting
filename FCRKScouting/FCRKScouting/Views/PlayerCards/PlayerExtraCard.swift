@@ -15,7 +15,7 @@ final class PlayerExtraCard: UIView {
             font: Constants.Fonts.header,
             text: Constants.Text.ScreenTitles.extraInfo,
             numberOfLines: 2, 
-            color: .accent)
+            color: .rubin)
         label.textAlignment = .center
         return label
     }()
@@ -68,7 +68,7 @@ final class PlayerExtraCard: UIView {
         let label = CustomLabel(
             font: Constants.Fonts.normal,
             text: Constants.Text.Titles.actualTest,
-            color: .accent)
+            color: .rubin)
         label.textAlignment = .center
         return label
     }()

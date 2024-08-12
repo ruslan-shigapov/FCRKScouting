@@ -18,7 +18,7 @@ final class FormViewController: UIViewController {
         let label = CustomLabel(
             font: Constants.Fonts.header,
             text: Constants.Text.ScreenTitles.form,
-            color: .accent)
+            color: .rubin)
         label.textAlignment = .center
         return label
     }()

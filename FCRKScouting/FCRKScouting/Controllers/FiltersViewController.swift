@@ -18,7 +18,7 @@ final class FiltersViewController: UIViewController {
         let label = CustomLabel(
             font: Constants.Fonts.header,
             text: Constants.Text.ScreenTitles.filters,
-            color: .accent)
+            color: .rubin)
         label.textAlignment = .center
         return label
     }()
@@ -159,7 +159,7 @@ final class FiltersViewController: UIViewController {
         : Constants.Text.ButtonTitles.apply
         applyButton.setTitle(title, for: .normal)
         let color: UIColor = viewModel.isFiltersActive
-        ? .accent
+        ? .rubin
         : .systemGreen.withAlphaComponent(0.7)
         applyButton.backgroundColor = color
         

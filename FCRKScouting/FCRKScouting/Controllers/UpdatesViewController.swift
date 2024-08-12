@@ -50,7 +50,7 @@ final class UpdatesViewController: UIViewController {
     
     private lazy var segmentedControlBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .accent
+        view.backgroundColor = .rubin
         view.addSubview(intervalSegmentedControl)
         view.prepareForAutoLayout()
         return view

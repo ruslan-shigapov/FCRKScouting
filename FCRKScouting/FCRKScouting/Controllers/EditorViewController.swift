@@ -161,7 +161,7 @@ final class EditorViewController: UIViewController {
     private lazy var showTransferDetailsButton: PrimaryButton = {
         let button = PrimaryButton(
             title: Constants.Text.transferDetails,
-            color: .accent)
+            color: .rubin)
         button.addTarget(
             self,
             action: #selector(showTransferDetailsButtonTapped),
@@ -171,7 +171,7 @@ final class EditorViewController: UIViewController {
     private lazy var showTestingDetailsButton: PrimaryButton = {
         let button = PrimaryButton(
             title: Constants.Text.testingDetails,
-            color: .accent)
+            color: .rubin)
         button.addTarget(
             self,
             action: #selector(showTestingDetailsButtonTapped),

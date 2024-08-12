@@ -35,6 +35,7 @@ final class PhotoImageView: UIImageView {
     }
  
     private func setupUI() {
+        tintColor = .rubin
         image = Constants.Images.photoPlaceholder
         contentMode = .scaleAspectFill
         clipsToBounds = true

@@ -36,7 +36,7 @@ final class ProfileViewController: UIViewController {
     
     private lazy var topBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .accent
+        view.backgroundColor = .rubin
         view.setupCornerRadius()
         view.addSubviews(logoImageView, fullNameLabel)
         view.prepareForAutoLayout()
@@ -60,7 +60,7 @@ final class ProfileViewController: UIViewController {
     
     private lazy var bottomBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .accent
+        view.backgroundColor = .rubin
         view.setupCornerRadius()
         view.addSubviews(accessLabel, accessValueLabel, logoutButton)
         view.prepareForAutoLayout()

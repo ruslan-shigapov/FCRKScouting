@@ -104,7 +104,7 @@ final class AddCareerViewController: UIViewController {
     private func setupUI() {
         setKeyboardDismissTap()
         dashLabel.isHidden = true
-        view.backgroundColor = .accent
+        view.backgroundColor = .rubin
         view.addSubviews(
             yearLabel,
             yearPickerView,

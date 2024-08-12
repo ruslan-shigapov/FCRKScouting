@@ -28,7 +28,6 @@ final class DatePickerView: UIView {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
-        datePicker.tintColor = .systemGreen
         datePicker.isEnabled = false
         switch datePickerType {
         case .birth: datePicker.maximumDate = Date()

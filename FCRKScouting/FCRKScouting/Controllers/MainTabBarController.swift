@@ -18,8 +18,8 @@ final class MainTabBarController: UITabBarController {
     
     // MARK: Private Methods 
     private func setupUI() {
-        tabBar.backgroundColor = .accent
-        tabBar.barTintColor = .accent
+        tabBar.backgroundColor = .rubin
+        tabBar.barTintColor = .rubin
         tabBar.tintColor = .white
     }
     
@@ -63,7 +63,7 @@ final class MainTabBarController: UITabBarController {
     
     private func getNavigationBarAppearance() -> UINavigationBarAppearance {
         let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.backgroundColor = .accent
+        navigationBarAppearance.backgroundColor = .rubin
         navigationBarAppearance.shadowColor = .clear
         navigationBarAppearance.titlePositionAdjustment = UIOffset(
             horizontal: -UIScreen.main.bounds.width / 2,

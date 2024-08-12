@@ -28,7 +28,7 @@ final class PlayerCollectionViewCell: UICollectionViewCell {
         stackView.distribution = .fillEqually
         stackView.spacing = -10
         stackView.layer.borderWidth = 2
-        stackView.layer.borderColor = UIColor.accent.cgColor
+        stackView.layer.borderColor = UIColor.rubin.cgColor
         stackView.setupCornerRadius()
         return stackView
     }()
