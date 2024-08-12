@@ -13,7 +13,7 @@ final class PlayerCareerCard: UIView {
     private let titleLabel: CustomLabel = {
         let label = CustomLabel(
             font: Constants.Fonts.header,
-            text: Constants.Text.ScreenTitles.career,
+            text: Constants.Texts.ScreenTitles.career,
             numberOfLines: 2,
             color: .rubin)
         label.textAlignment = .center
@@ -22,10 +22,10 @@ final class PlayerCareerCard: UIView {
     
     private let fullNameLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.fullName)
+        text: Constants.Texts.Titles.fullName)
     private let careerLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.career)
+        text: Constants.Texts.Titles.career)
     
     private let fullNameValueLabel: DefaultTextLabel = {
         let label = DefaultTextLabel(numberOfLines: 2)
@@ -36,6 +36,7 @@ final class PlayerCareerCard: UIView {
     private lazy var addCareerButton: UIButton = {
         let button = UIButton(type: .contactAdd)
         button.backgroundColor = .lightGray
+        button.tintColor = .rubin
         button.setupCornerRadius()
         button.setupHighlightAnimation()
         button.addTarget(
@@ -48,7 +49,10 @@ final class PlayerCareerCard: UIView {
     private lazy var deletingModeButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .lightGray
-        button.setImage(UIImage(systemName: "minus.circle"), for: .normal)
+        button.tintColor = .rubin 
+        button.setImage(
+            Constants.Images.ButtonImages.deletingMode,
+            for: .normal)
         button.setupCornerRadius()
         button.setupHighlightAnimation()
         button.addTarget(
@@ -72,8 +76,7 @@ final class PlayerCareerCard: UIView {
     
     private lazy var roundedContainerView: UIView = {
         let view = UIView()
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.setupBorder(withColor: .lightGray)
         view.setupCornerRadius()
         view.addSubview(careerTableView)
         view.prepareForAutoLayout()
@@ -89,9 +92,9 @@ final class PlayerCareerCard: UIView {
     
     private lazy var backgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = Constants.Colors.deepGreen
+        view.backgroundColor = .deepGreen
         view.setupCornerRadius()
-        view.setupBorder()
+        view.setupBorder(withColor: .naturalGold)
         view.addSubviews(
             titleLabel,
             fullNameLabel,

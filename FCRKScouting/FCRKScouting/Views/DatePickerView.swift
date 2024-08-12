@@ -12,8 +12,8 @@ enum DatePickerType {
     
     var placeholder: String {
         switch self {
-        case .birth, .standard: Constants.Text.notSpecified1
-        case .contract:Constants.Text.notSpecified2
+        case .birth, .standard: Constants.Texts.notSpecified1
+        case .contract:Constants.Texts.notSpecified2
         }
     }
 }

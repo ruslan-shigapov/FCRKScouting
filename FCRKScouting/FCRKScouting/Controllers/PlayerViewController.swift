@@ -16,7 +16,7 @@ final class PlayerViewController: UIViewController {
     // MARK: Views
     private lazy var backButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
-            title: Constants.Text.ButtonTitles.back,
+            title: Constants.Texts.ButtonTitles.back,
             style: .plain,
             target: self,
             action: #selector(backButtonTapped))
@@ -74,11 +74,11 @@ final class PlayerViewController: UIViewController {
     
     // MARK: Initialize
     init(
-        viewModel: PlayerViewModelProtocol,
-        delegate: PlayerViewControllerDelegate
+        delegate: PlayerViewControllerDelegate,
+        viewModel: PlayerViewModelProtocol
     ) {
-        self.viewModel = viewModel
         self.delegate = delegate
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -172,15 +172,15 @@ final class PlayerViewController: UIViewController {
     
     @objc private func editPlayerButtonTapped() {
         let playerEditingVC = ScreenFactory.getEditorViewController(
-            withDelegate: viewModel as EditorViewControllerDelegate, 
+            withDelegate: viewModel as EditorViewControllerDelegate,
             andPlayer: viewModel.getPlayer())
         present(playerEditingVC, animated: true)
     }
     
     @objc private func deletePlayerButtonTapped() {
         let alertController = AlertFactory.getConfirmationAlert(
-            withTitle: Constants.Text.Alerts.delete.title,
-            andMessage: Constants.Text.Alerts.delete.message
+            withTitle: Constants.Texts.Alerts.delete.title,
+            andMessage: Constants.Texts.Alerts.delete.message
         ) { [weak self] in
             guard let self else { return }
             viewModel.deletePlayer() {

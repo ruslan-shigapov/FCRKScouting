@@ -62,7 +62,7 @@ final class NumeralTextFieldView: UIView {
     // MARK: Private Methods
     private func setupUI() {
         if type == .score {
-            titleLabel.text = Constants.Text.Titles.score
+            titleLabel.text = Constants.Texts.Titles.score
         }
         textField.placeholder = "0"
         if let placeholder = textField.placeholder {

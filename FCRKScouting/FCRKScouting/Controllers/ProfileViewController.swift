@@ -45,12 +45,12 @@ final class ProfileViewController: UIViewController {
     
     private let accessLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.access)
+        text: Constants.Texts.Titles.access)
     
     private lazy var accessValueLabel = DefaultTextLabel(text: viewModel.access)
     
     private lazy var logoutButton: PrimaryButton = {
-        let button = PrimaryButton(title: Constants.Text.ButtonTitles.exit)
+        let button = PrimaryButton(title: Constants.Texts.ButtonTitles.exit)
         button.addTarget(
             self,
             action: #selector(logOutButtonTapped),
@@ -112,7 +112,7 @@ final class ProfileViewController: UIViewController {
         let formVC = ScreenFactory.getFormController(
             withDelegate: viewModel as FormViewControllerDelegate)
         if let sheet = formVC.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
+            sheet.detents = [.medium()]
             sheet.prefersGrabberVisible = true
         }
         present(formVC, animated: true)
@@ -120,8 +120,8 @@ final class ProfileViewController: UIViewController {
     
     @objc private func logOutButtonTapped() {
         let alertController = AlertFactory.getConfirmationAlert(
-            withTitle: Constants.Text.Alerts.exit.title,
-            andMessage: Constants.Text.Alerts.exit.message
+            withTitle: Constants.Texts.Alerts.exit.title,
+            andMessage: Constants.Texts.Alerts.exit.message
         ) { [weak self] in
             guard let self else { return }
             viewModel.logOut()

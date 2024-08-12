@@ -27,15 +27,15 @@ final class MainTabBarController: UITabBarController {
         viewControllers = [
             generateNavigationFlow(
                 forViewController: ScreenFactory.getUpdatesViewController(),
-                withTitle: Constants.Text.ScreenTitles.updates,
+                withTitle: Constants.Texts.ScreenTitles.updates,
                 andTabBarIcon: Constants.Images.TabBarIcons.updates),
             generateNavigationFlow(
                 forViewController: ScreenFactory.getSearchViewController(),
-                withTitle: Constants.Text.ScreenTitles.search,
+                withTitle: Constants.Texts.ScreenTitles.search,
                 andTabBarIcon: Constants.Images.TabBarIcons.search),
             generateNavigationFlow(
                 forViewController: ScreenFactory.getProfileViewController(),
-                withTitle: Constants.Text.ScreenTitles.profile,
+                withTitle: Constants.Texts.ScreenTitles.profile,
                 andTabBarIcon: Constants.Images.TabBarIcons.profile)
         ]
     }

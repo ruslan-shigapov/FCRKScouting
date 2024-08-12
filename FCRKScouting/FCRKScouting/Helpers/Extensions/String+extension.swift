@@ -8,7 +8,7 @@
 extension String {
     
     func formatToShortPosition() -> String {
-        guard let position = Constants.Text.Positions(rawValue: self) else {
+        guard let position = Constants.Texts.Positions(rawValue: self) else {
             return ""
         }
         return position.abbreviate()

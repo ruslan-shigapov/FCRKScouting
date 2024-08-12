@@ -9,27 +9,6 @@ import UIKit
 
 extension UIView {
     
-    func setupCornerRadius() {
-        layer.cornerRadius = 12
-    }
-    
-    func prepareForAutoLayout() {
-        subviews.forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
-    }
-    
-    func setupShadow() {
-        clipsToBounds = false
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowRadius = 7
-        layer.shadowOpacity = 0.4
-        layer.shadowOffset = CGSize(width: 8, height: 8)
-        layer.shadowPath = UIBezierPath(
-            roundedRect: bounds,
-            cornerRadius: layer.cornerRadius).cgPath
-    }
-    
     @objc private func dismissKeyboard() {
         endEditing(true)
     }
@@ -46,6 +25,27 @@ extension UIView {
         subviews.forEach { addSubview($0) }
     }
     
+    func prepareForAutoLayout() {
+        subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+    
+    func setupCornerRadius() {
+        layer.cornerRadius = 12
+    }
+    
+    func setupShadow() {
+        clipsToBounds = false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowRadius = 7
+        layer.shadowOpacity = 0.4
+        layer.shadowOffset = CGSize(width: 8, height: 8)
+        layer.shadowPath = UIBezierPath(
+            roundedRect: bounds,
+            cornerRadius: layer.cornerRadius).cgPath
+    }
+    
     func setupGradientLayer() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [
@@ -58,8 +58,8 @@ extension UIView {
         layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    func setupBorder() {
+    func setupBorder(withColor color: UIColor?) {
         layer.borderWidth = 1
-        layer.borderColor = Constants.Colors.naturalGold?.cgColor
+        layer.borderColor = color?.cgColor
     }
 }

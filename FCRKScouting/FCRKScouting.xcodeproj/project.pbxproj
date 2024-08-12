@@ -73,7 +73,6 @@
 		E4D101492BD27742006D2DCF /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D101482BD27742006D2DCF /* CustomLabel.swift */; };
 		E4D1D6A32C130D3E00810C3B /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D1D6A22C130D3E00810C3B /* DatePickerView.swift */; };
 		E4D92C3B2C11C30200401E1F /* PriceTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D92C3A2C11C30200401E1F /* PriceTextFieldView.swift */; };
-		E4E029532C359332004F51C9 /* UIAlertAction+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E029522C359332004F51C9 /* UIAlertAction+extension.swift */; };
 		E4E7F3432C490A5500493A2F /* FavoritesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E7F3422C490A5500493A2F /* FavoritesButton.swift */; };
 		E4E7F3452C49375F00493A2F /* CareerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E7F3442C49375F00493A2F /* CareerTableViewCell.swift */; };
 		E4E7F3472C4941F200493A2F /* CareerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E7F3462C4941F200493A2F /* CareerCellViewModel.swift */; };
@@ -155,7 +154,6 @@
 		E4D101482BD27742006D2DCF /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		E4D1D6A22C130D3E00810C3B /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		E4D92C3A2C11C30200401E1F /* PriceTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTextFieldView.swift; sourceTree = "<group>"; };
-		E4E029522C359332004F51C9 /* UIAlertAction+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+extension.swift"; sourceTree = "<group>"; };
 		E4E7F3422C490A5500493A2F /* FavoritesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesButton.swift; sourceTree = "<group>"; };
 		E4E7F3442C49375F00493A2F /* CareerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerTableViewCell.swift; sourceTree = "<group>"; };
 		E4E7F3462C4941F200493A2F /* CareerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerCellViewModel.swift; sourceTree = "<group>"; };
@@ -203,7 +201,6 @@
 				E412BCFE2BC7D48600A9BCF6 /* UIView+extension.swift */,
 				E499938F2C3454F300D2C7C2 /* UIButton+extension.swift */,
 				E414C35A2C00A5340068077E /* UITextField+extension.swift */,
-				E4E029522C359332004F51C9 /* UIAlertAction+extension.swift */,
 				E4100F262C19B63900DC743D /* String+extension.swift */,
 			);
 			path = Extensions;
@@ -494,7 +491,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4E029532C359332004F51C9 /* UIAlertAction+extension.swift in Sources */,
 				E481C1C02C2EDD12008D6460 /* AuthManager.swift in Sources */,
 				E439E8862C3746C40017006E /* PlayerCareerCard.swift in Sources */,
 				E4BB48642BC3D53700F91513 /* LoginViewController.swift in Sources */,

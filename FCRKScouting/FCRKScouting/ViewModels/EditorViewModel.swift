@@ -99,9 +99,9 @@ final class EditorViewModel: EditorViewModelProtocol {
     
     var title: String {
         guard player != nil else {
-            return Constants.Text.ScreenTitles.addPlayer
+            return Constants.Texts.ScreenTitles.addPlayer
         }
-        return Constants.Text.ScreenTitles.editPlayer
+        return Constants.Texts.ScreenTitles.editPlayer
     }
     
     var selectedPhoto: UIImage? {
@@ -176,8 +176,8 @@ final class EditorViewModel: EditorViewModelProtocol {
             club: club,
             nationalTeam: nationalTeam,
             birthDate: birthDate,
-            position: Constants.Text.Positions.allCases[position].rawValue,
-            foot: Constants.Text.SegmentedControlItems.footSegments[foot],
+            position: Constants.Texts.Positions.allCases[position].rawValue,
+            foot: Constants.Texts.SegmentedControlItems.footSegments[foot],
             height: height,
             weight: weight,
             generalInfo: generalInfo,
@@ -211,7 +211,7 @@ final class EditorViewModel: EditorViewModelProtocol {
     }
     
     func getPickerRowBy(title: String?) -> Int? {
-        let positions = Constants.Text.Positions.allCases
+        let positions = Constants.Texts.Positions.allCases
         for (index, position) in positions.enumerated() {
             if position.rawValue == title {
                 return index
@@ -222,7 +222,7 @@ final class EditorViewModel: EditorViewModelProtocol {
     
     func getSegmentIndexBy(title: String?) -> Int? {
         guard let title else { return nil }
-        let footSegments = Constants.Text.SegmentedControlItems.footSegments
+        let footSegments = Constants.Texts.SegmentedControlItems.footSegments
         return footSegments.firstIndex(of: title)
     }
     
@@ -284,8 +284,8 @@ final class EditorViewModel: EditorViewModelProtocol {
             club: club,
             nationalTeam: nationalTeam,
             birthDate: birthDate,
-            position: Constants.Text.Positions.allCases[position].rawValue,
-            foot: Constants.Text.SegmentedControlItems.footSegments[foot],
+            position: Constants.Texts.Positions.allCases[position].rawValue,
+            foot: Constants.Texts.SegmentedControlItems.footSegments[foot],
             height: height,
             weight: weight,
             generalInfo: generalInfo,

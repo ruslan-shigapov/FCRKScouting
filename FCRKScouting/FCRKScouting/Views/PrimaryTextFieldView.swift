@@ -21,7 +21,7 @@ final class PrimaryTextFieldView: UIView {
     private lazy var clearButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        button.setImage(Constants.Images.ButtonImages.clear, for: .normal)
         button.tintColor = .lightGray
         button.isHidden = true
         button.addTarget(

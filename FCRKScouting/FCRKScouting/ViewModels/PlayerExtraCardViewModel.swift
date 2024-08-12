@@ -51,7 +51,7 @@ final class PlayerExtraCardViewModel: PlayerExtraCardViewModelProtocol {
     
     var contractDate: String {
         guard let contractDate = player.contractDate else {
-            return Constants.Text.notSpecified2
+            return Constants.Texts.notSpecified2
         }
         return dateFormatter.string(from: contractDate)
     }
@@ -72,7 +72,7 @@ final class PlayerExtraCardViewModel: PlayerExtraCardViewModelProtocol {
     
     var testingDate: String {
         guard let testingDate = player.testingDate else {
-            return Constants.Text.notSpecified1
+            return Constants.Texts.notSpecified1
         }
         return dateFormatter.string(from: testingDate)
     }

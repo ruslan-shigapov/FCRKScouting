@@ -40,7 +40,7 @@ final class UpdatesViewController: UIViewController {
     
     private lazy var intervalSegmentedControl: GraySegmentedControl = {
         let segmentedControl = GraySegmentedControl(
-            items: Constants.Text.SegmentedControlItems.periodSegments)
+            items: Constants.Texts.SegmentedControlItems.periodSegments)
         segmentedControl.addTarget(
             self,
             action: #selector(intervalSegmentedControlValueChanged),
@@ -74,7 +74,7 @@ final class UpdatesViewController: UIViewController {
     
     private let noResultsLabel: DefaultTextLabel = {
         let label = DefaultTextLabel(
-            text: Constants.Text.noIntervalResults,
+            text: Constants.Texts.noIntervalResults,
             numberOfLines: 2)
         label.textColor = .white
         label.textAlignment = .center
@@ -188,7 +188,7 @@ final class UpdatesViewController: UIViewController {
     
     @objc private func addPlayerButtonTapped() {
         let playerAddingVC = ScreenFactory.getEditorViewController(
-            withDelegate: viewModel as EditorViewControllerDelegate, 
+            withDelegate: viewModel as EditorViewControllerDelegate,
             andPlayer: nil)
         present(playerAddingVC, animated: true)
     }

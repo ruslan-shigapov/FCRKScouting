@@ -48,22 +48,22 @@ final class PlayerMainCard: UIView {
     
     private let ageLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.age)
+        text: Constants.Texts.Titles.age)
     private let citizenshipLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.citizenship)
+        text: Constants.Texts.Titles.citizenship)
     private let clubAndNationalTeamLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.clubAndNationalTeam)
+        text: Constants.Texts.Titles.clubAndNationalTeam)
     private let footLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.foot)
+        text: Constants.Texts.Titles.foot)
     private let heightLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.height)
+        text: Constants.Texts.Titles.height)
     private let weightLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.weight)
+        text: Constants.Texts.Titles.weight)
     
     private let ageValueLabel: DefaultTextLabel = {
         let label = DefaultTextLabel()
@@ -102,9 +102,9 @@ final class PlayerMainCard: UIView {
     
     private lazy var backgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = Constants.Colors.deepGreen
+        view.backgroundColor = .deepGreen
         view.setupCornerRadius()
-        view.setupBorder()
+        view.setupBorder(withColor: .naturalGold)
         view.addSubviews(
             photoImageView,
             titleStackView,

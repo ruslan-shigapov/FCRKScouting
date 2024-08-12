@@ -81,7 +81,7 @@ final class AddCareerViewModel: AddCareerViewModelProtocol {
         : "\(years[year] % 100)/\(years[toYear ?? 0] % 100)"
         checkRepeatingOf(period) { [weak self] in
             guard let self else { return }
-            let league = Constants.Text.Leagues.allCases[league].rawValue
+            let league = Constants.Texts.Leagues.allCases[league].rawValue
             StorageManager.shared.addCareer(
                 forPlayer: player.fullName ?? "",
                 forPeriod: period,

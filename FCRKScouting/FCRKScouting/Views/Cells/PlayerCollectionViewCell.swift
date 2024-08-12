@@ -60,8 +60,8 @@ final class PlayerCollectionViewCell: UICollectionViewCell {
     
     // MARK: Private Methods
     private func setupUI() {
-        backgroundColor = Constants.Colors.deepGreen
-        setupBorder()
+        backgroundColor = .deepGreen
+        setupBorder(withColor: .naturalGold)
         setupCornerRadius()
         addSubviews(photoImageView, fullNameLabel, infoStackView)
         prepareForAutoLayout()

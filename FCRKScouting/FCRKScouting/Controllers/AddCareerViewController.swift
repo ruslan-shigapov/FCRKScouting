@@ -16,13 +16,13 @@ final class AddCareerViewController: UIViewController {
     // MARK: Views
     private let yearLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.year)
+        text: Constants.Texts.Titles.year)
     private let dashLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.dash)
+        text: Constants.Texts.Titles.dash)
     private let periodLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.period)
+        text: Constants.Texts.Titles.period)
     
     private lazy var yearPickerView: UIPickerView = {
         let pickerView = UIPickerView()
@@ -60,11 +60,11 @@ final class AddCareerViewController: UIViewController {
     private lazy var leaguePickerView = CustomPickerView(type: .league)
     
     private let coachTextFieldView = PrimaryTextFieldView(
-        placeholder: Constants.Text.Placeholders.coach,
+        placeholder: Constants.Texts.Placeholders.coach,
         type: .name)
     
     private lazy var saveButton: PrimaryButton = {
-        let button = PrimaryButton(title: Constants.Text.ButtonTitles.save)
+        let button = PrimaryButton(title: Constants.Texts.ButtonTitles.save)
         button.addTarget(
             self,
             action: #selector(saveButtonTapped),
@@ -123,15 +123,15 @@ final class AddCareerViewController: UIViewController {
         viewModel.wasRatioOfYearsWrong = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.wrongRatioOfYears.title,
-                andMessage: Constants.Text.Alerts.wrongRatioOfYears.message)
+                withTitle: Constants.Texts.Alerts.wrongRatioOfYears.title,
+                andMessage: Constants.Texts.Alerts.wrongRatioOfYears.message)
             present(alertController, animated: true)
         }
         viewModel.wereYearsRepeated = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.repeatedYears.title,
-                andMessage: Constants.Text.Alerts.repeatedYears.message)
+                withTitle: Constants.Texts.Alerts.repeatedYears.title,
+                andMessage: Constants.Texts.Alerts.repeatedYears.message)
             present(alertController, animated: true)
         }
     }

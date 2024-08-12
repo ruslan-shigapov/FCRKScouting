@@ -28,8 +28,8 @@ struct ScreenFactory {
     ) -> UIViewController {
         let viewModel = FormViewModel()
         let viewController = FormViewController(
-            viewModel: viewModel,
-            delegate: delegate)
+            delegate: delegate,
+            viewModel: viewModel)
         return viewController
     }
     
@@ -60,8 +60,8 @@ struct ScreenFactory {
     ) -> UIViewController {
         let viewModel = EditorViewModel(player: player)
         let viewController = EditorViewController(
-            viewModel: viewModel,
-            delegate: delegate)
+            delegate: delegate,
+            viewModel: viewModel)
         viewController.modalPresentationStyle = .fullScreen
         return viewController
     }
@@ -79,11 +79,11 @@ struct ScreenFactory {
     }
     
     static func getPlayerViewController(
-        forPlayer player: Player,
-        withDelegate delegate: PlayerViewControllerDelegate
+        withDelegate delegate: PlayerViewControllerDelegate,
+        andPlayer player: Player
     ) -> UIViewController {
         let viewModel = PlayerViewModel(player: player)
-        return PlayerViewController(viewModel: viewModel, delegate: delegate)
+        return PlayerViewController(delegate: delegate, viewModel: viewModel)
     }
     
     static func getAddCareerViewController(

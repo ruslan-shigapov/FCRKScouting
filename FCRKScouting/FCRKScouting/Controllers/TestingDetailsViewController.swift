@@ -16,7 +16,7 @@ final class TestingDetailsViewController: UIViewController {
     private let titleLabel: CustomLabel = {
         let label = CustomLabel(
             font: Constants.Fonts.header,
-            text: Constants.Text.testingDetails)
+            text: Constants.Texts.testingDetails)
         label.textAlignment = .center
         label.textColor = .systemGreen
         return label
@@ -24,21 +24,21 @@ final class TestingDetailsViewController: UIViewController {
     
     private let dateLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.date)
+        text: Constants.Texts.Titles.date)
     private let normativeLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.normative)
+        text: Constants.Texts.Titles.normative)
     
     private let testingDatePickerView = DatePickerView(type: .standard)
     
     private let runningFor15MLabel = DefaultTextLabel(
-        text: Constants.Text.Titles.runningFor15M)
+        text: Constants.Texts.Titles.runningFor15M)
     private let runningFor30MLabel = DefaultTextLabel(
-        text: Constants.Text.Titles.runningFor30M)
+        text: Constants.Texts.Titles.runningFor30M)
     private let longJumpLabel = DefaultTextLabel(
-        text: Constants.Text.Titles.longJump)
+        text: Constants.Texts.Titles.longJump)
     private let highJumpLabel = DefaultTextLabel(
-        text: Constants.Text.Titles.highJump)
+        text: Constants.Texts.Titles.highJump)
     
     private let runningFor15MTextFieldView = DecimalTextFieldView(type: .time)
     private let runningFor30MTextFieldView = DecimalTextFieldView(type: .time)
@@ -52,14 +52,14 @@ final class TestingDetailsViewController: UIViewController {
     
     private let descriptionLabel = CustomLabel(
         font: Constants.Fonts.description,
-        text: Constants.Text.Descriptions.forGoalkeepers)
+        text: Constants.Texts.Descriptions.forGoalkeepers)
     
     private let summaryTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.Titles.summary)
+        Constants.Texts.Titles.summary)
     
     private lazy var saveButton: PrimaryButton = {
         let button = PrimaryButton(
-            title: Constants.Text.ButtonTitles.save)
+            title: Constants.Texts.ButtonTitles.save)
         button.addTarget(
             self,
             action: #selector(saveButtonTapped),

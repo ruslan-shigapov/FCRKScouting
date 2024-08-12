@@ -8,16 +8,10 @@
 import UIKit
 
 enum Constants {
-    // MARK: Colors
-    enum Colors {
-        static let deepGreen = UIColor(named: "DeepGreen")
-        static let naturalGold = UIColor(named: "NaturalGold")
-    }
     // MARK: Images
     enum Images {
         static let logo = UIImage(named: "Logo")
         static let photoPlaceholder = UIImage(systemName: "person.circle")
-
         enum TabBarIcons {
             static let updates = UIImage(systemName: "newspaper")
             static let search = UIImage(systemName: "binoculars.fill")
@@ -37,6 +31,8 @@ enum Constants {
             static let filters = UIImage(systemName: "magnifyingglass.circle")
             static let edit = UIImage(systemName: "pencil.circle")
             static let arrow = UIImage(systemName: "chevron.right")
+            static let clear = UIImage(systemName: "xmark.circle.fill")
+            static let deletingMode = UIImage(systemName: "minus.circle")
         }
     }
     // MARK: Fonts
@@ -49,7 +45,7 @@ enum Constants {
         static let description = UIFont.systemFont(ofSize: 10, weight: .thin)
     }
     // MARK: Text
-    enum Text {
+    enum Texts {
         static let appName = "FCRK Scouting"
         static let transferDetails = "Трансферные детали"
         static let testingDetails = "Тестирование"
@@ -60,7 +56,6 @@ enum Constants {
         static let noIntervalResults = "За этот период игроков не найдено"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
-
         enum Titles {
             static let birthDate = "Дата рождения:"
             static let position = "Позиция:"
