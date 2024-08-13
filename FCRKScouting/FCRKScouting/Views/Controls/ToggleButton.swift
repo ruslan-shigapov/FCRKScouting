@@ -1,5 +1,5 @@
 //
-//  ToggleTextFieldDisplayButton.swift
+//  ToggleButton.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 22.05.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ToggleTextFieldDisplayButton: UIButton {
+final class ToggleButton: UIButton {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
