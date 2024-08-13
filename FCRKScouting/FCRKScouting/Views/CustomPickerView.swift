@@ -23,6 +23,7 @@ final class CustomPickerView: UIPickerView {
         dataSource = self
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

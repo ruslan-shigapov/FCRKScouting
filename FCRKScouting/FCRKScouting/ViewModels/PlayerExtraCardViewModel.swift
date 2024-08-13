@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PlayerExtraCardViewModelProtocol {
+protocol PlayerExtraCardViewModelProtocol: AnyObject {
     var cost: String { get }
     var salary: String { get }
     var contractDate: String { get }

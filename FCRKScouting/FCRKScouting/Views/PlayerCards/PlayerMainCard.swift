@@ -130,30 +130,30 @@ final class PlayerMainCard: UIView {
     }()
     
     // MARK: Public Properties
-    var viewModel: PlayerMainCardViewModelProtocol? {
+    weak var viewModel: PlayerMainCardViewModelProtocol? {
         didSet {
-            if let photo = viewModel?.photo {
+            guard let viewModel else { return }
+            if let photo = viewModel.photo {
                 photoImageView.image = photo
             } else {
                 photoImageView.image = Constants.Images.photoPlaceholder
             }
-            fullNameLabel.text = viewModel?.fullName
-            positionValueLabel.text = viewModel?.position
-            ageValueLabel.text = viewModel?.age
-            citizenshipValueLabel.text = viewModel?.citizenship
-            clubAndNationalTeamValueLabel.text = viewModel?.clubAndNationalTeam
-            footValueLabel.text = viewModel?.foot
-            heightValueLabel.text = viewModel?.height
-            weightValueLabel.text = viewModel?.weight
+            fullNameLabel.text = viewModel.fullName
+            positionValueLabel.text = viewModel.position
+            ageValueLabel.text = viewModel.age
+            citizenshipValueLabel.text = viewModel.citizenship
+            clubAndNationalTeamValueLabel.text = viewModel.clubAndNationalTeam
+            footValueLabel.text = viewModel.foot
+            heightValueLabel.text = viewModel.height
+            weightValueLabel.text = viewModel.weight
             playerInfoScrollView.configure(
-                withGeneralInfoValue: viewModel?.generalInfo,
-                techniqueValue: viewModel?.technique,
-                tacticsValue: viewModel?.tactics,
-                qualitiesValue: viewModel?.qualities,
-                mentalValue: viewModel?.mental)
-            creatorLabel.text = viewModel?.creator
-            lastEditorLabel.text = viewModel?.lastEdition
-            guard let viewModel else { return }
+                withGeneralInfoValue: viewModel.generalInfo,
+                techniqueValue: viewModel.technique,
+                tacticsValue: viewModel.tactics,
+                qualitiesValue: viewModel.qualities,
+                mentalValue: viewModel.mental)
+            creatorLabel.text = viewModel.creator
+            lastEditorLabel.text = viewModel.lastEdition
             toggleFavoritesButton.isSelected = viewModel.isFavorite
         }
     }
@@ -164,6 +164,7 @@ final class PlayerMainCard: UIView {
         setupUI()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

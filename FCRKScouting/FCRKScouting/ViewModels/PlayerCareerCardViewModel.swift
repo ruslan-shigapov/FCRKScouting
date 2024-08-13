@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PlayerCareerCardViewModelProtocol {
+protocol PlayerCareerCardViewModelProtocol: AnyObject {
     var fullName: String { get }
     func getNumberOfRows() -> Int
     func getSortedCareers(completion: @escaping (() -> Void))

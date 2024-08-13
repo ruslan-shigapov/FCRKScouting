@@ -109,11 +109,12 @@ final class PlayerCareerCard: UIView {
     }()
     
     // MARK: Public Properties 
-    var viewModel: PlayerCareerCardViewModelProtocol? {
+    weak var viewModel: PlayerCareerCardViewModelProtocol? {
         didSet {
-            fullNameValueLabel.text = viewModel?.fullName
+            guard let viewModel else { return }
+            fullNameValueLabel.text = viewModel.fullName
             addCareerButton.backgroundColor = .lightGray
-            viewModel?.getSortedCareers { [weak self] in
+            viewModel.getSortedCareers { [weak self] in
                 guard let self else { return }
                 careerTableView.reloadData()
             }
@@ -128,6 +129,7 @@ final class PlayerCareerCard: UIView {
         setupUI()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

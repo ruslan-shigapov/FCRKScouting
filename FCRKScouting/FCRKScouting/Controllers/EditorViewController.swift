@@ -81,7 +81,7 @@ final class EditorViewController: UIViewController {
     }()
     
     private lazy var togglePatronymicFieldDisplayButton: UIButton = {
-        let button = ToggleTextFieldDisplayButton()
+        let button = ToggleButton()
         button.addTarget(
             self,
             action: #selector(togglePatronymicFieldDisplayButtonTapped),
@@ -89,7 +89,7 @@ final class EditorViewController: UIViewController {
         return button
     }()
     private lazy var toggleNationalTeamFieldDisplayButton: UIButton = {
-        let button = ToggleTextFieldDisplayButton()
+        let button = ToggleButton()
         button.addTarget(
             self,
             action: #selector(toggleNationalTeamFieldDisplayButtonTapped),

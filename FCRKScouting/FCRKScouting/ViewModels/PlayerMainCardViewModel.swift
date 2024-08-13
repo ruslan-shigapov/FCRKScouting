@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol PlayerMainCardViewModelProtocol {
+protocol PlayerMainCardViewModelProtocol: AnyObject {
     var photo: UIImage? { get }
     var fullName: String { get }
     var position: String { get }

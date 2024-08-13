@@ -36,14 +36,15 @@ final class PlayerCollectionViewCell: UICollectionViewCell {
     // MARK: Public Properties
     weak var viewModel: PlayerCellViewModelProtocol? {
         didSet {
-            if let photo = viewModel?.photo {
+            guard let viewModel else { return }
+            if let photo = viewModel.photo {
                 photoImageView.image = photo
             } else {
                 photoImageView.image = Constants.Images.photoPlaceholder
             }
-            fullNameLabel.text = viewModel?.fullName
-            birthYear.text = viewModel?.ageDescription
-            positionLabel.text = viewModel?.position
+            fullNameLabel.text = viewModel.fullName
+            birthYear.text = viewModel.ageDescription
+            positionLabel.text = viewModel.position
         }
     }
             

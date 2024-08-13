@@ -9,7 +9,7 @@ import UIKit
 
 final class CareerTableViewCell: UITableViewCell {
     
-    // MARK: Private Properties
+    // MARK: Views
     private let yearLabel: CustomLabel = {
         let label = CustomLabel(font: Constants.Fonts.normal)
         label.textAlignment = .center
@@ -21,8 +21,9 @@ final class CareerTableViewCell: UITableViewCell {
     // MARK: Public Properties
     weak var viewModel: CareerCellViewModelProtocol? {
         didSet {
-            yearLabel.text = viewModel?.year
-            careerLabel.text = viewModel?.careerInfo
+            guard let viewModel else { return }
+            yearLabel.text = viewModel.year
+            careerLabel.text = viewModel.careerInfo
         }
     }
 
@@ -48,8 +49,12 @@ final class CareerTableViewCell: UITableViewCell {
         addSubviews(yearLabel, careerLabel)
         prepareForAutoLayout()
     }
+}
+
+// MARK: - Layout
+private extension CareerTableViewCell {
     
-    private func setConstraints() {
+    func setConstraints() {
         NSLayoutConstraint.activate([
             yearLabel.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,

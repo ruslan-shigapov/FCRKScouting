@@ -36,7 +36,7 @@
 		E471B20B2BFB6062003C0DCD /* FormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471B20A2BFB6062003C0DCD /* FormViewModel.swift */; };
 		E48159E62BCE7BAB0090FC42 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */; };
 		E481C1C02C2EDD12008D6460 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E481C1BF2C2EDD12008D6460 /* AuthManager.swift */; };
-		E486D13D2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486D13C2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift */; };
+		E486D13D2BFDE49D006B2BA9 /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486D13C2BFDE49D006B2BA9 /* ToggleButton.swift */; };
 		E49993902C3454F300D2C7C2 /* UIButton+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E499938F2C3454F300D2C7C2 /* UIButton+extension.swift */; };
 		E49C245D2C4A686900472C3B /* PlayerCareerCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49C245C2C4A686900472C3B /* PlayerCareerCardViewModel.swift */; };
 		E49C245F2C4AA7A900472C3B /* AddCareerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49C245E2C4AA7A900472C3B /* AddCareerViewController.swift */; };
@@ -118,7 +118,7 @@
 		E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		E481C1BE2C2EDBDF008D6460 /* FCRKScouting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FCRKScouting.entitlements; sourceTree = "<group>"; };
 		E481C1BF2C2EDD12008D6460 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
-		E486D13C2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTextFieldDisplayButton.swift; sourceTree = "<group>"; };
+		E486D13C2BFDE49D006B2BA9 /* ToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
 		E499938F2C3454F300D2C7C2 /* UIButton+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+extension.swift"; sourceTree = "<group>"; };
 		E49C245C2C4A686900472C3B /* PlayerCareerCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCareerCardViewModel.swift; sourceTree = "<group>"; };
 		E49C245E2C4AA7A900472C3B /* AddCareerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCareerViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +198,7 @@
 		E412BCFB2BC7D28900A9BCF6 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				E40A2BD52C6A217900703984 /* Storyboards */,
 				E4BB485F2BC3D51200F91513 /* Factories */,
 				E439E87C2C371F750017006E /* Extensions */,
 				E4BB484D2BC3D26A00F91513 /* Constants.swift */,
@@ -246,7 +247,6 @@
 			isa = PBXGroup;
 			children = (
 				E4BB484A2BC3D21C00F91513 /* Application */,
-				E40A2BD52C6A217900703984 /* Storyboards */,
 				E4BB484B2BC3D22700F91513 /* Models */,
 				E4BB48812BC3D54600F91513 /* Views */,
 				E4BB48632BC3D53700F91513 /* Controllers */,
@@ -283,7 +283,7 @@
 				E4BB487F2BC3D54600F91513 /* PrimaryButton.swift */,
 				E4BB487C2BC3D54600F91513 /* NavigationBarButton.swift */,
 				E4BB487B2BC3D54600F91513 /* GraySegmentedControl.swift */,
-				E486D13C2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift */,
+				E486D13C2BFDE49D006B2BA9 /* ToggleButton.swift */,
 				E4A0B5312C37FA88009CA1C1 /* DisabledPageControl.swift */,
 				E4E7F3422C490A5500493A2F /* FavoritesButton.swift */,
 			);
@@ -525,7 +525,7 @@
 				E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */,
 				E4D101492BD27742006D2DCF /* CustomLabel.swift in Sources */,
 				E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */,
-				E486D13D2BFDE49D006B2BA9 /* ToggleTextFieldDisplayButton.swift in Sources */,
+				E486D13D2BFDE49D006B2BA9 /* ToggleButton.swift in Sources */,
 				E49C245F2C4AA7A900472C3B /* AddCareerViewController.swift in Sources */,
 				E404BEA92BE9087C0078961C /* PlayerCellViewModel.swift in Sources */,
 				E4F38F312C2431E80011830D /* PlayerViewModel.swift in Sources */,

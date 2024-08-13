@@ -58,12 +58,9 @@ final class PrimaryTextFieldView: UIView {
         return textField
     }()
     
-    private let floatingLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.font = Constants.Fonts.secondary
-        return label
-    }()
+    private let floatingLabel = CustomLabel(
+        font: Constants.Fonts.secondary,
+        color: .black)
     
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView(

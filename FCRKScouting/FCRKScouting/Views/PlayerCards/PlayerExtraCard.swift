@@ -189,23 +189,24 @@ final class PlayerExtraCard: UIView {
     }()
     
     // MARK: Public Properties
-    var viewModel: PlayerExtraCardViewModelProtocol? {
+    weak var viewModel: PlayerExtraCardViewModelProtocol? {
         didSet {
-            costValueLabel.text = viewModel?.cost
-            salaryValueLabel.text = viewModel?.salary
-            contractValueLabel.text = viewModel?.contractDate
-            agentNameValueLabel.text = viewModel?.agentName
-            contactsValueLabel.text = viewModel?.contacts
-            testingDateValueLabel.text = viewModel?.testingDate
-            runningFor15MResultLabel.text = viewModel?.runningFor15MResult
-            runningFor30MResultLabel.text = viewModel?.runningFor30MResult
-            longJumpResultLabel.text = viewModel?.longJumpResult
-            highJumpResultLabel.text = viewModel?.highJumpResult
-            runningFor15MScoreLabel.text = viewModel?.runningFor15MScore
-            runningFor30MScoreLabel.text = viewModel?.runningFor30MScore
-            longJumpScoreLabel.text = viewModel?.longJumpScore
-            highJumpScoreLabel.text = viewModel?.highJumpScore
-            summaryValueLabel.text = viewModel?.summary
+            guard let viewModel else { return }
+            costValueLabel.text = viewModel.cost
+            salaryValueLabel.text = viewModel.salary
+            contractValueLabel.text = viewModel.contractDate
+            agentNameValueLabel.text = viewModel.agentName
+            contactsValueLabel.text = viewModel.contacts
+            testingDateValueLabel.text = viewModel.testingDate
+            runningFor15MResultLabel.text = viewModel.runningFor15MResult
+            runningFor30MResultLabel.text = viewModel.runningFor30MResult
+            longJumpResultLabel.text = viewModel.longJumpResult
+            highJumpResultLabel.text = viewModel.highJumpResult
+            runningFor15MScoreLabel.text = viewModel.runningFor15MScore
+            runningFor30MScoreLabel.text = viewModel.runningFor30MScore
+            longJumpScoreLabel.text = viewModel.longJumpScore
+            highJumpScoreLabel.text = viewModel.highJumpScore
+            summaryValueLabel.text = viewModel.summary
         }
     }
 
@@ -215,6 +216,7 @@ final class PlayerExtraCard: UIView {
         setupUI()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
