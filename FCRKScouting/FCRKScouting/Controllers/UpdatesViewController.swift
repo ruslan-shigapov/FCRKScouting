@@ -104,8 +104,7 @@ final class UpdatesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        handlePlayerAdding()
-        handleReturnBack()
+        handleEvents()
     }
     
     // MARK: Private Methods 
@@ -122,7 +121,7 @@ final class UpdatesViewController: UIViewController {
         setConstraints()
     }
     
-    private func handlePlayerAdding() {
+    private func handleEvents() {
         viewModel.playersWereChanged = { [weak self] in
             guard let self else { return }
             noResultsLabel.isHidden = true
@@ -134,9 +133,6 @@ final class UpdatesViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    private func handleReturnBack() {
         viewModel.backButtonWasTapped = { [weak self] in
             guard let self else { return }
             noResultsLabel.isHidden = true

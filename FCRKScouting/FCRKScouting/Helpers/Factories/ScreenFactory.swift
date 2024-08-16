@@ -101,4 +101,11 @@ struct ScreenFactory {
         let viewModel = FiltersViewModel(isFiltersActive: filtersValue)
         return FiltersViewController(delegate: delegate, viewModel: viewModel)
     }
+    
+    static func getPopoverViewController() -> UIViewController {
+        let viewModel = PopoverViewModel()
+        let popoverVC = PopoverViewController(viewModel: viewModel)
+        popoverVC.modalPresentationStyle = .popover
+        return popoverVC
+    }
 }

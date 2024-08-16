@@ -24,7 +24,7 @@ final class CareerCellViewModel: CareerCellViewModelProtocol {
             return career.coachName ?? ""
         }
         if let coachName = career.coachName, !coachName.isEmpty {
-            return "\(career.league ?? ""). Тренер: \(coachName)"
+            return "\(career.league ?? ""). Тренер: \n\(coachName)"
         }
         return career.league ?? ""
     }

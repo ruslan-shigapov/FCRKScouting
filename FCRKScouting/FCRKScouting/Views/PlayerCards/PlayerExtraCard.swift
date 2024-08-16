@@ -189,7 +189,7 @@ final class PlayerExtraCard: UIView {
     }()
     
     // MARK: Public Properties
-    weak var viewModel: PlayerExtraCardViewModelProtocol? {
+    var viewModel: PlayerExtraCardViewModelProtocol? {
         didSet {
             guard let viewModel else { return }
             costValueLabel.text = viewModel.cost

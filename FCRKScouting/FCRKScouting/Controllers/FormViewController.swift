@@ -42,35 +42,7 @@ final class FormViewController: UIViewController {
         return button
     }()
     
-    private let versionLabel = CustomLabel(
-        font: Constants.Fonts.secondary,
-        text: "Version 1.0", 
-        color: .white)
-    private let devContactsLabel = CustomLabel(
-        font: Constants.Fonts.secondary,
-        text: "Для связи с разработчиком", 
-        color: .black)
-    private let devTelegramLabel = CustomLabel(
-        font: Constants.Fonts.secondary,
-        text: "Telegram: @shiga_boom", 
-        color: .black)
-    private let devEmailLabel = CustomLabel(
-        font: Constants.Fonts.secondary,
-        text: "Email: ilgamovich@gmail.com", 
-        color: .black)
-    
-    private lazy var infoStackView: UIStackView = {
-        let stackView = UIStackView(
-            arrangedSubviews: [
-                versionLabel,
-                devContactsLabel,
-                devTelegramLabel,
-                devEmailLabel
-            ])
-        stackView.axis = .vertical
-        stackView.spacing = 2
-        return stackView
-    }()
+    private lazy var infoStackView = AppInfoStackView()
     
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -96,8 +68,8 @@ final class FormViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
+        setKeyboardDismissTap()
         view.backgroundColor = .deepGreen
-        view.setKeyboardDismissTap()
         view.addSubviews(
             titleLabel,
             fullNameTextFieldView,
@@ -111,6 +83,13 @@ final class FormViewController: UIViewController {
     
     private func configureUI() {
         fullNameTextFieldView.set(text: viewModel.userFullName)
+    }
+    
+    private func setKeyboardDismissTap() {
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
  
     private func setupAlerts() {
@@ -135,14 +114,20 @@ final class FormViewController: UIViewController {
         present(mainTabBarController, animated: false)
     }
     
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     @objc private func saveButtonTapped() {
         viewModel.validateInputText(
             [fullNameTextFieldView.getInputText()]
         ) {
             viewModel.saveUserFullName($0[0]) { [weak self] in
                 guard let self else { return }
-                dismiss(animated: true) {
-                    self.delegate.userWasUpdated?()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    self.dismiss(animated: true) {
+                        self.delegate.userWasUpdated?()
+                    }
                 }
             }
         }

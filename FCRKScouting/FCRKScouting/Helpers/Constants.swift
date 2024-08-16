@@ -33,6 +33,7 @@ enum Constants {
             static let arrow = UIImage(systemName: "chevron.right")
             static let clear = UIImage(systemName: "xmark.circle.fill")
             static let deletingMode = UIImage(systemName: "minus.circle")
+            static let popover = UIImage(systemName: "chevron.up.chevron.down")
         }
     }
     // MARK: Fonts
@@ -56,6 +57,10 @@ enum Constants {
         static let noIntervalResults = "За этот период игроков не найдено"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
+        static let appVersion = "Версия 1.0.1"
+        static let devContacts = "Для связи с разработчиком"
+        static let devTelegram = "Telegram: @shiga_boom"
+        static let devEmail = "Email: ilgamovich@gmail.com"
         enum Titles {
             static let birthDate = "Дата рождения:"
             static let position = "Позиция:"
@@ -80,6 +85,7 @@ enum Constants {
             static let summary = "Выводы:"
             static let actualTest = "Результаты тестирования:"
             static let fullName = "ФИО:"
+            static let currentLeague = "Текущая лига:"
             static let career = "Карьера:"
             static let year = "Год:"
             static let dash = "--"
@@ -247,7 +253,7 @@ enum Constants {
             }
         }
         enum Leagues: String, CaseIterable {
-            case notSelected = "- не выбрано -"
+            case notSelected = "- не выбрана -"
             case stageOne = "1 этап Академии"
             case stageTwo = "2 этап Академии"
             case stageThree = "3 этап Академии"

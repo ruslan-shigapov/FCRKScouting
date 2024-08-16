@@ -72,6 +72,13 @@ final class PlayerViewController: UIViewController {
         return scrollView
     }()
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView(style: .large)
+        indicatorView.hidesWhenStopped = true
+        indicatorView.color = .black
+        return indicatorView
+    }()
+    
     // MARK: Initialize
     init(
         delegate: PlayerViewControllerDelegate,
@@ -91,9 +98,7 @@ final class PlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        handlePlayerEditing()
-        handleAddCareerButtonTapping()
-        handleAddCareerScreenClosing()
+        handleEvents()
     }
     
     // MARK: Private Methods
@@ -102,12 +107,12 @@ final class PlayerViewController: UIViewController {
         generateScrollView(
             withPages: [playerMainCard, playerExtraCard, playerCareerCard])
         view.backgroundColor = .rubin
-        view.addSubview(cardSliderView)
+        view.addSubviews(cardSliderView, activityIndicator)
         view.prepareForAutoLayout()
         setConstraints()
     }
     
-    private func handlePlayerEditing() {
+    private func handleEvents() {
         viewModel.playersWereChanged = { [weak self] in
             guard let self else { return }
             playerMainCard.viewModel = viewModel.getPlayerMainCardViewModel()
@@ -115,9 +120,6 @@ final class PlayerViewController: UIViewController {
             let playerCareerCardVM = viewModel.getPlayerCareerCardViewModel()
             playerCareerCard.viewModel = playerCareerCardVM
         }
-    }
-    
-    private func handleAddCareerButtonTapping() {
         viewModel.addCareerButtonWasTapped = { [weak self] in
             guard let self else { return }
             let addCareerVC = ScreenFactory.getAddCareerViewController(
@@ -129,13 +131,26 @@ final class PlayerViewController: UIViewController {
             }
             present(addCareerVC, animated: true)
         }
-    }
-    
-    private func handleAddCareerScreenClosing() {
         viewModel.addCareerScreenWasClosed = { [weak self] in
             guard let self else { return }
             let playerCareerCardVM = viewModel.getPlayerCareerCardViewModel()
             playerCareerCard.viewModel = playerCareerCardVM
+        }
+        viewModel.popoverButtonWasTapped = { [weak self] popoverVC in
+            guard let self,
+                  let popoverVC = popoverVC as? PopoverViewController else {
+                return
+            }
+            popoverVC.delegate = viewModel as PopoverViewControllerDelegate
+            present(popoverVC, animated: true)
+        }
+        viewModel.currentLeagueWasChosen = { [weak self] leagueValue in
+            guard let self else { return }
+            viewModel.saveCurrentLeague(byValue: leagueValue)
+            DispatchQueue.main.async {
+                let viewModel = self.viewModel.getPlayerCareerCardViewModel()
+                self.playerCareerCard.viewModel = viewModel
+            }
         }
     }
     
@@ -183,9 +198,11 @@ final class PlayerViewController: UIViewController {
             andMessage: Constants.Texts.Alerts.delete.message
         ) { [weak self] in
             guard let self else { return }
+            activityIndicator.startAnimating()
             viewModel.deletePlayer() {
                 self.navigationController?.popViewController(animated: true)
                 self.delegate.backButtonWasTapped?()
+                self.activityIndicator.stopAnimating()
             }
         }
         present(alertController, animated: true)
@@ -205,7 +222,12 @@ private extension PlayerViewController {
             cardSliderView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor),
             cardSliderView.heightAnchor.constraint(
-                equalToConstant: view.frame.height * 0.76)
+                equalToConstant: view.frame.height * 0.76),
+            
+            activityIndicator.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(
+                equalTo: view.centerYAnchor)
         ])
     }
 }

@@ -21,12 +21,15 @@
 		E414C35F2C00C3D00068077E /* TransferDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414C35E2C00C3D00068077E /* TransferDetailsViewController.swift */; };
 		E41C7C1A2C071ABF002755E5 /* DecimalTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41C7C192C071ABF002755E5 /* DecimalTextFieldView.swift */; };
 		E41FEF202C05FAFC0083F9DB /* DefaultTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41FEF1F2C05FAFC0083F9DB /* DefaultTextLabel.swift */; };
+		E42E618D2C6CBAEE009EFEE5 /* AppInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42E618C2C6CBAEE009EFEE5 /* AppInfoStackView.swift */; };
 		E439E87B2C36A79D0017006E /* PlayerInfoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E439E87A2C36A79D0017006E /* PlayerInfoScrollView.swift */; };
 		E439E8842C37469B0017006E /* PlayerMainCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E439E8832C37469B0017006E /* PlayerMainCard.swift */; };
 		E439E8862C3746C40017006E /* PlayerCareerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E439E8852C3746C40017006E /* PlayerCareerCard.swift */; };
 		E439E8882C3746FD0017006E /* PlayerExtraCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E439E8872C3746FD0017006E /* PlayerExtraCard.swift */; };
 		E44855AC2BC3D01300E5FCD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */; };
 		E44855B82BC3D01400E5FCD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E44855B72BC3D01400E5FCD8 /* Assets.xcassets */; };
+		E452AFC42C6F5A1D00F76F92 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E452AFC32C6F5A1D00F76F92 /* PopoverViewController.swift */; };
+		E452AFC62C6F9BD700F76F92 /* PopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E452AFC52C6F9BD700F76F92 /* PopoverViewModel.swift */; };
 		E46194B72C08864700AC4FFC /* UpdatesCollectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194B62C08864700AC4FFC /* UpdatesCollectionDelegate.swift */; };
 		E46194B92C08866E00AC4FFC /* UpdatesCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194B82C08866E00AC4FFC /* UpdatesCollectionDataSource.swift */; };
 		E46213152C4BFF62008D9B00 /* AddCareerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46213142C4BFF62008D9B00 /* AddCareerViewModel.swift */; };
@@ -100,6 +103,7 @@
 		E414C35E2C00C3D00068077E /* TransferDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewController.swift; sourceTree = "<group>"; };
 		E41C7C192C071ABF002755E5 /* DecimalTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalTextFieldView.swift; sourceTree = "<group>"; };
 		E41FEF1F2C05FAFC0083F9DB /* DefaultTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextLabel.swift; sourceTree = "<group>"; };
+		E42E618C2C6CBAEE009EFEE5 /* AppInfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoStackView.swift; sourceTree = "<group>"; };
 		E439E87A2C36A79D0017006E /* PlayerInfoScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInfoScrollView.swift; sourceTree = "<group>"; };
 		E439E8832C37469B0017006E /* PlayerMainCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMainCard.swift; sourceTree = "<group>"; };
 		E439E8852C3746C40017006E /* PlayerCareerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCareerCard.swift; sourceTree = "<group>"; };
@@ -108,6 +112,8 @@
 		E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E44855B72BC3D01400E5FCD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E44855BC2BC3D01400E5FCD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E452AFC32C6F5A1D00F76F92 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
+		E452AFC52C6F9BD700F76F92 /* PopoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewModel.swift; sourceTree = "<group>"; };
 		E46194B62C08864700AC4FFC /* UpdatesCollectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesCollectionDelegate.swift; sourceTree = "<group>"; };
 		E46194B82C08866E00AC4FFC /* UpdatesCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesCollectionDataSource.swift; sourceTree = "<group>"; };
 		E46213142C4BFF62008D9B00 /* AddCareerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCareerViewModel.swift; sourceTree = "<group>"; };
@@ -308,6 +314,7 @@
 				E404BEA82BE9087C0078961C /* PlayerCellViewModel.swift */,
 				E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */,
 				E4F38F302C2431E80011830D /* PlayerViewModel.swift */,
+				E452AFC52C6F9BD700F76F92 /* PopoverViewModel.swift */,
 				E4A0B52B2C37D630009CA1C1 /* PlayerMainCardViewModel.swift */,
 				E4A0B5332C388BDA009CA1C1 /* PlayerExtraCardViewModel.swift */,
 				E49C245C2C4A686900472C3B /* PlayerCareerCardViewModel.swift */,
@@ -386,6 +393,7 @@
 				E4BB486F2BC3D53E00F91513 /* UpdatesViewController.swift */,
 				E4BB486D2BC3D53E00F91513 /* EditorViewController.swift */,
 				E4F38F2C2C24167E0011830D /* PlayerViewController.swift */,
+				E452AFC32C6F5A1D00F76F92 /* PopoverViewController.swift */,
 				E414C35E2C00C3D00068077E /* TransferDetailsViewController.swift */,
 				E414C35C2C00C2230068077E /* TestingDetailsViewController.swift */,
 				E49C245E2C4AA7A900472C3B /* AddCareerViewController.swift */,
@@ -418,6 +426,7 @@
 				E439E87A2C36A79D0017006E /* PlayerInfoScrollView.swift */,
 				E4BFCA9A2BF94C1200C4FDD2 /* TipStackView.swift */,
 				E4BFCA982BF9472200C4FDD2 /* SearchTipsView.swift */,
+				E42E618C2C6CBAEE009EFEE5 /* AppInfoStackView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -531,6 +540,7 @@
 				E4F38F312C2431E80011830D /* PlayerViewModel.swift in Sources */,
 				E46194B72C08864700AC4FFC /* UpdatesCollectionDelegate.swift in Sources */,
 				E403F1B02C4D374F00E84FFD /* CustomPickerView.swift in Sources */,
+				E452AFC42C6F5A1D00F76F92 /* PopoverViewController.swift in Sources */,
 				E414C35F2C00C3D00068077E /* TransferDetailsViewController.swift in Sources */,
 				E4BB48762BC3D53E00F91513 /* SearchViewController.swift in Sources */,
 				E439E8882C3746FD0017006E /* PlayerExtraCard.swift in Sources */,
@@ -546,6 +556,7 @@
 				E40C7FEC2BFF2F5D0043DC3E /* PageSliderView.swift in Sources */,
 				E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */,
 				E4C0DE172BC6A3C400BCD235 /* TextViewWithTitle.swift in Sources */,
+				E42E618D2C6CBAEE009EFEE5 /* AppInfoStackView.swift in Sources */,
 				E4C8905B2C39CA66002BC336 /* SearchCollectionDataSource.swift in Sources */,
 				E4A0B5342C388BDA009CA1C1 /* PlayerExtraCardViewModel.swift in Sources */,
 				E41FEF202C05FAFC0083F9DB /* DefaultTextLabel.swift in Sources */,
@@ -561,6 +572,7 @@
 				E46213152C4BFF62008D9B00 /* AddCareerViewModel.swift in Sources */,
 				E4BB48842BC3D54600F91513 /* NavigationBarButton.swift in Sources */,
 				E4F4CE482BC935BD009F9A8D /* PlayerCollectionViewCell.swift in Sources */,
+				E452AFC62C6F9BD700F76F92 /* PopoverViewModel.swift in Sources */,
 				E403F1B22C4D566300E84FFD /* FiltersViewModel.swift in Sources */,
 				E4BB48872BC3D54600F91513 /* PrimaryButton.swift in Sources */,
 				E49C245D2C4A686900472C3B /* PlayerCareerCardViewModel.swift in Sources */,

@@ -130,7 +130,7 @@ final class PlayerMainCard: UIView {
     }()
     
     // MARK: Public Properties
-    weak var viewModel: PlayerMainCardViewModelProtocol? {
+    var viewModel: PlayerMainCardViewModelProtocol? {
         didSet {
             guard let viewModel else { return }
             if let photo = viewModel.photo {

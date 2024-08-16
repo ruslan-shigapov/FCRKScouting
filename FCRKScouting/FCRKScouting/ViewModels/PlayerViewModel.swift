@@ -7,8 +7,13 @@
 
 import UIKit
 
+protocol PopoverViewControllerDelegate {
+    var currentLeagueWasChosen: ((Int) -> Void)? { get set }
+}
+
 protocol PlayerCareerCardDelegate {
     var addCareerButtonWasTapped: (() -> Void)? { get set }
+    var popoverButtonWasTapped: ((UIViewController) -> Void)? { get set }
 }
 
 protocol AddCareerViewControllerDelegate {
@@ -18,8 +23,10 @@ protocol AddCareerViewControllerDelegate {
 protocol PlayerViewModelProtocol: UserViewModelProtocol,
                                   EditorViewControllerDelegate,
                                   PlayerCareerCardDelegate,
-                                  AddCareerViewControllerDelegate {
+                                  AddCareerViewControllerDelegate,
+                                  PopoverViewControllerDelegate {
     var patronymic: String { get }
+    func saveCurrentLeague(byValue value: Int)
     func deletePlayer(completion: @escaping () -> Void)
     func getPlayer() -> Player
     func getPlayerMainCardViewModel() -> PlayerMainCardViewModelProtocol
@@ -34,6 +41,8 @@ final class PlayerViewModel: PlayerViewModelProtocol {
     var playersWereChanged: (() -> Void)?
     var addCareerButtonWasTapped: (() -> Void)?
     var addCareerScreenWasClosed: (() -> Void)?
+    var popoverButtonWasTapped: ((UIViewController) -> Void)?
+    var currentLeagueWasChosen: ((Int) -> Void)?
     
     var patronymic: String {
         player.patronymic ?? ""
@@ -41,6 +50,13 @@ final class PlayerViewModel: PlayerViewModelProtocol {
     
     init(player: Player) {
         self.player = player
+    }
+    
+    func saveCurrentLeague(byValue value: Int) {
+        let league = Constants.Texts.Leagues.allCases[value].rawValue
+        StorageManager.shared.saveCurrentLeague(
+            league,
+            forPlayer: player.fullName ?? "")
     }
     
     func deletePlayer(completion: @escaping () -> Void) {

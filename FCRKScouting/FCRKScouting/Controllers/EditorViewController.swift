@@ -242,7 +242,7 @@ final class EditorViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         configureUI()
-        handlePhotoSelecting()
+        handleEvents()
     }
     
     override func viewDidLayoutSubviews() {
@@ -317,7 +317,7 @@ final class EditorViewController: UIViewController {
         }
     }
     
-    private func handlePhotoSelecting() {
+    private func handleEvents() {
         viewModel.wasImageChanged = { [weak self] in
             guard let self else { return }
             DispatchQueue.main.async {

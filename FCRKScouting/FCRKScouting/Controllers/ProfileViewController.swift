@@ -82,7 +82,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        handleUserChanges()
+        handleEvents()
     }
     
     // MARK: Private Methods
@@ -96,7 +96,7 @@ final class ProfileViewController: UIViewController {
         setConstraints()
     }
     
-    private func handleUserChanges() {
+    private func handleEvents() {
         viewModel.userWasUpdated = { [weak self] in
             guard let self else { return }
             fullNameLabel.text = viewModel.profileFullName
@@ -112,7 +112,7 @@ final class ProfileViewController: UIViewController {
         let formVC = ScreenFactory.getFormController(
             withDelegate: viewModel as FormViewControllerDelegate)
         if let sheet = formVC.sheetPresentationController {
-            sheet.detents = [.medium()]
+            sheet.detents = [.medium(), .large()]
             sheet.prefersGrabberVisible = true
         }
         present(formVC, animated: true)

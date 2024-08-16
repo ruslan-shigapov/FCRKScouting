@@ -90,7 +90,7 @@ final class FiltersViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         configureUI()
-        handleWrongRatioOfAges()
+        handleErrors()
     }
     
     override func viewWillLayoutSubviews() {
@@ -143,7 +143,7 @@ final class FiltersViewController: UIViewController {
         }
     }
     
-    private func handleWrongRatioOfAges() {
+    private func handleErrors() {
         viewModel.wasRatioOfAgesWrong = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(

@@ -107,7 +107,7 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        handleExtraFiltersChange()
+        handleEvents()
     }
     
     // MARK: Private Methods
@@ -123,7 +123,7 @@ final class SearchViewController: UIViewController {
         setConstraints()
     }
     
-    private func handleExtraFiltersChange() {
+    private func handleEvents() {
         viewModel.extraFiltersWareChanged = { [weak self] in
             guard let self else { return }
             viewModel.extraFiltersValue.toggle()
