@@ -48,19 +48,19 @@ final class EditorViewController: UIViewController {
     }()
     
     private let fullNameTextFieldView = PrimaryTextFieldView(
-        placeholder: Constants.Text.Placeholders.fullName,
+        placeholder: Constants.Texts.Placeholders.fullName,
         type: .name)
     private let patronymicTextFieldView = PrimaryTextFieldView(
-        placeholder: Constants.Text.Placeholders.patronymic,
+        placeholder: Constants.Texts.Placeholders.patronymic,
         type: .name)
     private let citizenshipTextFieldView = PrimaryTextFieldView(
-        placeholder: Constants.Text.Placeholders.citizenship,
+        placeholder: Constants.Texts.Placeholders.citizenship,
         type: .name)
     private let clubTextFieldView = PrimaryTextFieldView(
-        placeholder: Constants.Text.Placeholders.club,
+        placeholder: Constants.Texts.Placeholders.club,
         type: .name)
     private let nationalTeamTextFieldView = PrimaryTextFieldView(
-        placeholder: Constants.Text.Placeholders.nationalTeam,
+        placeholder: Constants.Texts.Placeholders.nationalTeam,
         type: .name)
     
     private lazy var textFieldStackView: UIStackView = {
@@ -81,7 +81,7 @@ final class EditorViewController: UIViewController {
     }()
     
     private lazy var togglePatronymicFieldDisplayButton: UIButton = {
-        let button = ToggleTextFieldDisplayButton()
+        let button = ToggleButton()
         button.addTarget(
             self,
             action: #selector(togglePatronymicFieldDisplayButtonTapped),
@@ -89,7 +89,7 @@ final class EditorViewController: UIViewController {
         return button
     }()
     private lazy var toggleNationalTeamFieldDisplayButton: UIButton = {
-        let button = ToggleTextFieldDisplayButton()
+        let button = ToggleButton()
         button.addTarget(
             self,
             action: #selector(toggleNationalTeamFieldDisplayButtonTapped),
@@ -99,7 +99,7 @@ final class EditorViewController: UIViewController {
     
     private let birthDateLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.birthDate,
+        text: Constants.Texts.Titles.birthDate,
         numberOfLines: 2)
     
     private let birthDatePickerView = DatePickerView(type: .birth)
@@ -117,51 +117,51 @@ final class EditorViewController: UIViewController {
     
     private let positionLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.position)
+        text: Constants.Texts.Titles.position)
     
     private lazy var positionPickerView = CustomPickerView(type: .position)
     
     private let footLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.foot)
+        text: Constants.Texts.Titles.foot)
     
     private let footSegmentedControl = GraySegmentedControl(
-        items: Constants.Text.SegmentedControlItems.footSegments)
+        items: Constants.Texts.SegmentedControlItems.footSegments)
     
     private let heightLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.height)
+        text: Constants.Texts.Titles.height)
     
     private let heightTextFieldView = DecimalTextFieldView(type: .meters)
     
     private let weightLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.weight)
+        text: Constants.Texts.Titles.weight)
     
     private let weightTextFieldView = DecimalTextFieldView(type: .weight)
     
     private let pageSliderView = PageSliderView()
     
     private let generalInfoTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.generalInfo)
+        Constants.Texts.TextViewTitles.generalInfo)
     private let techniqueTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.technique)
+        Constants.Texts.TextViewTitles.technique)
     private let tacticsTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.tactics)
+        Constants.Texts.TextViewTitles.tactics)
     private let qualitiesTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.qualities)
+        Constants.Texts.TextViewTitles.qualities)
     private let mentalTextViewWithTitle = TextViewWithTitle(
-        Constants.Text.TextViewTitles.mental)
+        Constants.Texts.TextViewTitles.mental)
     
     private let pageSliderViewDescription = CustomLabel(
         font: Constants.Fonts.description,
-        text: Constants.Text.Descriptions.pageSlider,
+        text: Constants.Texts.Descriptions.pageSlider,
         numberOfLines: 2)
     
     private lazy var showTransferDetailsButton: PrimaryButton = {
         let button = PrimaryButton(
-            title: Constants.Text.transferDetails,
-            color: .accent)
+            title: Constants.Texts.transferDetails,
+            color: .rubin)
         button.addTarget(
             self,
             action: #selector(showTransferDetailsButtonTapped),
@@ -170,8 +170,8 @@ final class EditorViewController: UIViewController {
     }()
     private lazy var showTestingDetailsButton: PrimaryButton = {
         let button = PrimaryButton(
-            title: Constants.Text.testingDetails,
-            color: .accent)
+            title: Constants.Texts.testingDetails,
+            color: .rubin)
         button.addTarget(
             self,
             action: #selector(showTestingDetailsButtonTapped),
@@ -186,7 +186,7 @@ final class EditorViewController: UIViewController {
     }()
     
     private lazy var saveButton: PrimaryButton = {
-        let button = PrimaryButton(title: Constants.Text.ButtonTitles.save)
+        let button = PrimaryButton(title: Constants.Texts.ButtonTitles.save)
         button.addTarget(
             self,
             action: #selector(saveButtonTapped),
@@ -224,11 +224,11 @@ final class EditorViewController: UIViewController {
     
     // MARK: Initialize
     init(
-        viewModel: EditorViewModelProtocol,
-        delegate: EditorViewControllerDelegate
+        delegate: EditorViewControllerDelegate,
+        viewModel: EditorViewModelProtocol
     ) {
-        self.viewModel = viewModel
         self.delegate = delegate
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -242,7 +242,7 @@ final class EditorViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         configureUI()
-        handlePhotoSelecting()
+        handleEvents()
     }
     
     override func viewDidLayoutSubviews() {
@@ -262,7 +262,7 @@ final class EditorViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
-        view.backgroundColor = Constants.Colors.deepGreen
+        view.backgroundColor = .deepGreen
         view.setKeyboardDismissTap()
         view.addSubviews(
             titleLabel,
@@ -317,7 +317,7 @@ final class EditorViewController: UIViewController {
         }
     }
     
-    private func handlePhotoSelecting() {
+    private func handleEvents() {
         viewModel.wasImageChanged = { [weak self] in
             guard let self else { return }
             DispatchQueue.main.async {
@@ -333,8 +333,8 @@ final class EditorViewController: UIViewController {
     private func updateUploadButtonTitle() {
         let photoPlaceholder = Constants.Images.photoPlaceholder
         let buttonTitle = photoImageView.image != photoPlaceholder
-        ? Constants.Text.ButtonTitles.editPhoto
-        : Constants.Text.ButtonTitles.uploadPhoto
+        ? Constants.Texts.ButtonTitles.editPhoto
+        : Constants.Texts.ButtonTitles.uploadPhoto
         uploadPhotoButton.setTitle(buttonTitle, for: .normal)
     }
     
@@ -346,29 +346,29 @@ final class EditorViewController: UIViewController {
         viewModel.wereRequiredTextFieldsEmpty = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.emptyTextFields.title,
-                andMessage: Constants.Text.Alerts.emptyTextFields.message)
+                withTitle: Constants.Texts.Alerts.emptyTextFields.title,
+                andMessage: Constants.Texts.Alerts.emptyTextFields.message)
             present(alertController, animated: true)
         }
         viewModel.wasFullNameIncorrect = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.incorrectFullName.title,
-                andMessage: Constants.Text.Alerts.incorrectFullName.message)
+                withTitle: Constants.Texts.Alerts.incorrectFullName.title,
+                andMessage: Constants.Texts.Alerts.incorrectFullName.message)
             present(alertController, animated: true)
         }
         viewModel.wasPositionNotSelected = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.notSelectedPosition.title,
-                andMessage: Constants.Text.Alerts.notSelectedPosition.message)
+                withTitle: Constants.Texts.Alerts.notSelectedPosition.title,
+                andMessage: Constants.Texts.Alerts.notSelectedPosition.message)
             present(alertController, animated: true)
         }
         viewModel.wasSuchPlayerFound = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.suchPlayerExists.title,
-                andMessage: Constants.Text.Alerts.suchPlayerExists.message)
+                withTitle: Constants.Texts.Alerts.suchPlayerExists.title,
+                andMessage: Constants.Texts.Alerts.suchPlayerExists.message)
             present(alertController, animated: true)
         }
     }
@@ -382,11 +382,11 @@ final class EditorViewController: UIViewController {
     
     @objc private func closeButtonTapped() {
         let alertTitle = viewModel.getPlayer() == nil
-        ? Constants.Text.ActionSheets.cancelAdding
-        : Constants.Text.ActionSheets.cancelEditing
+        ? Constants.Texts.ActionSheets.cancelAdding
+        : Constants.Texts.ActionSheets.cancelEditing
         let alertButtonTitle = viewModel.getPlayer() == nil
-        ? Constants.Text.ButtonTitles.continueAdding
-        : Constants.Text.ButtonTitles.continueEditing
+        ? Constants.Texts.ButtonTitles.continueAdding
+        : Constants.Texts.ButtonTitles.continueEditing
         let alertController = AlertFactory.getCancelActionSheet(
             withTitle: alertTitle,
             andButtonTitle: alertButtonTitle

@@ -36,7 +36,7 @@ final class ProfileViewController: UIViewController {
     
     private lazy var topBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .accent
+        view.backgroundColor = .rubin
         view.setupCornerRadius()
         view.addSubviews(logoImageView, fullNameLabel)
         view.prepareForAutoLayout()
@@ -45,12 +45,12 @@ final class ProfileViewController: UIViewController {
     
     private let accessLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.access)
+        text: Constants.Texts.Titles.access)
     
     private lazy var accessValueLabel = DefaultTextLabel(text: viewModel.access)
     
     private lazy var logoutButton: PrimaryButton = {
-        let button = PrimaryButton(title: Constants.Text.ButtonTitles.exit)
+        let button = PrimaryButton(title: Constants.Texts.ButtonTitles.exit)
         button.addTarget(
             self,
             action: #selector(logOutButtonTapped),
@@ -60,7 +60,7 @@ final class ProfileViewController: UIViewController {
     
     private lazy var bottomBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .accent
+        view.backgroundColor = .rubin
         view.setupCornerRadius()
         view.addSubviews(accessLabel, accessValueLabel, logoutButton)
         view.prepareForAutoLayout()
@@ -82,7 +82,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        handleUserChanges()
+        handleEvents()
     }
     
     // MARK: Private Methods
@@ -96,7 +96,7 @@ final class ProfileViewController: UIViewController {
         setConstraints()
     }
     
-    private func handleUserChanges() {
+    private func handleEvents() {
         viewModel.userWasUpdated = { [weak self] in
             guard let self else { return }
             fullNameLabel.text = viewModel.profileFullName
@@ -120,8 +120,8 @@ final class ProfileViewController: UIViewController {
     
     @objc private func logOutButtonTapped() {
         let alertController = AlertFactory.getConfirmationAlert(
-            withTitle: Constants.Text.Alerts.exit.title,
-            andMessage: Constants.Text.Alerts.exit.message
+            withTitle: Constants.Texts.Alerts.exit.title,
+            andMessage: Constants.Texts.Alerts.exit.message
         ) { [weak self] in
             guard let self else { return }
             viewModel.logOut()

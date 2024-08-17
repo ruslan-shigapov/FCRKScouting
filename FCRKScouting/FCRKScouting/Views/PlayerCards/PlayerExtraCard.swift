@@ -13,30 +13,30 @@ final class PlayerExtraCard: UIView {
     private let titleLabel: CustomLabel = {
         let label = CustomLabel(
             font: Constants.Fonts.header,
-            text: Constants.Text.ScreenTitles.extraInfo,
+            text: Constants.Texts.ScreenTitles.extraInfo,
             numberOfLines: 2, 
-            color: .accent)
+            color: .rubin)
         label.textAlignment = .center
         return label
     }()
     
     private let costLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.cost,
+        text: Constants.Texts.Titles.cost,
         numberOfLines: 2)
     private let salaryLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.salary)
+        text: Constants.Texts.Titles.salary)
     private let contractLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.contract,
+        text: Constants.Texts.Titles.contract,
         numberOfLines: 2)
     private let agentNameLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.agent)
+        text: Constants.Texts.Titles.agent)
     private let contactsLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.contacts)
+        text: Constants.Texts.Titles.contacts)
     
     private let costValueLabel: DefaultTextLabel = {
         let label = DefaultTextLabel()
@@ -67,36 +67,36 @@ final class PlayerExtraCard: UIView {
     private let testResultsLabel: CustomLabel = {
         let label = CustomLabel(
             font: Constants.Fonts.normal,
-            text: Constants.Text.Titles.actualTest,
-            color: .accent)
+            text: Constants.Texts.Titles.actualTest,
+            color: .rubin)
         label.textAlignment = .center
         return label
     }()
     
     private let testingDateLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.date)
+        text: Constants.Texts.Titles.date)
     private let normativeLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.normative)
+        text: Constants.Texts.Titles.normative)
     private let scoreLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.score)
+        text: Constants.Texts.Titles.score)
     
     private let testingDateValueLabel = DefaultTextLabel()
     
     private let runningFor15MLabel = DefaultTextLabel(
-        text: Constants.Text.Titles.runningFor15M)
+        text: Constants.Texts.Titles.runningFor15M)
     private let runningFor30MLabel = DefaultTextLabel(
-        text: Constants.Text.Titles.runningFor30M)
+        text: Constants.Texts.Titles.runningFor30M)
     private let longJumpLabel = DefaultTextLabel(
-        text: Constants.Text.Titles.longJump)
+        text: Constants.Texts.Titles.longJump)
     private let highJumpLabel = DefaultTextLabel(
-        text: Constants.Text.Titles.highJump)
+        text: Constants.Texts.Titles.highJump)
     
     private let descriptionLabel = CustomLabel(
         font: Constants.Fonts.description,
-        text: Constants.Text.Descriptions.forGoalkeepers)
+        text: Constants.Texts.Descriptions.forGoalkeepers)
     
     private let runningFor15MResultLabel = DefaultTextLabel()
     private let runningFor30MResultLabel = DefaultTextLabel()
@@ -110,7 +110,7 @@ final class PlayerExtraCard: UIView {
     
     private let summaryLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.summary)
+        text: Constants.Texts.Titles.summary)
     
     private let summaryValueLabel = DefaultTextLabel(numberOfLines: 0)
     
@@ -150,8 +150,7 @@ final class PlayerExtraCard: UIView {
     
     private lazy var testingScrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.layer.borderWidth = 1
-        scrollView.layer.borderColor = UIColor.lightGray.cgColor
+        scrollView.setupBorder(withColor: .lightGray)
         scrollView.setupCornerRadius()
         scrollView.addSubview(testingContentView)
         scrollView.prepareForAutoLayout()
@@ -167,9 +166,9 @@ final class PlayerExtraCard: UIView {
     
     private lazy var backgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = Constants.Colors.deepGreen
+        view.backgroundColor = .deepGreen
         view.setupCornerRadius()
-        view.setupBorder()
+        view.setupBorder(withColor: .naturalGold)
         view.addSubviews(
             titleLabel,
             costLabel,
@@ -192,21 +191,22 @@ final class PlayerExtraCard: UIView {
     // MARK: Public Properties
     var viewModel: PlayerExtraCardViewModelProtocol? {
         didSet {
-            costValueLabel.text = viewModel?.cost
-            salaryValueLabel.text = viewModel?.salary
-            contractValueLabel.text = viewModel?.contractDate
-            agentNameValueLabel.text = viewModel?.agentName
-            contactsValueLabel.text = viewModel?.contacts
-            testingDateValueLabel.text = viewModel?.testingDate
-            runningFor15MResultLabel.text = viewModel?.runningFor15MResult
-            runningFor30MResultLabel.text = viewModel?.runningFor30MResult
-            longJumpResultLabel.text = viewModel?.longJumpResult
-            highJumpResultLabel.text = viewModel?.highJumpResult
-            runningFor15MScoreLabel.text = viewModel?.runningFor15MScore
-            runningFor30MScoreLabel.text = viewModel?.runningFor30MScore
-            longJumpScoreLabel.text = viewModel?.longJumpScore
-            highJumpScoreLabel.text = viewModel?.highJumpScore
-            summaryValueLabel.text = viewModel?.summary
+            guard let viewModel else { return }
+            costValueLabel.text = viewModel.cost
+            salaryValueLabel.text = viewModel.salary
+            contractValueLabel.text = viewModel.contractDate
+            agentNameValueLabel.text = viewModel.agentName
+            contactsValueLabel.text = viewModel.contacts
+            testingDateValueLabel.text = viewModel.testingDate
+            runningFor15MResultLabel.text = viewModel.runningFor15MResult
+            runningFor30MResultLabel.text = viewModel.runningFor30MResult
+            longJumpResultLabel.text = viewModel.longJumpResult
+            highJumpResultLabel.text = viewModel.highJumpResult
+            runningFor15MScoreLabel.text = viewModel.runningFor15MScore
+            runningFor30MScoreLabel.text = viewModel.runningFor30MScore
+            longJumpScoreLabel.text = viewModel.longJumpScore
+            highJumpScoreLabel.text = viewModel.highJumpScore
+            summaryValueLabel.text = viewModel.summary
         }
     }
 
@@ -216,6 +216,7 @@ final class PlayerExtraCard: UIView {
         setupUI()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

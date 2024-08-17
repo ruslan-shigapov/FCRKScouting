@@ -16,7 +16,7 @@ final class TransferDetailsViewController: UIViewController {
     private let titleLabel: CustomLabel = {
         let label = CustomLabel(
             font: Constants.Fonts.header,
-            text: Constants.Text.transferDetails)
+            text: Constants.Texts.transferDetails)
         label.textAlignment = .center
         label.textColor = .systemGreen
         return label
@@ -24,15 +24,15 @@ final class TransferDetailsViewController: UIViewController {
     
     private let costLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.cost,
+        text: Constants.Texts.Titles.cost,
         numberOfLines: 2)
     private let salaryLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.salary,
+        text: Constants.Texts.Titles.salary,
         numberOfLines: 2)
     private let contractLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.contract,
+        text: Constants.Texts.Titles.contract,
         numberOfLines: 2)
     
     private let costTextFieldView = PriceTextFieldView()
@@ -52,10 +52,10 @@ final class TransferDetailsViewController: UIViewController {
     private let contractDatePickerView = DatePickerView(type: .contract)
     
     private let agentNameTextFieldView = PrimaryTextFieldView(
-        placeholder: Constants.Text.Placeholders.agentName,
+        placeholder: Constants.Texts.Placeholders.agentName,
         type: .name)
     private let contactsTextFieldView = PrimaryTextFieldView(
-        placeholder: Constants.Text.Placeholders.contacts,
+        placeholder: Constants.Texts.Placeholders.contacts,
         type: .phone)
     
     private lazy var textFieldStackView: UIStackView = {
@@ -73,7 +73,7 @@ final class TransferDetailsViewController: UIViewController {
     
     private lazy var saveButton: PrimaryButton = {
         let button = PrimaryButton(
-            title: Constants.Text.ButtonTitles.save)
+            title: Constants.Texts.ButtonTitles.save)
         button.addTarget(
             self,
             action: #selector(saveButtonTapped),
@@ -101,7 +101,7 @@ final class TransferDetailsViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
-        view.backgroundColor = .accent
+        view.backgroundColor = .rubin
         view.setKeyboardDismissTap()
         view.addSubviews(
             titleLabel,

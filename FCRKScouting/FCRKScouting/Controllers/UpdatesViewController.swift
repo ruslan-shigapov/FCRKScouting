@@ -40,7 +40,7 @@ final class UpdatesViewController: UIViewController {
     
     private lazy var intervalSegmentedControl: GraySegmentedControl = {
         let segmentedControl = GraySegmentedControl(
-            items: Constants.Text.SegmentedControlItems.periodSegments)
+            items: Constants.Texts.SegmentedControlItems.periodSegments)
         segmentedControl.addTarget(
             self,
             action: #selector(intervalSegmentedControlValueChanged),
@@ -50,7 +50,7 @@ final class UpdatesViewController: UIViewController {
     
     private lazy var segmentedControlBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .accent
+        view.backgroundColor = .rubin
         view.addSubview(intervalSegmentedControl)
         view.prepareForAutoLayout()
         return view
@@ -74,7 +74,7 @@ final class UpdatesViewController: UIViewController {
     
     private let noResultsLabel: DefaultTextLabel = {
         let label = DefaultTextLabel(
-            text: Constants.Text.noIntervalResults,
+            text: Constants.Texts.noIntervalResults,
             numberOfLines: 2)
         label.textColor = .white
         label.textAlignment = .center
@@ -104,8 +104,7 @@ final class UpdatesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        handlePlayerAdding()
-        handleReturnBack()
+        handleEvents()
     }
     
     // MARK: Private Methods 
@@ -122,7 +121,7 @@ final class UpdatesViewController: UIViewController {
         setConstraints()
     }
     
-    private func handlePlayerAdding() {
+    private func handleEvents() {
         viewModel.playersWereChanged = { [weak self] in
             guard let self else { return }
             noResultsLabel.isHidden = true
@@ -134,9 +133,6 @@ final class UpdatesViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    private func handleReturnBack() {
         viewModel.backButtonWasTapped = { [weak self] in
             guard let self else { return }
             noResultsLabel.isHidden = true
@@ -188,7 +184,7 @@ final class UpdatesViewController: UIViewController {
     
     @objc private func addPlayerButtonTapped() {
         let playerAddingVC = ScreenFactory.getEditorViewController(
-            withDelegate: viewModel as EditorViewControllerDelegate, 
+            withDelegate: viewModel as EditorViewControllerDelegate,
             andPlayer: nil)
         present(playerAddingVC, animated: true)
     }

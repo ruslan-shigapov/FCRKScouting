@@ -19,12 +19,12 @@ final class CareerCellViewModel: CareerCellViewModelProtocol {
     }
     
     var careerInfo: String {
-        let notSelectedLeague = Constants.Text.Leagues.notSelected.rawValue
+        let notSelectedLeague = Constants.Texts.Leagues.notSelected.rawValue
         guard career.league != notSelectedLeague else {
             return career.coachName ?? ""
         }
         if let coachName = career.coachName, !coachName.isEmpty {
-            return "\(career.league ?? ""). Тренер: \(coachName)"
+            return "\(career.league ?? ""). Тренер: \n\(coachName)"
         }
         return career.league ?? ""
     }

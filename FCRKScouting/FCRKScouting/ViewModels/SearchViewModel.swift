@@ -164,15 +164,15 @@ final class SearchViewModel: SearchViewModelProtocol {
         let extraFilteredPlayers = players.filter {
             var isMatched = true
             if position > 0 {
-                let position = Constants.Text.Positions.allCases[position]
+                let position = Constants.Texts.Positions.allCases[position]
                 isMatched = $0.position == position.rawValue
             }
             if league > 0 {
-                let league = Constants.Text.Leagues.allCases[league]
+                let league = Constants.Texts.Leagues.allCases[league]
                 isMatched = isMatched && $0.currentLeague == league.rawValue
             }
             if foot > 0 {
-                let feet = Constants.Text.SegmentedControlItems.footSegments
+                let feet = Constants.Texts.SegmentedControlItems.footSegments
                 isMatched = isMatched && $0.foot == feet[foot - 1]
             }
             if let age, !age.isEmpty, let playerAge = getAge(ofPlayer: $0) {

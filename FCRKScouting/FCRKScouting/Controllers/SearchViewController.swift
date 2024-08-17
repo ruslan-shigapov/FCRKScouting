@@ -56,7 +56,7 @@ final class SearchViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.delegate = self
         let searchBar = searchController.searchBar
-        searchBar.placeholder = Constants.Text.Placeholders.startTyping
+        searchBar.placeholder = Constants.Texts.Placeholders.startTyping
         searchBar.spellCheckingType = .no
         searchBar.autocorrectionType = .no
         let backgroundColor = UIColor.white.withAlphaComponent(0.6)
@@ -79,7 +79,7 @@ final class SearchViewController: UIViewController {
         isFullSet: viewModel.isEditingAllowed)
     
     private let noResultsLabel: DefaultTextLabel = {
-        let label = DefaultTextLabel(text: Constants.Text.noSearchResults)
+        let label = DefaultTextLabel(text: Constants.Texts.noSearchResults)
         label.textColor = .white
         label.isHidden = true
         return label
@@ -107,7 +107,7 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        handleExtraFiltersChange()
+        handleEvents()
     }
     
     // MARK: Private Methods
@@ -123,7 +123,7 @@ final class SearchViewController: UIViewController {
         setConstraints()
     }
     
-    private func handleExtraFiltersChange() {
+    private func handleEvents() {
         viewModel.extraFiltersWareChanged = { [weak self] in
             guard let self else { return }
             viewModel.extraFiltersValue.toggle()

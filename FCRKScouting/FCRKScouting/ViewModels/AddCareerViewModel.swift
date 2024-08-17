@@ -39,22 +39,6 @@ final class AddCareerViewModel: AddCareerViewModelProtocol {
         self.player = player
     }
     
-    
-    private func savePossibleCurrentLeague() {
-        guard let careers = player.careers?.allObjects as? [Career] else {
-            return
-        }
-        if let currentCareer = careers.first(where: {
-            guard let year = $0.year else { return false }
-            return Int(year.suffix(2)) == currentYear - 2000
-        }) {
-            guard let league = currentCareer.league else { return }
-            StorageManager.shared.saveCurrentLeague(
-                league,
-                forPlayer: player.fullName ?? "")
-        }
-    }
-    
     private func checkRepeatingOf(
         _ years: String,
         completion: @escaping () -> Void
@@ -81,13 +65,12 @@ final class AddCareerViewModel: AddCareerViewModelProtocol {
         : "\(years[year] % 100)/\(years[toYear ?? 0] % 100)"
         checkRepeatingOf(period) { [weak self] in
             guard let self else { return }
-            let league = Constants.Text.Leagues.allCases[league].rawValue
+            let league = Constants.Texts.Leagues.allCases[league].rawValue
             StorageManager.shared.addCareer(
                 forPlayer: player.fullName ?? "",
                 forPeriod: period,
                 league: league,
                 coach: coach)
-            savePossibleCurrentLeague()
             DispatchQueue.main.async {
                 completion()
             }

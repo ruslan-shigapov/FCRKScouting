@@ -12,19 +12,19 @@ final class PlayerInfoScrollView: UIScrollView {
     // MARK: Views
     private let generalInfoLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.TextViewTitles.generalInfo)
+        text: Constants.Texts.TextViewTitles.generalInfo)
     private let techniqueLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.TextViewTitles.technique)
+        text: Constants.Texts.TextViewTitles.technique)
     private let tacticsLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.TextViewTitles.tactics)
+        text: Constants.Texts.TextViewTitles.tactics)
     private let qualitiesLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.TextViewTitles.qualities)
+        text: Constants.Texts.TextViewTitles.qualities)
     private let mentalLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.TextViewTitles.mental)
+        text: Constants.Texts.TextViewTitles.mental)
     
     private let generalInfoValueLabel = DefaultTextLabel(numberOfLines: 0)
     private let techniqueValueLabel = DefaultTextLabel(numberOfLines: 0)
@@ -64,6 +64,7 @@ final class PlayerInfoScrollView: UIScrollView {
         setupUI()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -76,8 +77,7 @@ final class PlayerInfoScrollView: UIScrollView {
     
     // MARK: Private Methods
     private func setupUI() {
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.lightGray.cgColor
+        setupBorder(withColor: .lightGray)
         setupCornerRadius()
         addSubviews(backgroundView)
         prepareForAutoLayout()

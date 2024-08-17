@@ -23,6 +23,7 @@ final class CustomPickerView: UIPickerView {
         dataSource = self
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -49,8 +50,8 @@ extension CustomPickerView: UIPickerViewDelegate {
     ) -> UIView {
         let rowLabel = UILabel()
         rowLabel.text = switch type {
-        case .position: Constants.Text.Positions.allCases[row].rawValue
-        case .league: Constants.Text.Leagues.allCases[row].rawValue
+        case .position: Constants.Texts.Positions.allCases[row].rawValue
+        case .league: Constants.Texts.Leagues.allCases[row].rawValue
         }
         rowLabel.font = Constants.Fonts.text
         rowLabel.textColor = .black
@@ -71,8 +72,8 @@ extension CustomPickerView: UIPickerViewDataSource {
         numberOfRowsInComponent component: Int
     ) -> Int {
         switch type {
-        case .position: Constants.Text.Positions.allCases.count
-        case .league: Constants.Text.Leagues.allCases.count
+        case .position: Constants.Texts.Positions.allCases.count
+        case .league: Constants.Texts.Leagues.allCases.count
         }
     }
 }

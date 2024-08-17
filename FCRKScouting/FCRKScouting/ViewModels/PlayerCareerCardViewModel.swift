@@ -9,6 +9,7 @@ import Foundation
 
 protocol PlayerCareerCardViewModelProtocol {
     var fullName: String { get }
+    var currentLeague: String { get }
     func getNumberOfRows() -> Int
     func getSortedCareers(completion: @escaping (() -> Void))
     func getCareerCellViewModel(
@@ -29,6 +30,16 @@ final class PlayerCareerCardViewModel: PlayerCareerCardViewModelProtocol {
             return "\(reversedFullName) \(patronymic)"
         }
         return reversedFullName
+    }
+    
+    var currentLeague: String {
+        var placeholder = Constants.Texts.Leagues.notSelected.rawValue
+        guard let currentLeague = player.currentLeague,
+              currentLeague != placeholder else {
+            placeholder.removeAll(where: { $0 == "-" })
+            return placeholder
+        }
+        return " \(currentLeague) "
     }
     
     init(player: Player) {

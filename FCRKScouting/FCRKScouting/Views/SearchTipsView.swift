@@ -14,20 +14,20 @@ final class SearchTipsView: UIView {
     
     // MARK: Views
     private let titleLabel: DefaultTextLabel = {
-        let label = DefaultTextLabel(text: Constants.Text.Tips.title)
+        let label = DefaultTextLabel(text: Constants.Texts.Tips.title)
         label.textColor = .white
         return label
     }()
     
     private let favoritesStackView = TipStackView(
         image: Constants.Images.ButtonImages.favorites,
-        text: Constants.Text.Tips.favorites)
+        text: Constants.Texts.Tips.favorites)
     private let relatedStackView = TipStackView(
         image: Constants.Images.ButtonImages.related,
-        text: Constants.Text.Tips.related)
+        text: Constants.Texts.Tips.related)
     private let filtersStackView = TipStackView(
         image: Constants.Images.ButtonImages.filters,
-        text: Constants.Text.Tips.filters)
+        text: Constants.Texts.Tips.filters)
     
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView(

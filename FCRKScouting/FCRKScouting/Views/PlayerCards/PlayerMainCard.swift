@@ -48,22 +48,22 @@ final class PlayerMainCard: UIView {
     
     private let ageLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.age)
+        text: Constants.Texts.Titles.age)
     private let citizenshipLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.citizenship)
+        text: Constants.Texts.Titles.citizenship)
     private let clubAndNationalTeamLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.clubAndNationalTeam)
+        text: Constants.Texts.Titles.clubAndNationalTeam)
     private let footLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.foot)
+        text: Constants.Texts.Titles.foot)
     private let heightLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.height)
+        text: Constants.Texts.Titles.height)
     private let weightLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.weight)
+        text: Constants.Texts.Titles.weight)
     
     private let ageValueLabel: DefaultTextLabel = {
         let label = DefaultTextLabel()
@@ -102,9 +102,9 @@ final class PlayerMainCard: UIView {
     
     private lazy var backgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = Constants.Colors.deepGreen
+        view.backgroundColor = .deepGreen
         view.setupCornerRadius()
-        view.setupBorder()
+        view.setupBorder(withColor: .naturalGold)
         view.addSubviews(
             photoImageView,
             titleStackView,
@@ -132,28 +132,28 @@ final class PlayerMainCard: UIView {
     // MARK: Public Properties
     var viewModel: PlayerMainCardViewModelProtocol? {
         didSet {
-            if let photo = viewModel?.photo {
+            guard let viewModel else { return }
+            if let photo = viewModel.photo {
                 photoImageView.image = photo
             } else {
                 photoImageView.image = Constants.Images.photoPlaceholder
             }
-            fullNameLabel.text = viewModel?.fullName
-            positionValueLabel.text = viewModel?.position
-            ageValueLabel.text = viewModel?.age
-            citizenshipValueLabel.text = viewModel?.citizenship
-            clubAndNationalTeamValueLabel.text = viewModel?.clubAndNationalTeam
-            footValueLabel.text = viewModel?.foot
-            heightValueLabel.text = viewModel?.height
-            weightValueLabel.text = viewModel?.weight
+            fullNameLabel.text = viewModel.fullName
+            positionValueLabel.text = viewModel.position
+            ageValueLabel.text = viewModel.age
+            citizenshipValueLabel.text = viewModel.citizenship
+            clubAndNationalTeamValueLabel.text = viewModel.clubAndNationalTeam
+            footValueLabel.text = viewModel.foot
+            heightValueLabel.text = viewModel.height
+            weightValueLabel.text = viewModel.weight
             playerInfoScrollView.configure(
-                withGeneralInfoValue: viewModel?.generalInfo,
-                techniqueValue: viewModel?.technique,
-                tacticsValue: viewModel?.tactics,
-                qualitiesValue: viewModel?.qualities,
-                mentalValue: viewModel?.mental)
-            creatorLabel.text = viewModel?.creator
-            lastEditorLabel.text = viewModel?.lastEdition
-            guard let viewModel else { return }
+                withGeneralInfoValue: viewModel.generalInfo,
+                techniqueValue: viewModel.technique,
+                tacticsValue: viewModel.tactics,
+                qualitiesValue: viewModel.qualities,
+                mentalValue: viewModel.mental)
+            creatorLabel.text = viewModel.creator
+            lastEditorLabel.text = viewModel.lastEdition
             toggleFavoritesButton.isSelected = viewModel.isFavorite
         }
     }
@@ -164,6 +164,7 @@ final class PlayerMainCard: UIView {
         setupUI()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

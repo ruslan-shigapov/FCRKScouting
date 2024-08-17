@@ -18,10 +18,31 @@ struct AlertFactory {
             message: message,
             preferredStyle: .alert)
         let alertAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.ok,
+            title: Constants.Texts.ButtonTitles.ok,
             style: .cancel)
-        alertAction.holdLinkColor()
         alertController.addAction(alertAction)
+        return alertController
+    }
+    
+    static func getConfirmationAlert(
+        withTitle title: String,
+        andMessage message: String,
+        completion: @escaping () -> Void
+    ) -> UIAlertController {
+        let alertController = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert)
+        let exitAction = UIAlertAction(
+            title: Constants.Texts.ButtonTitles.yes,
+            style: .destructive) { _ in
+                completion()
+            }
+        let cancelAction = UIAlertAction(
+            title: Constants.Texts.ButtonTitles.no,
+            style: .cancel)
+        alertController.addAction(exitAction)
+        alertController.addAction(cancelAction)
         return alertController
     }
     
@@ -35,20 +56,18 @@ struct AlertFactory {
             message: nil,
             preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.cancel,
+            title: Constants.Texts.ButtonTitles.cancel,
             style: .cancel)
         let chooseAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.choosePhoto,
+            title: Constants.Texts.ButtonTitles.choosePhoto,
             style: .default) { _ in
                 chooseCompletion()
             }
         let deleteAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.deletePhoto,
+            title: Constants.Texts.ButtonTitles.deletePhoto,
             style: .destructive) { _ in
                 deleteCompletion()
             }
-        cancelAction.holdLinkColor()
-        chooseAction.holdLinkColor()
         alertController.addAction(cancelAction)
         alertController.addAction(chooseAction)
         if isPhotoUploaded {
@@ -73,7 +92,7 @@ struct AlertFactory {
             forKey: "attributedTitle"
         )
         let cancelAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.cancel,
+            title: Constants.Texts.ButtonTitles.cancel,
             style: .destructive
         ) { _ in
                 completion()
@@ -81,32 +100,8 @@ struct AlertFactory {
         let continueAction = UIAlertAction(
             title: buttonTitle,
             style: .cancel)
-        continueAction.holdLinkColor()
         alertController.addAction(cancelAction)
         alertController.addAction(continueAction)
-        return alertController
-    }
-    
-    static func getConfirmationAlert(
-        withTitle title: String,
-        andMessage message: String,
-        completion: @escaping () -> Void
-    ) -> UIAlertController {
-        let alertController = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert)
-        let exitAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.yes,
-            style: .destructive) { _ in
-                completion()
-            }
-        let cancelAction = UIAlertAction(
-            title: Constants.Text.ButtonTitles.no,
-            style: .cancel)
-        cancelAction.holdLinkColor()
-        alertController.addAction(exitAction)
-        alertController.addAction(cancelAction)
         return alertController
     }
 }

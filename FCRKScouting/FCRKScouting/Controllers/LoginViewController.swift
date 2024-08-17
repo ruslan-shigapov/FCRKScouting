@@ -18,15 +18,15 @@ final class LoginViewController: UIViewController {
     
     private let appNameLabel = CustomLabel(
         font: Constants.Fonts.title,
-        text: Constants.Text.appName)
+        text: Constants.Texts.appName)
 
     private let accessKeyTextFieldView = PrimaryTextFieldView(
-        placeholder: Constants.Text.Placeholders.accessKey,
+        placeholder: Constants.Texts.Placeholders.accessKey,
         type: .key)
     
     private let accessDescriptionLabel = CustomLabel(
         font: Constants.Fonts.description,
-        text: Constants.Text.Descriptions.access,
+        text: Constants.Texts.Descriptions.access,
         numberOfLines: 2)
     
     private lazy var appleSignInButton: ASAuthorizationAppleIDButton = {
@@ -41,7 +41,7 @@ final class LoginViewController: UIViewController {
     
     private let signInDescriptionLabel = CustomLabel(
         font: Constants.Fonts.description,
-        text: Constants.Text.Descriptions.signIn,
+        text: Constants.Texts.Descriptions.signIn,
         numberOfLines: 2)
     
     private let activityIndicator: UIActivityIndicatorView = {
@@ -76,7 +76,7 @@ final class LoginViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
-        view.backgroundColor = .accent
+        view.backgroundColor = .rubin
         view.setKeyboardDismissTap()
         view.addSubviews(
             logoImageView,
@@ -94,8 +94,8 @@ final class LoginViewController: UIViewController {
         viewModel.wasAccessKeyWrong = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.wrongAccessKey.title,
-                andMessage: Constants.Text.Alerts.wrongAccessKey.message)
+                withTitle: Constants.Texts.Alerts.wrongAccessKey.title,
+                andMessage: Constants.Texts.Alerts.wrongAccessKey.message)
             present(alertController, animated: true)
             self.activityIndicator.stopAnimating()
             self.appleSignInButton.isEnabled = true
@@ -103,8 +103,8 @@ final class LoginViewController: UIViewController {
         viewModel.wasSomethingWrong = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.wrongSomething.title,
-                andMessage: Constants.Text.Alerts.wrongSomething.message)
+                withTitle: Constants.Texts.Alerts.wrongSomething.title,
+                andMessage: Constants.Texts.Alerts.wrongSomething.message)
             present(alertController, animated: true)
             self.activityIndicator.stopAnimating()
             self.appleSignInButton.isEnabled = true
@@ -135,8 +135,8 @@ final class LoginViewController: UIViewController {
                     self.activityIndicator.stopAnimating()
                     self.appleSignInButton.isEnabled = true
                     let alertController = AlertFactory.getWarningAlert(
-                        withTitle: Constants.Text.Alerts.authError.title,
-                        andMessage: Constants.Text.Alerts.authError.message)
+                        withTitle: Constants.Texts.Alerts.authError.title,
+                        andMessage: Constants.Texts.Alerts.authError.message)
                     self.present(alertController, animated: true)
                 }
             }

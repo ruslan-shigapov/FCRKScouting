@@ -26,8 +26,8 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     
     var access: String {
         isEditingAllowed
-        ? Constants.Text.editable
-        : Constants.Text.onlyRead
+        ? Constants.Texts.editable
+        : Constants.Texts.onlyRead
     }
     
     func logOut() {

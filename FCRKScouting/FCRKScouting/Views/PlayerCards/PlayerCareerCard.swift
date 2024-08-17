@@ -13,29 +13,40 @@ final class PlayerCareerCard: UIView {
     private let titleLabel: CustomLabel = {
         let label = CustomLabel(
             font: Constants.Fonts.header,
-            text: Constants.Text.ScreenTitles.career,
+            text: Constants.Texts.ScreenTitles.career,
             numberOfLines: 2,
-            color: .accent)
+            color: .rubin)
         label.textAlignment = .center
         return label
     }()
     
     private let fullNameLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.fullName)
+        text: Constants.Texts.Titles.fullName)
+    private let currentLeagueLabel = CustomLabel(
+        font: Constants.Fonts.normal,
+        text: Constants.Texts.Titles.currentLeague)
     private let careerLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.career)
+        text: Constants.Texts.Titles.career)
     
-    private let fullNameValueLabel: DefaultTextLabel = {
-        let label = DefaultTextLabel(numberOfLines: 2)
-        label.textAlignment = .center
-        return label
+    private let fullNameValueLabel = DefaultTextLabel(numberOfLines: 2)
+    
+    private lazy var popoverButton: UIButton = {
+        let button = UIButton(
+            configuration: getButtonConfiguration(
+                with: viewModel?.currentLeague ?? ""),
+            primaryAction: UIAction { _ in
+                self.popoverButtonTapped()
+        })
+        button.tintColor = .white.withAlphaComponent(0.7)
+        return button
     }()
     
     private lazy var addCareerButton: UIButton = {
         let button = UIButton(type: .contactAdd)
         button.backgroundColor = .lightGray
+        button.tintColor = .rubin
         button.setupCornerRadius()
         button.setupHighlightAnimation()
         button.addTarget(
@@ -48,7 +59,10 @@ final class PlayerCareerCard: UIView {
     private lazy var deletingModeButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .lightGray
-        button.setImage(UIImage(systemName: "minus.circle"), for: .normal)
+        button.tintColor = .rubin 
+        button.setImage(
+            Constants.Images.ButtonImages.deletingMode,
+            for: .normal)
         button.setupCornerRadius()
         button.setupHighlightAnimation()
         button.addTarget(
@@ -72,8 +86,7 @@ final class PlayerCareerCard: UIView {
     
     private lazy var roundedContainerView: UIView = {
         let view = UIView()
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.setupBorder(withColor: .lightGray)
         view.setupCornerRadius()
         view.addSubview(careerTableView)
         view.prepareForAutoLayout()
@@ -89,13 +102,15 @@ final class PlayerCareerCard: UIView {
     
     private lazy var backgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = Constants.Colors.deepGreen
+        view.backgroundColor = .deepGreen
         view.setupCornerRadius()
-        view.setupBorder()
+        view.setupBorder(withColor: .naturalGold)
         view.addSubviews(
             titleLabel,
             fullNameLabel,
             careerLabel,
+            currentLeagueLabel,
+            popoverButton,
             fullNameValueLabel,
             addCareerButton,
             deletingModeButton,
@@ -108,9 +123,12 @@ final class PlayerCareerCard: UIView {
     // MARK: Public Properties 
     var viewModel: PlayerCareerCardViewModelProtocol? {
         didSet {
-            fullNameValueLabel.text = viewModel?.fullName
+            guard let viewModel else { return }
+            fullNameValueLabel.text = viewModel.fullName
+            popoverButton.configuration = getButtonConfiguration(
+                with: viewModel.currentLeague)
             addCareerButton.backgroundColor = .lightGray
-            viewModel?.getSortedCareers { [weak self] in
+            viewModel.getSortedCareers { [weak self] in
                 guard let self else { return }
                 careerTableView.reloadData()
             }
@@ -125,6 +143,7 @@ final class PlayerCareerCard: UIView {
         setupUI()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -134,6 +153,45 @@ final class PlayerCareerCard: UIView {
         addSubview(backgroundView)
         prepareForAutoLayout()
         setConstraints()
+    }
+    
+    private func getButtonConfiguration(
+        with title: String
+    ) -> UIButton.Configuration {
+        var configuration = UIButton.Configuration.plain()
+        configuration.attributedTitle = AttributedString(
+            title,
+            attributes: AttributeContainer([.font : Constants.Fonts.text]))
+        let image = Constants.Images.ButtonImages.popover?.withTintColor(
+            .white.withAlphaComponent(0.7))
+        let imageSize = CGSize(width: 15, height: 15)
+        let renderer = UIGraphicsImageRenderer(size: imageSize)
+        configuration.image = renderer.image { _ in
+            image?.draw(in: CGRect(origin: .zero, size: imageSize))
+        }
+        configuration.imagePlacement = .trailing
+        configuration.imagePadding = 4
+        configuration.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: 0,
+            bottom: 0,
+            trailing: 0)
+        return configuration
+    }
+    
+    private func popoverButtonTapped() {
+        let popoverVC = ScreenFactory.getPopoverViewController()
+        popoverVC.preferredContentSize = CGSize(width: 140, height: 180)
+        let presentationController = popoverVC.popoverPresentationController
+        presentationController?.delegate = self
+        presentationController?.sourceView = popoverButton
+        presentationController?.permittedArrowDirections = .up
+        presentationController?.sourceRect = CGRect(
+            x: popoverButton.bounds.midX,
+            y: popoverButton.bounds.maxY,
+            width: 0,
+            height: 0)
+        delegate?.popoverButtonWasTapped?(popoverVC)
     }
     
     @objc private func addCareerButtonTapped() {
@@ -200,6 +258,16 @@ extension PlayerCareerCard: UITableViewDataSource {
     }
 }
 
+// MARK: - Popover Presentation Controller Delegate
+extension PlayerCareerCard: UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(
+        for controller: UIPresentationController
+    ) -> UIModalPresentationStyle {
+        .none
+    }
+}
+
 // MARK: - Layout
 private extension PlayerCareerCard {
     
@@ -231,22 +299,31 @@ private extension PlayerCareerCard {
                 equalTo: backgroundView.leadingAnchor,
                 constant: 24),
             
-            careerLabel.topAnchor.constraint(
+            currentLeagueLabel.topAnchor.constraint(
                 equalTo: fullNameLabel.bottomAnchor,
+                constant: 24),
+            currentLeagueLabel.leadingAnchor.constraint(
+                equalTo: backgroundView.leadingAnchor,
+                constant: 24),
+            
+            careerLabel.topAnchor.constraint(
+                equalTo: currentLeagueLabel.bottomAnchor,
                 constant: 24),
             careerLabel.leadingAnchor.constraint(
                 equalTo: backgroundView.leadingAnchor,
                 constant: 24),
             
-            fullNameValueLabel.leadingAnchor.constraint(
-                equalTo: fullNameLabel.trailingAnchor,
-                constant: 8),
             fullNameValueLabel.trailingAnchor.constraint(
                 equalTo: backgroundView.trailingAnchor,
-                constant: -8),
+                constant: -24),
             fullNameValueLabel.centerYAnchor.constraint(
                 equalTo: fullNameLabel.centerYAnchor,
                 constant: -2),
+            
+            popoverButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -24),
+            popoverButton.centerYAnchor.constraint(
+                equalTo: currentLeagueLabel.centerYAnchor,
+                constant: -3),
             
             addCareerButton.trailingAnchor.constraint(
                 equalTo: backgroundView.trailingAnchor,

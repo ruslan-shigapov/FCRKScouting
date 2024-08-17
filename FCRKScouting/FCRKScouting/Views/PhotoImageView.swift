@@ -14,7 +14,7 @@ final class PhotoImageView: UIImageView {
             if image == Constants.Images.photoPlaceholder {
                 layer.borderWidth = 0
             } else {
-                setupBorder()
+                setupBorder(withColor: .naturalGold)
             }
         }
     }
@@ -35,6 +35,7 @@ final class PhotoImageView: UIImageView {
     }
  
     private func setupUI() {
+        tintColor = .rubin
         image = Constants.Images.photoPlaceholder
         contentMode = .scaleAspectFill
         clipsToBounds = true

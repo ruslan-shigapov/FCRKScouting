@@ -44,7 +44,7 @@ final class PageSliderView: UIView {
     
     // MARK: Private Methods
     private func setupUI() {
-        patchView.backgroundColor = Constants.Colors.deepGreen
+        patchView.backgroundColor = .deepGreen
         addSubviews(scrollView, pageControlBackgroundView, patchView)
         prepareForAutoLayout()
         setConstraints()

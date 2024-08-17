@@ -28,7 +28,7 @@ final class PlayerCollectionViewCell: UICollectionViewCell {
         stackView.distribution = .fillEqually
         stackView.spacing = -10
         stackView.layer.borderWidth = 2
-        stackView.layer.borderColor = UIColor.accent.cgColor
+        stackView.layer.borderColor = UIColor.rubin.cgColor
         stackView.setupCornerRadius()
         return stackView
     }()
@@ -36,14 +36,15 @@ final class PlayerCollectionViewCell: UICollectionViewCell {
     // MARK: Public Properties
     weak var viewModel: PlayerCellViewModelProtocol? {
         didSet {
-            if let photo = viewModel?.photo {
+            guard let viewModel else { return }
+            if let photo = viewModel.photo {
                 photoImageView.image = photo
             } else {
                 photoImageView.image = Constants.Images.photoPlaceholder
             }
-            fullNameLabel.text = viewModel?.fullName
-            birthYear.text = viewModel?.ageDescription
-            positionLabel.text = viewModel?.position
+            fullNameLabel.text = viewModel.fullName
+            birthYear.text = viewModel.ageDescription
+            positionLabel.text = viewModel.position
         }
     }
             
@@ -60,8 +61,8 @@ final class PlayerCollectionViewCell: UICollectionViewCell {
     
     // MARK: Private Methods
     private func setupUI() {
-        backgroundColor = Constants.Colors.deepGreen
-        setupBorder()
+        backgroundColor = .deepGreen
+        setupBorder(withColor: .naturalGold)
         setupCornerRadius()
         addSubviews(photoImageView, fullNameLabel, infoStackView)
         prepareForAutoLayout()

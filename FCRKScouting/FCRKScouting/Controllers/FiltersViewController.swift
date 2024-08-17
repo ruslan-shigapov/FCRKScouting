@@ -17,34 +17,34 @@ final class FiltersViewController: UIViewController {
     private let titleLabel: CustomLabel = {
         let label = CustomLabel(
             font: Constants.Fonts.header,
-            text: Constants.Text.ScreenTitles.filters,
-            color: .accent)
+            text: Constants.Texts.ScreenTitles.filters,
+            color: .rubin)
         label.textAlignment = .center
         return label
     }()
     
     private let positionLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.position)
+        text: Constants.Texts.Titles.position)
     private let leagueLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.league)
+        text: Constants.Texts.Titles.league)
     private let footLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.foot,
+        text: Constants.Texts.Titles.foot,
         numberOfLines: 2)
     private let ageLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.age)
+        text: Constants.Texts.Titles.age)
     private let dashLabel = CustomLabel(
         font: Constants.Fonts.normal,
-        text: Constants.Text.Titles.dash)
+        text: Constants.Texts.Titles.dash)
     
     private let positionPickerView = CustomPickerView(type: .position)
     private let leaguePickerView = CustomPickerView(type: .league)
     
     private let footSegmentedControl = GraySegmentedControl(
-        items: ["любая"] + Constants.Text.SegmentedControlItems.footSegments)
+        items: ["любая"] + Constants.Texts.SegmentedControlItems.footSegments)
     
     private let ageTextFieldView = NumeralTextFieldView(type: .age)
     private let toAgeTextFieldView = NumeralTextFieldView(type: .age)
@@ -90,7 +90,7 @@ final class FiltersViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         configureUI()
-        handleWrongRatioOfAges()
+        handleErrors()
     }
     
     override func viewWillLayoutSubviews() {
@@ -143,23 +143,23 @@ final class FiltersViewController: UIViewController {
         }
     }
     
-    private func handleWrongRatioOfAges() {
+    private func handleErrors() {
         viewModel.wasRatioOfAgesWrong = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.wrongRatioOfAges.title,
-                andMessage: Constants.Text.Alerts.wrongRatioOfAges.message)
+                withTitle: Constants.Texts.Alerts.wrongRatioOfAges.title,
+                andMessage: Constants.Texts.Alerts.wrongRatioOfAges.message)
             present(alertController, animated: true)
         }
     }
     
     private func setupApplyButton() {
         let title = viewModel.isFiltersActive
-        ? Constants.Text.ButtonTitles.reset
-        : Constants.Text.ButtonTitles.apply
+        ? Constants.Texts.ButtonTitles.reset
+        : Constants.Texts.ButtonTitles.apply
         applyButton.setTitle(title, for: .normal)
         let color: UIColor = viewModel.isFiltersActive
-        ? .accent
+        ? .rubin
         : .systemGreen.withAlphaComponent(0.7)
         applyButton.backgroundColor = color
         

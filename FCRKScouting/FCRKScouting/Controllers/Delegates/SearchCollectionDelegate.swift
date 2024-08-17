@@ -45,8 +45,8 @@ final class SearchCollectionDelegate: NSObject,
             return
         }
         let playerVC = ScreenFactory.getPlayerViewController(
-            forPlayer: currentPlayer,
-            withDelegate: viewModel as PlayerViewControllerDelegate)
+            withDelegate: viewModel as PlayerViewControllerDelegate,
+            andPlayer: currentPlayer)
         navigationController?.pushViewController(playerVC, animated: true)
     }
 }

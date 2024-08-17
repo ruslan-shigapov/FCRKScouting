@@ -8,16 +8,10 @@
 import UIKit
 
 enum Constants {
-    // MARK: Colors
-    enum Colors {
-        static let deepGreen = UIColor(named: "DeepGreen")
-        static let naturalGold = UIColor(named: "NaturalGold")
-    }
     // MARK: Images
     enum Images {
         static let logo = UIImage(named: "Logo")
         static let photoPlaceholder = UIImage(systemName: "person.circle")
-
         enum TabBarIcons {
             static let updates = UIImage(systemName: "newspaper")
             static let search = UIImage(systemName: "binoculars.fill")
@@ -37,6 +31,9 @@ enum Constants {
             static let filters = UIImage(systemName: "magnifyingglass.circle")
             static let edit = UIImage(systemName: "pencil.circle")
             static let arrow = UIImage(systemName: "chevron.right")
+            static let clear = UIImage(systemName: "xmark.circle.fill")
+            static let deletingMode = UIImage(systemName: "minus.circle")
+            static let popover = UIImage(systemName: "chevron.up.chevron.down")
         }
     }
     // MARK: Fonts
@@ -49,7 +46,7 @@ enum Constants {
         static let description = UIFont.systemFont(ofSize: 10, weight: .thin)
     }
     // MARK: Text
-    enum Text {
+    enum Texts {
         static let appName = "FCRK Scouting"
         static let transferDetails = "Трансферные детали"
         static let testingDetails = "Тестирование"
@@ -60,7 +57,10 @@ enum Constants {
         static let noIntervalResults = "За этот период игроков не найдено"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
-
+        static let appVersion = "Версия 1.0.1"
+        static let devContacts = "Для связи с разработчиком"
+        static let devTelegram = "Telegram: @shiga_boom"
+        static let devEmail = "Email: ilgamovich@gmail.com"
         enum Titles {
             static let birthDate = "Дата рождения:"
             static let position = "Позиция:"
@@ -85,6 +85,7 @@ enum Constants {
             static let summary = "Выводы:"
             static let actualTest = "Результаты тестирования:"
             static let fullName = "ФИО:"
+            static let currentLeague = "Текущая лига:"
             static let career = "Карьера:"
             static let year = "Год:"
             static let dash = "--"
@@ -252,7 +253,7 @@ enum Constants {
             }
         }
         enum Leagues: String, CaseIterable {
-            case notSelected = "- не выбрано -"
+            case notSelected = "- не выбрана -"
             case stageOne = "1 этап Академии"
             case stageTwo = "2 этап Академии"
             case stageThree = "3 этап Академии"

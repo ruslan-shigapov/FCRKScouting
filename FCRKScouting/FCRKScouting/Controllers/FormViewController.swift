@@ -17,24 +17,24 @@ final class FormViewController: UIViewController {
     private lazy var titleLabel: CustomLabel = {
         let label = CustomLabel(
             font: Constants.Fonts.header,
-            text: Constants.Text.ScreenTitles.form,
-            color: .accent)
+            text: Constants.Texts.ScreenTitles.form,
+            color: .rubin)
         label.textAlignment = .center
         return label
     }()
     
     private let fullNameTextFieldView = PrimaryTextFieldView(
-        placeholder: Constants.Text.Placeholders.fullName,
+        placeholder: Constants.Texts.Placeholders.fullName,
         type: .name)
     
     private let fullNameDescriptionLabel = CustomLabel(
         font: Constants.Fonts.description,
-        text: Constants.Text.Descriptions.fullName,
+        text: Constants.Texts.Descriptions.fullName,
         numberOfLines: 2)
     
     private lazy var saveButton: PrimaryButton = {
         let button = PrimaryButton(
-            title: Constants.Text.ButtonTitles.save)
+            title: Constants.Texts.ButtonTitles.save)
         button.addTarget(
             self,
             action: #selector(saveButtonTapped),
@@ -42,35 +42,7 @@ final class FormViewController: UIViewController {
         return button
     }()
     
-    private let versionLabel = CustomLabel(
-        font: Constants.Fonts.secondary,
-        text: "Version 1.0", 
-        color: .white)
-    private let devContactsLabel = CustomLabel(
-        font: Constants.Fonts.secondary,
-        text: "Для связи с разработчиком", 
-        color: .black)
-    private let devTelegramLabel = CustomLabel(
-        font: Constants.Fonts.secondary,
-        text: "Telegram: @shiga_boom", 
-        color: .black)
-    private let devEmailLabel = CustomLabel(
-        font: Constants.Fonts.secondary,
-        text: "Email: ilgamovich@gmail.com", 
-        color: .black)
-    
-    private lazy var infoStackView: UIStackView = {
-        let stackView = UIStackView(
-            arrangedSubviews: [
-                versionLabel,
-                devContactsLabel,
-                devTelegramLabel,
-                devEmailLabel
-            ])
-        stackView.axis = .vertical
-        stackView.spacing = 2
-        return stackView
-    }()
+    private lazy var infoStackView = AppInfoStackView()
     
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -81,11 +53,11 @@ final class FormViewController: UIViewController {
 
     // MARK: Initialize
     init(
-        viewModel: FormViewModelProtocol,
-        delegate: FormViewControllerDelegate
+        delegate: FormViewControllerDelegate,
+        viewModel: FormViewModelProtocol
     ) {
-        self.viewModel = viewModel
         self.delegate = delegate
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -96,8 +68,8 @@ final class FormViewController: UIViewController {
     
     // MARK: Private Methods
     private func setupUI() {
+        setKeyboardDismissTap()
         view.backgroundColor = .deepGreen
-        view.setKeyboardDismissTap()
         view.addSubviews(
             titleLabel,
             fullNameTextFieldView,
@@ -112,20 +84,27 @@ final class FormViewController: UIViewController {
     private func configureUI() {
         fullNameTextFieldView.set(text: viewModel.userFullName)
     }
+    
+    private func setKeyboardDismissTap() {
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
  
     private func setupAlerts() {
         viewModel.wereRequiredTextFieldsEmpty = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.emptyTextFields.title,
-                andMessage: Constants.Text.Alerts.emptyTextFields.message)
+                withTitle: Constants.Texts.Alerts.emptyTextFields.title,
+                andMessage: Constants.Texts.Alerts.emptyTextFields.message)
             present(alertController, animated: true)
         }
         viewModel.wasFullNameIncorrect = { [weak self] in
             guard let self else { return }
             let alertController = AlertFactory.getWarningAlert(
-                withTitle: Constants.Text.Alerts.incorrectFullName.title,
-                andMessage: Constants.Text.Alerts.incorrectFullName.message)
+                withTitle: Constants.Texts.Alerts.incorrectFullName.title,
+                andMessage: Constants.Texts.Alerts.incorrectFullName.message)
             present(alertController, animated: true)
         }
     }
@@ -135,14 +114,20 @@ final class FormViewController: UIViewController {
         present(mainTabBarController, animated: false)
     }
     
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     @objc private func saveButtonTapped() {
         viewModel.validateInputText(
             [fullNameTextFieldView.getInputText()]
         ) {
             viewModel.saveUserFullName($0[0]) { [weak self] in
                 guard let self else { return }
-                dismiss(animated: true) {
-                    self.delegate.userWasUpdated?()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    self.dismiss(animated: true) {
+                        self.delegate.userWasUpdated?()
+                    }
                 }
             }
         }
