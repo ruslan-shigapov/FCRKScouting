@@ -43,6 +43,16 @@ final class ProfileViewController: UIViewController {
         return view
     }()
     
+    private lazy var viewingPlanNavigationButton: NavigationButton = {
+        let navigationButton = NavigationButton(
+            title: Constants.Texts.ButtonTitles.viewingPlan)
+        navigationButton.addTarget(
+            self,
+            action: #selector(viewingPlanNavigationButtonTapped),
+            for: .touchUpInside)
+        return navigationButton
+    }()
+
     private let accessLabel = CustomLabel(
         font: Constants.Fonts.normal,
         text: Constants.Texts.Titles.access)
@@ -91,6 +101,7 @@ final class ProfileViewController: UIViewController {
         view.setupGradientLayer()
         view.addSubviews(
             topBackgroundView,
+            viewingPlanNavigationButton,
             bottomBackgroundView)
         view.prepareForAutoLayout()
         setConstraints()
@@ -127,6 +138,11 @@ final class ProfileViewController: UIViewController {
             viewModel.logOut()
         }
         present(alertController, animated: true)
+    }
+    
+    @objc private func viewingPlanNavigationButtonTapped() {
+        let viewingPlanVC = ScreenFactory.getViewingPlanViewController()
+        navigationController?.pushViewController(viewingPlanVC, animated: true)
     }
 }
 
@@ -166,8 +182,18 @@ private extension ProfileViewController {
             fullNameLabel.centerYAnchor.constraint(
                 equalTo: topBackgroundView.centerYAnchor),
             
-            bottomBackgroundView.topAnchor.constraint(
+            viewingPlanNavigationButton.topAnchor.constraint(
                 equalTo: topBackgroundView.bottomAnchor,
+                constant: 8),
+            viewingPlanNavigationButton.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 8),
+            viewingPlanNavigationButton.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -8),
+
+            bottomBackgroundView.topAnchor.constraint(
+                equalTo: viewingPlanNavigationButton.bottomAnchor,
                 constant: 8),
             bottomBackgroundView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,

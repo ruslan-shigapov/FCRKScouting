@@ -511,7 +511,8 @@ final class EditorViewController: UIViewController {
                     tactics: tacticsTextViewWithTitle.getInputText(),
                     qualities: qualitiesTextViewWithTitle.getInputText(),
                     mental: mentalTextViewWithTitle.getInputText()
-                ) {
+                ) { [weak self] in
+                    guard let self else { return }
                     finishChanges()
                 }
             }

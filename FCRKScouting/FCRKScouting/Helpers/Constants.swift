@@ -57,7 +57,7 @@ enum Constants {
         static let noIntervalResults = "За этот период игроков не найдено"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
-        static let appVersion = "Версия 1.0.1"
+        static let appVersion = "Версия 1.1"
         static let devContacts = "Для связи с разработчиком"
         static let devTelegram = "Telegram: @shiga_boom"
         static let devEmail = "Email: ilgamovich@gmail.com"
@@ -73,7 +73,7 @@ enum Constants {
             static let age = "Возраст:"
             static let citizenship = "Гражданство:"
             static let clubAndNationalTeam = "Клуб/сборная:"
-            static let agent = "Агент:"
+            static let agent = "Агент/Родитель:"
             static let contacts = "Контакты:"
             static let date = "Дата:"
             static let normative = "Нормативы:"
@@ -115,7 +115,7 @@ enum Constants {
             static let citizenship = "Гражданство*"
             static let club = "Клуб*"
             static let nationalTeam = "Сборная"
-            static let agentName = "Агент"
+            static let agentName = "Агент/Родитель"
             static let contacts = "Контакты"
             static let coach = "Тренер"
             static let startTyping = "Начните вводить"
@@ -137,7 +137,6 @@ enum Constants {
             static let reset = "Сбросить"
             static let exit = "Выйти"
             static let viewingPlan = "План просмотра"
-            static let allReports = "Все отчёты"
         }
         enum ScreenTitles {
             static let greeting = "Добро пожаловать!"
@@ -150,6 +149,7 @@ enum Constants {
             static let search = "Поиск"
             static let filters = "Дополнительные фильтры"
             static let profile = "Профиль"
+            static let viewingPlan = "План просмотра соревнований"
         }
         enum Tips {
             static let title = "Справка:"

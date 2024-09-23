@@ -86,6 +86,8 @@
 		E4F4CE482BC935BD009F9A8D /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */; };
 		E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */; };
 		E4F4CE4C2BC95122009F9A8D /* DateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE4B2BC95122009F9A8D /* DateHeaderView.swift */; };
+		E4F79CA62CA1635D003C6019 /* NavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F79CA52CA1635D003C6019 /* NavigationButton.swift */; };
+		E4F79CA82CA166EC003C6019 /* ViewingPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F79CA72CA166EC003C6019 /* ViewingPlanViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,6 +173,8 @@
 		E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
 		E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesViewModel.swift; sourceTree = "<group>"; };
 		E4F4CE4B2BC95122009F9A8D /* DateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeaderView.swift; sourceTree = "<group>"; };
+		E4F79CA52CA1635D003C6019 /* NavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButton.swift; sourceTree = "<group>"; };
+		E4F79CA72CA166EC003C6019 /* ViewingPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewingPlanViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +296,7 @@
 				E486D13C2BFDE49D006B2BA9 /* ToggleButton.swift */,
 				E4A0B5312C37FA88009CA1C1 /* DisabledPageControl.swift */,
 				E4E7F3422C490A5500493A2F /* FavoritesButton.swift */,
+				E4F79CA52CA1635D003C6019 /* NavigationButton.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -401,6 +406,7 @@
 				E4BB48692BC3D53E00F91513 /* FiltersViewController.swift */,
 				E4BB48662BC3D53E00F91513 /* ProfileViewController.swift */,
 				E471B2082BFB4543003C0DCD /* FormViewController.swift */,
+				E4F79CA72CA166EC003C6019 /* ViewingPlanViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -517,6 +523,7 @@
 				E4BB48642BC3D53700F91513 /* LoginViewController.swift in Sources */,
 				E4F4CE4C2BC95122009F9A8D /* DateHeaderView.swift in Sources */,
 				E4BB48772BC3D53E00F91513 /* EditorViewController.swift in Sources */,
+				E4F79CA62CA1635D003C6019 /* NavigationButton.swift in Sources */,
 				E4BFCA992BF9472200C4FDD2 /* SearchTipsView.swift in Sources */,
 				E48159E62BCE7BAB0090FC42 /* SearchViewModel.swift in Sources */,
 				E46272262C22EDF200794705 /* NumeralTextFieldView.swift in Sources */,
@@ -547,6 +554,7 @@
 				E412BCFF2BC7D48600A9BCF6 /* UIView+extension.swift in Sources */,
 				E414C35D2C00C2230068077E /* TestingDetailsViewController.swift in Sources */,
 				E4BB48732BC3D53E00F91513 /* ProfileViewController.swift in Sources */,
+				E4F79CA82CA166EC003C6019 /* ViewingPlanViewController.swift in Sources */,
 				E4F4CE462BC92E0B009F9A8D /* PlayerCollectionView.swift in Sources */,
 				E4BB48832BC3D54600F91513 /* GraySegmentedControl.swift in Sources */,
 				E4BB48782BC3D53E00F91513 /* UpdatesViewController.swift in Sources */,
@@ -722,7 +730,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FCRKScouting/Resources/FCRKScouting.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = X7QDNJU74Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FCRKScouting/Resources/Info.plist;
@@ -738,7 +746,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = RuslanShigapov.FCRKScouting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -758,7 +766,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FCRKScouting/Resources/FCRKScouting.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = X7QDNJU74Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FCRKScouting/Resources/Info.plist;
@@ -774,7 +782,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = RuslanShigapov.FCRKScouting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

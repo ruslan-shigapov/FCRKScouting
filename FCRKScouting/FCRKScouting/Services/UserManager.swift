@@ -95,7 +95,8 @@ final class UserManager {
         completion: @escaping () -> Void
     ) {
         StorageManager.shared.findUser(
-            credential.user
+            credential.user,
+            withAccessValue: isEditingAllowed
         ) { [weak self] in
             guard let self else { return }
             if let foundUser = $0 {

@@ -112,11 +112,16 @@ extension StorageManager {
     
     func findUser(
         _ appleID: String,
+        withAccessValue accessValue: Bool? = nil,
         completion: @escaping (User?) -> Void
     ) {
         let fetchRequest = User.fetchRequest()
         let users = try? viewContext.fetch(fetchRequest)
         if let user = users?.first(where: { $0.appleID == appleID }) {
+            if let accessValue {
+                user.isEditingAllowed = accessValue
+                saveContext()
+            }
             completion(user)
             return
         }

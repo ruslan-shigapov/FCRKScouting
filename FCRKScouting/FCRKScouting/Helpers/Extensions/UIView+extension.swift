@@ -41,9 +41,6 @@ extension UIView {
         layer.shadowRadius = 7
         layer.shadowOpacity = 0.4
         layer.shadowOffset = CGSize(width: 8, height: 8)
-        layer.shadowPath = UIBezierPath(
-            roundedRect: bounds,
-            cornerRadius: layer.cornerRadius).cgPath
     }
     
     func setupGradientLayer() {

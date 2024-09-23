@@ -8,6 +8,9 @@
 import UIKit
 
 final class PageSliderView: UIView {
+    
+    // MARK: Private Properties
+    private var pageControlRightOffset: CGFloat = 12
 
     // MARK: Views
     private lazy var scrollView: UIScrollView = {
@@ -20,16 +23,13 @@ final class PageSliderView: UIView {
     
     private let pageControl = DisabledPageControl()
     
-    private lazy var pageControlBackgroundView: UIView = {
+    private lazy var patchView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .deepGreen
         view.addSubview(pageControl)
         view.prepareForAutoLayout()
-        view.layer.cornerRadius = 5
         return view
     }()
-    
-    private let patchView = UIView()
     
     // MARK: Initialize
     override init(frame: CGRect) {
@@ -44,8 +44,7 @@ final class PageSliderView: UIView {
     
     // MARK: Private Methods
     private func setupUI() {
-        patchView.backgroundColor = .deepGreen
-        addSubviews(scrollView, pageControlBackgroundView, patchView)
+        addSubviews(scrollView, patchView)
         prepareForAutoLayout()
         setConstraints()
     }
@@ -86,6 +85,9 @@ extension PageSliderView: UIScrollViewDelegate {
 private extension PageSliderView {
     
     func setConstraints() {
+        if #available(iOS 18.0, *) {
+            pageControlRightOffset -= 20
+        }
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
             scrollView.leadingAnchor.constraint(
@@ -94,32 +96,20 @@ private extension PageSliderView {
             scrollView.trailingAnchor.constraint(
                 equalTo: trailingAnchor),
             
-            pageControlBackgroundView.topAnchor.constraint(
-                equalTo: topAnchor,
-                constant: -2),
-            pageControlBackgroundView.trailingAnchor.constraint(
-                equalTo: trailingAnchor,
-                constant: -20),
-            
             patchView.topAnchor.constraint(equalTo: topAnchor),
-            patchView.leadingAnchor.constraint(
-                equalTo: pageControlBackgroundView.trailingAnchor),
             patchView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            patchView.bottomAnchor.constraint(
-                equalTo: pageControlBackgroundView.bottomAnchor),
             
             pageControl.topAnchor.constraint(
-                equalTo: pageControlBackgroundView.topAnchor,
+                equalTo: patchView.topAnchor,
                 constant: -4),
             pageControl.leadingAnchor.constraint(
-                equalTo: pageControlBackgroundView.leadingAnchor,
-                constant: -25),
+                equalTo: patchView.leadingAnchor),
             pageControl.bottomAnchor.constraint(
-                equalTo: pageControlBackgroundView.bottomAnchor,
+                equalTo: patchView.bottomAnchor,
                 constant: 4),
             pageControl.trailingAnchor.constraint(
-                equalTo: pageControlBackgroundView.trailingAnchor,
-                constant: 25)
+                equalTo: patchView.trailingAnchor,
+                constant: pageControlRightOffset)
         ])
     }
 }

@@ -44,7 +44,7 @@ protocol EditorViewModelProtocol: TextFieldValidationProtocol,
         tactics: String?,
         qualities: String?,
         mental: String?,
-        completion: () -> Void)
+        completion: @escaping () -> Void)
     func getPlayer() -> Player?
     func getPickerRowBy(title: String?) -> Int?
     func getSegmentIndexBy(title: String?) -> Int?
@@ -154,7 +154,7 @@ final class EditorViewModel: EditorViewModelProtocol {
         tactics: String?,
         qualities: String?,
         mental: String?,
-        completion: () -> Void
+        completion: @escaping () -> Void
     ) {
         guard position != 0 else {
             wasPositionNotSelected?()
@@ -203,7 +203,9 @@ final class EditorViewModel: EditorViewModelProtocol {
             lastEditor: currentUser?.fullName ?? "",
             updatedDate: Date(),
             creator: currentUser?.fullName ?? "")
+        DispatchQueue.main.async {
             completion()
+        }
     }
     
     func getPlayer() -> Player? {

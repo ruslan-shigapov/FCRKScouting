@@ -108,4 +108,8 @@ struct ScreenFactory {
         popoverVC.modalPresentationStyle = .popover
         return popoverVC
     }
+    
+    static func getViewingPlanViewController() -> UIViewController {
+        ViewingPlanViewController()
+    }
 }

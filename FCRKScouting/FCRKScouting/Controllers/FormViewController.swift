@@ -14,7 +14,7 @@ final class FormViewController: UIViewController {
     private var delegate: FormViewControllerDelegate
         
     // MARK: Views
-    private lazy var titleLabel: CustomLabel = {
+    private let titleLabel: CustomLabel = {
         let label = CustomLabel(
             font: Constants.Fonts.header,
             text: Constants.Texts.ScreenTitles.form,
