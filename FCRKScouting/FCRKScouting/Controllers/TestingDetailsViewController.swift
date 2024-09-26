@@ -29,7 +29,7 @@ final class TestingDetailsViewController: UIViewController {
         font: Constants.Fonts.normal,
         text: Constants.Texts.Titles.normative)
     
-    private let testingDatePickerView = DatePickerView(type: .standard)
+    private let testingDatePickerView = DatePickerView(type: .testing)
     
     private let runningFor15MLabel = DefaultTextLabel(
         text: Constants.Texts.Titles.runningFor15M)

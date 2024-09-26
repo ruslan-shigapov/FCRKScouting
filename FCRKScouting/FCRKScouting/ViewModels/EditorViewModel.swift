@@ -75,6 +75,8 @@ final class EditorViewModel: EditorViewModelProtocol {
                 
     private let player: Player?
     
+    private let tournament: Tournament?
+    
     private var isPhotoChanged = false
 
     var prices: [String?] = []
@@ -111,8 +113,9 @@ final class EditorViewModel: EditorViewModelProtocol {
         }
     }
     
-    init(player: Player?) {
+    init(player: Player?, tournament: Tournament?) {
         self.player = player
+        self.tournament = tournament
     }
     
     private func formatImageToData(_ image: UIImage?) -> Data? {
@@ -202,7 +205,8 @@ final class EditorViewModel: EditorViewModelProtocol {
             summary: summary,
             lastEditor: currentUser?.fullName ?? "",
             updatedDate: Date(),
-            creator: currentUser?.fullName ?? "")
+            creator: currentUser?.fullName ?? "",
+            tournament: tournament)
         DispatchQueue.main.async {
             completion()
         }

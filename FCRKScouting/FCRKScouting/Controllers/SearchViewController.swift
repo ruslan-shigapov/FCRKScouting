@@ -64,8 +64,8 @@ final class SearchViewController: UIViewController {
         return searchController
     }()
     
-    private lazy var playerCollectionView: PlayerCollectionView = {
-        let collectionView = PlayerCollectionView()
+    private lazy var playerCollectionView: VerticalCollectionView = {
+        let collectionView = VerticalCollectionView()
         collectionView.delegate = collectionViewDelegate
         collectionView.dataSource = collectionViewDataSource
         collectionView.register(

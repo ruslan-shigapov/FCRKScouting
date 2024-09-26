@@ -194,8 +194,8 @@ final class PlayerViewController: UIViewController {
     
     @objc private func deletePlayerButtonTapped() {
         let alertController = AlertFactory.getConfirmationAlert(
-            withTitle: Constants.Texts.Alerts.delete.title,
-            andMessage: Constants.Texts.Alerts.delete.message
+            withTitle: Constants.Texts.Alerts.deletePlayer.title,
+            andMessage: Constants.Texts.Alerts.deletePlayer.message
         ) { [weak self] in
             guard let self else { return }
             activityIndicator.startAnimating()

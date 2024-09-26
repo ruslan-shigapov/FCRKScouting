@@ -248,7 +248,8 @@ extension StorageManager {
         summary: String?,
         lastEditor: String,
         updatedDate: Date,
-        creator: String
+        creator: String,
+        tournament: Tournament?
     ) {
         let player = Player(context: viewContext)
         player.fullName = fullName
@@ -286,6 +287,7 @@ extension StorageManager {
         player.lastEditor = lastEditor
         player.updatedDate = updatedDate
         player.creator = creator
+        player.tournament = tournament
         saveContext()
     }
     
@@ -338,6 +340,18 @@ extension StorageManager {
         fetchPlayers { players in
             let relatedPlayers = players.filter { $0.creator == userFullName }
             completion(relatedPlayers)
+        }
+    }
+    
+    func fetchPlayers(
+        forTournament tournament: Tournament,
+        completion: @escaping ([Player]) -> Void
+    ) {
+        fetchPlayers { players in
+            let playersForViewing = players.filter {
+                $0.tournament == tournament
+            }
+            completion(playersForViewing)
         }
     }
     
@@ -531,5 +545,37 @@ extension StorageManager {
                 }
             }
         }
+    }
+}
+
+// MARK: - Tournament
+extension StorageManager {
+    
+    func saveTournament(
+        byName name: String,
+        place: String,
+        startDate: Date,
+        endDate: Date,
+        age: String
+    ) {
+        let tournament = Tournament(context: viewContext)
+        tournament.name = name
+        tournament.place = place
+        tournament.startDate = startDate
+        tournament.endDate = endDate
+        tournament.age = age
+        saveContext()
+    }
+    
+    func fetchTournaments(completion: @escaping ([Tournament]) -> Void) {
+        let fetchRequest = Tournament.fetchRequest()
+        if let tournaments = try? viewContext.fetch(fetchRequest) {
+            completion(tournaments)
+        }
+    }
+    
+    func deleteTournament(_ tournament: Tournament) {
+        viewContext.delete(tournament)
+        saveContext()
     }
 }

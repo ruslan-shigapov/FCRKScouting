@@ -8,12 +8,12 @@
 import UIKit
 
 enum DatePickerType {
-    case birth, contract, standard
+    case birth, contract, testing, tournament
     
     var placeholder: String {
         switch self {
-        case .birth, .standard: Constants.Texts.notSpecified1
-        case .contract:Constants.Texts.notSpecified2
+        case .birth, .testing: Constants.Texts.notSpecified1
+        case .contract, .tournament: Constants.Texts.notSpecified2
         }
     }
 }
@@ -32,8 +32,11 @@ final class DatePickerView: UIView {
         switch datePickerType {
         case .birth: datePicker.maximumDate = Date()
         case .contract: datePicker.minimumDate = Date()
-        case .standard: 
+        case .testing:
             datePicker.maximumDate = Date()
+            datePicker.isEnabled = true
+        case .tournament:
+            datePicker.minimumDate = Date()
             datePicker.isEnabled = true
         }
         return datePicker

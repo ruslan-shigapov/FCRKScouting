@@ -56,9 +56,10 @@ struct ScreenFactory {
     
     static func getEditorViewController(
         withDelegate delegate: EditorViewControllerDelegate,
-        andPlayer player: Player?
+        andPlayer player: Player?,
+        tournament: Tournament? = nil
     ) -> UIViewController {
-        let viewModel = EditorViewModel(player: player)
+        let viewModel = EditorViewModel(player: player, tournament: tournament)
         let viewController = EditorViewController(
             delegate: delegate,
             viewModel: viewModel)
@@ -110,6 +111,26 @@ struct ScreenFactory {
     }
     
     static func getViewingPlanViewController() -> UIViewController {
-        ViewingPlanViewController()
+        let viewModel = ViewingPlanViewModel()
+        return ViewingPlanViewController(viewModel: viewModel)
+    }
+    
+    static func getAddTournamentViewController(
+        withDelegate delegate: AddTournamentViewControllerDelegate
+    ) -> UIViewController {
+        let viewModel = AddTournamentViewModel()
+        return AddTournamentViewController(
+            viewModel: viewModel,
+            delegate: delegate)
+    }
+    
+    static func getTournamentViewController(
+        withDelegate delegate: TournamentViewControllerDelegate,
+        andTournament tournament: Tournament
+    ) -> UIViewController {
+        let viewModel = TournamentViewModel(tournament: tournament)
+        let tournamentVC = TournamentViewController(viewModel: viewModel)
+        tournamentVC.delegate = delegate
+        return UINavigationController(rootViewController: tournamentVC)
     }
 }

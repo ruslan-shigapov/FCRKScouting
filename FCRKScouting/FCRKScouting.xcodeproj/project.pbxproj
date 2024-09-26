@@ -28,6 +28,8 @@
 		E439E8882C3746FD0017006E /* PlayerExtraCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E439E8872C3746FD0017006E /* PlayerExtraCard.swift */; };
 		E44855AC2BC3D01300E5FCD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */; };
 		E44855B82BC3D01400E5FCD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E44855B72BC3D01400E5FCD8 /* Assets.xcassets */; };
+		E44DB9702CA411DC001B78BD /* TournamentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44DB96F2CA411DC001B78BD /* TournamentViewController.swift */; };
+		E44DB9722CA4135A001B78BD /* TournamentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44DB9712CA4135A001B78BD /* TournamentViewModel.swift */; };
 		E452AFC42C6F5A1D00F76F92 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E452AFC32C6F5A1D00F76F92 /* PopoverViewController.swift */; };
 		E452AFC62C6F9BD700F76F92 /* PopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E452AFC52C6F9BD700F76F92 /* PopoverViewModel.swift */; };
 		E46194B72C08864700AC4FFC /* UpdatesCollectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46194B62C08864700AC4FFC /* UpdatesCollectionDelegate.swift */; };
@@ -35,6 +37,10 @@
 		E46213152C4BFF62008D9B00 /* AddCareerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46213142C4BFF62008D9B00 /* AddCareerViewModel.swift */; };
 		E46272262C22EDF200794705 /* NumeralTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46272252C22EDF200794705 /* NumeralTextFieldView.swift */; };
 		E46B63FD2BC5405C005B32E1 /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */; };
+		E47002352CA2B8E500975315 /* AddTournamentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47002342CA2B8E500975315 /* AddTournamentViewController.swift */; };
+		E47002372CA2D46000975315 /* AddTournamentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47002362CA2D46000975315 /* AddTournamentViewModel.swift */; };
+		E47002392CA2D64E00975315 /* ViewingPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47002382CA2D64E00975315 /* ViewingPlanViewModel.swift */; };
+		E470023B2CA2E85500975315 /* TournamentCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E470023A2CA2E85500975315 /* TournamentCellViewModel.swift */; };
 		E471B2092BFB4543003C0DCD /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471B2082BFB4543003C0DCD /* FormViewController.swift */; };
 		E471B20B2BFB6062003C0DCD /* FormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471B20A2BFB6062003C0DCD /* FormViewModel.swift */; };
 		E48159E62BCE7BAB0090FC42 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */; };
@@ -82,12 +88,13 @@
 		E4E7F3472C4941F200493A2F /* CareerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E7F3462C4941F200493A2F /* CareerCellViewModel.swift */; };
 		E4F38F2D2C24167E0011830D /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38F2C2C24167E0011830D /* PlayerViewController.swift */; };
 		E4F38F312C2431E80011830D /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F38F302C2431E80011830D /* PlayerViewModel.swift */; };
-		E4F4CE462BC92E0B009F9A8D /* PlayerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE452BC92E0B009F9A8D /* PlayerCollectionView.swift */; };
+		E4F4CE462BC92E0B009F9A8D /* VerticalCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */; };
 		E4F4CE482BC935BD009F9A8D /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */; };
 		E4F4CE4A2BC94C7A009F9A8D /* UpdatesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */; };
 		E4F4CE4C2BC95122009F9A8D /* DateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F4CE4B2BC95122009F9A8D /* DateHeaderView.swift */; };
 		E4F79CA62CA1635D003C6019 /* NavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F79CA52CA1635D003C6019 /* NavigationButton.swift */; };
 		E4F79CA82CA166EC003C6019 /* ViewingPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F79CA72CA166EC003C6019 /* ViewingPlanViewController.swift */; };
+		E4F79CAC2CA177FE003C6019 /* TournamentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F79CAB2CA177FE003C6019 /* TournamentCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +121,8 @@
 		E44855AB2BC3D01300E5FCD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E44855B72BC3D01400E5FCD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E44855BC2BC3D01400E5FCD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E44DB96F2CA411DC001B78BD /* TournamentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentViewController.swift; sourceTree = "<group>"; };
+		E44DB9712CA4135A001B78BD /* TournamentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentViewModel.swift; sourceTree = "<group>"; };
 		E452AFC32C6F5A1D00F76F92 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		E452AFC52C6F9BD700F76F92 /* PopoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewModel.swift; sourceTree = "<group>"; };
 		E46194B62C08864700AC4FFC /* UpdatesCollectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesCollectionDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +130,10 @@
 		E46213142C4BFF62008D9B00 /* AddCareerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCareerViewModel.swift; sourceTree = "<group>"; };
 		E46272252C22EDF200794705 /* NumeralTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumeralTextFieldView.swift; sourceTree = "<group>"; };
 		E46B63FC2BC5405C005B32E1 /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
+		E47002342CA2B8E500975315 /* AddTournamentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTournamentViewController.swift; sourceTree = "<group>"; };
+		E47002362CA2D46000975315 /* AddTournamentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTournamentViewModel.swift; sourceTree = "<group>"; };
+		E47002382CA2D64E00975315 /* ViewingPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewingPlanViewModel.swift; sourceTree = "<group>"; };
+		E470023A2CA2E85500975315 /* TournamentCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentCellViewModel.swift; sourceTree = "<group>"; };
 		E471B2082BFB4543003C0DCD /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		E471B20A2BFB6062003C0DCD /* FormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewModel.swift; sourceTree = "<group>"; };
 		E48159E52BCE7BAB0090FC42 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -169,12 +182,13 @@
 		E4E7F3462C4941F200493A2F /* CareerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerCellViewModel.swift; sourceTree = "<group>"; };
 		E4F38F2C2C24167E0011830D /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		E4F38F302C2431E80011830D /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
-		E4F4CE452BC92E0B009F9A8D /* PlayerCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionView.swift; sourceTree = "<group>"; };
+		E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionView.swift; sourceTree = "<group>"; };
 		E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
 		E4F4CE492BC94C7A009F9A8D /* UpdatesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesViewModel.swift; sourceTree = "<group>"; };
 		E4F4CE4B2BC95122009F9A8D /* DateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeaderView.swift; sourceTree = "<group>"; };
 		E4F79CA52CA1635D003C6019 /* NavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButton.swift; sourceTree = "<group>"; };
 		E4F79CA72CA166EC003C6019 /* ViewingPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewingPlanViewController.swift; sourceTree = "<group>"; };
+		E4F79CAB2CA177FE003C6019 /* TournamentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,6 +343,10 @@
 				E403F1B12C4D566300E84FFD /* FiltersViewModel.swift */,
 				E4BB48672BC3D53E00F91513 /* ProfileViewModel.swift */,
 				E471B20A2BFB6062003C0DCD /* FormViewModel.swift */,
+				E47002382CA2D64E00975315 /* ViewingPlanViewModel.swift */,
+				E470023A2CA2E85500975315 /* TournamentCellViewModel.swift */,
+				E47002362CA2D46000975315 /* AddTournamentViewModel.swift */,
+				E44DB9712CA4135A001B78BD /* TournamentViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -407,6 +425,8 @@
 				E4BB48662BC3D53E00F91513 /* ProfileViewController.swift */,
 				E471B2082BFB4543003C0DCD /* FormViewController.swift */,
 				E4F79CA72CA166EC003C6019 /* ViewingPlanViewController.swift */,
+				E47002342CA2B8E500975315 /* AddTournamentViewController.swift */,
+				E44DB96F2CA411DC001B78BD /* TournamentViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -419,7 +439,7 @@
 				E4D101452BD274F8006D2DCF /* Cells */,
 				E439E8802C37206B0017006E /* PlayerCards */,
 				E4BB48802BC3D54600F91513 /* PrimaryTextFieldView.swift */,
-				E4F4CE452BC92E0B009F9A8D /* PlayerCollectionView.swift */,
+				E4F4CE452BC92E0B009F9A8D /* VerticalCollectionView.swift */,
 				E4F4CE4B2BC95122009F9A8D /* DateHeaderView.swift */,
 				E4BB487E2BC3D54600F91513 /* PhotoImageView.swift */,
 				E4D1D6A22C130D3E00810C3B /* DatePickerView.swift */,
@@ -442,6 +462,7 @@
 			children = (
 				E4F4CE472BC935BD009F9A8D /* PlayerCollectionViewCell.swift */,
 				E4E7F3442C49375F00493A2F /* CareerTableViewCell.swift */,
+				E4F79CAB2CA177FE003C6019 /* TournamentCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -518,6 +539,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E44DB9702CA411DC001B78BD /* TournamentViewController.swift in Sources */,
 				E481C1C02C2EDD12008D6460 /* AuthManager.swift in Sources */,
 				E439E8862C3746C40017006E /* PlayerCareerCard.swift in Sources */,
 				E4BB48642BC3D53700F91513 /* LoginViewController.swift in Sources */,
@@ -550,12 +572,14 @@
 				E452AFC42C6F5A1D00F76F92 /* PopoverViewController.swift in Sources */,
 				E414C35F2C00C3D00068077E /* TransferDetailsViewController.swift in Sources */,
 				E4BB48762BC3D53E00F91513 /* SearchViewController.swift in Sources */,
+				E47002392CA2D64E00975315 /* ViewingPlanViewModel.swift in Sources */,
 				E439E8882C3746FD0017006E /* PlayerExtraCard.swift in Sources */,
 				E412BCFF2BC7D48600A9BCF6 /* UIView+extension.swift in Sources */,
+				E470023B2CA2E85500975315 /* TournamentCellViewModel.swift in Sources */,
 				E414C35D2C00C2230068077E /* TestingDetailsViewController.swift in Sources */,
 				E4BB48732BC3D53E00F91513 /* ProfileViewController.swift in Sources */,
 				E4F79CA82CA166EC003C6019 /* ViewingPlanViewController.swift in Sources */,
-				E4F4CE462BC92E0B009F9A8D /* PlayerCollectionView.swift in Sources */,
+				E4F4CE462BC92E0B009F9A8D /* VerticalCollectionView.swift in Sources */,
 				E4BB48832BC3D54600F91513 /* GraySegmentedControl.swift in Sources */,
 				E4BB48782BC3D53E00F91513 /* UpdatesViewController.swift in Sources */,
 				E4A0B5322C37FA88009CA1C1 /* DisabledPageControl.swift in Sources */,
@@ -569,6 +593,7 @@
 				E4A0B5342C388BDA009CA1C1 /* PlayerExtraCardViewModel.swift in Sources */,
 				E41FEF202C05FAFC0083F9DB /* DefaultTextLabel.swift in Sources */,
 				E4D1D6A32C130D3E00810C3B /* DatePickerView.swift in Sources */,
+				E47002352CA2B8E500975315 /* AddTournamentViewController.swift in Sources */,
 				E4BB48862BC3D54600F91513 /* PhotoImageView.swift in Sources */,
 				E4BB48602BC3D51200F91513 /* ScreenFactory.swift in Sources */,
 				E4BB48652BC3D53700F91513 /* LoginViewModel.swift in Sources */,
@@ -589,10 +614,13 @@
 				E412BCFD2BC7D2BE00A9BCF6 /* TextFieldValidationProtocol.swift in Sources */,
 				E4F38F2D2C24167E0011830D /* PlayerViewController.swift in Sources */,
 				E46194B92C08866E00AC4FFC /* UpdatesCollectionDataSource.swift in Sources */,
+				E4F79CAC2CA177FE003C6019 /* TournamentCollectionViewCell.swift in Sources */,
+				E47002372CA2D46000975315 /* AddTournamentViewModel.swift in Sources */,
 				E4BFCA9B2BF94C1200C4FDD2 /* TipStackView.swift in Sources */,
 				E414C35B2C00A5340068077E /* UITextField+extension.swift in Sources */,
 				E404BEA42BE904500078961C /* UserViewModelProtocol.swift in Sources */,
 				E41C7C1A2C071ABF002755E5 /* DecimalTextFieldView.swift in Sources */,
+				E44DB9722CA4135A001B78BD /* TournamentViewModel.swift in Sources */,
 				E4BB48792BC3D53E00F91513 /* MainTabBarController.swift in Sources */,
 				E439E87B2C36A79D0017006E /* PlayerInfoScrollView.swift in Sources */,
 			);

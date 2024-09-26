@@ -1,5 +1,5 @@
 //
-//  PlayerCollectionView.swift
+//  VerticalCollectionView.swift
 //  FCRKScouting
 //
 //  Created by Ruslan Shigapov on 12.04.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PlayerCollectionView: UICollectionView {
+final class VerticalCollectionView: UICollectionView {
 
     override init(
         frame: CGRect,

@@ -12,6 +12,7 @@ enum Constants {
     enum Images {
         static let logo = UIImage(named: "Logo")
         static let photoPlaceholder = UIImage(systemName: "person.circle")
+        static let trophy = UIImage(systemName: "trophy.fill")
         enum TabBarIcons {
             static let updates = UIImage(systemName: "newspaper")
             static let search = UIImage(systemName: "binoculars.fill")
@@ -61,6 +62,7 @@ enum Constants {
         static let devContacts = "Для связи с разработчиком"
         static let devTelegram = "Telegram: @shiga_boom"
         static let devEmail = "Email: ilgamovich@gmail.com"
+        static let noTournaments = "Пока не было добавлено соревнований"
         enum Titles {
             static let birthDate = "Дата рождения:"
             static let position = "Позиция:"
@@ -92,6 +94,12 @@ enum Constants {
             static let period = "Период:"
             static let league = "Лига:"
             static let access = "Доступ:"
+            static let start = "Начало:"
+            static let end = "Конец:"
+            static let tournamentDate = "Дата проведения:"
+            static let tournamentPlace = "Место проведения:"
+            static let responsibleOnes = "Ответственные:"
+            static let playersForViewing = "Игроки для просмотра:"
         }
         enum Descriptions {
             static let access = """
@@ -119,6 +127,8 @@ enum Constants {
             static let contacts = "Контакты"
             static let coach = "Тренер"
             static let startTyping = "Начните вводить"
+            static let name = "Название*"
+            static let place = "Место проведения*"
         }
         enum ButtonTitles {
             static let ok = "OK"
@@ -150,6 +160,7 @@ enum Constants {
             static let filters = "Дополнительные фильтры"
             static let profile = "Профиль"
             static let viewingPlan = "План просмотра соревнований"
+            static let addTournament = "Добавить соревнование"
         }
         enum Tips {
             static let title = "Справка:"
@@ -196,6 +207,10 @@ enum Constants {
                 title: "Внимание",
                 message: "Неправильное соотношение возрастов"
             )
+            static let wrongRatioOfDates = (
+                title: "Внимание",
+                message: "Неправильное соотношение дат"
+            )
             static let repeatedYears = (
                 title: "Внимание",
                 message: """
@@ -206,8 +221,12 @@ enum Constants {
                 title: "Покинуть профиль?",
                 message: ""
             )
-            static let delete = (
+            static let deletePlayer = (
                 title: "Удалить этого игрока?",
+                message: ""
+            )
+            static let deleteTournament = (
+                title: "Удалить это соревнование?",
                 message: ""
             )
         }

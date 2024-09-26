@@ -56,8 +56,8 @@ final class UpdatesViewController: UIViewController {
         return view
     }()
     
-    private lazy var playerCollectionView: PlayerCollectionView = {
-        let collectionView = PlayerCollectionView()
+    private lazy var playerCollectionView: VerticalCollectionView = {
+        let collectionView = VerticalCollectionView()
         collectionView.delegate = collectionViewDelegate
         collectionView.dataSource = collectionViewDataSource
         let elementKind = UICollectionView.elementKindSectionHeader
