@@ -10,13 +10,12 @@ import UIKit
 final class TipStackView: UIStackView {
         
     private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.tintColor = .lightGray
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.heightAnchor.constraint(equalToConstant: 28).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 28).isActive = true
-        return imageView
-    }()
+        $0.tintColor = .lightGray
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        $0.widthAnchor.constraint(equalToConstant: 28).isActive = true
+        return $0
+    }(UIImageView())
     
     private let titleLabel = DefaultTextLabel()
 
@@ -33,8 +32,8 @@ final class TipStackView: UIStackView {
     }
     
     private func setupUI() {
-        spacing = 2
         addArrangedSubview(imageView)
         addArrangedSubview(titleLabel)
+        spacing = 2
     }
 }

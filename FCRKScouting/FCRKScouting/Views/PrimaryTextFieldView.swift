@@ -19,62 +19,58 @@ final class PrimaryTextFieldView: UIView {
     
     // MARK: Views
     private lazy var clearButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Constants.Images.ButtonImages.clear, for: .normal)
-        button.tintColor = .lightGray
-        button.isHidden = true
-        button.addTarget(
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setImage(Constants.Images.ButtonImages.clear, for: .normal)
+        $0.tintColor = .lightGray
+        $0.isHidden = true
+        $0.addTarget(
             self,
             action: #selector(clearButtonTapped),
             for: .touchUpInside)
-        return button
-    }()
+        return $0
+    }(UIButton())
     
-    private lazy var textField: UITextField = {
-        let textField = UITextField()
-        textField.font = Constants.Fonts.text
-        textField.textColor = .black
-        textField.rightView = clearButton
-        textField.rightViewMode = .always
-        textField.autocorrectionType = .no
-        textField.spellCheckingType = .no
-        textField.autocapitalizationType = .words
-        textField.delegate = self
+    private lazy var customTextField: UITextField = {
+        $0.font = Constants.Fonts.text
+        $0.textColor = .black
+        $0.rightView = clearButton
+        $0.rightViewMode = .always
+        $0.autocorrectionType = .no
+        $0.spellCheckingType = .no
+        $0.autocapitalizationType = .words
+        $0.delegate = self
         if textFieldType != .name {
-            textField.keyboardType = .numberPad
+            $0.keyboardType = .numberPad
         }
         if textFieldType == .key {
-            textField.isSecureTextEntry = true
+            $0.isSecureTextEntry = true
         }
-        textField.addTarget(
+        $0.addTarget(
             self,
             action: #selector(addFloatingLabel),
             for: .editingDidBegin)
-        textField.addTarget(
+        $0.addTarget(
             self,
             action: #selector(removeFloatingLabel),
             for: .editingDidEnd)
-        return textField
-    }()
+        return $0
+    }(UITextField())
     
     private let floatingLabel = CustomLabel(
         font: Constants.Fonts.secondary,
         color: .black)
     
     private lazy var containerStackView: UIStackView = {
-        let stackView = UIStackView(
-            arrangedSubviews: [floatingLabel, textField])
-        stackView.axis = .vertical
-        return stackView
-    }()
+        $0.axis = .vertical
+        return $0
+    }(UIStackView(arrangedSubviews: [floatingLabel, customTextField]))
     
     // MARK: Initialize
     init(placeholder: String, type: TextFieldType) {
         _placeholder = placeholder
         textFieldType = type
         super.init(frame: .zero)
-        textField.setupAttributes(ofPlaceholder: placeholder)
+        customTextField.setupAttributes(ofPlaceholder: placeholder)
         setupUI()
     }
     
@@ -87,7 +83,7 @@ final class PrimaryTextFieldView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         setupShadow()
-        if let text = textField.text, !text.isEmpty {
+        if let text = customTextField.text, !text.isEmpty {
             addFloatingLabel()
         }
     }
@@ -101,8 +97,9 @@ final class PrimaryTextFieldView: UIView {
         setConstraints()
     }
     
+    // MARK: Actions
     @objc private func clearButtonTapped() {
-        textField.text = ""
+        customTextField.text = ""
         removeFloatingLabel()
         clearButton.isHidden = true
     }
@@ -110,27 +107,27 @@ final class PrimaryTextFieldView: UIView {
     @objc private func addFloatingLabel() {
         floatingLabel.text = _placeholder
         floatingLabel.isHidden = false
-        textField.placeholder = ""
+        customTextField.placeholder = ""
     }
     
     @objc private func removeFloatingLabel() {
-        if textField.text == "" {
+        if customTextField.text == "" {
             floatingLabel.isHidden = true
-            textField.placeholder = _placeholder
+            customTextField.placeholder = _placeholder
         }
     }
     
     // MARK: Public Methods
     func set(tag: Int) {
-        textField.tag = tag
+        customTextField.tag = tag
     }
     
     func set(text: String?) {
-        textField.text = text
+        customTextField.text = text
     }
     
     func getInputText() -> String {
-        guard let text = textField.text else { return "" }
+        guard let text = customTextField.text else { return "" }
         return text
     }
 }

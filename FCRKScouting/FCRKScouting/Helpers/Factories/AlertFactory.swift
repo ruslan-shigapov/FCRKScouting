@@ -9,47 +9,40 @@ import UIKit
 
 struct AlertFactory {
     
-    static func getWarningAlert(
-        withTitle title: String,
-        andMessage message: String
-    ) -> UIAlertController {
-        let alertController = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert)
-        let alertAction = UIAlertAction(
-            title: Constants.Texts.ButtonTitles.ok,
-            style: .cancel)
-        alertController.addAction(alertAction)
-        return alertController
-    }
-    
-    static func getConfirmationAlert(
+    static func getAlertController(
         withTitle title: String,
         andMessage message: String,
-        completion: @escaping () -> Void
+        completion: (() -> Void)? = nil
     ) -> UIAlertController {
         let alertController = UIAlertController(
             title: title,
             message: message,
             preferredStyle: .alert)
-        let exitAction = UIAlertAction(
-            title: Constants.Texts.ButtonTitles.yes,
-            style: .destructive) { _ in
+        if let completion {
+            let exitAction = UIAlertAction(
+                title: Constants.Texts.ButtonTitles.yes,
+                style: .destructive
+            ) { _ in
                 completion()
             }
-        let cancelAction = UIAlertAction(
-            title: Constants.Texts.ButtonTitles.no,
-            style: .cancel)
-        alertController.addAction(exitAction)
-        alertController.addAction(cancelAction)
+            let cancelAction = UIAlertAction(
+                title: Constants.Texts.ButtonTitles.no,
+                style: .cancel)
+            alertController.addAction(exitAction)
+            alertController.addAction(cancelAction)
+        } else {
+            let alertAction = UIAlertAction(
+                title: Constants.Texts.ButtonTitles.ok,
+                style: .cancel)
+            alertController.addAction(alertAction)
+        }
         return alertController
     }
     
     static func getUploadPhotoActionSheet(
-        isPhotoUploaded: Bool,
-        chooseCompletion: @escaping () -> Void,
-        deleteCompletion: @escaping () -> Void
+        hasPhotoAlreadyBeenUploaded: Bool,
+        selectionCompletion: @escaping () -> Void,
+        deletingCompletion: @escaping () -> Void
     ) -> UIAlertController {
         let alertController = UIAlertController(
             title: nil,
@@ -60,17 +53,19 @@ struct AlertFactory {
             style: .cancel)
         let chooseAction = UIAlertAction(
             title: Constants.Texts.ButtonTitles.choosePhoto,
-            style: .default) { _ in
-                chooseCompletion()
-            }
+            style: .default
+        ) { _ in
+            selectionCompletion()
+        }
         let deleteAction = UIAlertAction(
             title: Constants.Texts.ButtonTitles.deletePhoto,
-            style: .destructive) { _ in
-                deleteCompletion()
-            }
+            style: .destructive
+        ) { _ in
+            deletingCompletion()
+        }
         alertController.addAction(cancelAction)
         alertController.addAction(chooseAction)
-        if isPhotoUploaded {
+        if hasPhotoAlreadyBeenUploaded {
             alertController.addAction(deleteAction)
         }
         return alertController
@@ -95,8 +90,8 @@ struct AlertFactory {
             title: Constants.Texts.ButtonTitles.cancel,
             style: .destructive
         ) { _ in
-                completion()
-            }
+            completion()
+        }
         let continueAction = UIAlertAction(
             title: buttonTitle,
             style: .cancel)

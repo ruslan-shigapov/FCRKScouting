@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24B5055e" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24B5070a" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Career" representedClassName="Career" syncable="YES" codeGenerationType="class">
         <attribute name="coachName" optional="YES" attributeType="String"/>
         <attribute name="league" optional="YES" attributeType="String"/>
@@ -54,11 +54,13 @@
         <attribute name="place" optional="YES" attributeType="String"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="playersForViewing" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Player" inverseName="tournament" inverseEntity="Player"/>
+        <relationship name="responsibleOnes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="tournaments" inverseEntity="User"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="appleID" optional="YES" attributeType="String"/>
         <attribute name="fullName" optional="YES" attributeType="String"/>
         <attribute name="isEditingAllowed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <relationship name="favorites" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Player" inverseName="user" inverseEntity="Player"/>
+        <relationship name="tournaments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tournament" inverseName="responsibleOnes" inverseEntity="Tournament"/>
     </entity>
 </model>

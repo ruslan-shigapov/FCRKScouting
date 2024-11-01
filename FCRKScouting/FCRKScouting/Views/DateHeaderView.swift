@@ -8,6 +8,8 @@
 import UIKit
 
 final class DateHeaderView: UICollectionReusableView {
+    
+    static let identifier = String(describing: DateHeaderView.self)
         
     private let dateLabel = CustomLabel(font: Constants.Fonts.normal)
     

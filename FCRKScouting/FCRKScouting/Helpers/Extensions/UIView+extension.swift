@@ -9,8 +9,17 @@ import UIKit
 
 extension UIView {
     
-    @objc private func dismissKeyboard() {
-        endEditing(true)
+    func setupShadow() {
+        clipsToBounds = false
+        layer.shadowRadius = 7
+        layer.shadowOpacity = 0.4
+        layer.shadowOffset = CGSize(width: 8, height: 8)
+        let shadowPath = UIBezierPath(rect: bounds)
+        layer.shadowPath = shadowPath.cgPath
+    }
+    
+    func setupCornerRadius() {
+        layer.cornerRadius = 12
     }
     
     func setKeyboardDismissTap() {
@@ -31,16 +40,9 @@ extension UIView {
         }
     }
     
-    func setupCornerRadius() {
-        layer.cornerRadius = 12
-    }
-    
-    func setupShadow() {
-        clipsToBounds = false
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowRadius = 7
-        layer.shadowOpacity = 0.4
-        layer.shadowOffset = CGSize(width: 8, height: 8)
+    func setupBorder(withColor color: UIColor?) {
+        layer.borderWidth = 1
+        layer.borderColor = color?.cgColor
     }
     
     func setupGradientLayer() {
@@ -54,9 +56,8 @@ extension UIView {
         gradientLayer.frame = bounds
         layer.insertSublayer(gradientLayer, at: 0)
     }
-    
-    func setupBorder(withColor color: UIColor?) {
-        layer.borderWidth = 1
-        layer.borderColor = color?.cgColor
+
+    @objc private func dismissKeyboard() {
+        endEditing(true)
     }
 }

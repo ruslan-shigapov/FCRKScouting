@@ -8,6 +8,11 @@
 import UIKit
 
 struct ScreenFactory {
+    
+    private static func getLoginViewController() -> UIViewController {
+        let viewModel = LoginViewModel()
+        return LoginViewController(viewModel: viewModel)
+    }
         
     static func setRootViewController() {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -18,19 +23,11 @@ struct ScreenFactory {
         }
     }
     
-    static func getLoginViewController() -> UIViewController {
-        let viewModel = LoginViewModel()
-        return LoginViewController(viewModel: viewModel)
-    }
-    
     static func getFormController(
         withDelegate delegate: FormViewControllerDelegate
     ) -> UIViewController {
         let viewModel = FormViewModel()
-        let viewController = FormViewController(
-            delegate: delegate,
-            viewModel: viewModel)
-        return viewController
+        return FormViewController(delegate: delegate, viewModel: viewModel)
     }
     
     static func getMainTabBarController() -> UIViewController {
@@ -56,7 +53,7 @@ struct ScreenFactory {
     
     static func getEditorViewController(
         withDelegate delegate: EditorViewControllerDelegate,
-        andPlayer player: Player?,
+        andPlayer player: Player? = nil,
         tournament: Tournament? = nil
     ) -> UIViewController {
         let viewModel = EditorViewModel(player: player, tournament: tournament)
@@ -81,10 +78,9 @@ struct ScreenFactory {
     
     static func getPlayerViewController(
         withDelegate delegate: PlayerViewControllerDelegate,
-        andPlayer player: Player
+        andViewModel viewModel: PlayerViewModel
     ) -> UIViewController {
-        let viewModel = PlayerViewModel(player: player)
-        return PlayerViewController(delegate: delegate, viewModel: viewModel)
+        PlayerViewController(delegate: delegate, viewModel: viewModel)
     }
     
     static func getAddCareerViewController(
@@ -132,5 +128,15 @@ struct ScreenFactory {
         let tournamentVC = TournamentViewController(viewModel: viewModel)
         tournamentVC.delegate = delegate
         return UINavigationController(rootViewController: tournamentVC)
+    }
+    
+    static func getResponsibleListViewController(
+        andTournament tournament: Tournament
+    ) -> UIViewController {
+        let viewModel = ResponsibleListViewModel(tournament: tournament)
+        let responsibleListVC = ResponsibleListViewController(
+            viewModel: viewModel)
+        responsibleListVC.modalPresentationStyle = .popover
+        return responsibleListVC
     }
 }

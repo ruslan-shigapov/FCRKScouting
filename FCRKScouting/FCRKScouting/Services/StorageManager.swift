@@ -128,6 +128,14 @@ extension StorageManager {
         completion(nil)
     }
     
+    func fetchEditingUsers(completion: @escaping ([User]) -> Void) {
+        let fetchRequest = User.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "isEditingAllowed == true")
+        if let users = try? viewContext.fetch(fetchRequest) {
+            completion(users)
+        }
+    }
+    
     func renameUser(
         _ appleID: String,
         toFullName fullName: String,
@@ -572,6 +580,22 @@ extension StorageManager {
         if let tournaments = try? viewContext.fetch(fetchRequest) {
             completion(tournaments)
         }
+    }
+    
+    func addResponsibleOne(_ user: User, forTournament tournament: Tournament) {
+        if let responsibleOnes = tournament.responsibleOnes,
+           !responsibleOnes.contains(user) {
+            tournament.addToResponsibleOnes(user)
+            saveContext()
+        }
+    }
+    
+    func deleteResponsibleOne(
+        _ user: User,
+        fromTournament tournament: Tournament
+    ) {
+        tournament.removeFromResponsibleOnes(user)
+        saveContext()
     }
     
     func deleteTournament(_ tournament: Tournament) {

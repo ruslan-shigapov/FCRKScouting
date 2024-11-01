@@ -8,7 +8,7 @@
 import UIKit
 
 final class CustomLabel: UILabel {
-
+    
     init(
         font: UIFont?,
         text: String? = nil,

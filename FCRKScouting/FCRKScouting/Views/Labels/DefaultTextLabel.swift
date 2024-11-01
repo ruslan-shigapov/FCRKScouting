@@ -9,10 +9,9 @@ import UIKit
 
 final class DefaultTextLabel: UILabel {
     
-    init(text: String? = nil, numberOfLines: Int = 1) {
+    init(text: String? = nil) {
         super.init(frame: .zero)
         self.text = text
-        self.numberOfLines = numberOfLines
         setupUI()
     }
     
@@ -23,6 +22,7 @@ final class DefaultTextLabel: UILabel {
     
     private func setupUI() {
         font = Constants.Fonts.text
-        textColor = .white.withAlphaComponent(0.7)
+        textColor = .transparentWhite
+        numberOfLines = 0
     }
 }

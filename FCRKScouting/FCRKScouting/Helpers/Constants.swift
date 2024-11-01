@@ -12,7 +12,7 @@ enum Constants {
     enum Images {
         static let logo = UIImage(named: "Logo")
         static let photoPlaceholder = UIImage(systemName: "person.circle")
-        static let trophy = UIImage(systemName: "trophy.fill")
+        static let trophy = UIImage(named: "Trophy")
         enum TabBarIcons {
             static let updates = UIImage(systemName: "newspaper")
             static let search = UIImage(systemName: "binoculars.fill")
@@ -35,6 +35,7 @@ enum Constants {
             static let clear = UIImage(systemName: "xmark.circle.fill")
             static let deletingMode = UIImage(systemName: "minus.circle")
             static let popover = UIImage(systemName: "chevron.up.chevron.down")
+            static let xMark = UIImage(systemName: "xmark")
         }
     }
     // MARK: Fonts
@@ -192,8 +193,8 @@ enum Constants {
             static let incorrectFullName = (
                 title: "Внимание",
                 message: """
-                Пожалуйста, введите имя и фамилию, и ничего лишнего
-                """
+            Пожалуйста, введите имя и фамилию, и ничего лишнего
+            """
             )
             static let notSelectedPosition = (
                 title: "Внимание",
@@ -228,6 +229,22 @@ enum Constants {
             static let deleteTournament = (
                 title: "Удалить это соревнование?",
                 message: ""
+            )
+            static let noAccessToPhotos = (
+                title: "Внимание",
+                message: """
+            Пожалуйста, предоставьте доступ к фотографиям в настройках
+            """
+            )
+            static let taskSent = (
+                title: "Задача отправлена",
+                message: ""
+            )
+            static let sendingFailed = (
+                title: "Ошибка",
+                message: """
+            Пожалуйста, проверьте подключение или попробуйте позже
+            """
             )
         }
         enum ActionSheets {

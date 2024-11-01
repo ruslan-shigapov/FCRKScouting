@@ -26,11 +26,11 @@ final class PlayerInfoScrollView: UIScrollView {
         font: Constants.Fonts.normal,
         text: Constants.Texts.TextViewTitles.mental)
     
-    private let generalInfoValueLabel = DefaultTextLabel(numberOfLines: 0)
-    private let techniqueValueLabel = DefaultTextLabel(numberOfLines: 0)
-    private let tacticsValueLabel = DefaultTextLabel(numberOfLines: 0)
-    private let qualitiesValueLabel = DefaultTextLabel(numberOfLines: 0)
-    private let mentalValueLabel = DefaultTextLabel(numberOfLines: 0)
+    private let generalInfoValueLabel = DefaultTextLabel()
+    private let techniqueValueLabel = DefaultTextLabel()
+    private let tacticsValueLabel = DefaultTextLabel()
+    private let qualitiesValueLabel = DefaultTextLabel()
+    private let mentalValueLabel = DefaultTextLabel()
             
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView(

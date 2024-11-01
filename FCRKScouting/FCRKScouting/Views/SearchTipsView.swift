@@ -10,14 +10,13 @@ import UIKit
 final class SearchTipsView: UIView {
     
     // MARK: Private Properties
-    private let isFullSet: Bool
+    private let isFullSetRequired: Bool
     
     // MARK: Views
     private let titleLabel: DefaultTextLabel = {
-        let label = DefaultTextLabel(text: Constants.Texts.Tips.title)
-        label.textColor = .white
-        return label
-    }()
+        $0.textColor = .white
+        return $0
+    }(DefaultTextLabel(text: Constants.Texts.Tips.title))
     
     private let favoritesStackView = TipStackView(
         image: Constants.Images.ButtonImages.favorites,
@@ -30,23 +29,22 @@ final class SearchTipsView: UIView {
         text: Constants.Texts.Tips.filters)
     
     private lazy var containerStackView: UIStackView = {
-        let stackView = UIStackView(
-            arrangedSubviews: [
-                titleLabel,
-                favoritesStackView,
-                filtersStackView
-            ])
-        if isFullSet {
-            stackView.insertArrangedSubview(relatedStackView, at: 2)
+        if isFullSetRequired {
+            $0.insertArrangedSubview(relatedStackView, at: 2)
         }
-        stackView.axis = .vertical
-        stackView.spacing = 1
-        return stackView
-    }()
+        $0.axis = .vertical
+        $0.spacing = 1
+        return $0
+    }(UIStackView(
+        arrangedSubviews: [
+            titleLabel,
+            favoritesStackView,
+            filtersStackView
+        ]))
     
     // MARK: Initialize
-    init(isFullSet: Bool) {
-        self.isFullSet = isFullSet
+    init(isFullSetRequired: Bool) {
+        self.isFullSetRequired = isFullSetRequired
         super.init(frame: .zero)
         setupUI()
     }
@@ -56,11 +54,15 @@ final class SearchTipsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setConstraints()
+    }
+    
     // MARK: Private Methods
     private func setupUI() {
         addSubview(containerStackView)
         prepareForAutoLayout()
-        setConstraints()
     }
 }
 
@@ -68,7 +70,11 @@ final class SearchTipsView: UIView {
 private extension SearchTipsView {
     
     func setConstraints() {
+        guard let superview else { return }
         NSLayoutConstraint.activate([
+            centerXAnchor.constraint(equalTo: superview.centerXAnchor),
+            centerYAnchor.constraint(equalTo: superview.centerYAnchor),
+            
             containerStackView.topAnchor.constraint(equalTo: topAnchor),
             containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
