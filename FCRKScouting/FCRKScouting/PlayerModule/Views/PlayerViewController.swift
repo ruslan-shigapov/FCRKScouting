@@ -47,6 +47,15 @@ final class PlayerViewController: UIViewController {
             for: .touchUpInside)
         return button
     }()
+    private lazy var sendPlayerButton: NavigationBarButton = {
+        let button = NavigationBarButton(
+            image: Constants.Images.ButtonImages.send)
+        button.addTarget(
+            self,
+            action: #selector(sendPlayerButtonTapped),
+            for: .touchUpInside)
+        return button
+    }()
     
     private lazy var playerMainCard: PlayerMainCard = {
         let playerCard = PlayerMainCard()
@@ -152,6 +161,13 @@ final class PlayerViewController: UIViewController {
                 self.playerCareerCard.viewModel = viewModel
             }
         }
+        viewModel.onSendingFailed = { [weak self] in
+            guard let self else { return }
+            let alertController = AlertFactory.getAlertController(
+                withTitle: Constants.Texts.Alerts.sendingFailed.title,
+                andMessage: Constants.Texts.Alerts.sendingFailed.message)
+            present(alertController, animated: true)
+        }
     }
     
     private func setupNavigationBar() {
@@ -160,7 +176,8 @@ final class PlayerViewController: UIViewController {
         if viewModel.isEditingAllowed {
             navigationItem.rightBarButtonItems = [
                 UIBarButtonItem(customView: editPlayerButton),
-                UIBarButtonItem(customView: deletePlayerButton)
+                UIBarButtonItem(customView: deletePlayerButton),
+                UIBarButtonItem(customView: sendPlayerButton)
             ]
         }
     }
@@ -203,6 +220,22 @@ final class PlayerViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
                 self.delegate.onPlayersPossiblyChanged?()
                 self.activityIndicator.stopAnimating()
+            }
+        }
+        present(alertController, animated: true)
+    }
+    
+    @objc private func sendPlayerButtonTapped() {
+        let alertController = AlertFactory.getAlertController(
+            withTitle: Constants.Texts.Alerts.sendPlayer.title,
+            andMessage: Constants.Texts.Alerts.sendPlayer.message
+        ) { [weak self] in
+            guard let self else { return }
+            viewModel.sendPlayer {
+                let alertController = AlertFactory.getAlertController(
+                    withTitle: Constants.Texts.Alerts.taskSent.title,
+                    andMessage: Constants.Texts.Alerts.taskSent.message)
+                self.present(alertController, animated: true)
             }
         }
         present(alertController, animated: true)

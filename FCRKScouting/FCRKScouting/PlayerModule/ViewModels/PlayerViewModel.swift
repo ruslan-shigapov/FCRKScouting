@@ -33,6 +33,7 @@ final class PlayerViewModel: CurrentUserProtocol,
     var addCareerScreenWasClosed: (() -> Void)?
     var popoverButtonWasTapped: ((UIViewController) -> Void)?
     var currentLeagueWasChosen: ((Int) -> Void)?
+    var onSendingFailed: (() -> Void)?
     
     var patronymic: String {
         player.patronymic ?? ""
@@ -70,5 +71,23 @@ final class PlayerViewModel: CurrentUserProtocol,
     
     func getPlayerExtraCardViewModel() -> PlayerExtraCardViewModelProtocol {
         PlayerExtraCardViewModel(player: player)
+    }
+    
+    func sendPlayer(completion: @escaping () -> Void) {
+        NetworkManager.shared.sendTask(
+            withPlayers: [player]
+        ) { [weak self] in
+            guard let self else { return }
+            switch $0 {
+            case .success:
+                DispatchQueue.main.async {
+                    completion()
+                }
+            case .failure(_):
+                DispatchQueue.main.async {
+                    self.onSendingFailed?()
+                }
+            }
+        }
     }
 }
