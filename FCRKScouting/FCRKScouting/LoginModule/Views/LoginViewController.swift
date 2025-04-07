@@ -117,7 +117,6 @@ final class LoginViewController: UIViewController {
     // MARK: Actions
     @objc private func appleSignInButtonTapped() {
         let inputText = accessKeyTextFieldView.getInputText()
-        guard !inputText.isEmpty else { return }
         activityIndicator.startAnimating()
         appleIDSignInButton.isEnabled = false
         viewModel.logIn(byAccessKey: inputText) { [weak self] in

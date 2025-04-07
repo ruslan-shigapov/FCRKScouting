@@ -60,7 +60,7 @@ enum Constants {
         static let noIntervalResults = "За этот период игроков не найдено"
         static let onlyRead = "Только чтение"
         static let editable = "Возможно редактирование"
-        static let appVersion = "Версия 1.1.1"
+        static let appVersion = "Версия 1.0"
         static let devContacts = "Для связи с разработчиком"
         static let devTelegram = "Telegram: @shiga_boom"
         static let devEmail = "Email: ilgamovich@gmail.com"
