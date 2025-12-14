@@ -15,7 +15,7 @@
 
 **Работа с данными:** CoreData + CloudKit
 
-**Авторизация:** Authentication Services (Sign with Apple)
+**Авторизация:** Authentication Services (Sign in with Apple)
 
 **Статус:** публикация была снята с App Store по внешнеполитическим причинам, используется как портфолио-проект
 
