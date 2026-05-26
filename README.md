@@ -11,11 +11,9 @@
 
 **Архитектура:** MVVM
 
-**Работа с данными:** CoreData + CloudKit
-
 **Работа с сетью:** URLSession + Combine
 
-**Многопоточность:** GCD
+**Работа с данными:** CoreData + CloudKit
 
 **Авторизация:** Authentication Services (Sign in with Apple)
 
